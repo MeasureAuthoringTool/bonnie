@@ -1,0 +1,129 @@
+{
+  "c966": {
+    "title": "Population Criteria Section",
+    "statement_relevance": {
+      "LikeCMS32": {
+        "Patient": "NA",
+        "SDE Ethnicity": "NA",
+        "SDE Payer": "NA",
+        "SDE Race": "NA",
+        "SDE Sex": "NA",
+        "Emergency Department ED Visit": "TRUE",
+        "Strat2": "NA",
+        "Initial Population": "TRUE",
+        "ArrivalTime": "TRUE",
+        "Observation Services Order": "TRUE",
+        "Departure Time": "TRUE",
+        "Arrival to Observation Order or Departure Time": "TRUE",
+        "Measure Observation": "TRUE",
+        "Measure Population": "TRUE",
+        "Measure Population Exclusions": "TRUE",
+        "Strat1": "NA",
+        "GetPrincipalDiagnosisCode": "NA",
+        "Strat3": "NA"
+      }
+    },
+    "criteria": [
+      "IPP",
+      "MSRPOPL",
+      "MSRPOPLEX",
+      "OBSERV"
+    ]
+  },
+  "c967": {
+    "title": "PopSet1 Stratification 1",
+    "statement_relevance": {
+      "LikeCMS32": {
+        "Patient": "NA",
+        "SDE Ethnicity": "NA",
+        "SDE Payer": "NA",
+        "SDE Race": "NA",
+        "SDE Sex": "NA",
+        "Emergency Department ED Visit": "TRUE",
+        "Strat2": "NA",
+        "Initial Population": "TRUE",
+        "ArrivalTime": "TRUE",
+        "Observation Services Order": "TRUE",
+        "Departure Time": "TRUE",
+        "Arrival to Observation Order or Departure Time": "TRUE",
+        "Measure Observation": "TRUE",
+        "Measure Population": "TRUE",
+        "Measure Population Exclusions": "TRUE",
+        "Strat1": "TRUE",
+        "GetPrincipalDiagnosisCode": "NA",
+        "Strat3": "NA"
+      }
+    },
+    "criteria": [
+      "STRAT",
+      "IPP",
+      "MSRPOPL",
+      "MSRPOPLEX",
+      "OBSERV"
+    ]
+  },
+  "c968": {
+    "title": "PopSet1 Stratification 2",
+    "statement_relevance": {
+      "LikeCMS32": {
+        "Patient": "NA",
+        "SDE Ethnicity": "NA",
+        "SDE Payer": "NA",
+        "SDE Race": "NA",
+        "SDE Sex": "NA",
+        "Emergency Department ED Visit": "TRUE",
+        "Strat2": "TRUE",
+        "Initial Population": "FALSE",
+        "ArrivalTime": "FALSE",
+        "Observation Services Order": "FALSE",
+        "Departure Time": "FALSE",
+        "Arrival to Observation Order or Departure Time": "FALSE",
+        "Measure Observation": "FALSE",
+        "Measure Population": "FALSE",
+        "Measure Population Exclusions": "FALSE",
+        "Strat1": "NA",
+        "GetPrincipalDiagnosisCode": "NA",
+        "Strat3": "NA"
+      }
+    },
+    "criteria": [
+      "STRAT",
+      "IPP",
+      "MSRPOPL",
+      "MSRPOPLEX",
+      "OBSERV"
+    ]
+  },
+  "c969": {
+    "title": "PopSet1 Stratification 3",
+    "statement_relevance": {
+      "LikeCMS32": {
+        "Patient": "NA",
+        "SDE Ethnicity": "NA",
+        "SDE Payer": "NA",
+        "SDE Race": "NA",
+        "SDE Sex": "NA",
+        "Emergency Department ED Visit": "TRUE",
+        "Strat2": "NA",
+        "Initial Population": "FALSE",
+        "ArrivalTime": "FALSE",
+        "Observation Services Order": "FALSE",
+        "Departure Time": "FALSE",
+        "Arrival to Observation Order or Departure Time": "FALSE",
+        "Measure Observation": "FALSE",
+        "Measure Population": "FALSE",
+        "Measure Population Exclusions": "FALSE",
+        "Strat1": "NA",
+        "GetPrincipalDiagnosisCode": "TRUE",
+        "Strat3": "TRUE"
+      }
+    },
+    "criteria": [
+      "STRAT",
+      "IPP",
+      "MSRPOPL",
+      "MSRPOPLEX",
+      "OBSERV"
+    ]
+  }
+}

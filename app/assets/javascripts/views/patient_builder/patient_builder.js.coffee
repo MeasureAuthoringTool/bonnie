@@ -9,10 +9,25 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
   initialize: ->
     @originalModel = @model # When we're done editing we want to update the original model
+    @cqmMeasure = @measure.get('cqmMeasure')
     @setModel @model.deepClone() # Working on a clone allows cancel to easily drop any changes we make
     @model.get('source_data_criteria').on 'remove', => @materialize()
-    if bonnie.isPortfolio
-      @measureRibbon = new Thorax.Views.MeasureRibbon model: @model
+    @race_codes = @model.getConceptsForDataElement('race', @measure)
+    @ethnicity_codes = @model.getConceptsForDataElement('ethnicity', @measure)
+    @gender_codes = @model.getConceptsForDataElement('gender', @measure)
+    @payer_codes = @model.getConceptsForDataElement('payer', @measure)
+    @first = @model.getFirstName()
+    @last = @model.getLastName()
+    @birthdate = @model.getBirthDate()
+    @birthtime = @model.getBirthTime()
+    @deathdate = @model.getDeathDate()
+    @deathtime = @model.getDeathTime()
+    @missingExpired = !(@cqmMeasure.source_data_criteria.filter (elem) -> elem.qdmStatus == 'expired')[0]?
+    @race = @model.getRace().code
+    @gender = @model.getGender().code
+    @ethnicity = @model.getEthnicity().code
+    @payer = @model.getPayer().code
+    @notes = @model.getNotes()
     @editCriteriaCollectionView = new Thorax.CollectionView
       collection: @model.get('source_data_criteria')
       itemView: (item) => new Thorax.Views.EditCriteriaView(model: item.model, measure: @measure)
@@ -34,25 +49,21 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @model.on 'clearHighlight', =>
       @$('.criteria-data').removeClass("#{Thorax.Views.EditCriteriaView.highlight.valid} #{Thorax.Views.EditCriteriaView.highlight.partial}")
       @$('.highlight-indicator').removeAttr('tabindex').empty()
-    unless @measure.get('component')
+    unless @cqmMeasure.component
       @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
-    if @measure.get('component') or @measure.get('composite')
+    if @cqmMeasure.component or @cqmMeasure.composite
       @compositeSharingWarningView = new Thorax.Views.CompositeSharingWarning()
+    @patientCharacteristicCheckerView = new Thorax.Views.PatientCharacteristicChecker(patient: @model, measure: @measure)
 
   dataCriteriaCategories: ->
     categories = {}
     @measure?.get('source_data_criteria').each (criteria) ->
-      type = criteria.get('type').replace(/_/g, ' ')
+      type = criteria.get('qdmCategory').replace(/_/g, ' ')
       # Filter out negations, certain patient characteristics, and specific occurrences
       # Note: we previously filtered out patient_characteristic_payer, but that was needed on the elements list
       # because a payer can have a start and stop date in QDM 5
       filter_criteria = criteria.get('negation') or
-      ( criteria.get('definition') is 'patient_characteristic_birthdate' ) or
-      ( criteria.get('definition') is 'patient_characteristic_gender' ) or
-      ( criteria.get('definition') is 'patient_characteristic_expired' ) or
-      ( criteria.get('definition') is 'patient_characteristic_race' ) or
-      ( criteria.get('definition') is 'patient_characteristic_ethnicity' ) or
-      ( criteria.has('specific_occurrence') )
+      ( ( criteria.get('qdmCategory') is 'patient_characteristic' ) && criteria.get('_type') != 'QDM::PatientCharacteristicPayer')
       unless filter_criteria
         categories[type] ||= new Thorax.Collection
         categories[type].add criteria unless categories[type].any (c) -> c.get('description').replace(/,/g , '') == criteria.get('description').replace(/,/g , '') && c.get('code_list_id') == criteria.get('code_list_id')
@@ -62,9 +73,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     _(categoriesArray).sortBy (entry) -> entry.type
 
   events:
-    'blur :text': 'materialize'
+    'blur :text': (e) -> @materialize()
     'change select': (e) -> @materialize()
-    'click .deceased-checkbox': 'toggleDeceased'
+    'click #expired': 'toggleDeceased'
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
     # toggle showing the measure description
@@ -84,8 +95,14 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
       # Make criteria list a drop target
       @$('.criteria-container.droppable').droppable greedy: true, accept: '.ui-draggable', activeClass: 'active-drop', drop: _.bind(@drop, this)
-      @$('.date-picker').datepicker('orientation': 'bottom left').on 'changeDate', _.bind(@materialize, this)
-      @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@materialize, this)
+      @$('#deathdate.date-picker, #birthdate.date-picker').datepicker('orientation': 'bottom left').on 'changeDate', _.bind(@materialize, this)
+      @$('#deathtime.time-picker, #birthtime.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@materialize, this)
+
+      metadataFields = ['gender', 'race', 'ethnicity']
+      for field in metadataFields
+        select = @$("##{field}")
+        unless select.val()?
+          select.find('option:first').prop('selected', true)
 
       unless @inPatientDashboard
         @$('#criteriaElements, #populationLogic') #these get affixed when user scrolls past a defined offset
@@ -106,24 +123,24 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         $logic.animate scrollTop: $logic.scrollTop() + $logic.height()
 
     serialize: (attr) ->
+      @model.setCqmPatientFirstName(attr.first)if attr.first
+      @model.setCqmPatientLastName(attr.last) if attr.last
+      @model.setCqmPatientGender(attr.gender, @measure) if attr.gender
       birthdate = attr.birthdate if attr.birthdate
       birthdate += " #{attr.birthtime}" if attr.birthdate && attr.birthtime
-      attr.birthdate = moment.utc(birthdate, 'L LT').format('X') if birthdate
+      @model.setCqmPatientBirthDate(birthdate, @measure) if birthdate
       deathdate = attr.deathdate if attr.deathdate
       deathdate += " #{attr.deathtime}" if attr.deathdate && attr.deathtime
-      attr.deathdate = moment.utc(deathdate, 'L LT').format('X') if deathdate
+      @model.setCqmPatientDeathDate(deathdate, @measure) if deathdate
+      @model.setCqmPatientRace(attr.race, @measure) if attr.race
+      @model.setCqmPatientEthnicity(attr.ethnicity, @measure) if attr.ethnicity
+      @model.setCqmPatientNotes(attr.notes) if attr.notes?
 
   # When we create the form and populate it, we want to convert some values to those appropriate for the form
   context: ->
-    birthdatetime = moment.utc(@model.get('birthdate'), 'X') if @model.has('birthdate') && !!@model.get('birthdate')
-    deathdatetime = moment.utc(@model.get('deathdate'), 'X') if @model.get('expired') && @model.has('deathdate')
     _(super).extend
-      measureTitle: @measure.get('title')
-      measureDescription: @measure.get('description')
-      birthdate: birthdatetime?.format('L')
-      birthtime: birthdatetime?.format('LT')
-      deathdate: deathdatetime?.format('L')
-      deathtime: deathdatetime?.format('LT')
+      measureTitle: @cqmMeasure.title
+      measureDescription: @cqmMeasure.description
 
   serializeWithChildren: ->
     # Serialize the main view and the child collection views separately because otherwise Thorax wants
@@ -133,7 +150,17 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @expectedValuesView.serialize(children: false)
 
   drop: (e, ui) ->
-    patientDataCriteria = $(ui.draggable).model().toPatientDataCriteria()
+    patientDataCriteria = $(ui.draggable).model().clone()
+    patientDataCriteria.setNewId()
+    patientDataCriteria.set('criteria_id', Thorax.Models.SourceDataCriteria.generateCriteriaId())
+
+    # create default values for all primary timing attributes
+    for timingAttr in patientDataCriteria.getPrimaryTimingAttributes()
+      if timingAttr.type == 'Interval'
+        patientDataCriteria.get('qdmDataElement')[timingAttr.name] = @createDefaultInterval()
+      else if timingAttr.type == 'DateTime'
+        patientDataCriteria.get('qdmDataElement')[timingAttr.name] = @createDefaultInterval().low
+
     @addCriteria patientDataCriteria
     return false
 
@@ -145,6 +172,15 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   materialize: ->
     @serializeWithChildren()
     @model.materialize()
+
+  createDefaultInterval: ->
+    todayInMP = new Date()
+    todayInMP.setYear(@measure.getMeasurePeriodYear())
+
+    # create CQL DateTimes
+    start = new cqm.models.CQL.DateTime(todayInMP.getFullYear(), todayInMP.getMonth() + 1, todayInMP.getDate(), 8, 0, 0, 0, 0)
+    end = new cqm.models.CQL.DateTime(todayInMP.getFullYear(), todayInMP.getMonth() + 1, todayInMP.getDate(), 8, 15, 0, 0, 0)
+    return new cqm.models.CQL.Interval(start, end)
 
   addCriteria: (criteria) ->
     @model.get('source_data_criteria').add criteria
@@ -158,7 +194,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @render()
     @expectedValuesView.refresh(population, @model.getExpectedValues(@measure))
     @populationLogicView.setPopulation population
-    bonnie.navigate "measures/#{@measure.get('hqmf_set_id')}/patients/#{@model.id}/edit"
+    bonnie.navigate "measures/#{@measure.get('cqmMeasure').hqmf_set_id}/patients/#{@model.id}/edit"
 
   save: (e, callback) ->
     e.preventDefault()
@@ -166,33 +202,27 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     $(e.target).button('saving').prop('disabled', true)
     @serializeWithChildren()
     @model.sortCriteriaBy 'start_date', 'end_date'
-    status = @originalModel.save @model.toJSON(),
+    status = @originalModel.save {cqmPatient: @model.get('cqmPatient'), expired: @model.get('expired')},
       success: (model) =>
         @patients.add model # make sure that the patient exist in the global patient collection
-        @measure?.get('patients').add model # and the measure's patient collection
-        # If this patient was newly created, and it's in a component measure, the backend will populate the measure_ids 
+        @measure?.get('cqmMeasure').patients.push model.get('cqmPatient') # and the measure's patient collection
+        # If this patient was newly created, and it's in a component measure, the backend will populate the measure_ids
         # field with the ids of the sibling and composite measures, so we need to add this patient to those models.
-        for measure_id in model.get('measure_ids')
-          continue if !measure_id?
-          m = bonnie.measures.findWhere({hqmf_set_id: measure_id})
-          m.get('patients').add(model)
-        if bonnie.isPortfolio
-          @measures.each (m) -> m.get('patients').add model
+        for measure_id in model.get('cqmPatient').measure_ids
+          measure = (bonnie.measures.filter (m) -> m.get('cqmMeasure').hqmf_set_id == measure_id)[0]
+          measure.get('patients').add(model)
         if @inPatientDashboard # Check that is passed in from PatientDashboard, to Route back to patient dashboard.
           route = if @measure then Backbone.history.getFragment() else "patients" # Go back to the current route, either "patient_dashboard" or "508_patient_dashboard"
         else
-          route = if @measure then "measures/#{@measure.get('hqmf_set_id')}" else "patients"
+          route = if @measure then "measures/#{@measure.get('cqmMeasure').hqmf_set_id}" else "patients"
         bonnie.navigate route, trigger: true
         callback.success(model) if callback?.success
     unless status
       $(e.target).button('reset').prop('disabled', false)
       messages = []
       for [cid, field, message] in @originalModel.validationError
-        # Location holds the cid of the model with the error, either toplevel or a data criteria, from whcih we get the view
-        if cid == @originalModel.cid
-          @$(":input[name=#{field}]").closest('.form-group').addClass('has-error')
-        else
-          @$("[data-model-cid=#{cid}]").view().highlightError(e, field)
+        # Location holds the cid of the model with the error, only toplevel (data criteria no longer handled in Thorax Patient model's validate)
+        @$(":input[name=#{field}]").closest('.form-group').addClass('has-error')
         messages.push message
       @$('.alert').text(_(messages).uniq().join('; ')).removeClass('hidden')
 
@@ -208,8 +238,12 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   removeDeathDate: (e) ->
     e.preventDefault()
     @model.set 'expired', false
-    @model.set 'deathtime', null
-    @model.set 'deathdate', null
+    @model.set 'deathtime', undefined
+    @model.set 'deathdate', undefined
+    expiredElement = (@model.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')?[0]
+    if expiredElement
+      @model.get('cqmPatient').qdmPatient.dataElements.remove(expiredElement)
+    @materialize()
     @$('#expired').focus()
 
   setAffix: ->
@@ -267,4 +301,4 @@ class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   context: ->
     _(super).extend
       title: if @model.collection.parent.get('populations').length > 1 then (@model.get('title') || @model.get('sub_id')) else ''
-      cms_id: @model.collection.parent.get('cms_id')
+      cms_id: @model.collection.parent.get('cqmMeasure').cms_id

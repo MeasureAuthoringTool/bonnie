@@ -13,8 +13,8 @@ module DoorkeeperOverride
       @token.resource_owner_id = @user.id
       @token.scopes = 'foo'
       @token.expires_in = 600
-      @token.created_at = Time.now
-      @token.original_token_created_at = Time.now - 20.seconds
+      @token.created_at = Time.now.utc
+      @token.original_token_created_at = Time.now.utc - 20.seconds
       @controller.instance_variable_set(:@token, @token)
     end
 
@@ -32,7 +32,7 @@ module DoorkeeperOverride
     end
 
     test "successfully shows token with expired refresh token" do
-      @token.original_token_created_at = Time.now - Doorkeeper.configuration.refresh_token_expires_in - 10.seconds
+      @token.original_token_created_at = Time.now.utc - Doorkeeper.configuration.refresh_token_expires_in - 10.seconds
       get :show
       assert_response :ok
       body = JSON.parse(@response.body)
@@ -80,7 +80,7 @@ module DoorkeeperOverride
     end
 
     test "shows unauthorized when token inaccessible" do
-      @token.revoked_at = Time.now - 1.minutes
+      @token.revoked_at = Time.now.utc - 1.minutes
       get :show
       assert_response :unauthorized
     end

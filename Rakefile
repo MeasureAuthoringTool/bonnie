@@ -2,6 +2,7 @@
 # Add your own tasks in files placed in lib/tasks ending in .rake,
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 require 'simplecov'
+require 'rake/testtask'
 
 # see https://gist.github.com/afeld/5704079
 namespace :assets do
@@ -17,7 +18,7 @@ namespace :assets do
   end
 end
 
-require File.expand_path('../config/application', __FILE__)
+require File.expand_path('config/application', __dir__)
 
 Bonnie::Application.load_tasks
 
@@ -32,9 +33,3 @@ Rake::Task[:test].clear # rake has a default test task, if we do not clear it th
 task :test => [:test_unit] do
   system("open coverage/index.html")
 end
-
-# HIDE HDS Rake tasks
-Rake::Task["bundle:activate"].clear_comments
-Rake::Task["bundle:import"].clear_comments
-Rake::Task["bundle:list"].clear_comments
-Rake::Task["bundle:merge"].clear_comments

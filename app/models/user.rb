@@ -1,6 +1,4 @@
-require 'protected_attributes'
 class User
-  include ActiveModel::MassAssignmentSecurity
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
   # Include default devise modules. Others available are:
@@ -25,14 +23,32 @@ class User
     super && is_approved?
   end
 
+
   # Send admins an email after a user account is created
   after_create :send_user_signup_email
   def send_user_signup_email
     UserMailer.user_signup_email(self).deliver_now
   end
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :telephone, :crosswalk_enabled
+  after_save do
+    if current_group.nil?
+      init_personal_group
+      save
+    end
+  end
+
+  # create user's personal group
+  def init_personal_group
+    group = Group.new(_id: id, is_personal:true, name: email)
+    group.save
+
+    self.current_group = group
+    groups << group
+  end
+
+  def find_personal_group
+    groups.where(id: id).first
+  end
 
   ## Database authenticatable
   field :email,              :type => String, :default => ""
@@ -59,6 +75,7 @@ class User
 
   field :first_name,    :type => String
   field :last_name,    :type => String
+  field :harp_id, :type => String
   field :telephone,    :type => String
   field :admin, type:Boolean, :default => false
   field :portfolio, type:Boolean, :default => false
@@ -67,13 +84,13 @@ class User
   field :approved, type:Boolean, :default => false
 
   field :crosswalk_enabled,  type:Boolean, default: false
-  
-  has_many :measures
-  has_many :cql_measures
-  has_many :records
-  belongs_to :bundle, class_name: 'HealthDataStandards::CQM::Bundle'
+
+  belongs_to :current_group, inverse_of: nil, optional: true, class_name: 'Group'
+  has_and_belongs_to_many :groups, inverse_of: nil, class_name: 'Group'
 
   scope :by_email, ->(email) { where({email: email}) }
+
+  validates :harp_id, uniqueness: { message: 'Id is already taken' }, if: :harp_id?
 
   ## Confirmable
   # field :confirmation_token,   :type => String
@@ -88,9 +105,6 @@ class User
 
   ## Token authenticatable
   # field :authentication_token, :type => String
-
-   #make sure that the use has a bundle associated with them
-  after_create :ensure_bundle
 
   def is_admin?
     admin || false
@@ -150,24 +164,18 @@ class User
 
   # Measure and patient counts can be pre-populated or just retrieved
   attr_writer :measure_count
+
   def measure_count
-    @measure_count || cql_measures.count
+    @measure_count || current_group&.cqm_measures&.count || 0
   end
 
   attr_writer :patient_count
+
   def patient_count
     @patient_count || records.count
   end
 
-  protected
-  
-  def ensure_bundle
-    unless self.bundle 
-      b = HealthDataStandards::CQM::Bundle.new(title: "Bundle for user #{self.id}", version: "1")
-      b.save
-      self.bundle=b
-      self.save
-    end
+  def is_assigned_group(group)
+    groups.detect { |g| g.id == group.id }
   end
-
 end

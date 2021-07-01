@@ -103,37 +103,29 @@ namespace :bonnie do
       raise "#{dest_email} not found" unless dest = User.find_by(email: dest_email) rescue nil
 
       # Find the measure and associated records we're moving
-      raise "#{cms_id} not found" unless measure = find_measure(source, "", cms_id)
-      if find_measure(dest, "", cms_id, false)
+      raise "#{cms_id} not found" unless measure = find_measure(source.current_group, "", cms_id)
+      if find_measure(dest.current_group, "", cms_id, false)
         raise "#{cms_id} already exists in destination account #{dest_email}. Cannot complete move."
       end
-      move_patients(source, dest, measure, measure)
+
+      src_group = source.current_group
+      dest_group = dest.current_group
+
+      move_patients(src_group, dest_group, measure, measure)
       print_success("Moved patients")
 
-      # Find the value sets we'll be *copying* (not moving!)
-      value_sets = measure.value_sets.map(&:clone) # Clone ensures we save a copy and don't overwrite original
-
-      # Write the value set copies, updating the user id and bundle
-      raise "No destination user bundle" unless dest.bundle
-      copy_value_sets(dest, value_sets)
-      print_success("Copied value sets")
-
-      # Same for the measure
-      measure.user = dest
-      measure.bundle = dest.bundle
-      measure.save
-
+      measure.associate_self_and_child_docs_to_group(dest_group)
+      measure.save_self_and_child_docs
       print_success "Moved measure"
     end
-
   end
 
   namespace :db do
 
     desc 'Re-save all measures, ensuring that all post processing steps (like calculating complexity) are performed again'
     task :resave_measures => :environment do
-      CqlMeasure.each do |m|
-        puts "Re-saving \"#{m.title}\" [#{ m.user ? m.user.email : 'deleted user' }]"
+      CQM::Measure.each do |m|
+        puts "Re-saving \"#{m.title}\" [#{ m.group ? m.group.name : 'deleted group' }]"
         begin
           m.save
         rescue => e
@@ -202,12 +194,14 @@ namespace :bonnie do
         if user.nil?
           print_error "#{email} not found"
           is_error = true
+        else
+          group = user.current_group
         end
       end
 
       unless is_error
         if hqmf_set_id
-          measure = CqlMeasure.find_by(user_id: user.id, hqmf_set_id: hqmf_set_id)
+          measure = CQM::Measure.find_by(group_id: group.id, hqmf_set_id: hqmf_set_id)
           if measure.nil?
             print_error "measure with HQFM set id #{hqmf_set_id} not found for account #{email}"
             is_error = true
@@ -215,7 +209,7 @@ namespace :bonnie do
             print_success "#{user.email}: measure with HQMF set id #{hqmf_set_id} found"
           end
         elsif cms_id
-          measure = find_measure(user, '', cms_id)
+          measure = find_measure(group, '', cms_id)
           unless measure
             print_error "measure with CMS id #{cms_id} not found for account #{email}"
             is_error = true
@@ -229,7 +223,7 @@ namespace :bonnie do
       unless is_error
         if measure.package
           filename = "#{measure.cms_id}_#{email}_#{measure.package.created_at.to_date}.zip"
-          file = open(filename, 'wb')
+          file = File.open(filename, 'wb')
           file.write(measure.package.file.data)
           file.close
           print_success "Successfully wrote #{measure.cms_id}_#{email}_#{measure.package.created_at.to_date}.zip"
@@ -242,20 +236,6 @@ namespace :bonnie do
 
   namespace :patients do
 
-    desc %{Update Facilities and Diagnoses on all patients
-
-    $ rake bonnie:patients:update_facilities_and_diagnoses_on_all_patients}
-    task :update_facilities_and_diagnoses_on_all_patients => :environment do
-      printf "%-22s", "\e[#{32}m#{"[TITLE] "}\e[0m"
-      printf "| %-80s", "\e[#{36}m#{"FIRST LAST"}\e[0m"
-      printf "| %-35s", "ACCOUNT"
-      puts "| MEASURE ID"
-      puts "-"*157
-      Record.all.each do |patient|
-        update_facilities_and_diagnoses_on_patient(patient)
-      end
-    end
-
     desc %{Export Bonnie patients to a JSON file.
 
     You must identify the user by EMAIL, include a HQMF_SET_ID, and
@@ -267,25 +247,65 @@ namespace :bonnie do
       user_email = ENV['EMAIL']
       raise "#{user_email} not found" unless user = User.find_by(email: user_email)
 
+      group = user.current_group
+
       # Grab user measure to pull patients from
-      raise "#{ENV['HQMF_SET_ID']} hqmf_set_id not found" unless measure = CqlMeasure.find_by(user_id: user._id, hqmf_set_id: ENV['HQMF_SET_ID'])
+      raise "#{ENV['HQMF_SET_ID']} hqmf_set_id not found" unless measure = CQM::Measure.find_by(group_id: group.id, hqmf_set_id: ENV['HQMF_SET_ID'])
 
       # Grab the patients
-      patients = Record.where(user_id: user._id, :measure_ids => measure.hqmf_set_id)
-        .or(Record.where(user_id: user._id, :measure_ids => measure.hqmf_id))
-        .or(Record.where(user_id: user._id, measure_id: measure.hqmf_id))
+      patients = CQM::Patient.where(group_id: group.id, measure_ids: measure.hqmf_set_id)
 
       # Write patient objects to file in JSON format
-      puts "Exporting patients..."
-      raise "FILENAME not specified" unless output_file = ENV['FILENAME']
-      File.open(File.join(Rails.root, output_file), "w") do |f|
+      puts 'Exporting patients...'
+      raise 'FILENAME not specified' unless output_file = ENV['FILENAME']
+      File.open(File.join(Rails.root, output_file), 'w') do |f|
         patients.each do |patient|
-          f.write(patient.to_json)
-          f.write("\r\n")
+          f.puts(patient.as_document.to_json)
         end
       end
 
-      puts "Done!"
+      puts 'Done!'
+    end
+
+    task :export_patients_for_user => :environment do
+      # Grab user account
+      user_email = ENV['EMAIL']
+      raise "#{user_email} not found" unless user = User.find_by(email: user_email)
+
+      group = user.current_group
+
+      # Grab the patients
+      patients = CQM::Patient.where(group_id: group.id)
+
+      # Write patient objects to file in JSON format
+      puts 'Exporting patients...'
+      raise 'FILENAME not specified' unless output_file = ENV['FILENAME']
+      File.open(File.join(Rails.root, output_file), 'w') do |f|
+        patients.each do |patient|
+          f.puts(patient.as_document.to_json)
+        end
+      end
+
+      puts 'Done!'
+    end
+
+    task :export_all_patients => :environment do
+      # Grab the patients
+      patients = CQM::Patient.all
+
+      # Write patient objects to file in JSON format
+      puts 'Exporting patients...'
+      raise 'FILENAME not specified' unless output_file = ENV['FILENAME']
+      File.open(File.join(Rails.root, output_file), 'w') do |f|
+        # f.puts('[')
+        patients.each do |patient|
+          f.puts(patient.as_document.to_json)
+          # f.puts(patient.as_document.to_json + ',')
+        end
+        # f.puts(']')
+      end
+
+      puts 'Done!'
     end
 
     desc %{Import Bonnie patients from a JSON file.
@@ -299,49 +319,39 @@ namespace :bonnie do
       # Grab user account
       user_email = ENV['EMAIL']
       raise "#{user_email} not found" unless user = User.find_by(email: user_email)
+      raise "Group for #{user_email} not found" unless group = user.current_group
 
       # Grab user measure to add patients to
       user_measure = ENV['HQMF_SET_ID']
-
-      raise "#{user_measure} not found" unless measure = CqlMeasure.find_by(user_id: user._id, hqmf_set_id: user_measure)
+      raise "#{user_measure} not found" unless measure = CQM::Measure.find_by(group_id: group.id, hqmf_set_id: user_measure)
 
       # Import patient objects from JSON file and save
       puts "Importing patients..."
       raise "FILENAME not specified" unless input_file = ENV['FILENAME']
       File.foreach(File.join(Rails.root, input_file)) do |p|
         next if p.blank?
-        patient = Record.new.from_json p.strip
+        patient = CQM::Patient.new.from_json p.strip
 
-        patient['user_id'] = user._id
+        patient['group_id'] = group.id
 
         patient['measure_ids'] = []
         patient['measure_ids'] << measure.hqmf_set_id
-        patient['measure_ids'] << nil # Need to add a null value at the end of the array.
 
-        # Modifiying hqmf_set_id and cms_id for source data criteria
-        unless patient['source_data_criteria'].nil?
-          patient['source_data_criteria'].each do |source_criteria|
-            source_criteria['hqmf_set_id'] = measure.hqmf_set_id
-            source_criteria['cms_id'] = measure.cms_id
-          end
-        end
-        # Modifying measure_id for expected values
-        unless patient['expected_values'].nil?
-          patient['expected_values'].each do |expected_value|
+        unless patient.expectedValues.nil?
+          patient.expectedValues.each do |expected_value|
             expected_value['measure_id'] = measure.hqmf_set_id
           end
         end
 
         all_codes = HQMF::PopulationCriteria::ALL_POPULATION_CODES
         all_codes.each do |code|
-          if !patient.expected_values[0][code].nil? && measure.populations[0][code].nil?
-            patient.expected_values.each do |expected_value|
+          if !patient.expectedValues[0][code].nil? && measure.population_sets[0].populations[code].nil?
+            patient.expectedValues.each do |expected_value|
               expected_value.delete(code)
             end
           end
         end
 
-        patient = update_facilities_and_diagnoses_on_patient(patient)
         patient.dup.save!
       end
 
@@ -369,6 +379,8 @@ namespace :bonnie do
         if source.nil?
           print_error "#{source_email} not found"
           is_error = true
+        else
+          source_group = source.current_group
         end
       end
 
@@ -377,11 +389,14 @@ namespace :bonnie do
         if dest.nil?
           print_error "#{dest_email} not found"
           is_error = true
+        else
+          dest_group = dest.current_group
         end
       end
 
+
       unless is_error
-        source_measure = CqlMeasure.find_by(user_id: source.id, hqmf_set_id: source_hqmf_set_id)
+        source_measure = CQM::Measure.find_by(group_id: source_group.id, hqmf_set_id: source_hqmf_set_id)
         if source_measure.nil?
           print_error "measure with HQFM set id #{source_hqmf_set_id} not found for account #{source_email}"
           is_error = true
@@ -389,7 +404,7 @@ namespace :bonnie do
       end
 
       unless is_error
-        dest_measure = CqlMeasure.find_by(user_id: dest.id, hqmf_set_id: dest_hqmf_set_id)
+        dest_measure = CQM::Measure.find_by(group_id: dest_group.id, hqmf_set_id: dest_hqmf_set_id)
         if dest_measure.nil?
           print_error "measure with HQFM set id #{dest_hqmf_set_id} not found for account #{dest_email}"
           is_error = true
@@ -399,7 +414,7 @@ namespace :bonnie do
       unless is_error
         puts "Copying patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'"
 
-        move_patients(source, dest, source_measure, dest_measure, true)
+        move_patients(source_group, dest_group, source_measure, dest_measure, true)
 
         print_success "Successfully copied patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'"
       end
@@ -426,6 +441,8 @@ namespace :bonnie do
         if source.nil?
           print_error "#{source_email} not found"
           is_error = true
+        else
+          source_group = source.current_group
         end
       end
 
@@ -434,11 +451,13 @@ namespace :bonnie do
         if dest.nil?
           print_error "#{dest_email} not found"
           is_error = true
+        else
+          dest_group = dest.current_group
         end
       end
 
       unless is_error
-        source_measure = CqlMeasure.find_by(user_id: source.id, hqmf_set_id: source_hqmf_set_id)
+        source_measure = CQM::Measure.find_by(group_id: source_group.id, hqmf_set_id: source_hqmf_set_id)
         if source_measure.nil?
           print_error "measure with HQFM set id #{source_hqmf_set_id} not found for account #{source_email}"
           is_error = true
@@ -446,7 +465,7 @@ namespace :bonnie do
       end
 
       unless is_error
-        dest_measure = CqlMeasure.find_by(user_id: dest.id, hqmf_set_id: dest_hqmf_set_id)
+        dest_measure = CQM::Measure.find_by(group_id: dest_group.id, hqmf_set_id: dest_hqmf_set_id)
         if dest_measure.nil?
           print_error "measure with HQFM set id #{dest_hqmf_set_id} not found for account #{dest_email}"
           is_error = true
@@ -456,7 +475,7 @@ namespace :bonnie do
       unless is_error
         puts "Moving patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'"
 
-        move_patients(source, dest, source_measure, dest_measure)
+        move_patients(source_group, dest_group, source_measure, dest_measure)
 
         print_success "Successfully moved patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'"
       end
@@ -508,11 +527,13 @@ namespace :bonnie do
           new_measure_title = row[1]
           new_measure_id = row[3]
 
-          orig_measure = find_measure(user, orig_measure_title, orig_measure_id)
-          new_measure = find_measure(user, new_measure_title, new_measure_id)
+          group = user.current_group
+
+          orig_measure = find_measure(group, orig_measure_title, orig_measure_id)
+          new_measure = find_measure(group, new_measure_title, new_measure_id)
 
           if orig_measure && new_measure
-            move_patients(user, user, orig_measure, new_measure)
+            move_patients(group, group, orig_measure, new_measure)
             print_success "moved records in #{email} from #{orig_measure_id}:#{orig_measure_title} to #{new_measure_id}:#{new_measure_title}"
           else
             print_error "unable to move records in #{email} from #{orig_measure_id}:#{orig_measure_title} to #{new_measure_id}:#{new_measure_title}"
@@ -524,93 +545,14 @@ namespace :bonnie do
       end
     end
 
-    desc "Materialize all patients"
-    task :materialize_all => :environment do
-      user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
-      records = user ? user.records : Record.all
-      count = 0
-      records.each do |r|
-        puts "Materializing #{r.last} #{r.first}"
-        begin
-          r.rebuild!
-          count += 1
-        rescue => e
-          puts "Error materializing #{r.first} #{r.last}: #{e.message}"
-        end
-      end
-      puts "Materialized #{count} of #{records.count} patients"
-    end
-
     desc 'Reset expected_values hash.'
     task :reset_expected_values => :environment do
       puts "Resetting expected_values hash for all patients to []"
-      Record.each do |patient|
-        patient.expected_values = []
+      CQM::Patient.each do |patient|
+        patient.qdmPatient.expectedValues = []
         patient.save
-        puts "\tReset expected_values for patient #{patient.first} #{patient.last}."
+        puts "\tReset expected_values for patient #{patient.givenNames[0]} #{patient.familyName}."
       end
-    end
-
-    desc %{Date shift patient records for a given user.
-      Use EMAIL to denote the user to scope the date_shift for all associated patients' source data criteria; first user by default.
-      Use DIR to denote direction [forward, backward]; direction is forward by default.
-      Use SECONDS, MINUTES, HOURS, DAYS, WEEKS, MONTHS, YEARS to denote time offset [###]; offsets are 0 by default.
-
-      e.g., rake bonnie:patients:date_shift DIR=backward YEARS=2 MONTHS=2 will shift the first user's patients' source data criteria start/stop dates and birth/death dates backwards by 2 years and 2 months.
-    }
-    task :date_shift => :environment do
-      user_email = ENV['EMAIL'] || User.first.email
-      user = User.where(email: user_email).first
-      direction = ENV['DIR'] || 'forward'
-      direction = 'forward' if !direction.downcase == 'backward'
-      seconds, minutes, hours, days, weeks, months, years = ENV['SECONDS'] || 0, ENV['MINUTES'] || 0, ENV['HOURS'] || 0, ENV['DAYS'] || 0, ENV['WEEKS'] || 0, ENV['MONTHS'] || 0, ENV['YEARS'] || 0
-      puts "Shifting dates #{direction} [ #{years}ys, #{months}mos, #{weeks}wks, #{days}d, #{hours}hrs, #{minutes}mins, #{seconds}s ] for source_data_criteria start/stop dates and birth/death dates on all associated patient records for #{user.email}"
-      direction.downcase == 'backward' ? dir = -1 : dir = 1
-      seconds, minutes, hours, days, weeks, months, years = dir * seconds.to_i, dir * minutes.to_i, dir * hours.to_i, dir * days.to_i, dir * weeks.to_i, dir * months.to_i, dir * years.to_i
-      timestamps = ['FACILITY_LOCATION_ARRIVAL_DATETIME','FACILITY_LOCATION_DEPARTURE_DATETIME','DISCHARGE_DATETIME','ADMISSION_DATETIME','START_DATETIME','STOP_DATETIME','INCISION_DATETIME','REMOVAL_DATETIME', 'TRANSFER_TO_DATETIME', 'TRANSFER_FROM_DATETIME']
-      Record.by_user(user).each do |patient|
-        patient.birthdate = ( Time.at( patient.birthdate ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds ) ).to_i
-        if patient.expired
-          patient.deathdate = ( Time.at( patient.deathdate ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds ) ).to_i
-        end
-        patient.source_data_criteria.each do |sdc|
-          unless sdc["start_date"].blank?
-            sdc["start_date"] = ( Time.at( sdc["start_date"] / 1000 ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds ) ).to_i * 1000
-          end
-          unless sdc["end_date"].blank?
-            sdc["end_date"] = ( Time.at( sdc["end_date"] / 1000 ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds ) ).to_i * 1000
-          end
-          unless sdc['field_values'].blank?
-            sdc_timestamps = timestamps & sdc['field_values'].keys
-            sdc_timestamps.each do |sdc_timestamp|
-              sdc['field_values'][sdc_timestamp]['value'] = ( Time.at( sdc['field_values'][sdc_timestamp]['value'] / 1000 ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds ) ).to_i * 1000
-            end
-          end
-          unless sdc["fulfillments"].blank?
-            sdc["fulfillments"].each do |fulfillment|
-              dispense_datetime = fulfillment["dispense_datetime"].to_i
-              changed_time = Time.at( dispense_datetime ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds )
-              fulfillment["dispense_time"] = changed_time.strftime('%I:%M:%p')
-              fulfillment["dispense_date"] = changed_time.strftime('%m/%d/%Y')
-              fulfillment["dispense_datetime"] = changed_time.to_i.to_s
-            end
-          end
-        end
-        Measures::PatientBuilder.rebuild_patient(patient)
-        patient.save!
-      end
-    end
-
-    desc 'Re-save all patient records'
-    task :resave_patient_records => :environment do
-      STDOUT.sync = true
-      index = 0
-      Record.each do |r|
-        r.save
-        index += 1
-        print '.' if index % 500 == 0
-      end
-      puts
     end
   end
 
@@ -623,33 +565,34 @@ namespace :bonnie do
   # It does this two pronged approach to searching because the measure information
   # is provided by users, and there may be small differences in the measure title
   # (small typo, capitalization, etc.).
-  def find_measure(user, measure_title, measure_id, expect_to_find=true)
+  def find_measure(group, measure_title, measure_id, expect_to_find=true)
     measure = nil
 
     # try to find the measure just based off of the CMS id to avoid chance of typos
     # in the title
-    measures = CqlMeasure.where(user_id: user._id, cms_id: measure_id)
-    if measures.count == 0
-      print_error "#{user.email}: #{measure_id}:#{measure_title} not found" if expect_to_find
-    elsif measures.count == 1
+    measures = CQM::Measure.where(group_id: group.id, cms_id: measure_id)
+    case measures.count
+    when 0
+      print_error "#{group.name}: #{measure_id}:#{measure_title} not found" if expect_to_find
+    when 1
       measure = measures.first
     else
       # if there are duplicate CMS ids (CMSv0, for example), use the title as well
-      measures = CqlMeasure.where(user_id: user._id, title: measure_title, cms_id: measure_id)
+      measures = CQM::Measure.where(group_id: group.id, title: measure_title, cms_id: measure_id)
       if measures.count == 0
-        print_error "#{user.email}: #{measure_id}:#{measure_title} not found" if expect_to_find
+        print_error "#{group.name}: #{measure_id}:#{measure_title} not found" if expect_to_find
       elsif measures.count == 1
         measure = measures.first
       else
-        print_error "#{user.email}: #{measure_id}:#{measure_title} not unique" if expect_to_find
+        print_error "#{group.name}: #{measure_id}:#{measure_title} not unique" if expect_to_find
       end
     end
 
     if measure
       if expect_to_find
-        print_success "#{user.email}: #{measure_id}:#{measure_title} found"
+        print_success "#{group.name}: #{measure_id}:#{measure_title} found"
       else
-        print_error "#{user.email}: #{measure_id}:#{measure_title} found"
+        print_error "#{group.name}: #{measure_id}:#{measure_title} found"
       end
     end
 
@@ -674,53 +617,30 @@ namespace :bonnie do
     puts warning_string
   end
 
-  # Copies value sets to a new user. Only copies the value set if that value set
-  # with that version does not already exist for the user.
-  def copy_value_sets(dest_user, value_sets)
-    user_value_sets = HealthDataStandards::SVS::ValueSet.where({user_id: dest_user.id})
-    value_sets.each do |vs|
-      set = user_value_sets.where({oid: vs.oid, version: vs.version})
-
-      # if value set doesn't exist, copy it and add it
-      if set.count == 0
-        vs = vs.dup
-        vs.user = dest_user
-        vs.bundle = dest_user.bundle
-        vs.save
-      end
-    end
-  end
-
   # Moves patients from src_user and src_measure to dest_user and dest_measure.
   # if copy=false, moves the existing patients. if copy=true, creates copies
   # of the patients to move.
   # If you are moving patients to different measures in the same account, just
   # pass in the same user information for both src_user and dest_user.
-  def move_patients(src_user, dest_user, src_measure, dest_measure, copy=false)
-    records = []
-    src_user.records.where(measure_ids: src_measure.hqmf_set_id).each do |r|
+  def move_patients(src_group, dest_group, src_measure, dest_measure, copy=false)
+    patients = []
+    src_group.patients.where(measure_ids: src_measure.hqmf_set_id).each do |patient|
       if copy
-        records.push(r.dup)
+        patients.push(patient.dup)
       else
-        records.push(r)
+        patients.push(patient)
       end
     end
 
-    records.each do |r|
-      r.user = dest_user
-      r.bundle = dest_user.bundle
-      r.measure_ids.map! { |x| x == src_measure.hqmf_set_id ? dest_measure.hqmf_set_id : x }
-      r.expected_values.each do |expected_value|
+    patients.each do |patient|
+      patient.group = dest_group
+      patient.measure_ids.map! { |hqmf_set_id| hqmf_set_id == src_measure.hqmf_set_id ? dest_measure.hqmf_set_id : hqmf_set_id }
+      patient.expectedValues.each do |expected_value|
         if expected_value['measure_id'] == src_measure.hqmf_set_id
           expected_value['measure_id'] = dest_measure.hqmf_set_id
         end
       end
-      r.source_data_criteria.each do |sdc|
-        if sdc['hqmf_set_id'] && sdc['hqmf_set_id'] != dest_measure.hqmf_set_id
-          sdc['hqmf_set_id'] = dest_measure.hqmf_set_id
-        end
-      end
-      r.save
+      patient.save
     end
   end
 end
@@ -805,7 +725,7 @@ def update_facilities_and_diagnoses_on_patient(patient)
 
             # Reassign
             new_source_data_criterium_field_values['FACILITY_LOCATION'] = new_facility_location
-          elsif !(field_value_key == 'FACILITY_LOCATION_ARRIVAL_DATETIME' || field_value_key == 'FACILITY_LOCATION_DEPARTURE_DATETIME')
+          elsif !(field_value_key.in? ['FACILITY_LOCATION_ARRIVAL_DATETIME','FACILITY_LOCATION_DEPARTURE_DATETIME'])
             # add unaltered field value to new structure, unless it's a time we already used above
             new_source_data_criterium_field_values[field_value_key] = field_value_value
           else
@@ -918,7 +838,7 @@ def print_helper(title, patient)
   end
   printf "%-80s", "\e[#{36}m#{"#{patient.first} #{patient.last}"}\e[0m"
   begin
-    account = User.find(patient.user_id).email
+    account = User.find(patient.group_id).email
     printf "%-35s %s", account.to_s, " #{patient.measure_ids[0]}\n"
   rescue Mongoid::Errors::DocumentNotFound
     puts "ORPHANED"

@@ -2,7 +2,7 @@
 class Thorax.Views.BuilderChildView extends Thorax.Views.BonnieView
   events:
     ready: -> @patientBuilder().registerChild this
-    
+
   patientBuilder: ->
     parent = @parent
     until parent instanceof Thorax.Views.PatientBuilder
@@ -10,6 +10,13 @@ class Thorax.Views.BuilderChildView extends Thorax.Views.BonnieView
     parent
   triggerMaterialize: ->
     @trigger 'bonnie:materialize'
+
+  parseDataElementDescription: (description) ->
+    # dataelements such as birthdate do not have descriptions
+    if !description
+      ""
+    else
+      description.split(/, (.*:.*)/)?[1] or description
 
 
 class Thorax.Views.SelectCriteriaView extends Thorax.Views.BonnieView
@@ -24,13 +31,13 @@ class Thorax.Views.SelectCriteriaView extends Thorax.Views.BonnieView
         @$('a.panel-title[data-toggle="collapse"]').toggleClass('closed')
         if e.type is 'show' then $('a.panel-title[data-toggle="collapse"]').next('div.in').not(e.target).collapse('hide') # hide open ones
 
-  faIcon: -> @collection.first()?.toPatientDataCriteria()?.faIcon()
+  faIcon: -> @collection.first()?.faIcon()
 
 
 class Thorax.Views.SelectCriteriaItemView extends Thorax.Views.BuilderChildView
-  addCriteriaToPatient: -> @trigger 'bonnie:dropCriteria', @model.toPatientDataCriteria()
+  addCriteriaToPatient: -> @trigger 'bonnie:dropCriteria', @model
   context: ->
-    desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
+    desc = @parseDataElementDescription @model.get('description')
     _(super).extend
       type: desc.split(": ")[0]
       # everything after the data criteria type is the detailed description
@@ -50,121 +57,171 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     populate: { context: true, children: false }
 
   initialize: ->
-    if @model.canHaveResult()
-      @editValueView = new Thorax.Views.EditCriteriaValueView
-        model: new Thorax.Model
-        measure: @model.measure()
-        fieldValue: false
-        values: @model.get('value')
-        criteriaType: @model.get('type')
-        # TODO: (LDY 10/6/2016) should this be rewritten so criteriaType works with what @model.getCriteriaType returns?
-        # this would move us towards having more directed field drop downs for each criteria type
-        fullCriteriaType: @model.getCriteriaType() # includes the full type information. e.g., instead of 'encounters' it's 'encounter_performed'
-    @editFieldValueView = new Thorax.Views.EditCriteriaValueView
-      model: new Thorax.Model
-      measure: @model.measure()
-      fieldValue: true
-      values: @model.get('field_values')
-      criteriaType: @model.get('type')
-      fullCriteriaType: @model.getCriteriaType() # includes the full type information. e.g., instead of 'encounters' it's 'encounter_performed'
-    @editReferenceView = new Thorax.Views.EditCriteriaReferenceView
-      model: new Thorax.Model
-      measure: @model.measure()
-      fieldValue: false
-      reference: true
-      values: @model.get('references')
-      criteriaType: @model.get('type')
-      vals: JSON.stringify(@model.get('references'))
-    codes = @model.get('codes')
-    concepts = @model.valueSet()?.get('concepts')
-    codes.on 'add remove', => @model.set 'code_source', (if codes.isEmpty() then 'DEFAULT' else 'USER_DEFINED'), silent: true
-    @editCodeSelectionView = new Thorax.Views.CodeSelectionView codes: codes
-    @editCodeSelectionView.updateConcepts(concepts) if concepts
+    codes = @model.get('qdmDataElement').dataElementCodes
+    code_list_id = @model.get('codeListId')
+    concepts = (@measure.get('cqmValueSets').find (vs) => vs.oid is code_list_id)?.concepts
+
+    @editCodesDisplayView = new Thorax.Views.EditCodesDisplayView codes: codes, measure: @measure, parent: @
+    @editCodeSelectionView = new Thorax.Views.EditCodeSelectionView codes: codes, concepts: concepts, measure: @measure, parent: @
+    if codes.length is 0
+     @editCodeSelectionView.addDefaultCodeToDataElement()
+
+    @timingAttributeViews = []
+    for timingAttr in @model.getPrimaryTimingAttributes()
+      switch timingAttr.type
+        when 'Interval'
+          intervalView = new Thorax.Views.InputIntervalDateTimeView(
+            initialValue: @model.get('qdmDataElement')[timingAttr.name],
+            attributeName: timingAttr.name, attributeTitle: timingAttr.title,
+            showLabel: true, defaultYear: @measure.getMeasurePeriodYear())
+          @timingAttributeViews.push intervalView
+          @listenTo intervalView, 'valueChanged', @updateAttributeFromInputChange
+        when 'DateTime'
+          dateTimeView = new Thorax.Views.InputDateTimeView(
+            initialValue: @model.get('qdmDataElement')[timingAttr.name],
+            attributeName: timingAttr.name, attributeTitle: timingAttr.title,
+            showLabel: true, defaultYear: @measure.getMeasurePeriodYear())
+          @timingAttributeViews.push dateTimeView
+          @listenTo dateTimeView, 'valueChanged', @updateAttributeFromInputChange
+
+    # view that shows all the currently set attributes
+    @attributeDisplayView = new Thorax.Views.DataCriteriaAttributeDisplayView(model: @model)
+    @listenTo @attributeDisplayView, 'attributesModified', @attributesModified
+
+    # view that allows for editing new attribute values
+    @attributeEditorView = new Thorax.Views.DataCriteriaAttributeEditorView(model: @model)
+    @listenTo @attributeEditorView, 'attributesModified', @attributesModified
+
+    # view that allows for negating the data criteria, will not display on non-negateable data criteria
+    @negationRationaleView = new Thorax.Views.InputCodeView({ cqmValueSets: @measure.get('cqmValueSets'), codeSystemMap: @measure.codeSystemMap(), attributeName: 'negationRationale', initialValue: @model.get('qdmDataElement').negationRationale })
+    @listenTo @negationRationaleView, 'valueChanged', @updateAttributeFromInputChange
 
     @model.on 'highlight', (type) =>
       @$('.criteria-data').addClass(type)
       @$('.highlight-indicator').attr('tabindex', 0).text 'matches selected logic, '
 
-  valueWithDateContext: (model) ->
-    _(model.toJSON()).extend
-      start_date: moment.utc(model.get('value')).format('L') if model.get('type') == 'TS'
-      start_time: moment.utc(model.get('value')).format('LT') if model.get('type') == 'TS'
-      if model.get('type') == 'COL'
-        for item in model.attributes.values
-          # Add OR logic for any collections that need to display dates here
-          if item.type == 'FAC'
-            start_date: moment.utc(item.value).format('L')    
-            start_time: moment.utc(item.value).format('LT')   
-            end_date: moment.utc(item.end_value).format('L') 
-            end_time: moment.utc(item.end_value).format('LT')
+  updateCodes: (codes) ->
+    @model.get('qdmDataElement').dataElementCodes = codes
+    if codes.length is 0
+      @editCodeSelectionView.addDefaultCodeToDataElement()
+    else
+      @editCodeSelectionView.codes = codes
+      @editCodesDisplayView.codes = codes
+      @editCodesDisplayView.render()
+      @triggerMaterialize()
 
-
-  # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
-    cmsIdParts = @model.get("cms_id").match(/CMS(\d+)(V\d+)/i)
-    
-    desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
-    definition_title = @model.get('definition').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
+    desc = @parseDataElementDescription(@model.get('description'))
+    definition_title = @model.get('qdmCategory').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
       desc = desc.substring(desc.indexOf(':')+2)
-    
+    primaryTimingAttributeName = @model.getPrimaryTimingAttribute()
+    primaryTimingValue = @model.get('qdmDataElement')[primaryTimingAttributeName]
     _(super).extend
-      start_date: moment.utc(@model.get('start_date')).format('L') if @model.get('start_date')
-      start_time: moment.utc(@model.get('start_date')).format('LT') if @model.get('start_date')
-      end_date: moment.utc(@model.get('end_date')).format('L') if @model.get('end_date')
-      end_time: moment.utc(@model.get('end_date')).format('LT') if @model.get('end_date')
-      end_date_is_undefined: !@model.has('end_date')
+      # When we create the form and populate it, we want to convert times to moment-formatted dates
+      start_date: moment.utc(primaryTimingValue.low.toJSDate()).format('L') if primaryTimingValue?.low?
+      start_time: moment.utc(primaryTimingValue.low.toJSDate()).format('LT') if primaryTimingValue?.low?
+      start_date: moment.utc(primaryTimingValue.toJSDate()).format('L') if primaryTimingValue?.isDateTime
+      start_time: moment.utc(primaryTimingValue.toJSDate()).format('LT') if primaryTimingValue?.isDateTime
+      end_date: moment.utc(primaryTimingValue.high.toJSDate()).format('L') if primaryTimingValue?.high?
+      end_time: moment.utc(primaryTimingValue.high.toJSDate()).format('LT') if primaryTimingValue?.high?
+      end_date_is_undefined: !primaryTimingValue?.high?
       description: desc
-      value_sets: @model.measure()?.valueSets().map((vs) -> vs.toJSON()) or []
-      cms_id_number: cmsIdParts[1] if cmsIdParts
-      cms_id_version: cmsIdParts[2] if cmsIdParts
+      value_sets: @model.measure()?.valueSets() or []
       faIcon: @model.faIcon()
       definition_title: definition_title
       canHaveNegation: @model.canHaveNegation()
-      startLabel: @startLabel(@model.get('negation'))
-      stopLabel: @stopLabel()
-      periodLabel: @periodLabel()
       isPeriod: @model.isPeriodType() && !@model.get('negation') # if something is negated, it didn't happen so is not a period
 
   # When we serialize the form, we want to convert formatted dates back to times
   events:
     serialize: (attr) ->
-      if startDate = attr.start_date
-        startDate += " #{attr.start_time}" if attr.start_time
-        attr.start_date = moment.utc(startDate, 'L LT').format('X') * 1000
-      delete attr.start_time
-      # If the user indicates that there is no end date, or if this is a criteria with a single "Authored"
-      # time (ie negated, or not a period type) then the end date should always be undefined
-      if attr.end_date_is_undefined || @model.get('negation') || !@model.isPeriodType()
-        attr.end_date = undefined
-      else if endDate = attr.end_date
-        endDate += " #{attr.end_time}" if attr.end_time
-        attr.end_date = moment.utc(endDate, 'L LT').format('X') * 1000
-      attr.negation = !!attr.negation && !_.isEmpty(attr.negation_code_list_id)
-      delete attr.end_date_is_undefined
-      delete attr.end_time
     rendered: ->
       @$('.criteria-data.droppable').droppable greedy: true, accept: '.ui-draggable', hoverClass: 'drop-target-highlight', drop: _.bind(@dropCriteria, this)
-      @$('.date-picker').datepicker('orientation': 'bottom left').on 'changeDate', _.bind(@triggerMaterialize, this)
-      @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@triggerMaterialize, this)
-      @$el.toggleClass 'during-measurement-period', @model.isDuringMeasurePeriod()
-    'change .negation-select':                    'toggleNegationSelect'
-    'change :input[name=end_date_is_undefined]':  'toggleEndDateDefinition'
-    'blur :text':                                 'triggerMaterialize'
-    'blur :input[type=number]':                   'triggerMaterialize'
-    'change select':                              'triggerMaterialize'
+      @$el.toggleClass 'during-measurement-period', @isDuringMeasurePeriod()
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
+    'change .negation-select': 'toggleNegationSelect'
+
+  updateAttributeFromInputChange: (inputView) ->
+    @model.get('qdmDataElement')[inputView.attributeName] = inputView.value
+    @triggerMaterialize()
+
+  attributesModified: ->
+    @attributeDisplayView.render()
+    @triggerMaterialize()
+
+  isDuringMeasurePeriod: ->
+    timingAttribute = @model.get('qdmDataElement')[@model.getPrimaryTimingAttribute()]
+    if !timingAttribute?
+      return false
+
+    if timingAttribute.isInterval
+      timingAttribute.low?.year is timingAttribute.high?.year is @model.measure().getMeasurePeriodYear()
+    else
+      timingAttribute.year is @model.measure().getMeasurePeriodYear()
+
+  # Copy timing attributes (relevantPeriod, prevelancePeriod etc..) onto the criteria being dragged from the criteria it is being dragged ontop of
+  copyTimingAttributes: (droppedCriteria, targetCriteria) ->
+    droppedCriteriaTiming = droppedCriteria.getPrimaryTimingAttributes()
+    targetCriteriaTiming = targetCriteria.getPrimaryTimingAttributes()
+
+    # do a pairwise copy from target timing attributes to dropped timing attributes
+    for timingIndex, droppedTimingAttr of droppedCriteriaTiming
+      # if there is a corresponding pair, then copy it
+      if timingIndex < targetCriteriaTiming.length
+        @_copyTimingAttribute(droppedCriteria, targetCriteria, droppedTimingAttr, targetCriteriaTiming[timingIndex])
+      # otherwise, copy the first one in target
+      else
+        @_copyTimingAttribute(droppedCriteria, targetCriteria, droppedTimingAttr, targetCriteriaTiming[0])
+
+  # Helper function to copy a timing value from targetCriteria to droppedCriteria. The last two arguments are obejcts from the
+  # timing attributes structure that comes from the SourceDataCriteria.getPrimaryTimingAttributes() method. This has the attribute name and type.
+  _copyTimingAttribute: (droppedCriteria, targetCriteria, droppedAttr, targetAttr) ->
+    # clone if they are of the same type
+    if targetAttr.type == droppedAttr.type
+      if targetCriteria.get('qdmDataElement')[targetAttr.name]?
+        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = targetCriteria.get('qdmDataElement')[targetAttr.name].copy()
+      else
+        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = null
+
+    # turn Interval into DateTime
+    else if targetAttr.type == 'Interval' && droppedAttr.type == 'DateTime'
+      if targetCriteria.get('qdmDataElement')[targetAttr.name]?.low?
+        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = targetCriteria.get('qdmDataElement')[targetAttr.name].low.copy()
+      else
+        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = null
+
+    # turn DateTime into Interval. use start + 15 mins for end. if target is null, use Interval[null, null]
+    else if targetAttr.type == 'DateTime' && droppedAttr.type == 'Interval'
+      if targetCriteria.get('qdmDataElement')[targetAttr.name]?
+        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = new cqm.models.CQL.Interval(
+          targetCriteria.get('qdmDataElement')[targetAttr.name].copy(),
+          targetCriteria.get('qdmDataElement')[targetAttr.name].add(15, cqm.models.CQL.DateTime.Unit.MINUTE)
+          )
+      else
+        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = new cqm.models.CQL.Interval(null, null)
 
   dropCriteria: (e, ui) ->
     # When we drop a new criteria on an existing criteria
-    droppedCriteria = $(ui.draggable).model().toPatientDataCriteria()
+    droppedCriteria = $(ui.draggable).model().clone()
+    droppedCriteria.setNewId()
+
     targetCriteria = $(e.target).model()
-    droppedCriteria.set start_date: targetCriteria.get('start_date'), end_date: targetCriteria.get('end_date')
+    @copyTimingAttributes(droppedCriteria, targetCriteria)
     @trigger 'bonnie:dropCriteria', droppedCriteria
     return false
 
   isExpanded: -> @$('form').is ':visible'
+
+  toggleNegationSelect: (e) ->
+    if $(e.target).is(":checked")
+      @$('.negationRationaleCodeEntry').removeClass('hidden')
+    else
+      @$('.negationRationaleCodeEntry').addClass('hidden')
+      @model.get('qdmDataElement').negationRationale = null
+      @model.set('negation', false, {silent: true})
+    @negationRationaleView.resetCodeSelection()
 
   toggleDetails: (e) ->
     e.preventDefault()
@@ -182,439 +239,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     $btn = $(e.currentTarget)
     $btn.toggleClass('btn-danger btn-danger-inverse').next().toggleClass('hide')
 
-  toggleEndDateDefinition: (e) ->
-    $cb = $(e.target)
-    $endDateTime = @$('input[name=end_date], input[name=end_time]')
-    $endDateTime.val('') if $cb.is(':checked')
-    unless $cb.is(':checked') # set to 15 minutes after start
-      endDate = moment.utc(@model.get('start_date') + (15 * 60 * 1000)) if @model.has('start_date')
-      @$('input[name=end_date]').datepicker('orientation': 'bottom left').datepicker('setDate', endDate.format('L')) if endDate
-      @$('input[name=end_date]').datepicker('update')
-      @$('input[name=end_time]').timepicker('setTime', endDate.format('LT')) if endDate
-    $endDateTime.prop 'disabled', $cb.is(':checked')
-    @triggerMaterialize()
-
-  toggleNegationSelect: (e) ->
-    @$('.negation-code-list').prop('selectedIndex',0).toggleClass('hide')
-
-    # the following code changes the timing display if a period data type
-    # is negated. If it is negated, author date time should be used. If it's
-    # not, then the start/stop date time should be used.
-    if @model.isPeriodType()
-      @$('#periodLabel, #stopControl').toggleClass('hide', $(e.target).is(':checked'))
-      @$('#startLabel').text(@startLabel($(e.target).is(':checked')))
-      # make it so end date is always undefined if negation is toggled
-      $end_date_is_undefined = @$('[name="end_date_is_undefined"]')
-      $end_date_is_undefined.prop('checked', true)
-      @toggleEndDateDefinition({target: $end_date_is_undefined})
-
-      # If making data element negated remove author datetime field value,
-      # due to the start time becoming the author datetime.
-      if $(e.target).is(':checked')
-        authorDateTimeFieldValue = @model.attributes.field_values.models.filter((field_value) -> field_value.get('field_title') == 'Author Date/Time')
-        authorDateTimeFieldValue.forEach (fieldValue) ->
-          fieldValue.destroy()
-
-    @triggerMaterialize()
-
   removeCriteria: (e) ->
     e.preventDefault()
     @model.destroy()
-
-  removeValue: (e) ->
-    e.preventDefault()
-    # If the value being removed is part of a collection type, the data will include the index of said value within the collection
-    # col-item-index is the index of the item that we want to remove within the collection
-    if $(e.target).data('col-item-index')?
-      # Clone the model and remove from the clone and then add the cloned model to the collection so that the UI change event is triggered
-      clone = $(e.target).model().clone()
-      clone.get('values').splice($(e.target).data('col-item-index'), 1)
-      # Add the collection if the collection still contains values
-      if clone.get('values').length > 0
-        $(e.target).model().collection.add clone
-      
-    $(e.target).model().destroy()
-    @triggerMaterialize()
-    @editValueView?.render() # Re-render edit view, if used
-
-  highlightError: (e, field) ->
-    @toggleDetails(e) unless @isExpanded()
-    @$(":input[name=#{field}]").closest('.form-group').addClass('has-error')
-
-  jumpToSelectCriteria: (e) ->
-    e.preventDefault()
-    type = @$(e.target).model().get('type')
-    $(".#{type}-elements").focus()
-
-
-  startLabel: (negated) ->
-    # if the data criteria is a period type and has not been negated, then the
-    # period time labels should be used. Otherwise, "authored" should be used.
-    if @model.isPeriodType() && !negated
-      if @model.isIssue()
-        'Onset'
-      else
-        'Start'
-    else
-      # authored used for instances or negations
-      'Authored'
-
-  stopLabel: ->
-    if @model.isPeriodType()
-      if @model.isIssue()
-        'Abatement'
-      else
-        'Stop'
-
-  periodLabel: ->
-    if @model.isPeriodType()
-      if @model.isIssue()
-        'Prevalence Period'
-      else if @model.get('type') == 'participations'
-        'Participation Period'
-      else
-        'Relevant Period'
-
-class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
-  template: JST['patient_builder/edit_codes']
-  events:
-    'change select[name=codeset]': (e) ->
-      @model.set codeset: $(e.target).val()
-      @changeConcepts(e)
-      @validateForAddition()
-    'change select[name=code]' : ->
-      @validateForAddition()
-    'keyup input[name=custom_code]': 'validateForAddition'
-    'keyup input[name=custom_codeset]': 'validateForAddition'
-    rendered: ->
-      @$('select.codeset-control').selectBoxIt('native': true)
-
-  initialize: ->
-    @model = new Thorax.Model
-
-  validateForAddition: ->
-    attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
-    if attributes.codeset is 'custom'
-      @$('.btn[data-call-method=addCode]').prop 'disabled', attributes.custom_codeset is '' or attributes.custom_code is ''
-      # focusing on the button causes an interruption in typing, so no focus for custom code entry
-    else
-      @$('.btn[data-call-method=addCode]').prop 'disabled', attributes.codeset is '' or attributes.code is ''
-      @$('.btn').focus() #  advances the focus too the add Button
-
-  changeConcepts: (e) ->
-    codeSet = $(e.target).val()
-    $codeList = @$('.codelist-control').empty()
-    if codeSet isnt 'custom'
-      blankEntry = if codeSet is '' then '--' else "Choose a #{codeSet} code"
-      $codeList.append("<option value>#{blankEntry}</option>")
-      for concept in @concepts when concept.code_system_name is codeSet and !concept.black_list
-        $('<option>').attr('value', concept.code).text("#{concept.code} (#{concept.display_name})").appendTo $codeList
-    @$('.codelist-control').focus()
-
-  updateConcepts: (concepts) ->
-    @concepts = concepts
-    @codeSets = _(concept.code_system_name for concept in @concepts || []).uniq()
-    @render()
-
-  addCode: (e) ->
-    e.preventDefault()
-    @serialize()
-    # add the code unless there is a pre-existing code with the same codeset/code
-    if @model.get('codeset') is 'custom'
-      @model.set('codeset', @model.get('custom_codeset'))
-      @model.set('code', @model.get('custom_code'))
-    @codes.add @model.clone() unless @codes.any (c) => c.get('codeset') is @model.get('codeset') and c.get('code') is @model.get('code')
-    # Reset model to default values
-    @model.clear()
-    @$('select').val('')
-    # Let the selectBoxIt() select box know that its value may have changed
-    @$('select[name=codeset]').change()
-    @triggerMaterialize()
-    @$(':focusable:visible:first').focus()
-
-class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
-  className: -> "#{if @fieldValue then 'field-' else ''}value-formset"
-
-  template: JST['patient_builder/edit_value']
-
-  initialize: ->
-    @model.set('type', 'CD')
-    @model.set('type_cmp', 'CD')
-    @fieldValueCodesCollection = new Thorax.Collections.Codes {}, parse: true
-    @showAddCodesButton = false
-    @showAddCodes = false
-    @fields = Thorax.Models.Measure.logicFieldsFor(@criteriaType)
-    @showDateTimeSelection = @fieldValue || @fullCriteriaType in ['assessment_performed']
-    # TODO: for QDM 5.0, assessment performed should also have a percentage selection.
-    # We need to see what this would look like to determine best implementation path.
-    # Until then, PQ (Scalar) can be used with "%" as the unit
-
-  context: ->
-    codes_list = @measure?.valueSets().map((vs) -> vs.toJSON()) or []
-    unique_codes = []
-    # remove duplicate direct reference code value sets
-    direct_reference_codes = []
-    codes_list.forEach (code) ->
-      if code.oid
-        if ValueSetHelpers.isDirectReferenceCode(code.oid) # direct reference code
-          unless code.display_name in direct_reference_codes
-            direct_reference_codes.push(code.display_name)
-            unique_codes.push(code)
-        else
-          unique_codes.push(code)
-
-    _(super).extend
-      codes: unique_codes
-      # QDM say that per instance of a data criteria there can be only 1 Result
-      # The function Thorax.Models.PatientDataCriteria.canHaveResult determines which criteria those are
-      hideEditValueView: @values.models.length > 0
-
-  # When we serialize the form, we want to put the description for any CD codes into the submission
-  events:
-    serialize: (attr) ->
-      if startDate = attr.start_date
-        startDate += " #{attr.start_time}" if attr.start_time
-        attr.value = moment.utc(startDate, 'L LT').format('X') * 1000
-
-      if attr.key == 'FACILITY_LOCATION'
-        # Facility Locations care about start and end dates/times
-        if startDate
-          attr.locationPeriodLow = startDate 
-        if endDate = attr.end_date 
-            endDate += " #{attr.end_time}" if attr.end_time
-            attr.locationPeriodHigh = endDate
-            attr.end_value = moment.utc(endDate, 'L LT').format('X') * 1000
-            
-      if attr.key == 'COMPONENT'
-        title_cmp = @measure?.valueSets().findWhere(oid: attr.code_list_id_cmp)?.get('display_name')
-        attr.title = title_cmp if title_cmp
-        attr.title_cmp = @measure?.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
-      else
-        title = @measure?.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
-        attr.title = title if title
-      attr.codes = @fieldValueCodesCollection.toJSON() unless jQuery.isEmptyObject(@fieldValueCodesCollection.toJSON())
-      # gets the pretty printed title (e.g., "Result Date/Time" instead of "RESULT_DATETIME")
-      attr.field_title = (field for field in @fields when field.key == attr.key)[0]?.title
-    rendered: ->
-      @codeSelectionViewForFieldValues = new Thorax.Views.CodeSelectionView codes: @fieldValueCodesCollection
-      @$("select[name=type]").selectBoxIt('native': true)
-      @$("select[name=type_cmp]").selectBoxIt('native': true)
-      @$('.date-picker').datepicker().on 'changeDate', _.bind(@validateForAddition, this)
-      @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@validateForAddition, this)
-    'change select[name=type_cmp]': (e) ->
-      @model.set type_cmp: $(e.target).val()
-      @toggleAddCodesButton()
-      @validateForAddition()
-      @advanceFocusToInput()
-    'change select[name=type]': (e) ->
-      @model.set type: $(e.target).val()
-      @toggleAddCodesButton()
-      @validateForAddition()
-      @advanceFocusToInput()
-    'change select[name=code_list_id]': ->
-      @toggleAddCodesButton()
-      @validateForAddition()
-    'change select': ->
-      # @serialize.key is the selected item set to the model.key so the view can change accordingly
-      key = @serialize().key
-      if key != 'COMPONENT'
-        # clear extra values from component
-        @model.unset 'type_cmp'
-        @model.unset 'title_cmp'
-        @model.unset 'code_list_id_cmp'
-      if key == 'COMPONENT'
-        @model.set type: 'CMP'
-        @model.set type_cmp: 'CD'
-      else if key == 'FACILITY_LOCATION'
-        @model.set type: 'FAC'
-      else
-        # Default drop down to 'coded'
-        @model.set type: 'CD'
-      @toggleAddCodesButton()
-      @validateForAddition()
-      @advanceFocusToInput()
-    'keyup input': 'validateForAddition'
-    'change input': 'validateForAddition'
-    'change select[name=key]': 'changeFieldValueKey'
-    # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
-    'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
-    'click #addCodes': (e) ->
-      @showFieldValueCodeSelection(e)
-      @validateForAddition()
-
-  canSelectFieldValueCode: (concepts, key) ->
-    return bonnie.isPortfolio and @fieldValue and key in ['PRINCIPAL_DIAGNOSIS', 'DIAGNOSIS'] and concepts and @$("select[name=type]").val() == "CD"
-
-  getConcepts: (code_list_id) ->
-    return @measure?.valueSets().findWhere(oid: code_list_id)?.get('concepts')
-
-  toggleAddCodesButton: ->
-    attributes = @serialize(set: false)
-    if @canSelectFieldValueCode(@getConcepts(attributes.code_list_id), attributes.key)
-      # Show code selection for field value
-      @showAddCodesButton = true
-      @fieldValueCodesCollection.reset()
-    else
-      @showAddCodesButton = false
-    @showAddCodes = false
-    @render()
-
-  showFieldValueCodeSelection: (e) ->
-    attributes = @serialize(set: false)
-    @codeSelectionViewForFieldValues.updateConcepts(@getConcepts(attributes.code_list_id))
-    e.preventDefault()
-    @showAddCodesButton = false
-    @showAddCodes = true
-    @render()
-
-  removeFieldValueCode: (e) ->
-    e.preventDefault()
-    codeSet = $(e.target).model()?.attributes['codeset']
-    codeToRemove = $(e.target).model()?.attributes['code']
-    codeModel = @fieldValueCodesCollection.find (model) -> model.get('code') is codeToRemove and model.get('codeset') is codeSet
-    @fieldValueCodesCollection.remove(codeModel) if codeModel
-
-  advanceFocusToInput: ->
-    switch @model.get('type')
-      when 'PQ'
-        @$('input[name="value"]').focus()
-      when 'CD'
-        @$('select[name="code_list_id"]').focus()
-      when 'TS'
-        @$('input[name="start_date"]').focus()
-      when 'RT'
-        @$('input[name="numerator_scalar"]').focus()
-      when 'ID'
-        @$('input[name="root"]').focus()
-      when 'CMP'
-        switch @model.get('type_cmp')
-          when 'PQ'
-            @$('input[name="value"]').focus()
-          when 'CD'
-            @$('select[name="code_list_id"]').focus()
-          when 'TS'
-            @$('input[name="start_date"]').focus()
-    @$('.btn').focus() # advances the focus to the add Button
-
-  validateForAddition: ->
-    attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
-    isDisabled = ((attributes.type == 'PQ' || attributes.type_cmp == 'PQ') && !attributes.value) ||
-                 ((attributes.type == 'CD' || attributes.type_cmp == 'CD') && !attributes.code_list_id) ||
-                 ((attributes.type == 'TS' || attributes.type_cmp == 'TS') && !attributes.value) ||
-                 ((attributes.type == 'RT' || attributes.type_cmp == 'RT') && (!attributes.denominator_scalar || !attributes.numerator_scalar)) ||
-                 ((attributes.type == 'ID' || attributes.type_cmp == 'ID') && (!attributes.root || !attributes.extension)) ||
-                 (attributes.key == 'COMPONENT' && (!attributes.code_list_id_cmp)) ||
-                 (attributes.key == 'FACILITY_LOCATION' && !attributes.code_list_id) ||
-                 (@fieldValue && !attributes.key)
-    @$('button[data-call-method=addValue]').prop 'disabled', isDisabled
-
-  changeFieldValueKey: (e) ->
-    # If it's a date/time field, automatically chose the date type and pre-enter a date
-    attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
-    if attributes.key in ['ADMISSION_DATETIME', 'DISCHARGE_DATETIME', 'FACILITY_LOCATION_ARRIVAL_DATETIME',
-                          'FACILITY_LOCATION_DEPARTURE_DATETIME', 'INCISION_DATETIME', 'REMOVAL_DATETIME',
-                          'TRANSFER_TO_DATETIME', 'TRANSFER_FROM_DATETIME', 'RESULT_DATETIME']
-      @$('select[name=type]').val('TS').change()
-      criteria = @parent.model
-      switch attributes.key
-        when 'ADMISSION_DATETIME', 'FACILITY_LOCATION_ARRIVAL_DATETIME', 'INCISION_DATETIME', 'TRANSFER_FROM_DATETIME'
-          date = moment.utc(criteria.get('start_date')) if criteria.has('start_date')
-        when 'DISCHARGE_DATETIME', 'FACILITY_LOCATION_DEPARTURE_DATETIME', 'REMOVAL_DATETIME', 'TRANSFER_TO_DATETIME'
-          date = moment.utc(criteria.get('end_date')) if criteria.has('end_date')
-          date ?= moment.utc(criteria.get('start_date') + (15 * 60 * 1000)) if criteria.has('start_date')
-      @$('input[name=start_date]').datepicker('setDate', date.format('L')) if date
-      @$('input[name=start_date]').datepicker('update')
-      @$('input[name=start_time]').timepicker('setTime', date.format('LT')) if date
-    else if @$('select[name=type]').val() == 'TS'
-      @$('select[name=type]').val('CD').change()
-
-  addValue: (e) ->
-    e.preventDefault()
-    @serialize()
-    # This will process CMP, a collection type attribute
-    # If extending for use with other collection based attributes, add OR logic here
-    model_key = @model.get('key')
-    if (@model.get('type') == "CMP" ||
-        @model.get('type') == "FAC" ||
-        model_key == 'FACILITY_LOCATION' ||
-        model_key  == 'DIAGNOSIS'   ||
-        model_key  == 'RELATED_TO')
-
-      compare_collection = @values.findWhere(key: model_key)
-
-      # component code was put into another field to reuse the Thorax View
-      # Therefore we have to swap code_list_id_cmp with code_list_id when saving
-      if (@model.get('type') == "CMP")
-        tmp = @model.get('code_list_id_cmp')
-        @model.set code_list_id_cmp: @model.get('code_list_id')
-        @model.set code_list_id: tmp
-
-      if compare_collection
-        col = compare_collection
-        # We remove the collection and then re add it to trigger the UI to update
-        @values.remove compare_collection
-      if !col
-        # Create a thorax model collection
-        col = new Thorax.Model()
-        col.set('key', model_key)
-        col.set('type', 'COL')
-        col.set('values', [])
-      col.get('values').push @model.toJSON()
-      @values.add col
-    else
-      @values.add @model.clone()
-    # Reset model to default values
-    @model.clear()
-    @model.set type: 'CD'
-    # clear() removes fields (which we want), but then populate() doesn't clear the select; clear it
-    @$('select[name=key]').val('')
-    # Let the selectBoxIt() select box know that its value may have changed
-    @$('select[name=type]').change()
-    @triggerMaterialize()
-    @$(':focusable:visible:first').focus()
-    @fieldValueCodesCollection.reset()
-    @showAddCodes = false
-    @render()
-
-class Thorax.Views.EditCriteriaReferenceView extends Thorax.Views.EditCriteriaValueView
-  className: -> "#{if @fieldValue then 'field-' else ''}value-formset"
-
-  template: JST['patient_builder/edit_reference']
-
-  addValue: (e) ->
-    e.preventDefault()
-    @serialize()
-    ref = @find_reference(@model.get("reference_id"))
-    @model.set description: ref?.get("description")
-    start_date = ref?.get("start_date")
-    end_date = ref?.get("end_date")
-    if start_date
-      @model.set start_date: moment.utc(start_date).format('L')
-    if end_date
-      @model.set end_date: moment.utc(end_date).format('L')
-    @values.add @model.clone()
-    # Reset model to default values
-    @model.clear()
-
-    # Set the drop downs back to empty.
-    @$('select[name=reference_type]').val('')
-    @$('select[name=reference_id]').val('')
-    @triggerMaterialize()
-    @$(':focusable:visible:first').focus()
-
-  find_reference: (reference_id) ->
-    for c in this.parent.model.collection.models
-      if c.get("criteria_id") == reference_id
-        return c
-  #pulls all of the other data criteria on the page
-  #todo -- needs to be able to update the list when items are added to the builder
-  otherCriteria: ->
-    crit = []
-    for c in this.parent.model.collection.models
-      if c.get("criteria_id")!= this.parent.model.get("criteria_id")
-        crit.push { cid: c.get("criteria_id"), "description" : c.get("description")}
-    crit
-
-  context: ->
-    _(super).extend
-      references: Thorax.Models.Measure.referencesFor(@criteriaType)

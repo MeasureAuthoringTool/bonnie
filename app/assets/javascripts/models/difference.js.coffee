@@ -18,7 +18,7 @@ class Thorax.Models.Difference extends Thorax.Model
     @set done: match?, match: match, status: status, comparisons: @expected.comparison(@result)
 
   toJSON: ->
-    _(super).extend({medicalRecordNumber: @result.patient.get('medical_record_number')} if @result.isPopulated())
+    _(super).extend({medicalRecordNumber: @result.patient.get('cqmPatient').qdmPatient.id().toString()} if @result.isPopulated())
 
 class Thorax.Collections.Differences extends Thorax.Collection
   model: Thorax.Models.Difference
@@ -37,7 +37,7 @@ class Thorax.Collections.Differences extends Thorax.Collection
              else
                'fail'
     # For 508 compliance, each percentage label/input pair has to have a unique ID
-    percentage_id = 'percentage-' + Thorax.Models.MeasureDataCriteria.generateCriteriaId()
+    percentage_id = 'percentage-' + Thorax.Models.SourceDataCriteria.generateCriteriaId()
 
     @summary.set total: @length, matching: successful.length, percentage_id: percentage_id, percent: percent, done: done, status: status
     @trigger 'complete' if done

@@ -26,45 +26,45 @@
           <div class="patient-status-icon status status-{{status}}">
             {{#if ../patientsListing}}
               <label>
-                <span class="sr-only">Select {{patient.last}} {{patient.first}}</span>
+                <span class="sr-only">Select {{patientLastName}} {{patientFirstName}}</span>
                 <input type="checkbox" class="select-patient">
               </label>
             {{else}}
               {{#if done}}
                 {{#if match}}
-                  <i class="fa fa-check" aria-hidden="true"></i><span class="sr-only">{{patient.last}} {{patient.first}}, patient passing</span>
+                  <i class="fa fa-check" aria-hidden="true"></i><span class="sr-only">{{patientLastName}} {{patientFirstName}}, patient passing</span>
                 {{else}}
-                  <i class="fa fa-times" aria-hidden="true"></i><span class="sr-only">{{patient.last}} {{patient.first}}, patient failing</span>
+                  <i class="fa fa-times" aria-hidden="true"></i><span class="sr-only">{{patientLastName}} {{patientFirstName}}, patient failing</span>
                 {{/if}}
               {{/if}}
             {{/if}}
           </div>
           <div class="patient-user-icon">
-            <i class="fa fa-user" aria-hidden="true"></i><span class="sr-only">{{patient.last}} {{patient.first}}, patient result</span>
+            <i class="fa fa-user" aria-hidden="true"></i><span class="sr-only">{{patientLastName}} {{patientFirstName}}, patient result</span>
           </div>
           <div class="patient-btn">
-            {{#button "expandResult" class="close"}}<i class="fa fa-lg fa-angle-right expand-result-icon expand-result-icon-{{patient._id}}" aria-hidden="true"></i> <span class="sr-only">{{patient.last}} {{patient.first}}, Toggle Logic Pass/Fail</span>{{/button}}
+            {{#button "expandResult" class="close"}}<i class="fa fa-lg fa-angle-right expand-result-icon expand-result-icon-{{patientId}}" aria-hidden="true"></i> <span class="sr-only">{{patientLastName}} {{patientFirstName}}, Toggle Logic Pass/Fail</span>{{/button}}
           </div>
           <div class="patient-status status status-{{status}}">
-            <span class="sr-only">{{patient.last}} {{patient.first}}, status </span>{{status}}
+            <span class="sr-only">{{patientLastName}} {{patientFirstName}}, status </span>{{status}}
           </div>
           <div class="patient-name">
-            <span class="sr-only">patient name: </span>{{patient.last}} {{patient.first}}
+            <span class="sr-only">patient name: </span>{{patientLastName}} {{patientFirstName}}
           </div>
         </div>
       </div>
     </div>
-    <div class="panel-body toggle-result toggle-result-{{patient._id}} patient" style="display: none;">
+    <div class="panel-body toggle-result toggle-result-{{patientId}} patient" style="display: none;">
       {{template "population_calculation_results"}}
-      {{#link "measures/{{measure_id}}/patients/{{patient._id}}/edit" class="btn btn-primary" expand-tokens=true}}<i class="fa fa-pencil" aria-hidden="true"></i><span class="sr-only">edit patient {{patient.last}} {{patient.first}}</span>{{/link}}
+      {{#link "measures/{{measure_id}}/patients/{{patientId}}/edit" class="btn btn-primary" expand-tokens=true}}<i class="fa fa-pencil" aria-hidden="true"></i><span class="sr-only">edit patient {{patientLastName}} {{patientFirstName}}</span>{{/link}}
       {{#unless ../measure_is_composite}}
-        {{#button "clonePatient" class="btn btn-primary"}}CLONE<span class="sr-only"> patient {{patient.last}} {{patient.first}}</span>{{/button}}
+        {{#button "clonePatient" class="btn btn-primary"}}CLONE<span class="sr-only"> patient {{patientLastName}} {{patientFirstName}}</span>{{/button}}
       {{/unless}}
       {{#button "showDelete" class="btn btn-danger-inverse"}}
         <i class="fa fa-minus-circle" aria-hidden="true"></i>
-        <span class="sr-only">{{patient.last}} {{patient.first}}, Show Delete</span>
+        <span class="sr-only">{{patientLastName}} {{patientFirstName}}, Show Delete</span>
       {{/button}}
-      {{#button "deletePatient" class="btn btn-danger delete-{{patient._id}}" style="display: none;" expand-tokens=true}}Delete<span class="sr-only"> patient {{patient.last}} {{patient.first}}</span>{{/button}}
+      {{#button "deletePatient" class="btn btn-danger delete-{{patientId}}" style="display: none;" expand-tokens=true}}Delete<span class="sr-only"> patient {{patientLastName}} {{patientFirstName}}</span>{{/button}}
     </div>
   {{/collection}}
 </div>

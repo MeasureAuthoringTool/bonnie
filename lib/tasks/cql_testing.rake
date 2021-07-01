@@ -1,4 +1,5 @@
 require_relative './fixture_helper'
+require_relative '../util/cql_to_elm_helper'
 # NOTE: Tasks use array arguments to execute.
 # In order for z-shell to execute, noglob is required.
 # e.g., noglob bundle exec rake bonnie:fixtures:load_backend_fixtures[test/fake]
@@ -18,20 +19,58 @@ namespace :bonnie do
     # e.g., bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,test/fake,bonnie@test.org,CMS68v5,nil,nil]
     task :generate_frontend_cql_fixtures, [:cms_hqmf, :path, :user_email, :measure_id, :patient_first_name, :patient_last_name] => [:environment] do |t, args|
       fixtures_path = File.join('spec', 'javascripts', 'fixtures', 'json')
-      measure_file_path = File.join(fixtures_path, 'measure_data', args[:path])
-      record_file_path = File.join(fixtures_path, 'records', args[:path])
+      measure_file_path = File.join(fixtures_path, 'cqm_measure_data', args[:path])
+      record_file_path = File.join(fixtures_path, 'patients', args[:measure_id])
 
       user = User.find_by email: args[:user_email]
-      measure = get_cql_measure(user, args[:cms_hqmf], args[:measure_id])
-      records = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
-      if (args[:patient_first_name].present? && args[:patient_last_name].present?)
-        records = records.select { |r| r.first == args[:patient_first_name] && r.last == args[:patient_last_name] }
-      end
+      cqm_measure = get_cqm_measure(user, args[:cms_hqmf], args[:measure_id])
+      records = CQM::Patient.by_user_and_hqmf_set_id(user, cqm_measure.hqmf_set_id)
 
-      fixture_exporter = FrontendFixtureExporter.new(user, measure: measure, records: records)
+      fixture_exporter = FrontendFixtureExporter.new(user, measure: cqm_measure, records: records)
       fixture_exporter.export_measure_and_any_components(measure_file_path)
       fixture_exporter.export_value_sets(measure_file_path)
-      fixture_exporter.export_records(record_file_path)
+      fixture_exporter.export_records_as_individual_files(record_file_path)
+    end
+
+    desc %{Export frontend cqm fixtures for a given user account
+    example: bundle exec rake bonnie:fixtures:generate_frontend_cqm_fixtures[bonnie-fixtures@mitre.org]}
+    task :generate_frontend_cqm_fixtures, [:user_email] => [:environment] do |t, args|
+      fixtures_path = File.join('spec', 'javascripts', 'fixtures', 'json')
+      user = User.find_by email: args[:user_email]
+
+      CQM::Measure.by_user(user).each do |measure|
+        patients = CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+
+        measure_file_path = File.join(fixtures_path, 'cqm_measure_data', measure.cms_id)
+        patient_file_path = File.join(fixtures_path, 'patients', measure.cms_id)
+
+        fixture_exporter = FrontendFixtureExporter.new(user, measure: measure, records: patients)
+        fixture_exporter.export_measure_and_any_components(measure_file_path)
+        fixture_exporter.export_value_sets(measure_file_path)
+        fixture_exporter.export_records_as_individual_files(patient_file_path)
+      end
+    end
+
+    desc %{Export backend cqm fixtures for a given user account
+    example: bundle exec rake bonnie:fixtures:generate_backend_cqm_fixtures[bonnie-fixtures@mitre.org]}
+    task :generate_backend_cqm_fixtures, [:user_email] => [:environment] do |t, args|
+      fixtures_path = File.join('test', 'fixtures')
+
+      user = User.find_by email: args[:user_email]
+      CQM::Measure.by_user(user).each do |measure|
+        patients = CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+
+        measure_file_path = File.join(fixtures_path, 'measures', measure.cms_id, 'cqm_measures')
+        patient_file_path = File.join(fixtures_path, 'cqm_patients', measure.cms_id)
+        measure_package_path = File.join(fixtures_path, 'measures', measure.cms_id, 'cqm_measure_packages')
+        value_sets_path = File.join(fixtures_path, 'measures', measure.cms_id, 'cqm_value_sets')
+
+        fixture_exporter = BackendFixtureExporter.new(user, measure: measure, records: patients)
+        fixture_exporter.export_measure_and_any_components(measure_file_path)
+        fixture_exporter.try_export_measure_package(measure_package_path)
+        fixture_exporter.export_value_sets(value_sets_path)
+        fixture_exporter.export_records(patient_file_path)
+      end
     end
 
     ###
@@ -54,8 +93,8 @@ namespace :bonnie do
       value_sets_path = File.join(fixtures_path, 'health_data_standards_svs_value_sets', args[:path])
 
       user = User.find_by email: args[:user_email]
-      measure = get_cql_measure(user, args[:cms_hqmf], args[:measure_id])
-      records = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+      measure = get_cqm_measure(user, args[:cms_hqmf], args[:measure_id])
+      records = CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
 
       fixture_exporter = BackendFixtureExporter.new(user, measure: measure, records: records)
       fixture_exporter.export_measure_and_any_components(measure_file_path)
@@ -101,41 +140,43 @@ namespace :bonnie do
       collection_fixtures(measure_collection, cql_measure_collection, value_sets_collection, records_collection, users_collection)
     end
 
-    def get_cql_measure(user, cms_hqmf, measure_id)
-      if (cms_hqmf.downcase  != 'cms' && cms_hqmf.downcase != 'hqmf')
+    desc %{Export fixtures based from package files. Uses vsac credentials from environmental vars.
+    Must set up folder in test/fixtures/measures/MEASURE_NAME containing MEASURE_NAME.zip and loading_params.json.
+    example: bundle exec rake bonnie:fixtures:export_fixtures_from_packages[CMS890_v5_6]}
+    task :export_fixtures_from_packages, [:name] => [:environment] do |t, args|
+      name = args[:name]
+      fixture_path = File.join('test', 'fixtures', 'measures', name)
+      loading_params = ActiveSupport::HashWithIndifferentAccess.new(JSON.parse(File.read(File.join(fixture_path, "loading_params.json"))))
+      loading_params[:vsac_username] = ENV['VSAC_USERNAME']
+      loading_params[:vsac_password] =  ENV['VSAC_PASSWORD']
+      measure_file = File.new File.join(fixture_path, name + '.zip')
+
+      # We use the MeasuresController persist method with a dummy user to make use of the existing measure loading code
+      user = User.new
+      def user.save!
+        nil
+      end
+      measures, main_hqmf_set_id = MeasuresController.new.send :persist_measure, measure_file, loading_params, user
+
+      fixture_exporter = BackendFixtureExporter.new(nil, measure: measures.reject(&:component)[0], component_measures: measures.select(&:component))
+      fixture_exporter.export_measure_and_any_components(File.join(fixture_path,'cqm_measures'))
+      fixture_exporter.export_value_sets(File.join(fixture_path,'cqm_value_sets'))
+      fixture_exporter.try_export_measure_package(File.join(fixture_path,'cqm_measure_packages'))
+    end
+
+    def get_cqm_measure(user, cms_hqmf, measure_id)
+      if (!cms_hqmf.casecmp('cms').zero? && !cms_hqmf.casecmp('hqmf').zero?)
         throw('Argument: "' + cms_hqmf + '" does not match expected: cms or hqmf')
       end
-      CqlMeasure.by_user(user).each do |measure|
-        if (cms_hqmf.downcase  == 'cms' && measure.cms_id.downcase == measure_id.downcase)
+      CQM::Measure.by_user(user).each do |measure|
+        if (cms_hqmf.casecmp('cms').zero? && measure.cms_id.casecmp(measure_id).zero?)
           return measure
-        elsif (cms_hqmf.downcase == 'hqmf' && measure.hqmf_set_id.downcase == measure_id.downcase)
+        elsif (cms_hqmf.casecmp('hqmf').zero? && measure.hqmf_set_id.casecmp(measure_id).zero?)
           return measure
         end
       end
       throw('Argument: "' + cms_hqmf + ': ' + measure_id +'" does not match any measure id associated with user: "'+user.email+'"')
     end
-
-    def convert_times(json)
-      if json.kind_of?(Hash)
-        json.each_pair do |k,v|
-          if k.ends_with?("_at")
-            json[k] = Time.parse(v)
-          end
-        end
-      end
-    end
-
-    ###
-    # Creates and writes a fixture file.
-    #
-    # file_path: path of file to be written
-    # fixture_json: json to be written
-    def create_fixture_file(file_path, fixture_json)
-      FileUtils.mkdir_p(File.dirname(file_path)) unless Dir.exists? File.dirname(file_path)
-      File.new(file_path, "w+")
-      File.write(file_path, fixture_json)
-    end
-
   end
 
   namespace :cql do
@@ -170,10 +211,10 @@ namespace :bonnie do
 
       # extract all other files
       files = Measures::CqlLoader.get_files_from_zip(File.new(input_package_path), temp_path)
-      raise Exception.new("Package already has ELM JSON!") if files[:ELM_JSON].length > 0
+      raise StandardError.new("Package already has ELM JSON!") if files[:ELM_JSON].length > 0
 
       # translate_cql_to_elm
-      elm_jsons, elm_xmls = CqlElm::CqlToElmHelper.translate_cql_to_elm(files[:CQL])
+      elm_jsons, elm_xmls = CqlToElmHelper.translate_cql_to_elm(files[:CQL])
 
       # older packages don't have annotations or clause level annotations, if they dont have them wipe out the existing
       # XML ELM and use the ones from the translation server
@@ -223,7 +264,7 @@ namespace :bonnie do
       elm_jsons.each do |elm_json|
         elm_json_hash = JSON.parse(elm_json, max_nesting: 1000)
         if elm_json_hash['library']['annotation']
-          raise Exception.new("Translation server found error in #{elm_json_hash['library']['identifier']['id']}\n#{JSON.pretty_generate(elm_json_hash['library']['annotation'])}")
+          raise StandardError.new("Translation server found error in #{elm_json_hash['library']['identifier']['id']}\n#{JSON.pretty_generate(elm_json_hash['library']['annotation'])}")
         end
         elm_library_version = "#{elm_json_hash['library']['identifier']['id']}-#{elm_json_hash['library']['identifier']['version']}"
         json_filenames << "#{elm_library_version}.json"
@@ -241,12 +282,12 @@ namespace :bonnie do
         cql_filename = cql_node.at_xpath('xmlns:reference').attribute('value').value
         cql_libname = cql_filename.split(/[-,_]/)[0]
         json_filename = json_filenames.select { |filename| filename.start_with?(cql_libname)}
-        raise Exception.new("Could not find JSON ELM file for #{cql_libname}") unless json_filename.length > 0
+        raise StandardError.new("Could not find JSON ELM file for #{cql_libname}") unless json_filename.length > 0
 
         # update reference to ELM XML files we replaced if that was needed
         if !annotations_exist
           xml_filename = xml_filenames.select { |filename| filename.start_with?(cql_libname)}
-          raise Exception.new("Could not find XML ELM file for #{cql_libname}") unless xml_filename.length > 0
+          raise StandardError.new("Could not find XML ELM file for #{cql_libname}") unless xml_filename.length > 0
           cql_node.at_xpath('xmlns:translation/xmlns:reference').attribute('value').value = xml_filename[0]
         end
 

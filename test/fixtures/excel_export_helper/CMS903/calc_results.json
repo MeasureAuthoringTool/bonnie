@@ -1,0 +1,517 @@
+{
+  "c966": {
+    "c1366": {
+      "statement_results": {
+        "LikeCMS32": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Emergency Department ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat2": "NA",
+          "Initial Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMEDCT 4525004]",
+          "ArrivalTime": "FUNCTION",
+          "Observation Services Order": "FUNCTION",
+          "Departure Time": "FUNCTION",
+          "Arrival to Observation Order or Departure Time": "FUNCTION",
+          "Measure Observation": "FUNCTION",
+          "Measure Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMEDCT 4525004]",
+          "Measure Population Exclusions": "FALSE ([])",
+          "Strat1": "NA",
+          "GetPrincipalDiagnosisCode": "NA",
+          "Strat3": "NA"
+        }
+      },
+      "criteria": {
+        "IPP": 1,
+        "MSRPOPL": 1,
+        "MSRPOPLEX": 0,
+        "observation_values": [
+          15
+        ]
+      }
+    },
+    "c1375": {
+      "statement_results": {
+        "LikeCMS32": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Emergency Department ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat2": "NA",
+          "Initial Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "ArrivalTime": "FUNCTION",
+          "Observation Services Order": "FUNCTION",
+          "Departure Time": "FUNCTION",
+          "Arrival to Observation Order or Departure Time": "FUNCTION",
+          "Measure Observation": "FUNCTION",
+          "Measure Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "Measure Population Exclusions": "FALSE ([])",
+          "Strat1": "NA",
+          "GetPrincipalDiagnosisCode": "NA",
+          "Strat3": "NA"
+        }
+      },
+      "criteria": {
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 0,
+        "observation_values": [
+          15,
+          25
+        ]
+      }
+    },
+    "c1386": {
+      "statement_results": {
+        "LikeCMS32": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Emergency Department ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat2": "NA",
+          "Initial Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMEDCT 4525004]",
+          "ArrivalTime": "FUNCTION",
+          "Observation Services Order": "FUNCTION",
+          "Departure Time": "FUNCTION",
+          "Arrival to Observation Order or Departure Time": "FUNCTION",
+          "Measure Observation": "FUNCTION",
+          "Measure Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMEDCT 4525004]",
+          "Measure Population Exclusions": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat1": "NA",
+          "GetPrincipalDiagnosisCode": "NA",
+          "Strat3": "NA"
+        }
+      },
+      "criteria": {
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 1,
+        "observation_values": [
+          15
+        ]
+      }
+    },
+    "c1397": {
+      "statement_results": {
+        "LikeCMS32": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Emergency Department ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat2": "NA",
+          "Initial Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "ArrivalTime": "FUNCTION",
+          "Observation Services Order": "FUNCTION",
+          "Departure Time": "FUNCTION",
+          "Arrival to Observation Order or Departure Time": "FUNCTION",
+          "Measure Observation": "FUNCTION",
+          "Measure Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "Measure Population Exclusions": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat1": "NA",
+          "GetPrincipalDiagnosisCode": "NA",
+          "Strat3": "NA"
+        }
+      },
+      "criteria": {
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 2,
+        "observation_values": []
+      }
+    }
+  },
+  "c967": {
+    "c1366": {
+      "statement_results": {
+        "LikeCMS32": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Emergency Department ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat2": "NA",
+          "Initial Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMEDCT 4525004]",
+          "ArrivalTime": "FUNCTION",
+          "Observation Services Order": "FUNCTION",
+          "Departure Time": "FUNCTION",
+          "Arrival to Observation Order or Departure Time": "FUNCTION",
+          "Measure Observation": "FUNCTION",
+          "Measure Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMEDCT 4525004]",
+          "Measure Population Exclusions": "FALSE ([])",
+          "Strat1": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMEDCT 4525004]",
+          "GetPrincipalDiagnosisCode": "NA",
+          "Strat3": "NA"
+        }
+      },
+      "criteria": {
+        "IPP": 1,
+        "MSRPOPL": 1,
+        "MSRPOPLEX": 0,
+        "STRAT": 1,
+        "observation_values": [
+          15
+        ]
+      }
+    },
+    "c1375": {
+      "statement_results": {
+        "LikeCMS32": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Emergency Department ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat2": "NA",
+          "Initial Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "ArrivalTime": "FUNCTION",
+          "Observation Services Order": "FUNCTION",
+          "Departure Time": "FUNCTION",
+          "Arrival to Observation Order or Departure Time": "FUNCTION",
+          "Measure Observation": "FUNCTION",
+          "Measure Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "Measure Population Exclusions": "FALSE ([])",
+          "Strat1": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004]",
+          "GetPrincipalDiagnosisCode": "NA",
+          "Strat3": "NA"
+        }
+      },
+      "criteria": {
+        "IPP": 1,
+        "MSRPOPL": 1,
+        "MSRPOPLEX": 0,
+        "STRAT": 1,
+        "observation_values": [
+          25
+        ]
+      }
+    },
+    "c1386": {
+      "statement_results": {
+        "LikeCMS32": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Emergency Department ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat2": "NA",
+          "Initial Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMEDCT 4525004]",
+          "ArrivalTime": "FUNCTION",
+          "Observation Services Order": "FUNCTION",
+          "Departure Time": "FUNCTION",
+          "Arrival to Observation Order or Departure Time": "FUNCTION",
+          "Measure Observation": "FUNCTION",
+          "Measure Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMEDCT 4525004]",
+          "Measure Population Exclusions": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat1": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMEDCT 4525004]",
+          "GetPrincipalDiagnosisCode": "NA",
+          "Strat3": "NA"
+        }
+      },
+      "criteria": {
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 1,
+        "STRAT": 2,
+        "observation_values": [
+          15
+        ]
+      }
+    },
+    "c1397": {
+      "statement_results": {
+        "LikeCMS32": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Emergency Department ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat2": "NA",
+          "Initial Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "ArrivalTime": "FUNCTION",
+          "Observation Services Order": "FUNCTION",
+          "Departure Time": "FUNCTION",
+          "Arrival to Observation Order or Departure Time": "FUNCTION",
+          "Measure Observation": "FUNCTION",
+          "Measure Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "Measure Population Exclusions": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat1": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "GetPrincipalDiagnosisCode": "NA",
+          "Strat3": "NA"
+        }
+      },
+      "criteria": {
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 2,
+        "STRAT": 2,
+        "observation_values": []
+      }
+    }
+  },
+  "c968": {
+    "c1366": {
+      "statement_results": {
+        "LikeCMS32": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Emergency Department ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat2": "FALSE ([])",
+          "Initial Population": "UNHIT",
+          "ArrivalTime": "FUNCTION",
+          "Observation Services Order": "FUNCTION",
+          "Departure Time": "FUNCTION",
+          "Arrival to Observation Order or Departure Time": "FUNCTION",
+          "Measure Observation": "FUNCTION",
+          "Measure Population": "UNHIT",
+          "Measure Population Exclusions": "UNHIT",
+          "Strat1": "NA",
+          "GetPrincipalDiagnosisCode": "NA",
+          "Strat3": "NA"
+        }
+      },
+      "criteria": {
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "STRAT": 0,
+        "observation_values": []
+      }
+    },
+    "c1375": {
+      "statement_results": {
+        "LikeCMS32": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Emergency Department ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat2": "FALSE ([])",
+          "Initial Population": "UNHIT",
+          "ArrivalTime": "FUNCTION",
+          "Observation Services Order": "FUNCTION",
+          "Departure Time": "FUNCTION",
+          "Arrival to Observation Order or Departure Time": "FUNCTION",
+          "Measure Observation": "FUNCTION",
+          "Measure Population": "UNHIT",
+          "Measure Population Exclusions": "UNHIT",
+          "Strat1": "NA",
+          "GetPrincipalDiagnosisCode": "NA",
+          "Strat3": "NA"
+        }
+      },
+      "criteria": {
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "STRAT": 0,
+        "observation_values": []
+      }
+    },
+    "c1386": {
+      "statement_results": {
+        "LikeCMS32": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Emergency Department ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat2": "FALSE ([])",
+          "Initial Population": "UNHIT",
+          "ArrivalTime": "FUNCTION",
+          "Observation Services Order": "FUNCTION",
+          "Departure Time": "FUNCTION",
+          "Arrival to Observation Order or Departure Time": "FUNCTION",
+          "Measure Observation": "FUNCTION",
+          "Measure Population": "UNHIT",
+          "Measure Population Exclusions": "UNHIT",
+          "Strat1": "NA",
+          "GetPrincipalDiagnosisCode": "NA",
+          "Strat3": "NA"
+        }
+      },
+      "criteria": {
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "STRAT": 0,
+        "observation_values": []
+      }
+    },
+    "c1397": {
+      "statement_results": {
+        "LikeCMS32": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Emergency Department ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat2": "FALSE ([])",
+          "Initial Population": "UNHIT",
+          "ArrivalTime": "FUNCTION",
+          "Observation Services Order": "FUNCTION",
+          "Departure Time": "FUNCTION",
+          "Arrival to Observation Order or Departure Time": "FUNCTION",
+          "Measure Observation": "FUNCTION",
+          "Measure Population": "UNHIT",
+          "Measure Population Exclusions": "UNHIT",
+          "Strat1": "NA",
+          "GetPrincipalDiagnosisCode": "NA",
+          "Strat3": "NA"
+        }
+      },
+      "criteria": {
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "STRAT": 0,
+        "observation_values": []
+      }
+    }
+  },
+  "c969": {
+    "c1366": {
+      "statement_results": {
+        "LikeCMS32": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Emergency Department ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat2": "NA",
+          "Initial Population": "UNHIT",
+          "ArrivalTime": "FUNCTION",
+          "Observation Services Order": "FUNCTION",
+          "Departure Time": "FUNCTION",
+          "Arrival to Observation Order or Departure Time": "FUNCTION",
+          "Measure Observation": "FUNCTION",
+          "Measure Population": "UNHIT",
+          "Measure Population Exclusions": "UNHIT",
+          "Strat1": "NA",
+          "GetPrincipalDiagnosisCode": "FUNCTION",
+          "Strat3": "FALSE ([])"
+        }
+      },
+      "criteria": {
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "STRAT": 0,
+        "observation_values": []
+      }
+    },
+    "c1375": {
+      "statement_results": {
+        "LikeCMS32": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Emergency Department ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat2": "NA",
+          "Initial Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "ArrivalTime": "FUNCTION",
+          "Observation Services Order": "FUNCTION",
+          "Departure Time": "FUNCTION",
+          "Arrival to Observation Order or Departure Time": "FUNCTION",
+          "Measure Observation": "FUNCTION",
+          "Measure Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "Measure Population Exclusions": "FALSE ([])",
+          "Strat1": "NA",
+          "GetPrincipalDiagnosisCode": "FUNCTION",
+          "Strat3": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]"
+        }
+      },
+      "criteria": {
+        "IPP": 1,
+        "MSRPOPL": 1,
+        "MSRPOPLEX": 0,
+        "STRAT": 1,
+        "observation_values": [
+          15
+        ]
+      }
+    },
+    "c1386": {
+      "statement_results": {
+        "LikeCMS32": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Emergency Department ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat2": "NA",
+          "Initial Population": "UNHIT",
+          "ArrivalTime": "FUNCTION",
+          "Observation Services Order": "FUNCTION",
+          "Departure Time": "FUNCTION",
+          "Arrival to Observation Order or Departure Time": "FUNCTION",
+          "Measure Observation": "FUNCTION",
+          "Measure Population": "UNHIT",
+          "Measure Population Exclusions": "UNHIT",
+          "Strat1": "NA",
+          "GetPrincipalDiagnosisCode": "FUNCTION",
+          "Strat3": "FALSE ([])"
+        }
+      },
+      "criteria": {
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "STRAT": 0,
+        "observation_values": []
+      }
+    },
+    "c1397": {
+      "statement_results": {
+        "LikeCMS32": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Emergency Department ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMEDCT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMEDCT 4525004]",
+          "Strat2": "NA",
+          "Initial Population": "UNHIT",
+          "ArrivalTime": "FUNCTION",
+          "Observation Services Order": "FUNCTION",
+          "Departure Time": "FUNCTION",
+          "Arrival to Observation Order or Departure Time": "FUNCTION",
+          "Measure Observation": "FUNCTION",
+          "Measure Population": "UNHIT",
+          "Measure Population Exclusions": "UNHIT",
+          "Strat1": "NA",
+          "GetPrincipalDiagnosisCode": "FUNCTION",
+          "Strat3": "FALSE ([])"
+        }
+      },
+      "criteria": {
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "STRAT": 0,
+        "observation_values": []
+      }
+    }
+  }
+}

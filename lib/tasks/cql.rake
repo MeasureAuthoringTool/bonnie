@@ -1,6 +1,12 @@
+require_relative '../util/cql_to_elm_helper'
+
 #  -*- coding: utf-8 -*-
+
 namespace :bonnie do
+
   namespace :cql do
+
+    require 'colorize'
 
     desc %{Recreates the JSON elm stored on CQL measures using an instance of
       a locally running CQLTranslationService JAR.
@@ -11,7 +17,7 @@ namespace :bonnie do
       update_fails = 0
       orphans = 0
       fields_diffs = Hash.new(0)
-      CqlMeasure.all.each do |measure|
+      CQM::Measure.all.each do |measure|
         begin
           # Grab the user, we need this to output the name of the user who owns
           # this measure. Also comes in handy when detecting measures uploaded
@@ -60,7 +66,7 @@ namespace :bonnie do
               # Grab the measure cql
               cql = measure[:cql]
               # Use the CQL-TO-ELM Translation Service to regenerate elm for older measures.
-              elm_json, elm_xml = CqlElm::CqlToElmHelper.translate_cql_to_elm(cql)
+              elm_json, elm_xml = CqlToElmHelper.translate_cql_to_elm(cql)
               elms = {:ELM_JSON => elm_json,
                       :ELM_XML => elm_xml}
               cql_artifacts = Measures::CqlLoader.process_cql(elms, main_cql_library, user, nil, nil, measure.hqmf_set_id)
@@ -117,28 +123,28 @@ namespace :bonnie do
       differences
     end
 
-    desc %{Outputs user accounts that have cql measures and which measures are cql in their accounts.
-      Example test@test.com  
+    desc %{Outputs groups that have cql measures and which measures are cql in their accounts.
+      Example test@test.com
                 CMS_ID: xxx   TITLE: Measure Title
     $ rake bonnie:cql:cql_measure_stats}
     task :cql_measure_stats => :environment do
 
       # Collect user info from CQL measures
-      users = {}
-      CqlMeasure.all.each do |m|
-        users[m.user_id.to_s] = [] unless users.key? m.user_id.to_s
-        users[m.user_id.to_s].push({cms_id: m.cms_id, title: m.title})
+      groups = {}
+      CQM::Measure.all.each do |m|
+        groups[m.group_id.to_s] = [] unless groups.key? m.group_id.to_s
+        groups[m.group_id.to_s].push({cms_id: m.cms_id, title: m.title})
       end
 
       # Print info
-      users.each do |u, m_array|
-        user = User.find_by(id: u)
-        puts 'User: ' + user.email
+      groups.each do |g, m_array|
+        group = Group.find_by(id: g)
+        puts 'Group: ' + group.name
         m_array.each do |m|
           puts "  CMS_ID: #{m[:cms_id]}  TITLE: #{m[:title]}"
         end
       end
-      
+
     end
   end
 end

@@ -1,0 +1,10 @@
+/apps/stg/tacoma/ruby/bonnie/current/log/production.log {
+    monthly
+    missingok
+    notifempty
+    rotate 36
+    compress
+    delaycompress
+    copytruncate
+    su bamboouser bamboouser
+}

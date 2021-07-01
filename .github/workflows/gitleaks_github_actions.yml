@@ -9,20 +9,20 @@ jobs:
     env:
       REPO: https://github.com/MeasureAuthoringTool/bonnie
       REMOTE_EXCLUDES_URL: https://raw.githubusercontent.com/semanticbits/bmat-gitleaks-automation/master/bonnie/gitleaks.toml
-      GITLEAKS_VERSION: v7.0.2
+      GITLEAKS_VERSION: v7.0.1
     steps:
-      - name: Execute Gitleaks
-        run: |
-          wget ${REMOTE_EXCLUDES_URL} -O gitleaks.toml
-          wget https://github.com/zricethezav/gitleaks/releases/download/${GITLEAKS_VERSION}/gitleaks-linux-amd64 -O gitleaks
-          chmod +x gitleaks
-          echo ${GITHUB_SHA}
-          echo "gitleaks --repo-url=${REPO} -v --redact --commit=${GITHUB_SHA} --config-path=gitleaks.toml"
-          ./gitleaks --repo-url=${REPO} -v --redact --commit=${GITHUB_SHA} --config-path=gitleaks.toml
-      - name: Slack notification
-        if: failure()
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-        uses: Ilshidur/action-slack@master
-        with:
-          args: 'Potential Secrets found in: https://github.com/{{ GITHUB_REPOSITORY }}/commit/{{ GITHUB_SHA }} Link to build with full gitleaks output: https://github.com/{{ GITHUB_REPOSITORY }}/commit/{{ GITHUB_SHA }}/checks'
+    - name: Execute Gitleaks
+      run: |
+        wget ${REMOTE_EXCLUDES_URL} -O gitleaks.toml
+        wget https://github.com/zricethezav/gitleaks/releases/download/${GITLEAKS_VERSION}/gitleaks-linux-amd64 -O gitleaks
+        chmod +x gitleaks
+        echo ${GITHUB_SHA}
+        echo "gitleaks --repo-url=${REPO} -v --redact --commit=${GITHUB_SHA} --config=gitleaks.toml"
+        ./gitleaks --repo-url=${REPO} -v --redact --commit=${GITHUB_SHA} --config=gitleaks.toml
+    - name: Slack notification
+      if: failure()
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      uses: Ilshidur/action-slack@master
+      with:
+        args: 'Potential Secrets found in: https://github.com/{{ GITHUB_REPOSITORY }}/commit/{{ GITHUB_SHA }} Link to build with full gitleaks output: https://github.com/{{ GITHUB_REPOSITORY }}/commit/{{ GITHUB_SHA }}/checks'
