@@ -12,7 +12,8 @@ class Thorax.Views.GroupEditDialog extends Thorax.Views.BonnieView
     'click button#save_group': 'submit',
     'keyup input#email': 'validateEmail',
     'keyup input#name': 'validateGroupName',
-    'ready': 'setup'
+    'ready': 'setup',
+    'click button#addUser': 'addUser'
 
   setup: ->
     @groupEditDialog = @$("#group_edit_dialog")
@@ -115,6 +116,9 @@ class Thorax.Views.DisplayGroupUsersView extends Thorax.Views.BonnieView
     )
     @confirmationDialog.appendTo($('#bonnie'))
     @confirmationDialog.display()
+
+  events:
+    'click button.confirmRemoveUser': 'confirmRemoveUser'
 
   removeUser: (userId) ->
     @model.get('usersToRemove').push(userId)

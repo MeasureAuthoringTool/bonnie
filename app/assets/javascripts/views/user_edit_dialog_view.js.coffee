@@ -17,6 +17,7 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
       @$el.on 'hidden.bs.modal', -> @remove()
     'click #saveUserDialogOK': 'submit'
     'click #saveUserDialogCancel': 'cancel'
+    'click button#addGroup': 'addGroup'
     'ready': 'setup'
     serialize: (attr) ->
       attr.admin ?= false
