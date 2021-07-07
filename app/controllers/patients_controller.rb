@@ -77,7 +77,9 @@ class PatientsController < ApplicationController
 
     measure_id = params[:measure_id]
     uploaded_file = params[:patient_import_file]
-    raise UploadedFileNotZip.new if uploaded_file.content_type != "application/zip"
+    if uploaded_file.content_type != "application/zip" && uploaded_file.content_type != "application/x-zip-compressed"
+      raise UploadedFileNotZip.new
+    end
 
     measure = CQM::Measure.where(id: measure_id).first
     raise MeasureUpdateMeasureNotFound.new if measure.nil?
