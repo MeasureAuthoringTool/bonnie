@@ -63,7 +63,7 @@ jobs:
       - name: Build and test with Rake
         env:
           RAILS_ENV: test
-          BONNIE_PATIENT_CONV_URL: http://localhost:5050/patients/convertMany
+          BONNIE_PATIENT_CONV_URL: https://bonniedev-fhir.semanticbits.com/bonnie-patient-conversion/patients/convertMany
         uses: GabrielBB/xvfb-action@v1
         with:
           run: bundle exec rake test
