@@ -119,7 +119,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
         when 'Ratio' then new Thorax.Views.InputRatioView()
         when 'String' then new Thorax.Views.InputStringView({ allowNull: false })
         when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
-        when 'relatedTo' then new Thorax.Views.InputRelatedToView(sourceDataCriteria: @parent.parent.parent.model.get('source_data_criteria'), currentDataElementId: @dataElement.id)
+        when 'relatedTo' then new Thorax.Views.InputRelatedToView(sourceDataCriteria: @parent.model.collection.models, currentDataElementId: @dataElement.id)
         else null
     @showInputViewPlaceholder = !@inputView?
     @listenTo(@inputView, 'valueChanged', @updateAddButtonStatus) if @inputView?
