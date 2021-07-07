@@ -16,9 +16,11 @@ defaults: &defaults
   # Place holder email addresses for email alerts. This email is not valid.
   # This email should be configured in a '<root>/config/email.yml' file
   # for deployments.
+  smtp_hostname: "localhost"
+  smtp_port: 25
+  smtp_tls: false
   bonnie_email: bonnie@example.com # For standard notifications
   bonnie_error_email: bonnie@example.com # For frontend/backend exceptions
-  patient_conversion_service_url: https://bonniedev-fhir.semanticbits.com/bonnie-patient-conversion/patients/convertMany
 
   virus_scan:
     enabled: false
@@ -34,9 +36,16 @@ test:
 
 production:
   <<: *defaults
-  patient_conversion_service_url: http://localhost:5050/patients/convertMany
+  patient_conversion_service_url: <%= ENV["BONNIE_PATIENT_CONV_URL"] %>
+  hostname: <%= ENV["BONNIE_HOSTNAME"] %>
+  smtp_hostname: <%= ENV["BONNIE_SMTP_HOSTNAME"] %>
+  smtp_port: <%= ENV["BONNIE_SMTP_PORT"] %>
+  smtp_username: <%= ENV["BONNIE_SMTP_USERNAME"] %>
+  smtp_password: <%= ENV["BONNIE_SMTP_PASSWORD"] %>
+  smtp_tls: <%= ENV["BONNIE_SMTP_TLS"] %>
+  bonnie_email: <%= ENV["BONNIE_EMAIL"] %>
+  bonnie_error_email: <%= ENV["BONNIE_ERROR_EMAIL"] %>
   virus_scan:
-    enabled: true
-    scan_url: 'http://localhost:5000/scan-file'
-    api_key: '1234567'
-    timeout: 30
+    enabled: <%= ENV["VIRUS_SCAN_ENABLED"] %>
+    scan_url: <%= ENV["VIRUS_SCAN_URL"] %>
+    api_key: <%= ENV["VIRUS_SCAN_API_KEY"] %>
