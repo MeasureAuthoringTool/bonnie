@@ -60,4 +60,9 @@ class ApplicationController < ActionController::Base
       :current_user => current_user
     }
   end
+
+  def get_count_by_id(group_objects, id)
+    count_obj = group_objects.detect { |group_object| group_object['_id'] == id.to_s }
+    count_obj ? count_obj['count'] : 0
+  end
 end
