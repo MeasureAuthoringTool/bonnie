@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="form-group col-md-6 quantity-interval-start">
+    <div class="control-label"><i class="fa fa-balance-scale" aria-hidden="true"></i> Low</div>
+    <div class="quantity-control-nullable">
+      <div class="col-md-2 quantity-null-toggle">
+        <label for="low_quantity_{{cid}}_is_defined" class="sr-only">low quantity is defined</label>
+        <input type="checkbox" name="low_quantity_is_defined" id="low_quantity_{{cid}}_is_defined" value="true" {{#if lowIsDefined}}checked{{/if}}/>
+      </div>
+      <div class="col-md-11">
+        {{view lowView}}
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group col-md-6 quantity-interval-end">
+    <div class="control-label"><i class="fa fa-balance-scale" aria-hidden="true"></i> High</div>
+    <div class="quantity-control-nullable">
+      <div class="quantity-null-toggle">
+        <label for="high_quantity_{{cid}}_is_defined" class="sr-only">high quantity is defined</label>
+        <input type="checkbox" name="high_quantity_is_defined" id="high_quantity_{{cid}}_is_defined" value="true" {{#if highIsDefined}}checked{{/if}}/>
+      </div>
+      <div class="col-md-11">
+        {{view highView}}
+      </div>
+    </div>
+  </div>
+</div>

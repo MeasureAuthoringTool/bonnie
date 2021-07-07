@@ -16,7 +16,7 @@
           </div>
           {{#if showLoadInformation}}
             <div class="alert alert-warning">
-              Measure Data file types can include:
+              Measure Data file types can include: 
               <ul>
                 <li><a href="https://www.emeasuretool.cms.gov/" target="_blank">Measure Authoring Tool Zip file export (CQL-based Packages only)</a></li>
               </ul>
@@ -29,7 +29,7 @@
                <input class="file nice_input" type="file" id="measureFileInput" name="measure_file">
              </div>
           </div>
-
+         
           <div class="hidden" id="vsacCachedMsg">
             <div class="form-group">
               <label class="col-sm-{{titleSize}} control-label">VSAC Credentials</label>
@@ -38,7 +38,7 @@
               </div>
             </div>
           </div>
-          <div class="hidden" id="vsacSignIn">
+          <div class="hidden vsac-sign-in" id="vsacSignIn">
             <div class="form-group">
               <label for="vsacApiKey" class="col-sm-{{titleSize}} control-label">VSAC API Key</label>
               <div class="col-sm-{{subtract dataSize 1}}">
@@ -47,7 +47,7 @@
               <div class="col-sm-1 vsac-help-container">
                 <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus"
                   data-title="VSAC API Key"
-                  data-content='<p>You can find your API key by going to <a href="https://uts.nlm.nih.gov/license.html" target="_blank">https://uts.nlm.nih.gov/</a>, signing in to your UTS account, and clicking “<strong>My Profile</strong>.” If you do not already have an API key, you can generate one by clicking “<strong>Edit Profile</strong>” then checking the box that says “<strong>Generate new API Key</strong>” then clicking “<strong>Save Profile</strong>.”</p>'
+                  data-content='<p>You can find your API key by going to <a href="https://uts.nlm.nih.gov/" target="_blank">https://uts.nlm.nih.gov/</a>, signing in to your UTS account, and clicking “<strong>My Profile</strong>.” If you do not already have an API key, you can generate one by clicking “<strong>Edit Profile</strong>” then checking the box that says “<strong>Generate new API Key</strong>” then clicking “<strong>Save Profile</strong>.”</p>'
                   data-placement="bottom">
                   <i class="fa fa-info-circle"></i>
                 </a>
@@ -89,7 +89,7 @@
                   <p>An expansion profile is a set of instructions for calculating value set content based on specific
                     code system versions and retired legacy codes. For more information on expansion profiles, visit
                     the NLM VSAC website.</p>
-                  <p>The default selected profile is ‘Latest eCQM’. ‘Latest eCQM’ represents either an upcoming profile
+                  <p>The default selected profile is ‘Latest eCQM’. ‘Latest eCQM’ represents either an upcoming profile 
                     or the latest published profile, which is identified in the angle brackets following ‘Latest eCQM’
                      in the drop down.</p>
                   <p>If the 'Draft' option is checked and the VSAC user has authoring permissions, value sets in draft
@@ -155,7 +155,7 @@
                 <div class="switch-toggle switch-custom">
                   <input id="measureTypeRadios" type="radio" name="measure_type" value="ep" checked="true">
                   <label for="measureTypeRadios" onclick=""><i class="fa fa-user-md" aria-hidden="true"></i><span class="sr-only">Measure type</span> Eligible Professional</label>
-                  <input id="EH" type="radio" name="measure_type" value="eh">
+                  <input id="EH" type="radio" name="measure_type" value="eh"> 
                   <label for="EH" onclick=""><i class="fa fa-h-square" aria-hidden="true"></i><span class="sr-only">Measure type</span> Eligible Hospital</label>
                   <a class="btn btn-primary"></a>
                 </div>
@@ -173,7 +173,7 @@
             {{else}}
               <div class="col-sm-{{dataSize}}">
                 <div class="switch-toggle switch-custom">
-                  <input id="calculationTypeRadios" type="radio" name="calculation_type" value="patient" checked="true">
+                  <input id="calculationTypeRadios" type="radio" name="calculation_type" value="patient" checked="true"> 
                   <label for="calculationTypeRadios" onclick=""><i class="fa fa-user" aria-hidden="true"></i><span class="sr-only">Calculation type</span> Patient Based</label>
                   <input id="EC" type="radio" name="calculation_type" value="episode">
                   <label for="EC" onclick=""><i class="fa fa-stethoscope" aria-hidden="true"></i><span class="sr-only">Calculation type</span> Episode of Care</label>
@@ -215,7 +215,7 @@
             <div class="col-sm-offset-{{titleSize}}">
             {{#button "close" class="btn btn-default" data-dismiss="modal"}}Close{{/button}}
             {{#button "submit" class="btn btn-primary" id="loadButton" disabled=true}}Load{{/button}}
-            </div>
+            </div>  
           </div>
       </div>
     </div><!-- /.modal-content -->

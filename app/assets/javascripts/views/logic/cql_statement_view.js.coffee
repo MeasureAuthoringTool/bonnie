@@ -101,7 +101,7 @@ class Thorax.Views.CqlResultStatement extends Thorax.Views.CqlStatement
     _(super)
     @latestResult = statementResult
     if @latestResult && @latestResult.raw
-      @latestResultString = CQLResultsHelpers.prettyResult(@latestResult.raw)
+      @latestResultString = @latestResult.pretty
     else
       @latestResultString = "No Result Calculated"
 

@@ -10,7 +10,7 @@
 # WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 # GO AFTER THE REQUIRES BELOW.
 #
-#= require jquery/jquery.min
+#= require jquery/dist/jquery.min
 #= require jquery_ujs
 #= require bootstrap/dist/js/bootstrap.min
 #= require bootstrap-datepicker/js/bootstrap-datepicker
@@ -21,6 +21,7 @@
 #= require underscore/underscore-min
 #= require backbone/backbone-min
 #= require backbone.paginator/lib/backbone.paginator.min
+#= require cqm-execution/dist/browser
 #= require thorax/thorax
 #= require moment/min/moment.min
 #= require d3/d3
@@ -32,11 +33,10 @@
 #= require jquery-color/jquery.color
 #= require bootstrap-file-input/bootstrap.file-input
 #= require MutationObserver-shim/dist/mutationobserver.min
+#= require tinymce
 #
 #= require costanza/js/costanza
 #= require costanza/thorax
-#
-#= require cql_qdm_patientapi
 #
 #= require helpers
 #= require_tree ./templates
@@ -44,10 +44,9 @@
 #= require_tree ./helpers
 #= require_tree ./views
 #= require calculator
-#= require cql_calculator
+#= require cqm_calculator
 #= require calculator_selector
 #= require router
-#= require measure_libraries
 #= require_self
 #= require_tree .
 

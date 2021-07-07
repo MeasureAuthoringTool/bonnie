@@ -1,21 +1,20 @@
 class MeasuresController < ApplicationController
+  include MeasureHelper
+  include VirusScanHelper
 
-  skip_before_action :verify_authenticity_token, only: [:show, :value_sets]
+  skip_before_action :verify_authenticity_token, only: [:show]
 
   respond_to :json, :js, :html
 
   def show
+    # TODO: I think skippable_fields can be removed with the 'without(*skippable_fields)' below
     skippable_fields = [:map_fns, :record_ids, :measure_attributes]
-    # Lookup the measure both in the regular and CQL sets
-    # TODO: Can we skip the elm if it's CQL?
-    @measure = Measure.by_user(current_user).without(*skippable_fields).where(id: params[:id]).first
-    @measure ||= CqlMeasure.by_user(current_user).without(*skippable_fields).where(id: params[:id]).first
+    @measure = CQM::Measure.by_user(current_user).without(*skippable_fields).where(id: params[:id]).first
     raise Mongoid::Errors::DocumentNotFound unless @measure
     if stale? last_modified: @measure.updated_at.try(:utc), etag: @measure.cache_key
-      raw_json = @measure.as_json(except: skippable_fields)
-      # fix up statement names in cql_statement_dependencies to use original periods <<UNWRAP 1>>
-      # this is matched with a WRAP in process_cql in the bonnie_bundler project
-      Measures::MongoHashKeyWrapper::unwrapKeys raw_json['cql_statement_dependencies'] if raw_json.has_key?('cql_statement_dependencies')
+      raw_json = @measure.as_document.as_json(except: skippable_fields)
+      value_sets = @measure.value_sets
+      raw_json['value_sets'] = value_sets.as_json
       @measure_json = MultiJson.encode(raw_json)
       respond_with @measure do |format|
         format.json { render json: @measure_json }
@@ -23,174 +22,63 @@ class MeasuresController < ApplicationController
     end
   end
 
-  def value_sets
-    # Caching of value sets is (temporarily?) disabled to correctly handle cases where users use multiple accounts
-    # if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)
-    if true
-      value_set_oids = Measure.by_user(current_user).only(:value_set_oids).pluck(:value_set_oids).flatten.uniq
-      value_set_oids += CqlMeasure.by_user(current_user).only(:value_set_oids).pluck(:value_set_oids).flatten.uniq
-
-      # Not the cleanest code, but we get a many second performance improvement by going directly to Moped
-      # (The two commented lines are functionally equivalent to the following three uncommented lines, if slower)
-      # value_sets_by_oid = HealthDataStandards::SVS::ValueSet.in(oid: value_set_oids).index_by(&:oid)
-      # @value_sets_by_oid_json = MultiJson.encode(value_sets_by_oid.as_json(except: [:_id, :code_system, :code_system_version]))
-      value_sets = Mongoid::Clients.default[HealthDataStandards::SVS::ValueSet.collection_name].find({oid: { '$in' => value_set_oids }, user_id: current_user.id}, {'concepts.code_system' => 0, 'concepts.code_system_version' => 0})
-
-      value_set_map = {}
-      value_sets.each do |vs|
-        if !value_set_map.key?(vs['oid'])
-          value_set_map[vs['oid']] = {}
-        end
-        value_set_map[vs['oid']][vs['version']] = vs
-      end
-      @value_sets_by_oid_json = MultiJson.encode value_set_map
-
-      respond_with @value_sets_by_oid_json do |format|
-        format.json { render json: @value_sets_by_oid_json }
-      end
-    end
-  end
-
   def create
-    if !params[:measure_file]
+    if params[:measure_file].blank?
       flash[:error] = {title: "Error Loading Measure", body: "You must specify a Measure Authoring tool measure export to use."}
       redirect_to "#{root_path}##{params[:redirect_route]}"
       return
     end
 
-    measure_details = {
-     'type'=>params[:measure_type],
-     'episode_of_care'=>params[:calculation_type] == 'episode',
-     'calculate_sdes'=>params[:calc_sde]
-    }
-
-    extension = File.extname(params[:measure_file].original_filename).downcase if params[:measure_file]
-    if !extension || extension != '.zip'
-      flash[:error] = {title: "Error Loading Measure",
-        summary: "Incorrect Upload Format.",
-        body: 'The file you have uploaded does not appear to be a Measure Authoring Tool (MAT) zip export of a measure. Please re-package and re-export your measure from the MAT.<br/>.'.html_safe}
-      redirect_to "#{root_path}##{params[:redirect_route]}"
-      return
-    elsif !Measures::CqlLoader.mat_cql_export?(params[:measure_file])
-      flash[:error] = {title: "Error Uploading Measure",
-        summary: "The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.",
-        body: 'Please re-package and re-export your measure from the MAT.<br/>.'.html_safe}
-      redirect_to "#{root_path}##{params[:redirect_route]}"
-      return
-    end
-    #If we get to this point, then the measure that is being uploaded is a MAT export of CQL
     begin
-      # parse VSAC options using helper and get ticket_granting_ticket which is always needed
-      vsac_options = MeasureHelper.parse_vsac_parameters(params)
-      vsac_ticket_granting_ticket = get_ticket_granting_ticket
-
-      is_update = false
-      if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
-        existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
-        if !existing.nil?
-          is_update = true
-          measure_details['type'] = existing.type
-          measure_details['episode_of_care'] = existing.episode_of_care
-          if measure_details['episode_of_care']
-            episodes = params["eoc_#{existing.hqmf_set_id}"]
-          end
-          measure_details['calculate_sdes'] = existing.calculate_sdes
-          measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
-        else
-          raise Exception.new('Update requested, but measure does not exist.')
-        end
-      end
-      # Extract measure(s) from zipfile
-      measures = Measures::CqlLoader.extract_measures(params[:measure_file], current_user, measure_details, vsac_options, vsac_ticket_granting_ticket)
-      update_error_message = MeasureHelper.update_measures(measures, current_user, is_update, existing)
-      if (!update_error_message.nil?)
-        flash[:error] = update_error_message
-        redirect_to "#{root_path}##{params[:redirect_route]}"
-        return
-      end
-    rescue Exception => e
-      measures.each(&:delete) if measures
-      errors_dir = Rails.root.join('log', 'load_errors')
-      FileUtils.mkdir_p(errors_dir)
-      clean_email = File.basename(current_user.email) # Prevent path traversal
-
-      # Create the filename for the copied measure upload. We do not use the original extension to avoid malicious user
-      # input being used in file system operations.
-      filename = "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.xmlorzip"
-
-      operator_error = false # certain types of errors are operator errors and do not need to be emailed out.
-      File.open(File.join(errors_dir, filename), 'w') do |errored_measure_file|
-        uploaded_file = params[:measure_file].tempfile.open()
-        errored_measure_file.write(uploaded_file.read());
-        uploaded_file.close()
-      end
-
-      File.chmod(0644, File.join(errors_dir, filename))
-      File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') do |f|
-        f.write("Original Filename was #{params[:measure_file].original_filename}\n")
-        f.write(e.to_s + "\n" + e.backtrace.join("\n"))
-      end
-      if e.is_a?(Util::VSAC::VSACError)
-        operator_error = true
-        flash[:error] = MeasureHelper.build_vsac_error_message(e)
-
-        # also clear the ticket granting ticket in the session if it was a VSACTicketExpiredError
-        session[:vsac_tgt] = nil if e.is_a?(Util::VSAC::VSACTicketExpiredError)
-      elsif e.is_a? Measures::MeasureLoadingException
-        operator_error = true
-        flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded", body:"There may be an error in the CQL logic."}
-      else
-        flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: "Bonnie has encountered an error while trying to load the measure."}
-      end
-
-      # email the error
-      if !operator_error && defined? ExceptionNotifier::Notifier
-        params[:error_file] = filename
-        ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now
-      end
-
-      redirect_to "#{root_path}##{params[:redirect_route]}"
-      return
+      scan_for_viruses(params[:measure_file])
+      vsac_tgt = obtain_ticket_granting_ticket
+    rescue VirusFoundError => e
+      logger.error "VIRSCAN: error message: #{e.message}"
+      raise MeasurePackageVirusFoundError.new
+    rescue VirusScannerError => e
+      logger.error "VIRSCAN: error message: #{e.message}"
+      raise MeasurePackageVirusScannerError.new
+    rescue Util::VSAC::VSACError => e
+      logger.error "VSACError: error message: #{e.message}"
+      raise convert_vsac_error_into_shared_error(e)
     end
 
-    MeasureHelper.measures_population_update(measures, is_update, current_user, measure_details)
-
+    params[:vsac_tgt] = vsac_tgt[:ticket]
+    params[:vsac_tgt_expires_at] = vsac_tgt[:expires]
+    measures, main_hqmf_set_id = persist_measure(params[:measure_file], params.permit!.to_h, current_user)
+    redirect_to "#{root_path}##{params[:redirect_route]}"
+  rescue StandardError => e
+    # also clear the ticket granting ticket in the session if it was a VSACTicketExpiredError
+    session[:vsac_tgt] = nil if e.is_a?(VSACTicketExpiredError)
+    flash[:error] = turn_exception_into_shared_error_if_needed(e).front_end_version
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
   def destroy
-    qdm_measure = Measure.by_user(current_user).where(id: params[:id]).first
-    cql_measure  = CqlMeasure.by_user(current_user).where(id: params[:id]).first
+    measure = CQM::Measure.by_user(current_user).where(id: params[:id]).first
 
-    if qdm_measure
-      measure = qdm_measure
-      Measure.by_user(current_user).find(params[:id]).destroy
-    end
-    if cql_measure
-      measure = cql_measure
-      if measure.component
-        # Throw error since component can't be deleted individually
-        render status: :bad_request, json: {error: "Component measures can't be deleted individually."}
-        return
-      elsif measure.composite
-        # If the measure if a composite, delete all the associated components
-        measure.component_hqmf_set_ids.each do |component_hqmf_set_id|
-          CqlMeasure.by_user(current_user).where(hqmf_set_id: component_hqmf_set_id).destroy
-        end
+    if measure.component
+      render status: :bad_request, json: {error: "Component measures can't be deleted individually."}
+      return
+    elsif measure.composite
+      # If the measure if a composite, delete all the associated components
+      measure.component_hqmf_set_ids.each do |component_hqmf_set_id|
+        CQM::Measure.by_user(current_user).where(hqmf_set_id: component_hqmf_set_id).first.destroy_self_and_child_docs
       end
-      CqlMeasure.by_user(current_user).find(params[:id]).destroy
     end
+    measure.destroy_self_and_child_docs
+
     render :json => measure
   end
 
   def finalize
     measure_finalize_data = params.values.select {|p| p['hqmf_id']}.uniq
     measure_finalize_data.each do |data|
-      measure = CqlMeasure.by_user(current_user).where(hqmf_id: data['hqmf_id']).first
+      measure = CQM::Measure.by_user(current_user).where(hqmf_id: data['hqmf_id']).first
       begin
-        measure.populations.each_with_index do |population, population_index|
-          population['title'] = data['titles']["#{population_index}"] if (data['titles'])
-        end
+        # TODO: should this do the same for component measures?
+        Measures::CqlLoader.update_population_set_and_strat_titles(measure, data['titles'])
+        measure.save!
       rescue Exception => e
         operator_error = true
         flash[:error] = {title: "Error Loading Measure", summary: "Error Finalizing Measure", body: "An unexpected error occurred while finalizing this measure.  Please delete the measure, re-package and re-export the measure from the MAT, and re-upload the measure."}
@@ -203,9 +91,119 @@ class MeasuresController < ApplicationController
     redirect_to root_path
   end
 
+  def measurement_period
+    measure = CQM::Measure.by_user(current_user).where(id: params[:id]).first
+    year = params[:year]
+    is_valid_year = year.to_i == year.to_f && year.length == 4 && year.to_i >= 1 && year.to_i <= 9999
+
+    if is_valid_year
+      original_year = measure.measure_period['low']['value'][0..3]
+      year_shift = year.to_i - original_year.to_i
+      successful_patient_shift = if params[:measurement_period_shift_dates].present?
+                                   shift_years(measure, year_shift)
+                                 else # No patients to shift dates on, so just save to measure
+                                   true
+                                 end
+      if successful_patient_shift
+        measure.measure_period['low']['value'] = year + '01010000' # Jan 1, 00:00
+        measure.measure_period['high']['value'] = year + '12312359' # Dec 31, 23:59
+        measure.save!
+        if measure.composite?
+          measure.component_hqmf_set_ids.each do |hqmf_set_id|
+            component_measure = CQM::Measure.by_user(current_user).where(hqmf_set_id: hqmf_set_id).first
+            component_measure.measure_period['low']['value'] = year + '01010000' # Jan 1, 00:00
+            component_measure.measure_period['high']['value'] = year + '12312359' # Dec 31, 23:59
+            component_measure.save!
+          end
+        end
+      end
+
+    else
+      flash[:error] = { title: 'Error Updating Measurement Period',
+                        summary: 'Error Updating Measurement Period',
+                        body: 'Invalid year selected. Year must be 4 digits and between 1 and 9999' }
+    end
+
+    redirect_to "#{root_path}##{params[:redirect_route]}"
+  end
+
   private
 
-  def get_ticket_granting_ticket
+  def persist_measure(uploaded_file, permitted_params, user)
+    measures, main_hqmf_set_id =
+      if permitted_params[:hqmf_set_id].present?
+        update_measure(uploaded_file: uploaded_file,
+                      target_id: permitted_params[:hqmf_set_id],
+                      value_set_loader: build_vs_loader(permitted_params, false),
+                      user: user)
+      else
+        create_measure(uploaded_file: uploaded_file,
+                      measure_details: retrieve_measure_details(permitted_params),
+                      value_set_loader: build_vs_loader(permitted_params, false),
+                      user: user)
+      end
+    check_measures_for_unsupported_data_elements(measures)
+    return measures, main_hqmf_set_id
+  end
+
+  def check_measures_for_unsupported_data_elements(measures)
+    measures.each do |measure|
+      if (measure.source_data_criteria.select {|sdc| sdc.qdmCategory == "related_person" }).length() > 0
+        measure.destroy_self_and_child_docs
+        raise MeasureLoadingUnsupportedDataElement.new("Related Person")
+      end
+    end
+  end
+
+  def retrieve_measure_details(params)
+    return {
+      'episode_of_care'=>params[:calculation_type] == 'episode',
+      'calculate_sdes'=>params[:calc_sde]
+    }
+  end
+
+  def shift_years(measure, year_shift)
+    # Copy the patients to make sure there are no errors before saving every patient
+    patients = CQM::Patient.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id).all.entries
+    errored_patients = []
+    patients.each do |patient|
+      begin
+        patient_birthdate_year = patient.qdmPatient.birthDatetime.year
+        if year_shift + patient_birthdate_year > 9999 || year_shift + patient_birthdate_year < 0001
+          raise RangeError
+        end
+        patient.qdmPatient.birthDatetime = shift_birth_datetime(patient.qdmPatient.birthDatetime, year_shift)
+        patient.qdmPatient.dataElements.each do |data_element|
+          data_element.shift_years(year_shift)
+        end
+      rescue RangeError => e
+        errored_patients << patient
+      end
+    end
+
+    if errored_patients.empty?
+      patients.each(&:save!)
+      return true
+    else
+      body_text = 'Element(s) on '
+      errored_patients.each { |patient| body_text += patient.givenNames[0] + ' ' + patient.familyName + ', '}
+      body_text += 'could not be shifted. Please make sure shift will keep all years between 1 and 9999'
+      flash[:error] = { title: 'Error Updating Measurement Period',
+                        summary: 'Error Updating Measurement Period',
+                        body: body_text }
+      return false
+    end
+  end
+
+  def shift_birth_datetime(birth_datetime, year_shift)
+    if birth_datetime.month == 2 && birth_datetime.day == 29 && !Date.leap?(year_shift + birth_datetime.year)
+      birth_datetime.change(year: year_shift + birth_datetime.year, day: 28)
+    else
+      birth_datetime.change(year: year_shift + birth_datetime.year)
+    end
+  end
+
+  def obtain_ticket_granting_ticket
     # Retreive a (possibly) existing ticket granting ticket
     ticket_granting_ticket = session[:vsac_tgt]
 
@@ -233,5 +231,4 @@ class MeasuresController < ApplicationController
       return api.ticket_granting_ticket
     end
   end
-
 end

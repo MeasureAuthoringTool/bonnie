@@ -1,14 +1,11 @@
 describe "Population state between routes", ->
-  beforeEach ->
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
-    @patient = new Thorax.Models.Patient getJSONFixture('records/core_measures/CMS160/patients.json')[0], parse: true
-    @measureToTest = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
-    @oldValueSetsByOid = bonnie.valueSetsByOid
-    bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS160/value_sets.json')
+    @measureToTest = loadMeasureWithValueSets 'cqm_measure_data/CMS160v6/CMS160v6.json', 'cqm_measure_data/CMS160v6/value_sets.json'
+    bonnie.measures = new Thorax.Collections.Measures()
+    bonnie.measures.add @measureToTest
+    @patient = new Thorax.Models.Patient getJSONFixture('patients/CMS160v6/Expired_DENEX.json'), parse: true
     @measureToTest.get('patients').add @patient
-
-  afterEach ->
-    bonnie.valueSetsByOid = @oldValueSetsByOid
 
   it "starts with the first population", ->
     @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
@@ -31,7 +28,7 @@ describe "Population state between routes", ->
     @measureView = @measureView.showMeasure()
     @measureView.appendTo 'body'
     # simulate click on the measure view to select different population
-    @measureView.$('[data-toggle="tab"]').last().click()
+    @measureView.$('[data-toggle="tab"]').last().trigger('click')
 
     populationNavs = @measureView.$('[data-toggle="tab"]')
     active = @measureView.$('.nav.nav-tabs > li.active > a')[0]
@@ -47,7 +44,7 @@ describe "Population state between routes", ->
     @measureView = @measureView.showMeasure()
     @measureView.appendTo 'body'
     # simulate click on the measure view to select different population
-    @measureView.$('[data-toggle="tab"]').last().click()
+    @measureView.$('[data-toggle="tab"]').last().trigger('click')
     @measureView.remove()
 
     # Switch to patient builder view after removing the other view
@@ -71,7 +68,7 @@ describe "Population state between routes", ->
     @measureView = @measureView.showMeasure()
     @measureView.appendTo 'body'
     # simulate click on the measure view to select different population
-    @measureView.$('[data-toggle="tab"]').last().click()
+    @measureView.$('[data-toggle="tab"]').last().trigger('click')
     @measureView.remove()
 
     # ensure the test starts with the second population

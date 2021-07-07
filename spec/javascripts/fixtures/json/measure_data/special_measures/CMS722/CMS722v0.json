@@ -1,6 +1,7 @@
 {
   "_id": "5ab3c28cb8484626ce364ea1",
   "bundle_id": "5a57e977942c6d1e61d32f14",
+  "calculate_sdes": null,
   "category": "Miscellaneous",
   "cms_id": "CMS722v0",
   "complexity": {
@@ -79,6 +80,11 @@
       }
     ]
   },
+  "component": false,
+  "component_hqmf_set_ids": [
+
+  ],
+  "composite": false,
   "continuous_variable": false,
   "cql": [
     "library Test31 version '0.0.014'\n\nusing QDM version '5.0.2'\n\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1' \n\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836' \n\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837' \n\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591' \n\nvalueset \"Live Birth Newborn Born in Hospital\": 'urn:oid:2.16.840.1.113762.1.4.1046.6' \n\nvalueset \"Newborn Hearing Screen Left\": 'urn:oid:2.16.840.1.114222.4.1.214079.1.1.3' \n\nvalueset \"Newborn Hearing Screen Right\": 'urn:oid:2.16.840.1.114222.4.1.214079.1.1.4' \n\nvalueset \"Medical Reasons\": 'urn:oid:2.16.840.1.114222.4.1.214079.1.1.7' \n\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307' \n\nvalueset \"Patient Expired\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.309' \n\nvalueset \"Pass Or Refer\": 'urn:oid:2.16.840.1.114222.4.1.214079.1.1.6' \n\nparameter \"Measurement Period\" Interval<DateTime>\n\ncontext Patient\n\ndefine \"SDE Ethnicity\": [\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\n\ndefine \"SDE Payer\": [\"Patient Characteristic Payer\": \"Payer\"]\n\ndefine \"SDE Race\": [\"Patient Characteristic Race\": \"Race\"]\n\ndefine \"SDE Sex\": [\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\n\ndefine \"Inpatient Encounters\": [\"Encounter, Performed\": \"Encounter Inpatient\"] Encounter\n    where Encounter.lengthOfStay <= 120 days \n        and Encounter.relevantPeriod ends during \"Measurement Period\"\n\ndefine \"Encounter with Diagnosis of Live Birth\": \"Inpatient Encounters\" Inpatient\nintersect [\"Encounter, Performed\": \"Encounter Inpatient\"] Encounter\n        where Encounter.diagnosis in \"Live Birth Newborn Born in Hospital\"\n\ndefine \"Initial Population\": exists \"Encounter with Diagnosis of Live Birth\" \nor exists \"DX LiveBirthNewbornBornInHospital\"\n\ndefine \"Denominator\": \"Initial Population\"\n\ndefine \"Newborn Hearing Screening Left\": [\"Diagnostic Study, Performed\": \"Newborn Hearing Screen Left\"] Screenleft\nwhere Screenleft.result as Code in \"Pass Or Refer\"\nand Screenleft.result is not null\n\ndefine \"Newborn Hearing Screening Right\": [\"Diagnostic Study, Performed\": \"Newborn Hearing Screen Right\"] Screenright\r\nwhere Screenright.result as Code in \"Pass Or Refer\"\r\nand Screenright.result is not null\n\ndefine \"Denominator Exclusions\": [\"Encounter, Performed\": \"Encounter Inpatient\"]Encounter \r\n without [\"Diagnostic Study, Performed\": \"Newborn Hearing Screen Left\"] Left\r\n   such that Left.relevantPeriod during Encounter.relevantPeriod \r\n without [\"Diagnostic Study, Performed\": \"Newborn Hearing Screen Right\"] Right \r\n   such that Right.relevantPeriod during Encounter.relevantPeriod \r\n      where Encounter.dischargeDisposition in \"Patient Expired\"\n\ndefine \"Medical Reason Left\": [\"Diagnostic Study, Not Performed\": \"Newborn Hearing Screen Left\"] Screen\n    where Screen.negationRationale in \"Medical Reasons\"\n\ndefine \"Medical Reason Right\": [\"Diagnostic Study, Not Performed\": \"Newborn Hearing Screen Right\"] Screen\n    where Screen.negationRationale in \"Medical Reasons\"\n\ndefine \"Numerator\": \"Encounter Inpatient\" Encounter\nwhere exists \"Left Screen or Medical Reason\" and exists\n \"Right Screen or Medical Reason\"\n\ndefine \"DX LiveBirthNewbornBornInHospital\": [\"Diagnosis\": \"Live Birth Newborn Born in Hospital\"] Diagnosis\nwith \"Inpatient Encounters\" Inpatient\nsuch that Diagnosis.prevalencePeriod starts during Inpatient.relevantPeriod\n\ndefine \"Left Screen or Medical Reason\": distinct ((\r\n[\"Encounter, Performed\": \"Encounter Inpatient\"] E\r\n    with \"Newborn Hearing Screening Left\" ScreenLeft\r\n        such that ScreenLeft.relevantPeriod during E.relevantPeriod\r\n)\r\nunion (\r\n[\"Encounter, Performed\": \"Encounter Inpatient\"] E\r\n    with \"Medical Reason Left\" MedicalLeft\r\n        such that MedicalLeft.authorDatetime during E.relevantPeriod\r\n))\n\ndefine \"Right Screen or Medical Reason\": distinct ((\r\n[\"Encounter, Performed\": \"Encounter Inpatient\"] E\r\n    with \"Newborn Hearing Screening Right\" ScreenRight\r\n        such that ScreenRight.relevantPeriod during E.relevantPeriod\r\n)\r\nunion (\r\n[\"Encounter, Performed\": \"Encounter Inpatient\"] E\r\n    with \"Medical Reason Right\" MedicalRight\r\n        such that MedicalRight.authorDatetime during E.relevantPeriod\r\n))\r\n\r\n/*from [\"Encounter, Performed\": \"Encounter Inpatient\"] Encounter,\r\n\"Newborn Hearing Screening Right\" ScreenRight,\r\n\"Medical Reason Right\" MedicalRight\r\nwhere ScreenRight.relevantPeriod during Encounter.relevantPeriod \r\nor MedicalRight.relevantPeriod during Encounter.relevantPeriod\r\nreturn Encounter*/\n\n"
@@ -8623,7 +8629,7 @@
   "title": "Test31",
   "type": "ep",
   "updated_at": "2018-03-22T14:49:48.611Z",
-  "user_id": "5a57e975942c6d1e61d32f13",
+  "user_id": "501fdba3044a111b98000001",
   "value_set_oid_version_objects": [
     {
       "oid": "2.16.840.1.113762.1.4.1",

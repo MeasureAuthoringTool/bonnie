@@ -2,6 +2,7 @@ Options
 =======
 
 All options that take a "Date" can handle a ``Date`` object; a String formatted according to the given ``format``; or a timedelta relative to today, eg "-1d", "+6m +1y", etc, where valid units are "d" (day), "w" (week), "m" (month), and "y" (year). Use "0" as today.
+There are also aliases for the relative timedelta's: "yesterday" equals "-1d", "today" is equal to "+0d" and "tomorrow" is equal to "+1d".
 
 Most options can be provided via data-attributes.  An option can be converted to a data-attribute by taking its name, replacing each uppercase letter with its lowercase equivalent preceded by a dash, and prepending "data-date-" to the result.  For example, ``startDate`` would be ``data-date-start-date``, ``format`` would be ``data-date-format``, and ``daysOfWeekDisabled`` would be ``data-date-days-of-week-disabled``.
 
@@ -36,11 +37,54 @@ beforeShowMonth
 
 Function(Date).  Default: $.noop
 
-A function that takes a date as a parameter and returns a boolean indicating whether or not this month is selectable
+A function that takes a date as a parameter and returns one of the following values:
+
+ * undefined to have no effect
+ * A Boolean, indicating whether or not this month is selectable
+ * A String representing additional CSS classes to apply to the month's cell
+ * An object with the following properties:
+
+   * ``enabled``: same as the Boolean value above
+   * ``classes``: same as the String value above
+   * ``tooltip``: a tooltip to apply to this date, via the ``title`` HTML attribute
 
 
 beforeShowYear
 --------------
+
+Function(Date).  Default: $.noop
+
+A function that takes a date as a parameter and returns one of the following values:
+
+ * undefined to have no effect
+ * A Boolean, indicating whether or not this year is selectable
+ * A String representing additional CSS classes to apply to the year's cell
+ * An object with the following properties:
+
+   * ``enabled``: same as the Boolean value above
+   * ``classes``: same as the String value above
+   * ``tooltip``: a tooltip to apply to this year, via the ``title`` HTML attribute
+
+
+beforeShowDecade
+----------------
+
+Function(Date).  Default: $.noop
+
+A function that takes a date as a parameter and returns one of the following values:
+
+ * undefined to have no effect
+ * A Boolean, indicating whether or not this year is selectable
+ * A String representing additional CSS classes to apply to the year's cell
+ * An object with the following properties:
+
+   * ``enabled``: same as the Boolean value above
+   * ``classes``: same as the String value above
+   * ``tooltip``: a tooltip to apply to this year, via the ``title`` HTML attribute
+
+
+beforeShowCentury
+-----------------
 
 Function(Date).  Default: $.noop
 
@@ -176,6 +220,16 @@ Boolean.  Default: true
 Whether or not to force parsing of the input value when the picker is closed.  That is, when an invalid date is left in the input field by the user, the picker will forcibly parse that value, and set the input's value to the new, valid date, conforming to the given `format`.
 
 
+assumeNearbyYear
+----------------
+
+Boolean or Integer.  Default: false
+
+If true, manually-entered dates with two-digit years, such as "5/1/15", will be parsed as "2015", not "15". If the year is less than 10 years in advance, the picker will use the current century, otherwise, it will use the previous one. For example "5/1/15" would parse to May 1st, 2015, but "5/1/97" would be May 1st, 1997.
+
+To configure the number of years in advance that the picker will still use the current century, use an Integer instead of the Boolean true. E.g. "assumeNearbyYear: 20"
+
+
 format
 ------
 
@@ -199,26 +253,26 @@ Custom formatting options
 ::
 
     $('.datepicker').datepicker({
-            format: {
-                /*
-                Say our UI should display a week ahead,
-                but textbox should store the actual date.
-                This is useful if we need UI to select local dates,
-                but store in UTC
-                */
-                toDisplay: function (date, format, language) {
-                    var d = new Date(date);
-                    d.setDate(d.getDate() - 7);
-                    return d.toISOString();
-                },
-                toValue: function (date, format, language) {
-                    var d = new Date(date);
-                    d.setDate(d.getDate() + 7);
-                    return new Date(d);
-                }
+        format: {
+            /*
+             * Say our UI should display a week ahead,
+             * but textbox should store the actual date.
+             * This is useful if we need UI to select local dates,
+             * but store in UTC
+             */
+            toDisplay: function (date, format, language) {
+                var d = new Date(date);
+                d.setDate(d.getDate() - 7);
+                return d.toISOString();
             },
-            autoclose: true
-        });
+            toValue: function (date, format, language) {
+                var d = new Date(date);
+                d.setDate(d.getDate() + 7);
+                return new Date(d);
+            }
+        },
+        autoclose: true
+    });
 
 
 immediateUpdates
@@ -239,14 +293,14 @@ A list of inputs to be used in a range picker, which will be attached to the sel
 .. code-block:: html
 
     <div class="form-group form-group-filled" id="event_period">
-       <input type="text" class="actual_range">
-       <input type="text" class="actual_range">
+        <input type="text" class="actual_range">
+        <input type="text" class="actual_range">
     </div>
 
 ::
 
     $('#event_period').datepicker({
-       inputs: $('.actual_range')
+        inputs: $('.actual_range')
     });
 
 
@@ -272,10 +326,10 @@ The IETF code (eg  "en" for English, "pt-BR" for Brazilian Portuguese) of the la
 maxViewMode
 -----------
 
-Number, String.  Default: 2, "years"
+Number, String.  Default: 4, "centuries"
 
-Set a maximum limit for the view mode.  Accepts: "days" or 0, "months" or 1, and "years" or 2.
-Gives the ability to pick only a day or a month.  The day is set to the 1st for "months", and the month is set to January for "years".
+Set a maximum limit for the view mode.  Accepts: "days" or 0, "months" or 1, "years" or 2, "decades" or 3, and "centuries" or 4.
+Gives the ability to pick only a day, a month, a year or a decade.  The day is set to the 1st for "months", the month is set to January for "years", the year is set to the first year from the decade for "decades", and the year is set to the first from the millennium for "centuries".
 
 
 minViewMode
@@ -283,8 +337,8 @@ minViewMode
 
 Number, String.  Default: 0, "days"
 
-Set a minimum limit for the view mode.  Accepts: "days" or 0, "months" or 1, and "years" or 2.
-Gives the ability to pick only a month or an year.  The day is set to the 1st for "months", and the month is set to January for "years".
+Set a minimum limit for the view mode.  Accepts: "days" or 0, "months" or 1, "years" or 2, "decades" or 3, and "centuries" or 4.
+Gives the ability to pick only a month, a year or a decade.  The day is set to the 1st for "months", and the month is set to January for "years", the year is set to the first year from the decade for "decades", and the year is set to the first from the millennium for "centuries".
 
 
 multidate
@@ -346,7 +400,30 @@ startView
 
 Number, String.  Default: 0, "month"
 
-The view that the datepicker should show when it is opened.  Accepts values of 0 or "month" for month view (the default), 1 or "year" for the 12-month overview, and 2 or "decade" for the 10-year overview.  Useful for date-of-birth datepickers.
+The view that the datepicker should show when it is opened.  Accepts values of 0 or "month" for month view (the default), 1 or "year" for the 12-month overview, 2 or "decade" for the 10-year overview, 3 or "century" for the 10-decade overview, and 4 or "millennium" for the 10-century overview.  Useful for date-of-birth datepickers.
+
+
+templates
+---------
+
+Object. Default:
+
+::
+
+    {
+        leftArrow: '&laquo;',
+        rightArrow: '&raquo;'
+    }
+
+The templates used to generate some parts of the picker. Each property must be a string with only text, or valid html.
+You can use this property to use custom icons libs. for example:
+
+::
+
+    {
+        leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+        rightArrow: '<i class="fa fa-long-arrow-right"></i>'
+    }
 
 
 title

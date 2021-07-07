@@ -46,7 +46,18 @@ Teaspoon.configure do |config|
     # Specify a file matcher as a regular expression and all matching files
     # will be loaded when the suite is run. These files need to be within an
     # asset path. You can add asset paths using the `config.asset_paths`.
-    suite.matcher = '{spec/javascripts}/**/*_spec.{js,js.coffee,coffee}'
+    suite.matcher = if ENV['DIR'] == 'javascripts'
+                      '{spec/javascripts}/*_spec.{js,js.coffee,coffee}'
+                    elsif ENV['DIR']
+                      "{spec/javascripts}/#{ENV['DIR']}/**/*_spec.{js,js.coffee,coffee}"
+                    elsif ENV['FILE']
+                      ENV['FILE']
+                    else
+                      # Due to the large number of tests, running them all at
+                      # once may cause a failure. It is suggested that if such
+                      # an issue occurs, they be run directory by directory
+                      '{spec/javascripts}/**/*_spec.{js,js.coffee,coffee}'
+                    end
 
     # Load additional JS files, but requiring them in your spec helper is the
     # preferred way to do this.
@@ -127,7 +138,7 @@ Teaspoon.configure do |config|
   class Selenium::WebDriver::Remote::Http::Default
     def initialize(open_timeout: nil, read_timeout: nil)
       @open_timeout = open_timeout
-      @read_timeout = 180
+      @read_timeout = 360
     end
   end
 
@@ -171,7 +182,7 @@ Teaspoon.configure do |config|
   # Specify the timeout for the driver. Specs are expected to complete within
   # this time frame or the run will be considered a failure. This is to avoid
   # issues that can arise where tests stall.
-  config.driver_timeout = 300
+  config.driver_timeout = 600
 
   # Specify a server to use with Rack (e.g. thin, mongrel). If nil is provided
   # Rack::Server is used.
@@ -200,7 +211,7 @@ Teaspoon.configure do |config|
   #
   # Available: :dot, :clean, :documentation, :json, :junit, :pride,
   #            :rspec_html, :snowday, :swayze_or_oprah, :tap, :tap_y, :teamcity
-  config.formatters = [:tap_y]
+  config.formatters = [:clean]
 
   # Specify if you want color output from the formatters.
   # config.color = true
@@ -225,17 +236,18 @@ Teaspoon.configure do |config|
   # Specify that you always want a coverage configuration to be used.
   # Otherwise, specify that you want coverage on the CLI.
   # Set this to "true" or the name of your coverage config.
-  config.use_coverage = true
+  config.use_coverage = ENV['DIR'] || true
 
   # You can have multiple coverage configs by passing a name to config.coverage.
   # e.g. config.coverage :ci do |coverage|
   # The default coverage config name is :default.
-  config.coverage do |coverage|
+  spec_folder = ENV['DIR'].to_sym unless ENV['DIR'].nil?
+  config.coverage spec_folder do |coverage|
     # Which coverage reports Istanbul should generate. Correlates directly to
     # what Istanbul supports.
     #
     # Available: text-summary, text, html, lcov, lcovonly, cobertura, teamcity
-    coverage.reports = ['text-summary', 'html']
+    coverage.reports = ['text-summary', 'html', 'lcovonly']
 
     # The path that the coverage should be written to - when there's an
     # artifact to write to disk.
@@ -245,15 +257,20 @@ Teaspoon.configure do |config|
     # Assets to be ignored when generating coverage reports. Accepts an array
     # of filenames or regular expressions. The default excludes assets from
     # vendor, gems and support libraries.
-    coverage.ignore = [%r{spec/}, %r{app/assets/javascripts/templates},
+    coverage.ignore = [%r{node_modules/}, %r{spec/}, %r{app/assets/javascripts/templates},
                        %r{vendor/}, %r{gems/}]
 
     # Various thresholds requirements can be defined, and those thresholds will
     # be checked at the end of a run. If any aren't met the run will fail with
     # a message. Thresholds can be defined as a percentage (0-100), or nil.
-    coverage.statements = 51.3
-    coverage.branches = 34.24
-    coverage.functions = 41.47
-    coverage.lines = 48.8
+
+    # NOTE: These are disabled because we run the tests separately on travis.
+    # They are combined by codecov and coverage thresholds can be set on
+    # codecov.io.
+
+    # coverage.statements = 51.3
+    # coverage.branches = 34.24
+    # coverage.functions = 41.47
+    # coverage.lines = 48.8
   end
 end

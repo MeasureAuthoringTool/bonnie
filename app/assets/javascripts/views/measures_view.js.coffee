@@ -2,10 +2,6 @@ class Thorax.Views.Measures extends Thorax.Views.BonnieView
 
   template: JST['measures']
 
-  initialize: ->
-    toFinalize = @collection.select (m) -> m.get('needs_finalize')
-    @finalizeMeasuresView = new Thorax.Views.FinalizeMeasures measures: new Thorax.Collections.Measures(toFinalize)
-
   importMeasure: (event) ->
     importMeasureView = new Thorax.Views.ImportMeasure(firstMeasure: (@collection.length == 0))
     importMeasureView.appendTo(@$el)
@@ -14,9 +10,6 @@ class Thorax.Views.Measures extends Thorax.Views.BonnieView
   events:
     rendered: ->
       if @collection.isEmpty() then @importMeasure()
-      else if @finalizeMeasuresView.measures.length
-        @finalizeMeasuresView.appendTo(@$el)
-        @finalizeMeasuresView.display()
 
 class Thorax.Views.MeasureRowView extends Thorax.Views.BonnieView
 
@@ -24,11 +17,13 @@ class Thorax.Views.MeasureRowView extends Thorax.Views.BonnieView
     fetch: false
 
   initialize: ->
+    # batch calculate this measure. this will fill the local results cache for everything
+    bonnie.calculator_selector.calculateAll @model, @model.get('patients')
+
     # What we display changes for single vs multiple population measures
     @multiplePopulations = @model.get('populations').length > 1
     unless @multiplePopulations
       @differences = @model.get('displayedPopulation').differencesFromExpected()
-    @cql = @model.get('cql')?
 
   updateMeasure: (e) ->
     importMeasureView = new Thorax.Views.ImportMeasure(model: @model)

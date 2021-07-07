@@ -13,7 +13,7 @@ module Doorkeeper
           # only check for refresh token expiration if it does expire
           if refresh_token.refresh_token_expiration_time
             # don't allow use of the refresh token if it has already expired
-            raise Errors::InvalidTokenReuse if refresh_token.refresh_token_expiration_time < Time.now
+            raise Errors::InvalidTokenReuse if refresh_token.refresh_token_expiration_time < Time.now.utc
           end
 
           refresh_token.revoke unless refresh_token_revoked_on_use?

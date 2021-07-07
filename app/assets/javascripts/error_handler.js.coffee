@@ -2,7 +2,7 @@
 Costanza.init (info, rawError) ->
   # Still print out the raw error for developers.
   console.error rawError
-  
+ 
   # Ignore mirrored Costanza error messages (we have already handled these).
   # This check stops doubled error message popups from appearing.
   unless /Costanza/i.test rawError.toString()

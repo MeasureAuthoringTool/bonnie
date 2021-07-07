@@ -20,3 +20,8 @@
 /coverage
 /coverage-frontend
 .DS_Store
+/node_modules
+
+# Ignore IDE configuration files.
+.idea
+*.iml
