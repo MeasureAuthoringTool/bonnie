@@ -297,6 +297,6 @@ jobs:
       - name: Codecov
         uses: codecov/codecov-action@v1.5.2
         with:
-         directory: artifact/
+         files: ./admin_views.info/lcov.info,./cqm_specs.info/lcov.info,./helper_specs.info/lcov.info
          fail_ci_if_error: true
          verbose: true
