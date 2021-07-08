@@ -46,20 +46,28 @@ class Thorax.Views.User extends Thorax.Views.BonnieView
 
   edit: ->
     view = this
-    userEditDialog = new Thorax.Views.UserEditDialog(
-      model: @model,
-      cancelCallback: () -> view.cancel(),
-      submitCallback: () -> view.save()
-    )
-    userEditDialog.appendTo($(document.body))
-    userEditDialog.display()
+    $.ajax
+      url: "admin/groups/get_groups_by_group_ids"
+      type: 'POST'
+      data: {
+        group_ids: @model.get('group_ids')
+      }
+      success: (data) ->
+        view.model.set groups: data
+        userEditDialog = new Thorax.Views.UserEditDialog(
+          model: view.model,
+          cancelCallback: () -> view.cancel(),
+          submitCallback: () -> view.save()
+        )
+        userEditDialog.appendTo($(document.body))
+        userEditDialog.display()
 
   save: ->
     view = this
     changed = @model.changedAttributes()
     prevAttributes = _.pick(@model.previousAttributes(), _.keys(changed))
-    approveChanged = @model.hasChanged('approved')
-    approved = changed? && @model.changed.approved
+    approveChanged = @model.hasChanged('harp_id') && !(prevAttributes.harp_id && @model.changed.harp_id)
+    approved = changed? && @model.changed.harp_id
 
     # should store the model first, then approve/disable, otherwsie the model gets refreshed from the DB
     if changed
@@ -74,7 +82,8 @@ class Thorax.Views.User extends Thorax.Views.BonnieView
 
   showUserError: (response) ->
     errorSummary = response?.statusText || 'Failed to save user '
-    errorsText = Object.entries(response?.responseJSON?.errors)?.map((a) -> a.join(' - ')).join(', ')
+    errors = response?.responseJSON?.errors
+    errorsText = if errors then Object.entries(errors)?.map((a) -> a.join(' - ')).join(', ') else 'Unhandled server exception'
     bonnie.showError(
       title: 'User save error',
       summary: errorSummary

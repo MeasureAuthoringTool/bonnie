@@ -6,7 +6,8 @@ module Admin
     respond_to :json
 
     def index
-      groups = Group.where(is_personal: false).order(:name.asc).to_a
+      groups = Group.where(is_personal: false).sort_by { |obj| obj.name.downcase }.to_a
+
       # pipeline stages for aggregation
       stages = [
         {
@@ -27,10 +28,45 @@ module Admin
       end
     end
 
+    def create_group
+      group_name = params[:group_name]
+      down_cased_name = group_name.downcase
+
+      non_personal_groups = Group.where(is_personal: false)
+
+      non_personal_groups.all.each do |g|
+        raise ActionController::BadRequest, "Group name #{group_name} is already used." if g.name.downcase == down_cased_name
+      end
+
+      group = Group.new
+      group.name = group_name
+      group.save
+      render json: group
+    end
+
+    def find_group_by_name
+      group = {}
+      if params[:group_name]
+        group = Group.where(name: params[:group_name]).first
+      end
+      render json: group
+    end
+
+    def get_groups_by_group_ids
+      groups = []
+      if params[:group_ids]
+        params[:group_ids].each do |groupId|
+          groups.push(Group.find(groupId))
+        end
+      end
+      render json: groups
+    end
+
     private
 
     def require_admin!
       raise "User #{current_user.email} requesting resource requiring admin access" unless current_user.admin?
     end
+
   end
 end

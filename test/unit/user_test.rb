@@ -61,24 +61,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal true, @user.is_approved?
   end
 
-  test "test bad password fails" do
-
-    bad_user = assert_raises(Mongoid::Errors::Validations) do
-      u = User.new(email: "test@test.com", first: "first" , last: 'last',password: 'Test1234!')
-      u.save!
-    end
-    assert_equal false, (bad_user.message.match /Email is already taken/).nil?
-
-    bad_user = assert_raises(Mongoid::Errors::Validations) do
-      u = User.new(email: "test2@test.com", first: "first" , last: 'last',password: 'test')
-      u.save!
-    end
-    assert_equal false, (bad_user.message.match /Password is too short/).nil?
-    assert_equal false, (bad_user.message.match /assword must include characters from at least two groups/).nil?
-
-  end
-
-  test "create user with harp_id" do
+  test "create user with duplicate harp_id" do
     @jane = User.new(email: 'jane@harp.com', first: 'Jane', last: 'doe', password: 'Test1234!', harp_id: 'jane.doe')
     @jane.save!
     assert_equal @jane.harp_id, 'jane.doe'

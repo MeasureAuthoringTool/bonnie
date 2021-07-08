@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!, :except => [:show]
+  before_action :authenticate_user!, :except => [:show, :saml_error, :registered_not_active]
 
   def index
     @measures = CQM::Measure.by_user(current_user).only(:id)
@@ -8,6 +8,10 @@ class HomeController < ApplicationController
 
   def show
     render :show, layout: false
+  end
+
+  def registered_not_active
+    render :registered_not_active, layout: false
   end
 
   # switch user group

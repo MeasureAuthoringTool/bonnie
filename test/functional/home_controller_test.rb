@@ -33,6 +33,19 @@ class HomeControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "registered_not_active" do
+    get :registered_not_active
+    assert_response :success
+    assert_match 'You have registered for a Bonnie account.', response.body
+    assert_match 'You have registered for a Bonnie account.', response.body
+    msg = 'You have registered for a Bonnie account. '\
+    'The Bonnie admin team is looking at your account and will approve it shortly. '\
+    'Please refrain from logging in to Bonnie until you have received confirmation your account is approved. '\
+    'In the meantime, you can view <a target="_blank" href="/resource/Bonnie_user_guide.pdf">the user guide</a>. '\
+    'If you have received an email your account has been activated you can login <a href="/users/saml/sign_in">here</a>.'
+    assert_match msg, response.body
+  end
+
   test "show fails unapproved" do
     sign_in @user_unapproved
     get :index

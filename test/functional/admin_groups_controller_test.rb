@@ -21,6 +21,8 @@ module Admin
       @user_plain.init_personal_group
       @user_plain.save
 
+      Group.create_indexes
+
       # public group associated with user
       sb = Group.new(name: 'SB')
       sb.save!
@@ -62,5 +64,68 @@ module Admin
       assert_equal 1, index_json[1]['measure_count']
       assert_equal 4, index_json[1]['patient_count']
     end
+
+    test "create group name exists" do
+      sign_in @user_admin
+
+      # this will test the reg-ex case insensitive query in controller
+      begin
+        post :create_group, params: {
+          group_name: "CmS"
+        }
+      rescue Exception => e
+        assert_equal e.to_s, "Group name CmS is already used."
+      end
+    end
+
+    test "create group success" do
+      sign_in @user_admin
+      my_group = "MyGroup"
+
+      post :create_group, params: {
+        group_name: my_group
+      }
+
+      assert_response :success
+      group = Group.where(name: my_group).first
+      assert_equal false, group.is_personal
+    end
+
+    test "find group by name" do
+      sign_in @user_admin
+
+      get :find_group_by_name, params: {
+        group_name: @user_admin[:email]
+      }
+      assert_response :success
+      assert_equal "{\"_id\":\"501fdba3044a111b98000002\",\"is_personal\":true,\"name\":\"user_admin@example.com\"}", response.body
+
+      get :find_group_by_name, params: {}
+      assert_response :success
+      assert_equal "{}", response.body
+
+      get :find_group_by_name, params: {
+        group_name: ""
+      }
+      assert_response :success
+      assert_equal "null", response.body
+    end
+
+    test "get groups by group ids" do
+      sign_in @user_admin
+
+      post :get_groups_by_group_ids, params: {
+        group_ids: []
+      }
+      assert_response :success
+      assert_equal "[]", response.body
+
+      post :get_groups_by_group_ids, params: {
+        group_ids: [@user[:current_group], @user_admin.current_group[:id]]
+      }
+      assert_response :success
+      assert_equal 2, JSON.parse(response.body).length
+    end
+
   end
 end

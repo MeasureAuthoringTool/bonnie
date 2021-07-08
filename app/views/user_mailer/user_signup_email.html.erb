@@ -4,7 +4,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <p>A new user has signed up for a Bonnie account: <%= @user.email %>.</p>
+    <p>A new user has signed up for a Bonnie account: <%= @user.email %>, HARP ID: <%= @user.harp_id %>.</p>
     <p>Please approve this account at <a href="https://<%= @bonnie_host %>/#admin/users">https://<%= @bonnie_host %>/#admin/users</a></p>
   </body>
 </html>

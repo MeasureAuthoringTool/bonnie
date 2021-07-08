@@ -1,4 +1,5 @@
 ENV["RAILS_ENV"] = "test"
+ENV.delete("SAML_IDP_METADATA")
 require_relative "./simplecov_init"
 require_relative "./vcr_setup"
 require_relative '../lib/tasks/fixture_helper'

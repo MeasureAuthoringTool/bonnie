@@ -9,6 +9,6 @@ describe 'UsersViews', ->
     @view.render()
 
   it 'initializes', ->
-    listedEmails = @view.$('td.user-email').toArray().map (e) ->
+    listedEmails = @view.$('td.user-email > div:first-of-type').toArray().map (e) ->
       e.innerText
     expect(listedEmails).toEqual jasmine.objectContaining [ 'bonnie_2@example.com', 'bonnie_3@example.com', 'bonnie_4@example.com', 'bonnie@example.com' ]

@@ -154,6 +154,10 @@ GEM
       responders
       warden (~> 1.2.3)
     docile (1.4.0)
+    devise_saml_authenticatable (1.6.3)
+      devise (> 2.0.0)
+      ruby-saml (~> 1.7)
+    docile (1.3.4)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     doorkeeper (4.4.3)
@@ -325,6 +329,9 @@ GEM
     rubocop-ast (0.3.0)
       parser (>= 2.7.1.4)
     ruby-progressbar (1.11.0)
+    ruby-saml (1.12.2)
+      nokogiri (>= 1.10.5)
+      rexml
     rubyzip (1.3.0)
     rvm1-capistrano3 (1.4.0)
       capistrano (~> 3.0)
@@ -409,6 +416,7 @@ DEPENDENCIES
   cqm-parsers!
   cqm-reports (~> 3.1.4)
   devise
+  devise_saml_authenticatable
   doorkeeper (~> 4.4.0)
   doorkeeper-mongodb (~> 4.1.0)
   exception_notification!
