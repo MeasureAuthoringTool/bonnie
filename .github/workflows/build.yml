@@ -293,3 +293,11 @@ jobs:
       - name: Display structure of downloaded files
         run: ls -R
         working-directory: artifacts
+
+     - name: Codecov
+       uses: codecov/codecov-action@v1.5.2
+       with:
+         directory: artifact/
+         fail_ci_if_error: true
+         verbose: true
+         
