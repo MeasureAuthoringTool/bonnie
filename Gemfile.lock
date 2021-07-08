@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/projecttacoma/cqm-models.git
-  revision: 9113902a30b6b4be24df09354060970a4a2d9cea
-  branch: master
-  specs:
-    cqm-models (4.0.0)
-
-GIT
   remote: https://github.com/projecttacoma/cqm-parsers.git
   revision: 43f48d5d2d9ad7ad06c2b5c9e8f8156348c5ee32
   branch: bonnie_version
@@ -135,6 +128,7 @@ GEM
     colorize (0.8.1)
     commonjs (0.2.7)
     concurrent-ruby (1.1.8)
+    cqm-models (4.0.0)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -402,7 +396,7 @@ DEPENDENCIES
   codecov
   coffee-rails
   colorize
-  cqm-models!
+  cqm-models (~> 4.0.0)
   cqm-parsers!
   devise
   devise_saml_authenticatable
