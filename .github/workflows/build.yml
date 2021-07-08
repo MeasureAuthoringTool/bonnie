@@ -235,7 +235,7 @@ jobs:
       - name: Upload cql_logic_view_spec
         uses: actions/upload-artifact@v2
         with:
-          file: coverage-frontend/default/lcov.info
+          path: coverage-frontend/default/lcov.info
           name: cql_logic_view_spec.info
 # ----------------------------------------------------------------------
 
