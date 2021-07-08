@@ -7,9 +7,10 @@ on:
     branches: [master, bonnie-prior, bonnie-on-fhir]
 
 jobs:
-  build:
+  build_n_test_bonnie:
 
     runs-on: ubuntu-latest
+    name: Build and Test Bonnie
 
     services:
       mongodb:
@@ -277,3 +278,17 @@ jobs:
           path: coverage-frontend/default/lcov.info
           name: cql_calculator_spec.info
 # ----------------------------------------------------------------------
+
+
+  upload_codecov:
+
+    runs-on: ubuntu-latest
+    name: upload to codecov
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v2
+
+      - name: Display structure of downloaded files
+        run: ls -R
