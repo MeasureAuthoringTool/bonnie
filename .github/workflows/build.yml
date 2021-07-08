@@ -281,13 +281,11 @@ jobs:
 
 
   upload_codecov:
-
+    needs: build_n_test_bonnie
     runs-on: ubuntu-latest
     name: upload to codecov
 
     steps:
-      - uses: actions/checkout@v2
-
       - uses: actions/download-artifact@v2
 
       - name: Display structure of downloaded files
