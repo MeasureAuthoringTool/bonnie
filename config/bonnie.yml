@@ -18,6 +18,9 @@ defaults: &defaults
   # Place holder email addresses for email alerts. This email is not valid.
   # This email should be configured in a '<root>/config/email.yml' file
   # for deployments.
+  smtp_hostname: "localhost"
+  smtp_port: 25
+  smtp_tls: false
   bonnie_email: bonnie@example.com # For standard notifications
   bonnie_error_email: bonnie@example.com # For frontend/backend exceptions
   ## --- Session auto-logout ---
@@ -44,14 +47,18 @@ test:
 
 production:
   <<: *defaults
-  smtp_port: 25
-  smtp_hostname: "localhost"
-  smtp_tls: false
+  hostname: <%= ENV["BONNIE_HOSTNAME"] %>
+  smtp_hostname: <%= ENV["BONNIE_SMTP_HOSTNAME"] %>
+  smtp_port: <%= ENV["BONNIE_SMTP_PORT"] %>
+  smtp_username: <%= ENV["BONNIE_SMTP_USERNAME"] %>
+  smtp_password: <%= ENV["BONNIE_SMTP_PASSWORD"] %>
+  smtp_tls: <%= ENV["BONNIE_SMTP_TLS"] %>
+  bonnie_email: <%= ENV["BONNIE_EMAIL"] %> 
+  bonnie_error_email: <%= ENV["BONNIE_ERROR_EMAIL"] %> 
   virus_scan:
-    enabled: true
-    scan_url: 'http://localhost:5000/scan-file'
-    api_key: '1234567'
-    timeout: 30
+    enabled: <%= ENV["VIRUS_SCAN_ENABLED"] %>
+    scan_url: <%= ENV["VIRUS_SCAN_URL"] %>
+    api_key: <%= ENV["VIRUS_SCAN_API_KEY"] %>
   # PROD
   # https://docs.google.com/spreadsheets/d/1RJ2LV5yrTuL0wpQG2Op9lXIf6pP3ExCBF_XC_iTgo8k/edit#gid=0
   # https://spreadsheets.google.com/feeds/list/1RJ2LV5yrTuL0wpQG2Op9lXIf6pP3ExCBF_XC_iTgo8k/od6/public/values?alt=json

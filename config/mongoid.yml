@@ -20,11 +20,13 @@ test:
         retry_interval: 0
   options:
     raise_not_found_error: false
+
 production:
   clients:
     default:
-      database: bonnie_production
-      hosts:
-        - localhost:27017
+      uri: "<%= ENV['MONGODB_URI'] %>"
+      app_name: Bonnie
+      options:
+        ssl_ca_cert: "/home/app/bonnie/rds-combined-ca-bundle.pem"
   options:
     raise_not_found_error: false
