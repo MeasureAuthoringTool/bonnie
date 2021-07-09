@@ -9,7 +9,7 @@ development:
 test:
   clients:
     default:
-      database: bonnie_test
+      database: bonnie_fhir_test
       hosts:
         - localhost:27017
       options:

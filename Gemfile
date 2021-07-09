@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.2.4.5'
+gem 'rails', '5.2.4.6'
 
 gem 'sprockets'
 
@@ -92,3 +92,5 @@ gem 'browser'
 
 gem "reverse_markdown", "~> 2.0"
 gem "tinymce-rails"
+
+gem "devise_saml_authenticatable"

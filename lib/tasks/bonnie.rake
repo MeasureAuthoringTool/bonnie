@@ -102,16 +102,19 @@ namespace :bonnie do
 
       raise "#{dest_email} not found" unless dest = User.find_by(email: dest_email) rescue nil
 
+      src_group = source.current_group
+      dest_group = dest.current_group
+
       # Find the measure and associated records we're moving
-      raise "#{cms_id} not found" unless measure = find_measure(source, "", cms_id)
-      if find_measure(dest, "", cms_id, false)
+      raise "#{cms_id} not found" unless measure = find_measure(src_group, "", cms_id)
+      if find_measure(dest_group, "", cms_id, false)
         raise "#{cms_id} already exists in destination account #{dest_email}. Cannot complete move."
       end
 
-      move_patients(source, dest, measure, measure)
+      move_patients(src_group, dest_group, measure, measure)
       print_success("Moved patients")
 
-      measure.user = dest
+      measure.group = dest_group
       measure.save!
       print_success "Moved measure"
     end
@@ -122,7 +125,7 @@ namespace :bonnie do
     desc 'Re-save all measures, ensuring that all post processing steps (like calculating complexity) are performed again'
     task :resave_measures => :environment do
       CQM::Measure.each do |m|
-        puts "Re-saving \"#{m.title}\" [#{ m.user ? m.user.email : 'deleted user' }]"
+        puts "Re-saving \"#{m.title}\" [#{ m.group ? m.group.name : 'deleted group' }]"
         begin
           m.save
         rescue => e
@@ -188,11 +191,13 @@ namespace :bonnie do
       user_email = ENV['EMAIL']
       raise "#{user_email} not found" unless user = User.find_by(email: user_email)
 
+      group = user.current_group
+
       # Grab user measure to pull patients from
-      raise "#{ENV['SET_ID']} SET_ID not found" unless measure = CQM::Measure.find_by(user_id: user._id, set_id: ENV['SET_ID'])
+      raise "#{ENV['SET_ID']} SET_ID not found" unless measure = CQM::Measure.find_by(group_id: group.id, set_id: ENV['SET_ID'])
 
       # Grab the patients
-      patients = CQM::Patient.where(user_id: user._id, measure_ids: measure.set_id)
+      patients = CQM::Patient.where(group_id: group.id, measure_ids: measure.set_id)
 
       # Write patient objects to file in JSON format
       puts 'Exporting patients...'
@@ -217,10 +222,11 @@ namespace :bonnie do
       # Grab user account
       user_email = ENV['EMAIL']
       raise "#{user_email} not found" unless user = User.find_by(email: user_email)
+      raise "Group for #{user_email} not found" unless group = user.current_group
 
       # Grab user measure to add patients to
       user_measure = ENV['SET_ID']
-      raise "#{user_measure} not found" unless measure = CQM::Measure.find_by(user_id: user._id, set_id: user_measure)
+      raise "#{user_measure} not found" unless measure = CQM::Measure.find_by(group_id: group.id, set_id: user_measure)
 
       # Import patient objects from JSON file and save
       puts "Importing patients..."
@@ -229,7 +235,7 @@ namespace :bonnie do
         next if p.blank?
         patient = CQM::Patient.new.from_json p.strip
 
-        patient['user_id'] = user._id
+        patient['group_id'] = group.id
 
         patient['measure_ids'] = []
         patient['measure_ids'] << measure.set_id
@@ -279,6 +285,8 @@ namespace :bonnie do
         if source.nil?
           print_error "#{source_email} not found"
           is_error = true
+        else
+          source_group = source.current_group
         end
       end
 
@@ -287,11 +295,13 @@ namespace :bonnie do
         if dest.nil?
           print_error "#{dest_email} not found"
           is_error = true
+        else
+          dest_group = dest.current_group
         end
       end
 
       unless is_error
-        source_measure = CQM::Measure.find_by(user_id: source.id, set_id: source_set_id)
+        source_measure = CQM::Measure.find_by(group_id: source_group.id, set_id: source_set_id)
         if source_measure.nil?
           print_error "measure with set id #{source_set_id} not found for account #{source_email}"
           is_error = true
@@ -299,7 +309,7 @@ namespace :bonnie do
       end
 
       unless is_error
-        dest_measure = CQM::Measure.find_by(user_id: dest.id, set_id: dest_set_id)
+        dest_measure = CQM::Measure.find_by(group_id: dest_group.id, set_id: dest_set_id)
         if dest_measure.nil?
           print_error "measure with HQFM set id #{dest_set_id} not found for account #{dest_email}"
           is_error = true
@@ -309,7 +319,7 @@ namespace :bonnie do
       unless is_error
         puts "Copying patients from '#{source_set_id}' in '#{source_email}' to '#{dest_set_id}' in '#{dest_email}'"
 
-        move_patients(source, dest, source_measure, dest_measure, true)
+        move_patients(source_group, dest_group, source_measure, dest_measure, true)
 
         print_success "Successfully copied patients from '#{source_set_id}' in '#{source_email}' to '#{dest_set_id}' in '#{dest_email}'"
       end
@@ -336,6 +346,8 @@ namespace :bonnie do
         if source.nil?
           print_error "#{source_email} not found"
           is_error = true
+        else
+          source_group = source.current_group
         end
       end
 
@@ -344,11 +356,13 @@ namespace :bonnie do
         if dest.nil?
           print_error "#{dest_email} not found"
           is_error = true
+        else
+          dest_group = dest.current_group
         end
       end
 
       unless is_error
-        source_measure = CQM::Measure.find_by(user_id: source.id, set_id: source_set_id)
+        source_measure = CQM::Measure.find_by(group_id: source_group.id, set_id: source_set_id)
         if source_measure.nil?
           print_error "measure with set id #{source_set_id} not found for account #{source_email}"
           is_error = true
@@ -356,7 +370,7 @@ namespace :bonnie do
       end
 
       unless is_error
-        dest_measure = CQM::Measure.find_by(user_id: dest.id, set_id: dest_set_id)
+        dest_measure = CQM::Measure.find_by(group_id: dest_group.id, set_id: dest_set_id)
         if dest_measure.nil?
           print_error "measure with set id #{dest_set_id} not found for account #{dest_email}"
           is_error = true
@@ -366,7 +380,7 @@ namespace :bonnie do
       unless is_error
         puts "Moving patients from '#{source_set_id}' in '#{source_email}' to '#{dest_set_id}' in '#{dest_email}'"
 
-        move_patients(source, dest, source_measure, dest_measure)
+        move_patients(source_group, dest_group, source_measure, dest_measure)
 
         print_success "Successfully moved patients from '#{source_set_id}' in '#{source_email}' to '#{dest_set_id}' in '#{dest_email}'"
       end
@@ -406,6 +420,8 @@ namespace :bonnie do
           if user.nil?
             print_error "#{email} not found"
             is_error = true
+          else
+            group = user.current_group
           end
         end
 
@@ -418,11 +434,11 @@ namespace :bonnie do
           new_measure_title = row[1]
           new_measure_id = row[3]
 
-          orig_measure = find_measure(user, orig_measure_title, orig_measure_id)
-          new_measure = find_measure(user, new_measure_title, new_measure_id)
+          orig_measure = find_measure(group, orig_measure_title, orig_measure_id)
+          new_measure = find_measure(group, new_measure_title, new_measure_id)
 
           if orig_measure && new_measure
-            move_patients(user, user, orig_measure, new_measure)
+            move_patients(group, group, orig_measure, new_measure)
             print_success "moved records in #{email} from #{orig_measure_id}:#{orig_measure_title} to #{new_measure_id}:#{new_measure_title}"
           else
             print_error "unable to move records in #{email} from #{orig_measure_id}:#{orig_measure_title} to #{new_measure_id}:#{new_measure_title}"
@@ -454,33 +470,33 @@ namespace :bonnie do
   # It does this two pronged approach to searching because the measure information
   # is provided by users, and there may be small differences in the measure title
   # (small typo, capitalization, etc.).
-  def find_measure(user, measure_title, measure_id, expect_to_find=true)
+  def find_measure(group, measure_title, measure_id, expect_to_find=true)
     measure = nil
 
     # try to find the measure just based off of the CMS id to avoid chance of typos
     # in the title
-    measures = CQM::Measure.where(user_id: user._id, cms_id: measure_id)
+    measures = CQM::Measure.where(group_id: group.id, cms_id: measure_id)
     if measures.count == 0
-      print_error "#{user.email}: #{measure_id}:#{measure_title} not found" if expect_to_find
+      print_error "#{group.name}: #{measure_id}:#{measure_title} not found" if expect_to_find
     elsif measures.count == 1
       measure = measures.first
     else
       # if there are duplicate CMS ids (CMSv0, for example), use the title as well
-      measures = CQM::Measure.where(user_id: user._id, title: measure_title, cms_id: measure_id)
+      measures = CQM::Measure.where(group_id: group.id, title: measure_title, cms_id: measure_id)
       if measures.count == 0
-        print_error "#{user.email}: #{measure_id}:#{measure_title} not found" if expect_to_find
+        print_error "#{group.name}: #{measure_id}:#{measure_title} not found" if expect_to_find
       elsif measures.count == 1
         measure = measures.first
       else
-        print_error "#{user.email}: #{measure_id}:#{measure_title} not unique" if expect_to_find
+        print_error "#{group.name}: #{measure_id}:#{measure_title} not unique" if expect_to_find
       end
     end
 
     if measure
       if expect_to_find
-        print_success "#{user.email}: #{measure_id}:#{measure_title} found"
+        print_success "#{group.name}: #{measure_id}:#{measure_title} found"
       else
-        print_error "#{user.email}: #{measure_id}:#{measure_title} found"
+        print_error "#{group.name}: #{measure_id}:#{measure_title} found"
       end
     end
 
@@ -510,9 +526,9 @@ namespace :bonnie do
   # of the patients to move.
   # If you are moving patients to different measures in the same account, just
   # pass in the same user information for both src_user and dest_user.
-  def move_patients(src_user, dest_user, src_measure, dest_measure, copy=false)
+  def move_patients(src_group, dest_group, src_measure, dest_measure, copy=false)
     patients = []
-    src_user.patients.where(measure_ids: src_measure.set_id).each do |patient|
+    src_group.patients.where(measure_ids: src_measure.set_id).each do |patient|
       if copy
         patients.push(patient.dup)
       else
@@ -521,7 +537,7 @@ namespace :bonnie do
     end
 
     patients.each do |patient|
-      patient.user = dest_user
+      patient.group = dest_group
       patient.measure_ids.map! { |set_id| set_id == src_measure.set_id ? dest_measure.set_id : set_id }
       patient.expectedValues.each do |expected_value|
         if expected_value['measure_id'] == src_measure.set_id
@@ -726,7 +742,7 @@ def print_helper(title, patient)
   end
   printf "%-80s", "\e[#{36}m#{"#{patient.first} #{patient.last}"}\e[0m"
   begin
-    account = User.find(patient.user_id).email
+    account = User.find(patient.group_id).email
     printf "%-35s %s", account.to_s, " #{patient.measure_ids[0]}\n"
   rescue Mongoid::Errors::DocumentNotFound
     puts "ORPHANED"
