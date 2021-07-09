@@ -4,6 +4,12 @@ require File.expand_path('application', __dir__)
 # Load config here, not in bonnie initializer, so config is available during initialization
 APP_CONFIG = YAML.load(ERB.new(File.read(Rails.root.join('config', 'bonnie.yml'))).result)[Rails.env]
 
+# Also load in the email settings, if present
+APP_CONFIG.merge! YAML.load_file(Rails.root.join('config', 'email.yml')) if File.exists? Rails.root.join('config', 'email.yml')
+
+# Also load in a server specific config file, if present, for things like mail server config
+APP_CONFIG.merge! YAML.load_file(Rails.root.join('config', 'server.yml')) if File.exists? Rails.root.join('config', 'server.yml')
+
 # Determine our hostname if not specified in config file
 APP_CONFIG['hostname'] ||= `hostname`.chomp
 
