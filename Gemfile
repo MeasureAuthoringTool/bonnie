@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.2.4.5'
+gem 'rails', '5.2.4.6'
 
 gem 'sprockets'
 
@@ -15,7 +15,7 @@ gem "non-stupid-digest-assets"
 gem 'cqm-models', '~> 3.0.6'
 gem 'cqm-reports', '~> 3.1.2'
 
-gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers.git', :branch => 'bonnie_version'
+gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers.git', :branch => 'qdm_55'
 
 # needed for HDS
 gem 'rubyzip', '>= 1.3.0'
