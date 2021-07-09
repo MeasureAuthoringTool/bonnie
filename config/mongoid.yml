@@ -1,7 +1,7 @@
 development:
   clients:
     default:
-      database: bonnie_development
+      database: bonnie_fhir_development
       hosts:
         - localhost:27017
   options:
@@ -9,7 +9,7 @@ development:
 test:
   clients:
     default:
-      database: bonnie_test
+      database: bonnie_fhir_test
       hosts:
         - localhost:27017
       options:
@@ -30,5 +30,3 @@ production:
         ssl_ca_cert: "/home/app/bonnie/rds-combined-ca-bundle.pem"
   options:
     raise_not_found_error: false
-
-
