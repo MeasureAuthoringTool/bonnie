@@ -1,4 +1,5 @@
 require 'colorize'
+require_relative '../util/cql_to_elm_helper'
 
 # This rakefile is for tasks that are designed to be run once to address a specific problem; we're keeping
 # them as a history and as a reference for solving related problems
@@ -11,16 +12,15 @@ namespace :bonnie do
       # To run, put a space dilimeted list of emails from which you would like to download the excel exports from
       ACCOUNTS = %w().freeze
       ACCOUNTS.each do |account|
-        user_measures = CqlMeasure.by_user(User.find_by(email: account))
+        user_measures = CQM::Measure.by_user(User.find_by(email: account))
         user_measures.each do |measure|
           begin
             user = User.find(measure.user_id)
             hqmf_set_id = measure.hqmf_set_id
-            @api_v1_patients = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
-            @api_v1_value_sets = measure.value_sets_by_oid
+            @api_v1_patients = CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
             @calculator_options = { doPretty: true }
 
-            calculated_results = BonnieBackendCalculator.calculate(measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
+            calculated_results = BonnieBackendCalculator.calculate(measure, @api_v1_patients, @calculator_options)
             converted_results = ExcelExportHelper.convert_results_for_excel_export(calculated_results, measure, @api_v1_patients)
             patient_details = ExcelExportHelper.get_patient_details(@api_v1_patients)
             population_details = ExcelExportHelper.get_population_details_from_measure(measure, calculated_results)
@@ -78,7 +78,7 @@ namespace :bonnie do
       warnings = 0
       errors = 0
 
-      Record.all.each do |patient|
+      CQM::Patient.all.each do |patient|
         p_hqmf_set_ids_updated = 0
 
         first = patient.first
@@ -94,7 +94,7 @@ namespace :bonnie do
         hqmf_set_id = patient.measure_ids[0]
 
         begin
-          measure = CqlMeasure.find_by(hqmf_set_id: patient.measure_ids[0], user_id: patient[:user_id])
+          measure = CQM::Measure.find_by(hqmf_set_id: patient.measure_ids[0], user_id: patient[:user_id])
         rescue Mongoid::Errors::DocumentNotFound => e
           print_warning("#{first} #{last} #{email} Unable to find measure")
           warnings += 1
@@ -179,42 +179,6 @@ namespace :bonnie do
       puts "Code_list_ids Updated: #{code_list_ids_updated}"
     end
 
-    # HQMF OIDs were not being stored on patient record entries for data types that only appear in the HQMF R2
-    # support; git commit c988d25be480171a8dac5bef02386e5f49f57acb addressed thsi issue for new entries; this
-    # rake task goes back and fixes up existing entries; it was run on May 24, 2016
-
-    desc "Update missing HQMF OIDS in patient record entries"
-    task :update_missing_hqmf_oids => :environment do
-      Record.each do |r|
-        conditions_without_oids = r.conditions.select { |cc| cc.oid.nil? }
-        if conditions_without_oids.size > 0
-          puts "Trying to update OIDs for #{r.first} #{r.last} (#{r.user.try(:email)})"
-          conditions_without_oids.each do |cc|
-            puts "  Trying to update OID for #{cc.description}"
-            # We don't have sufficient data in the entry to re-create the OID (we don't have the definition);
-            # we could try to find the matching source data criteria by type and date, but there isn't always
-            # a 1-to-1 mapping; because there's limited cases where this happened, we can use a shortcut of
-            # looking at the description
-            case cc.description
-            when /^Diagnosis: /
-              cc.oid = HQMF::DataCriteria.template_id_for_definition('diagnosis', nil, false)
-              cc.oid ||= HQMF::DataCriteria.template_id_for_definition('diagnosis', nil, false, 'r2')
-            when /^Symptom: /
-              cc.oid = HQMF::DataCriteria.template_id_for_definition('symptom', nil, false)
-              cc.oid ||= HQMF::DataCriteria.template_id_for_definition('symptom', nil, false, 'r2')
-            when /^Patient Characteristic Clinical Trial Participant: /
-              cc.oid = HQMF::DataCriteria.template_id_for_definition('patient_characteristic', 'clinical_trial_participant', false)
-              cc.oid ||= HQMF::DataCriteria.template_id_for_definition('patient_characteristic', 'clinical_trial_participant', false, 'r2')
-            else
-              puts "DID NOT FIND OID FOR #{cc.description}"
-            end
-            puts "    Updating OID to #{cc.oid}"
-            r.save
-          end
-        end
-      end
-    end
-
     desc "Garbage collect/fix expected_values structures"
     task :expected_values_garbage_collect => :environment do
       # build structures for holding counts of changes
@@ -229,11 +193,11 @@ namespace :bonnie do
         user_count = {email: user.email, total_patients_count: 0, patient_values_changed_count: 0, measure_counts: []}
 
         # loop through measures
-        CqlMeasure.by_user(user).each do |measure|
+        CQM::Measure.by_user(user).each do |measure|
           measure_count = {cms_id: measure.cms_id, title: measure.title, total_patients_count: 0, patient_values_changed_count: 0}
 
           # loop through each patient in the measure
-          Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id).each do |patient|
+          CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id).each do |patient|
             user_count[:total_patients_count] += 1
             measure_count[:total_patients_count] += 1
             total_patients_count += 1
@@ -241,7 +205,7 @@ namespace :bonnie do
             # do the updating of the structure
             items_changed = false
             patient.update_expected_value_structure!(measure) do |change_type, change_reason, expected_value_set|
-              puts "#{user.email} - #{measure.cms_id} - #{measure.title} - #{patient.first} #{patient.last} - #{change_type} because #{change_reason}"
+              puts "#{user.email} - #{measure.cms_id} - #{measure.title} - #{patient.givenNames[0]} #{patient.familyName} - #{change_type} because #{change_reason}"
               pp(expected_value_set)
               items_changed = true
             end
@@ -251,8 +215,8 @@ namespace :bonnie do
               measure_count[:patient_values_changed_count] += 1
               user_count[:patient_values_changed_count] += 1
               patient_values_changed_count += 1
-              puts "#{user.email} - #{measure.cms_id} - #{measure.title} - #{patient.first} #{patient.last} - FINAL STRUCTURE:"
-              pp(patient.expected_values)
+              puts "#{user.email} - #{measure.cms_id} - #{measure.title} - #{patient.givenNames[0]} #{patient.familyName} - FINAL STRUCTURE:"
+              pp(patient.qdmPatient.expectedValues)
               puts ""
             end
           end
@@ -303,87 +267,6 @@ namespace :bonnie do
       end
     end
 
-    desc %{Fix up dose_unit and quantity_dispensed_unit to be ucum compliant
-      $ bundle exec rake bonnie:patients:fix_non_ucum_dose_and_quantity_dispensed}
-    task :fix_non_ucum_dose_and_quantity_dispensed => :environment do
-      count = 0
-      Record.all.each do |patient|
-        # this first patient is skipped because this is a fatal error
-        #
-        # CMS122v7 in account epecqmncqa@gmail.com patient named IPPFail EncInMPInvldCustCode with an
-        # "Encounter: Performed: Office Visit" containing a custom code set "2.16.840.1.113883.6.12"
-        next if patient._id == BSON::ObjectId.from_string("59836fe8942c6d7356000133")
-
-        # these next 2 patients are skipped so rake task doesn't print warnings about bogus field values
-        #
-        # CMS50v7 in account sudhakar.yarasu@ge.com patient named CMS50v7Test SC1_IPP_Met that has a 'SOURCE'
-        # data critera that attempts to invoke method :source which class Communication does not have
-        next if patient._id == BSON::ObjectId.from_string("5a97a962b848464bde177c40")
-        # CMS818v0 in account jason@cedarbridgegroup.com patient named Jane Smith that has a 'SOURCE'
-        # data critera that attempts to invoke method :source which class Condition does not have
-        next if patient._id == BSON::ObjectId.from_string("5ade3f0cb848462812369f88")
-
-        if patient.source_data_criteria
-          print '.' if ((count+=1) % 100).zero?
-          patient.source_data_criteria.each do |sdc|
-            if sdc['dose_unit']
-              sdc['dose_unit'] = old_unit_to_ucum_unit(sdc['dose_unit'])
-            end
-            if sdc['fulfillments']
-              sdc['fulfillments'].each do |fulfillment|
-                if fulfillment['quantity_dispensed_unit']
-                  fulfillment['quantity_dispensed_unit'] = old_unit_to_ucum_unit(fulfillment['quantity_dispensed_unit'])
-                end
-              end
-            end
-          end
-          begin
-            Measures::PatientBuilder.rebuild_patient(patient)
-            patient.save!
-          rescue Exception => e
-            puts
-            puts "Error in rebuild_patient: #{e}"
-            puts "Patient dump:"
-            puts patient.inspect
-          end
-        end
-      end
-      puts " Done (#{count} records)."
-    end
-
-    desc %{Count each of the existing dose and quantity dispensed units
-      $ bundle exec rake bonnie:patients:tabulate_dose_and_quantity_dispensed_units}
-    task :tabulate_dose_and_quantity_dispensed_units => :environment do
-      unique_units = {}
-      Record.all.each do |patient|
-        if patient.source_data_criteria
-          patient.source_data_criteria.each do |sdc|
-            if sdc['dose_unit']
-              keyname = sdc['dose_unit']
-              if unique_units.key?(keyname)
-                unique_units[keyname] = unique_units[keyname] + 1
-              else
-                unique_units[keyname] = 1
-              end
-            end
-            if sdc['fulfillments']
-              sdc['fulfillments'].each do |fulfillment|
-                if fulfillment['quantity_dispensed_unit']
-                  keyname = fulfillment['quantity_dispensed_unit']
-                  if unique_units.key?(keyname)
-                    unique_units[keyname] = unique_units[keyname] + 1
-                  else
-                    unique_units[keyname] = 1
-                  end
-                end
-              end
-            end
-          end
-        end
-      end
-      puts unique_units.inspect
-    end
-
     desc %(Recreates the JSON elm stored on CQL measures using an instance of
       a locally running CQLTranslationService JAR and updates the code_list_id field on
       data_criteria and source_data_criteria for direct reference codes. This is in run_once
@@ -396,7 +279,7 @@ namespace :bonnie do
       update_fails = 0
       orphans = 0
       fields_diffs = Hash.new(0)
-      CqlMeasure.all.each do |measure|
+      CQM::Measure.all.each do |measure|
         begin
           # Grab the user, we need this to output the name of the user who owns
           # this measure. Also comes in handy when detecting measures uploaded
@@ -445,7 +328,7 @@ namespace :bonnie do
             # Grab the measure cql
             cql = measure[:cql]
             # Use the CQL-TO-ELM Translation Service to regenerate elm for older measures.
-            elm_json, elm_xml = CqlElm::CqlToElmHelper.translate_cql_to_elm(cql)
+            elm_json, elm_xml = CqlToElmHelper.translate_cql_to_elm(cql)
             elms = {:ELM_JSON => elm_json,
                     :ELM_XML => elm_xml}
             cql_artifacts = Measures::CqlLoader.process_cql(elms, main_cql_library, user, nil, nil, measure.hqmf_set_id)
@@ -528,7 +411,7 @@ namespace :bonnie do
       desc "Associate each patient with every measure for a specific user (identified by email address)"
       task :associate_measures => :environment do
         user = User.where(email: ENV['EMAIL']).first
-        measures = CqlMeasure.where(user_id: user.id)
+        measures = CQM::Measure.where(user_id: user.id)
         all_measure_ids = measures.map(&:hqmf_set_id) # array of all measure_ids (string) for patient
         user.records.each do |patient|
           # note: this associates *every* patient with every measure,
@@ -543,11 +426,145 @@ namespace :bonnie do
 
   end
 
+  desc %{Converts Bonnie patients from 5.4 to 5.5 cqm-models
+    user email is optional and can be passed in by EMAIL
+    If no email is provided, rake task will run on all measures
+  $ rake bonnie:convert_patients_qdm_5_4_to_5_5 EMAIL=xxx}
+  task :convert_patients_qdm_5_4_to_5_5 => :environment do
+    user = User.find_by email: ENV['EMAIL'] if ENV['EMAIL']
+    raise StandardError.new("Could not find user #{ENV["EMAIL"]}.") if ENV["EMAIL"] && user.nil?
+    bonnie_patients = user ? Mongoid.default_client.database['cqm_patients'].find(user_id: user._id) : Mongoid.default_client.database['cqm_patients'].find()
+    count = 0
+    puts "Total patients in account: #{bonnie_patients.count}"
+    ignored_fields = ['_id', 'qdmVersion', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmStatus']
+    bonnie_patients.each do |bonnie_patient|
+      begin
+        print ".".green
+        new_data_elements = []
+        diff = []
+        updated_qdm_patient = bonnie_patient['qdmPatient']
+        updated_qdm_patient['qdmVersion'] = "5.5"
+        updated_qdm_patient['dataElements'].each do |element|
+          begin
+            type_fields = Object.const_get(element['_type']).fields.keys - ignored_fields
+            # Remove the transfer of sender and recipient if it is a CommunicationPerformed
+            # dataElement. This is because sender and recipient changed from a QDM::Code datatype
+            # to a QDM::Entity datatype
+            type_fields -= %w{sender recipient} if element['_type'] == 'QDM::CommunicationPerformed'
+
+            diagnoses = []
+            # element is treated as a 5.5 model so principalDiagnosis does not return on the element
+            # but still exists in the attributes. That is why respond_to? doesn't work
+            diagnoses << QDM::DiagnosisComponent.new(code: element['principalDiagnosis'], rank: 1) if element['principalDiagnosis'].present?
+
+            if element['diagnoses'].present?
+              element['diagnoses'].each do |diagnosis|
+                diagnoses << QDM::DiagnosisComponent.new(code: diagnosis)
+              end
+            end
+
+            relateds = []
+            if element['relatedTo'].present?
+              element['relatedTo'].each do |related|
+                relateds << related['value']
+              end
+            end
+
+            (element.keys - type_fields).each do |ignored_field|
+              element.delete(ignored_field)
+            end
+            new_data_element = Object.const_get(element['_type']).new(element)
+            new_data_element.id = element['id']['value'] if element['id'].present?
+            new_data_element.diagnoses = diagnoses unless diagnoses.empty?
+            new_data_element.relatedTo = relateds unless relateds.empty?
+            new_data_element.relevantDatetime = element['relevantPeriod']['low'] if element['_type'] == 'QDM::AdverseEvent' && element['relevantPeriod'].present?
+            diff << validate_patient_data(element, new_data_element)
+            new_data_elements << new_data_element
+          rescue Exception => e
+            puts e
+            puts e.backtrace
+            puts element
+          end
+        end
+
+        diff.each do |element_diff|
+          unless element_diff.empty?
+            user = User.find_by _id: bonnie_patient['user_id']
+            puts "\nConversion Difference".yellow
+            puts "Patient #{bonnie_patient['givenNames'][0]} #{bonnie_patient['familyName']} with id #{bonnie_patient['_id']} in account #{user.email}".yellow
+            element_diff.each_entry do |element|
+              case element
+              when 'sender', 'recipient'
+                puts "--- #{element} --- Is different from CQL Record, this is expected because sender & recipient were type QDM::Code in 5.4 and are now type QDM::Entity in 5.5, so data is lost".light_blue
+              when 'diagnoses'
+                puts "--- #{element} --- Is different from CQL Record, this may be caused by the fact that there was a PrincipalDiagnosis on the element as well that got put in diagnoses with a rank of 1. This is expected".light_yellow
+              else
+                puts "--- #{element} --- Is different from CQL Record, this is unexpected".light_red
+              end
+            end
+          end
+        end
+        # Remove all old data elements from the patient
+        updated_qdm_patient['dataElements'] = []
+        # Add all new data elements to the patient
+        new_data_elements.each { |item| updated_qdm_patient['dataElements'] << item.as_document }
+        begin
+          Mongoid.default_client.database['cqm_patients'].update_one({_id: bonnie_patient['_id']}, bonnie_patient)
+        rescue Mongo::Error => e
+          user = User.find_by _id: bonnie_patient['user_id']
+          print_error("#{e}: #{user.email}, first: #{user.givenNames[0]}, last: #{user.familyName}")
+        end
+        count += 1
+      rescue ExecJS::ProgramError, StandardError => e
+        # if there was a conversion failure we should record the resulting failure message with the hds model in a
+        # separate collection to return
+        user = User.find_by _id: bonnie_patient['user_id']
+        if bonnie_patient['measure_ids'].first.nil?
+          puts "#{user.email}\n  Measure: N/A\n  Patient: #{bonnie_patient['_id']}\n  Conversion failed with message: #{e.message}".light_red
+        elsif CQM::Measure.where(hqmf_set_id: bonnie_patient['measure_ids'].first, user_id: bonnie_patient['user_id']).first.nil?
+          puts "#{user.email}\n  Measure (hqmf_set_id): #{bonnie_patient['measure_ids'].first}\n  Patient: #{bonnie_patient['_id']}\n  Conversion failed with message: #{e.message}".light_red
+        else
+          measure = CQM::Measure.where(hqmf_set_id: bonnie_patient['measure_ids'].first, user_id: bonnie_patient['user_id']).first
+          puts "#{user.email}\n  Measure: #{measure.title} #{measure.cms_id}\n  Patient: #{bonnie_patient['_id']}\n  Conversion failed with message: #{e.message}".light_red
+        end
+      end
+    end
+    puts count
+  end
+
+  def validate_patient_data(old_data_element, new_data_element)
+    ignored_fields = ['_id', 'qdmVersion', 'hqmfOid']
+    differences = []
+    (old_data_element.keys - ignored_fields).each do |key|
+      if key == 'id'
+        differences.push(key) if old_data_element[key]['value'] != new_data_element[key]
+      elsif key == 'relatedTo' && old_data_element[key].present?
+        old_data_element['relatedTo'].each_with_index do |related, index|
+          differences.push(key) if related['value'] != new_data_element['relatedTo'][index]
+        end
+      elsif key == 'diagnoses' && old_data_element[key].present?
+        old_data_element['diagnoses'].each_with_index do |original_diagnosis, index|
+          differences.push(key) if original_diagnosis['code'] != new_data_element.diagnoses[index]['code'][:code]
+        end
+      elsif key == 'relevantDatetime' && old_data_element['relevantPeriod'].present? && old_data_element['_type'] == 'QDM::AdverseEvent'
+        differences.push(key) if old_data_element['relevantPeriod']['low'] != new_data_element.relevantDatetime
+      elsif old_data_element[key] != new_data_element[key]
+        begin
+          # Check to see if symbolizing the keys was all that was necessary to make the values equal
+          differences.push(key) if old_data_element[key].symbolize_keys != new_data_element[key]
+        rescue StandardError => e
+          differences.push(key)
+        end
+      end
+    end
+    differences
+  end
+
   task :update_value_set_versions => :environment do
     User.all.each do |user|
       puts "Updating value sets for user " + user.email
       begin
-        measures = CqlMeasure.where(user_id: user.id)
+        measures = CQM::Measure.where(user_id: user.id)
 
         measures.each do |measure|
           elms = measure.elm

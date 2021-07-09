@@ -8,18 +8,18 @@ Bonnie::Application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
-  # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_files = false
-
   # Compress JavaScripts and CSS
   require 'ext/selective_assets_compressor'
-  config.assets.js_compressor = SelectiveAssetsCompressor.new
+  config.assets.js_compressor = SelectiveAssetsCompressor.new(harmony: true, mangle: { keep_fnames: true }, compress: { unused: false })
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
 
   # Generate digests for assets URLs
   config.assets.digest = true
+
+  # Load npm modules into the asset path
+  config.assets.paths << Rails.root.join('node_modules')
 
   Rails.application.routes.default_url_options[:host] = APP_CONFIG['hostname']
 
@@ -31,7 +31,7 @@ Bonnie::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Set log level to info
   config.log_level = :info
@@ -49,7 +49,7 @@ Bonnie::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w(cql4browsers.js font-awesome/fonts/fontawesome-webfont.*)
+  config.assets.precompile += %w(font-awesome/fonts/fontawesome-webfont.*)
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false

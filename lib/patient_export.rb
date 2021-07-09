@@ -111,7 +111,7 @@ class PatientExport
         needs_fix = styles.add_style(:sz => 14,
                                      :bg_color => "FFFFFFF",
                                      :border => { :style => :thin,
-                                                  :color =>"DDDDDD",
+                                                  :color => "DDDDDD",
                                                   :edges => [:bottom] },
                                      :fg_color => "FF0000",
                                      :alignment => { :wrap_text => true })
@@ -119,7 +119,7 @@ class PatientExport
         pop_index = 0
         calc_results.each do |pop_key, patients|
           
-          population_criteria = HQMF::PopulationCriteria::ALL_POPULATION_CODES & population_details[pop_key]["criteria"]
+          population_criteria = CQM::Measure::ALL_POPULATION_CODES & population_details[pop_key]["criteria"]
 
           # Set worksheet titles based on population title length. If population title is more than 31 characters, use "Population [index]"
           worksheet_title = if population_details[pop_key]['title'].blank? || "#{pop_index + 1} - #{population_details[pop_key]['title']}".length > 31
@@ -189,7 +189,7 @@ class PatientExport
               population_criteria.each do |criteria|
                 expected.push(patient_expected_vals[criteria])
                 if criteria == "OBSERV"
-                  actual.push(calc_results[pop_key][patient_key]['criteria']['values'])
+                  actual.push(calc_results[pop_key][patient_key]['criteria']['observation_values'])
                 else
                   actual.push(calc_results[pop_key][patient_key]["criteria"][criteria])
                 end
@@ -240,12 +240,9 @@ class PatientExport
 
   def self.add_formatted_patient_field(patient, value)
     if value == 'ethnicity'
-      return Record::ETHNICITY_NAME_MAP[patient[value]]
+      return CQM::Patient::ETHNICITY_NAME_MAP[patient[value]]
     elsif value == 'race'
-      return Record::RACE_NAME_MAP[patient[value]]
-    elsif value == 'birthdate' || value == 'deathdate'
-      time = Time.at(patient[value]).strftime("%m/%d/%Y") unless patient[value].nil?
-      return time
+      return CQM::Patient::RACE_NAME_MAP[patient[value]]
     elsif value == 'expired' && patient[value] == nil
       return false
     else

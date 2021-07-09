@@ -1,0 +1,384 @@
+{
+  "_id": "5d30b9faf1d6df0000eb006e",
+  "bundleId": null,
+  "expectedValues": [
+    {
+      "population_index": 0,
+      "measure_id": "8D708855-6933-44F1-8D10-B1618BD57D7E",
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 0
+    }
+  ],
+  "familyName": "Smith",
+  "givenNames": [
+    "John"
+  ],
+  "measure_ids": [
+    "8D708855-6933-44F1-8D10-B1618BD57D7E"
+  ],
+  "notes": null,
+  "provider_ids": [
+
+  ],
+  "qdmPatient": {
+    "_id": "5d30bd7808fa18d2515ef4b2",
+    "birthDatetime": "1970-01-01T08:00:00.000+00:00",
+    "dataElements": [
+      {
+        "_id": "5d30b4e108fa18d1a733c4d6",
+        "admissionSource": null,
+        "authorDatetime": "2012-07-18T08:00:00.000+00:00",
+        "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1083",
+        "dataElementCodes": [
+          {
+            "system": "2.16.840.1.113883.6.96",
+            "code": "112689000"
+          }
+        ],
+        "description": "Encounter, Performed: AcuteInpatient",
+        "diagnoses": [
+          {
+            "qdmVersion": "5.5",
+            "_type": "QDM::DiagnosisComponent",
+            "_id": "5d30bd13f1d6df0000eb014e",
+            "code": {
+              "code": "E66.01",
+              "system": "2.16.840.1.113883.6.90",
+              "display": "Morbid (severe) obesity due to excess calories"
+            },
+            "presentOnAdmissionIndicator": {
+              "code": "C4554448",
+              "system": "2.16.840.1.113883.6.86",
+              "display": "Condition present on admission"
+            },
+            "rank": 1
+          }
+        ],
+        "dischargeDisposition": null,
+        "facilityLocations": [
+          {
+            "qdmVersion": "5.5",
+            "_type": "QDM::FacilityLocation",
+            "_id": "5d30bd27f1d6df0000eb015f",
+            "code": {
+              "code": "1060-3",
+              "system": "2.16.840.1.113883.6.259",
+              "display": "Inpatient Medical Ward"
+            },
+            "locationPeriod": {
+              "low": "2012-07-18T08:00:00.000+00:00",
+              "high": "2012-07-18T08:15:00.000+00:00",
+              "lowClosed": true,
+              "highClosed": true
+            }
+          }
+        ],
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+        "id": "5d30b4e108fa18d1a733c4d6",
+        "lengthOfStay": null,
+        "negationRationale": null,
+        "participant": {
+          "_id": "1",
+          "id": "1",
+          "identifier": {
+            "_id": "5d30bd7808fa18d2515ef4b3",
+            "namingSystem": "Medical Record Number",
+            "qdmVersion": "5.5",
+            "value": "1321324544",
+            "_type": "QDM::Identifier"
+          },
+          "qdmVersion": "5.5",
+          "_type": "QDM::PatientEntity"
+        },
+        "priority": {
+          "code": "EL",
+          "system": "2.16.840.1.113883.5.7",
+          "display": "elective",
+          "version": null
+        },
+        "qdmCategory": "encounter",
+        "qdmStatus": "performed",
+        "qdmTitle": "Encounter, Performed",
+        "qdmVersion": "5.5",
+        "relevantPeriod": {
+          "low": "2012-07-18T08:00:00.000Z",
+          "high": "2012-07-18T08:15:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "_type": "QDM::EncounterPerformed"
+      },
+      {
+        "_id": "5d30b4e108fa18d1a733c4db",
+        "authorDatetime": "2012-07-18T08:00:00.000+00:00",
+        "codeListId": "drc-25c68b300ff7408da1dbbc4644445979d08a0beea549062d7f1d13ce016e064c",
+        "components": [
+          {
+            "qdmVersion": "5.5",
+            "_type": "QDM::Component",
+            "_id": "5d30bb2af1d6df0000eb00d0",
+            "code": {
+              "code": "2093-3",
+              "system": "2.16.840.1.113883.6.1",
+              "display": "Cholesterol [Mass/volume] in Serum or Plasma"
+            },
+            "result": {
+              "value": 221,
+              "unit": "mg/dL"
+            }
+          }
+        ],
+        "dataElementCodes": [
+          {
+            "system": "2.16.840.1.113883.6.1",
+            "code": "24331-1"
+          }
+        ],
+        "description": "Laboratory Test, Performed: Lipid 1996 panel - Serum or Plasma",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
+        "id": "5d30b4e108fa18d1a733c4db",
+        "method": null,
+        "negationRationale": null,
+        "qdmCategory": "laboratory_test",
+        "qdmStatus": "performed",
+        "qdmTitle": "Laboratory Test, Performed",
+        "qdmVersion": "5.5",
+        "reason": null,
+        "referenceRange": null,
+        "relevantDatetime": "2012-07-18T08:00:00.000+00:00",
+        "relevantPeriod": {
+          "low": "2012-07-18T08:00:00.000Z",
+          "high": "2012-07-18T08:15:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "result": null,
+        "resultDatetime": "2012-07-18T08:00:00.000+00:00",
+        "status": null,
+        "_type": "QDM::LaboratoryTestPerformed"
+      },
+      {
+        "_id": "5d30b4e108fa18d1a733c4d4",
+        "authorDatetime": "2012-07-19T08:00:00.000+00:00",
+        "category": null,
+        "codeListId": "2.16.840.1.113883.3.464.1003.121.12.1006",
+        "dataElementCodes": [
+          {
+            "system": "2.16.840.1.113883.6.1",
+            "code": "11488-4"
+          }
+        ],
+        "description": "Communication, Performed: ConsultantReport",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.132",
+        "id": "5d30b4e108fa18d1a733c4d4",
+        "medium": null,
+        "negationRationale": null,
+        "qdmCategory": "communication",
+        "qdmStatus": "performed",
+        "qdmTitle": "Communication, Performed",
+        "qdmVersion": "5.5",
+        "receivedDatetime": null,
+        "recipient": {
+          "_id": "1",
+          "id": "1",
+          "identifier": {
+            "_id": "5d30bd7808fa18d2515ef4b5",
+            "namingSystem": "National Provider Identifier",
+            "qdmVersion": "5.5",
+            "value": "3324546165",
+            "_type": "QDM::Identifier"
+          },
+          "qdmVersion": "5.5",
+          "qualification": {
+            "code": "C39383",
+            "system": "2.16.840.1.113883.3.26.1.1",
+            "display": "Doctor of Medicine",
+            "version": null
+          },
+          "role": {
+            "code": "112247003",
+            "system": "2.16.840.1.113883.6.96",
+            "display": "Medical doctor (occupation)",
+            "version": null
+          },
+          "specialty": {
+            "code": "GENRL",
+            "system": "2.16.840.1.113883.5.4",
+            "display": "General",
+            "version": null
+          },
+          "_type": "QDM::Practitioner"
+        },
+        "relatedTo": [
+          "5d30b4e108fa18d1a733c4d3"
+        ],
+        "sender": {
+          "_id": "1",
+          "id": "1",
+          "identifier": {
+            "_id": "5d30bd7808fa18d2515ef4b4",
+            "namingSystem": "National Provider Identifier",
+            "qdmVersion": "5.5",
+            "value": "1321354654",
+            "_type": "QDM::Identifier"
+          },
+          "qdmVersion": "5.5",
+          "qualification": {
+            "code": "C39385",
+            "system": "2.16.840.1.113883.3.26.1.1",
+            "display": "Doctor of Osteopathic Medicine",
+            "version": null
+          },
+          "role": {
+            "code": "112247003",
+            "system": "2.16.840.1.113883.6.96",
+            "display": "Medical doctor (occupation)",
+            "version": null
+          },
+          "specialty": {
+            "code": "ONC",
+            "system": "2.16.840.1.113883.5.4",
+            "display": "Oncology",
+            "version": null
+          },
+          "_type": "QDM::Practitioner"
+        },
+        "sentDatetime": null,
+        "_type": "QDM::CommunicationPerformed"
+      },
+      {
+        "_id": "5d30b4e108fa18d1a733c4d3",
+        "authorDatetime": "2012-07-18T08:00:00.000+00:00",
+        "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1046",
+        "dataElementCodes": [
+          {
+            "system": "2.16.840.1.113883.6.96",
+            "code": "103696004"
+          }
+        ],
+        "description": "Intervention, Performed: Referral",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
+        "id": "5d30b4e108fa18d1a733c4d3",
+        "negationRationale": null,
+        "qdmCategory": "intervention",
+        "qdmStatus": "performed",
+        "qdmTitle": "Intervention, Performed",
+        "qdmVersion": "5.5",
+        "reason": null,
+        "relevantDatetime": "2012-07-18T08:00:00.000+00:00",
+        "relevantPeriod": {
+          "low": "2012-07-18T08:00:00.000Z",
+          "high": "2012-07-18T08:15:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "result": null,
+        "status": null,
+        "_type": "QDM::InterventionPerformed"
+      },
+      {
+        "_id": "5d30b4e108fa18d1a733c4d7",
+        "anatomicalLocationSite": null,
+        "authorDatetime": "2012-07-18T08:00:00.000+00:00",
+        "codeListId": "2.16.840.1.113883.3.88.12.80.28",
+        "components": null,
+        "dataElementCodes": [
+          {
+            "system": "2.16.840.1.113883.6.96",
+            "code": "10002003"
+          }
+        ],
+        "description": "Procedure, Performed: Procedure",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
+        "id": "5d30b4e108fa18d1a733c4d7",
+        "incisionDatetime": null,
+        "method": null,
+        "negationRationale": null,
+        "priority": {
+          "code": "EL",
+          "system": "2.16.840.1.113883.5.7",
+          "display": "elective",
+          "version": null
+        },
+        "qdmCategory": "procedure",
+        "qdmStatus": "performed",
+        "qdmTitle": "Procedure, Performed",
+        "qdmVersion": "5.5",
+        "rank": 1,
+        "reason": null,
+        "relevantDatetime": "2012-07-18T08:00:00.000+00:00",
+        "relevantPeriod": {
+          "low": "2012-07-18T08:00:00.000Z",
+          "high": "2012-07-18T08:15:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "result": null,
+        "status": null,
+        "_type": "QDM::ProcedurePerformed"
+      },
+      {
+        "_id": "5d30b4e108fa18d1a733c4d1",
+        "codeListId": "2.16.840.1.113762.1.4.1",
+        "dataElementCodes": [
+          {
+            "code": "F",
+            "system": "2.16.840.1.113883.5.1",
+            "display": "Female"
+          }
+        ],
+        "description": "Patient Characteristic Sex: ONCAdministrativeSex",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+        "id": "5d30b4e108fa18d1a733c4d1",
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "gender",
+        "qdmTitle": "Patient Characteristic Sex",
+        "qdmVersion": "5.5",
+        "_type": "QDM::PatientCharacteristicSex"
+      },
+      {
+        "_id": "5d30b4e108fa18d1a733c4d5",
+        "codeListId": "2.16.840.1.114222.4.11.836",
+        "dataElementCodes": [
+          {
+            "code": "1002-5",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "American Indian or Alaska Native"
+          }
+        ],
+        "description": "Patient Characteristic Race: Race",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
+        "id": "5d30b4e108fa18d1a733c4d5",
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "race",
+        "qdmTitle": "Patient Characteristic Race",
+        "qdmVersion": "5.5",
+        "_type": "QDM::PatientCharacteristicRace"
+      },
+      {
+        "_id": "5d30b4e108fa18d1a733c4d2",
+        "codeListId": "2.16.840.1.114222.4.11.837",
+        "dataElementCodes": [
+          {
+            "code": "2135-2",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "Hispanic or Latino"
+          }
+        ],
+        "description": "Patient Characteristic Ethnicity: Ethnicity",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
+        "id": "5d30b4e108fa18d1a733c4d2",
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "ethnicity",
+        "qdmTitle": "Patient Characteristic Ethnicity",
+        "qdmVersion": "5.5",
+        "_type": "QDM::PatientCharacteristicEthnicity"
+      }
+    ],
+    "extendedData": null,
+    "qdmVersion": "5.5"
+  },
+  "user_id": "501fdba3044a111b98000001"
+}

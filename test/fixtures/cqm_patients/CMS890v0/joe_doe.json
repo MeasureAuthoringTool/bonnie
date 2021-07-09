@@ -1,0 +1,299 @@
+{
+  "_id": {
+    "$oid": "5d27913631fe5f6f3e4d7129"
+  },
+  "bundleId": "5a57e977942c6d1e61d32f14",
+  "expectedValues": [
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 1
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
+      "population_index": 0,
+      "IPP": 0,
+      "MSRPOPL": 0,
+      "MSRPOPLEX": 0,
+      "OBSERV": null
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&7B905B21-D904-454F-885B-9CE5D19674E3",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&920D5B27-DF5A-4770-BD60-FC4EE251C4D2",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&BA108B7B-90B4-4692-B1D0-5DB554D2A1A2",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&F03324C2-9147-457B-BC34-811BB7859C91",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0
+    }
+  ],
+  "familyName": "doe",
+  "givenNames": [
+    "joe"
+  ],
+  "measure_ids": [
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&7B905B21-D904-454F-885B-9CE5D19674E3",
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&920D5B27-DF5A-4770-BD60-FC4EE251C4D2",
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C",
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&F03324C2-9147-457B-BC34-811BB7859C91",
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&BA108B7B-90B4-4692-B1D0-5DB554D2A1A2",
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"
+  ],
+  "notes": "",
+  "provider_ids": [
+
+  ],
+  "qdmPatient": {
+    "_id": {
+      "$oid": "5d27913631fe5f6f3e4d712a"
+    },
+    "birthDatetime": "1940-10-09T08:00:00.000+00:00",
+    "dataElements": [
+      {
+        "_id": {
+          "$oid": "5d27913631fe5f6f3e4d712b"
+        },
+        "admissionSource": null,
+        "authorDatetime": "2012-10-23T08:00:00.000+00:00",
+        "codeListId": "2.16.840.1.113883.3.526.3.1240",
+        "dataElementCodes": [
+          {
+            "code": "G0438",
+            "system": "2.16.840.1.113883.6.285"
+          }
+        ],
+        "description": "Encounter, Performed: Annual Wellness Visit",
+        "diagnoses": [
+
+        ],
+        "dischargeDisposition": null,
+        "facilityLocations": [
+
+        ],
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+        "id": {
+          "$oid": "5d27913631fe5f6f3e4d712b"
+        },
+        "lengthOfStay": {
+          "value": 0,
+          "unit": "days"
+        },
+        "negationRationale": null,
+        "priority": null,
+        "qdmCategory": "encounter",
+        "qdmStatus": "performed",
+        "qdmTitle": "Encounter, Performed",
+        "qdmVersion": "5.5",
+        "relevantPeriod": {
+          "low": "2012-10-23T08:00:00.000Z",
+          "high": "2012-10-23T08:15:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "_type": "QDM::EncounterPerformed"
+      },
+      {
+        "_id": {
+          "$oid": "5d27913631fe5f6f3e4d7125"
+        },
+        "birthDatetime": "1940-10-09T08:00:00.000+00:00",
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "code": "21112-8",
+            "system": "2.16.840.1.113883.6.1",
+            "display": null,
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
+        "id": {
+          "$oid": "5d27913631fe5f6f3e4d7125"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "birthdate",
+        "qdmTitle": "Patient Characteristic Birthdate",
+        "qdmVersion": "5.5",
+        "_type": "QDM::PatientCharacteristicBirthdate"
+      },
+      {
+        "_id": {
+          "$oid": "5d27913631fe5f6f3e4d7126"
+        },
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "code": "2186-5",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "Not Hispanic or Latino",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
+        "id": {
+          "$oid": "5d27913631fe5f6f3e4d7126"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "ethnicity",
+        "qdmTitle": "Patient Characteristic Ethnicity",
+        "qdmVersion": "5.5",
+        "_type": "QDM::PatientCharacteristicEthnicity"
+      },
+      {
+        "_id": {
+          "$oid": "5d27913631fe5f6f3e4d7127"
+        },
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "code": "1002-5",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "American Indian or Alaska Native",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
+        "id": {
+          "$oid": "5d27913631fe5f6f3e4d7127"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "race",
+        "qdmTitle": "Patient Characteristic Race",
+        "qdmVersion": "5.5",
+        "_type": "QDM::PatientCharacteristicRace"
+      },
+      {
+        "_id": {
+          "$oid": "5d27913631fe5f6f3e4d7128"
+        },
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "code": "M",
+            "system": "2.16.840.1.113883.5.1",
+            "display": "M",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+        "id": {
+          "$oid": "5d27913631fe5f6f3e4d7128"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "gender",
+        "qdmTitle": "Patient Characteristic Sex",
+        "qdmVersion": "5.5",
+        "_type": "QDM::PatientCharacteristicSex"
+      }
+    ],
+    "extendedData": {
+      "type": null,
+      "source_data_criteria": [
+        {
+          "negation": false,
+          "definition": "encounter",
+          "status": "performed",
+          "title": "AnnualWellnessVisit",
+          "description": "Encounter, Performed: Annual Wellness Visit",
+          "code_list_id": "2.16.840.1.113883.3.526.3.1240",
+          "type": "encounters",
+          "id": "AnnualWellnessVisit_EncounterPerformed_a091ca0a_589d_4add_9570_eb7a7c186059_source",
+          "start_date": 1350979200000,
+          "end_date": 1350980100000,
+          "value": [
+
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
+          "cms_id": "CMS238v0",
+          "criteria_id": "169bf6c1576wU",
+          "codes": {
+            "HCPCS": [
+              "G0438"
+            ]
+          },
+          "negation_code_list_id": "",
+          "coded_entry_id": {
+            "$oid": "5c9e4f9db8484602c2f8b842"
+          },
+          "code_source": "DEFAULT"
+        },
+        {
+          "id": "MeasurePeriod",
+          "start_date": 0,
+          "end_date": 0,
+          "references": null
+        }
+      ],
+      "is_shared": null,
+      "origin_data": [
+
+      ],
+      "test_id": null,
+      "medical_record_number": "d635752c85f479851049005c9646cfa799d321325b602be8f6f0f935a06a74f8",
+      "medical_record_assigner": "Bonnie",
+      "description": null,
+      "description_category": null,
+      "insurance_providers": "[]"
+    },
+    "qdmVersion": "5.5"
+  },
+  "user_id": {
+    "$oid": "501fdba3044a111b98000001"
+  }
+}

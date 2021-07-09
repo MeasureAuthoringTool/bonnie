@@ -2,7 +2,7 @@
 # Utility calls for VSAC operations. Provides the frontend access to VSAC program, release and profile lists as well
 # as ticket granting ticket status.
 class VsacUtilController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   respond_to :json
 
   ##
@@ -27,11 +27,11 @@ class VsacUtilController < ApplicationController
     api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'])
     render :json => { programNames: api.get_program_names }
   end
-  
+
   ##
   # GET /vsac_util/program_release_names/:program
   #
-  # Gets the list of release names for a given program from VSAC and returns in JSON the following object to 
+  # Gets the list of release names for a given program from VSAC and returns in JSON the following object to
   # contain the list:
   # { programName: String, releaseNames: Array<String> }
   def program_release_names

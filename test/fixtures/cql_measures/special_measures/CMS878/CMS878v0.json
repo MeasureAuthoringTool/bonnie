@@ -2,7 +2,9 @@
   "_id": {
     "$oid": "5b61b3f2b848461e810313cd"
   },
-  "bundle_id": "5a57e977942c6d1e61d32f14",
+  "bundle_id": {
+    "$oid": "5a57e977942c6d1e61d32f14"
+  },
   "calculate_sdes": null,
   "category": "Miscellaneous",
   "cms_id": "CMS878v0",
@@ -50,6 +52,11 @@
       }
     ]
   },
+  "component": false,
+  "component_hqmf_set_ids": [
+
+  ],
+  "composite": false,
   "continuous_variable": false,
   "cql": [
     "library BonnieTestBasic version '0.0.004'\r\n\r\nusing QDM version '5.3'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Tobacco Use Status\": 'urn:oid:2.16.840.1.113762.1.4.1110.27'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Quit Date\":\r\n\t@2012-06-01\r\n\r\ndefine \"Initial Population\":\r\n\texists \"Assessments of Interest\"\r\n\r\ndefine \"Assessments of Interest\":\r\n\t[\"Assessment, Performed\": \"Tobacco Use Status\"] A\r\n\t\twhere A.authorDatetime in \"Measurement Period\"\r\n\r\ndefine \"Numerator\":\r\n\texists \"Assessments of Interest\" A\r\n\t\twhere A.result as DateTime > \"Quit Date\"\r\n"
@@ -1874,7 +1881,9 @@
   "hqmf_id": "40280382-649C-54C3-0164-E185C211142C",
   "hqmf_set_id": "50901F2E-3715-462B-87C1-2AD9B9B1CDE7",
   "hqmf_version_number": 0,
-  "id": "5b61b3f2b848461e810313cd",
+  "id": {
+    "$oid": "5b61b3f2b848461e810313cd"
+  },
   "main_cql_library": "BonnieTestBasic",
   "measure_attributes": [
     {
@@ -2587,7 +2596,9 @@
   "title": "Bonnie Test Basic",
   "type": "ep",
   "updated_at": "2018-08-01T13:21:54.929Z",
-  "user_id": "501fdba3044a111b98000001",
+  "user_id": {
+    "$oid": "501fdba3044a111b98000001"
+  },
   "value_set_oid_version_objects": [
     {
       "oid": "2.16.840.1.113762.1.4.1",

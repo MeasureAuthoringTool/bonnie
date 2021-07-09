@@ -1,16 +1,16 @@
 [
   {
-    "_id": "5bf3095a57a11e27138cfed7",
+    "_id": "5bfef119b84846254735f78e",
     "birthdate": 636364800,
-    "bundle_id": "5b8fdcd2b84846143444f3a8",
-    "created_at": "2018-11-19T19:04:58.594Z",
+    "bundle_id": "5a57e977942c6d1e61d32f14",
+    "created_at": "2018-11-28T19:48:41.569Z",
     "deathdate": null,
     "description": null,
     "description_category": null,
     "effective_time": null,
     "encounters": [
       {
-        "_id": "5bf3095a57a11e27138cfed8",
+        "_id": "5bfef119b84846254735f78f",
         "admitTime": null,
         "admitType": null,
         "codes": {
@@ -67,7 +67,7 @@
     "gender": "M",
     "insurance_providers": [
       {
-        "_id": "5bf3095a57a11e27138cfed9",
+        "_id": "5bfef119b84846254735f790",
         "codes": {
           "SOP": [
             "349"
@@ -87,13 +87,13 @@
         "negationReason": null,
         "oid": null,
         "payer": {
-          "_id": "5bf3095a57a11e27138cfeda",
+          "_id": "5bfef119b84846254735f791",
           "name": "Other"
         },
         "reason": null,
         "relationship": null,
         "specifics": null,
-        "start_time": 1199163600,
+        "start_time": 1199145600,
         "status_code": null,
         "time": null,
         "type": "OT"
@@ -110,7 +110,7 @@
       null
     ],
     "medical_record_assigner": "Bonnie",
-    "medical_record_number": "50e979e42c5784d9ff54bdc5907e611413399bd1614c8a626994bd7e047a82c7",
+    "medical_record_number": "2e3ea4d102b19bfcf87b8874283c0958613ad23896bb7ccec1f24daedd53a3d6",
     "notes": "",
     "origin_data": [
 
@@ -141,7 +141,7 @@
         },
         "hqmf_set_id": "442F4F7E-3C22-4641-9BEE-0E968CC38EF2",
         "cms_id": "CMS10v0",
-        "criteria_id": "1672d5bbf440U",
+        "criteria_id": "1675bdd0864DE",
         "codes": {
           "SNOMED-CT": [
             "10197000"
@@ -154,7 +154,7 @@
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5bf3095a57a11e27138cfed8",
+        "coded_entry_id": "5bfef119b84846254735f78f",
         "code_source": "DEFAULT"
       },
       {
@@ -167,21 +167,21 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-11-19T19:04:58.594Z",
-    "user_id": "5b8fdcd1b84846143444f3a7"
+    "updated_at": "2018-11-28T19:48:41.569Z",
+    "user_id": "501fdba3044a111b98000001"
   },
   {
-    "_id": "5bf309f657a11e27138cff2b",
+    "_id": "5bfef1a9b848462b5596bd7b",
     "birthdate": 633859200,
-    "bundle_id": "5b8fdcd2b84846143444f3a8",
-    "created_at": "2018-11-19T19:07:34.352Z",
+    "bundle_id": "5a57e977942c6d1e61d32f14",
+    "created_at": "2018-11-28T19:51:05.649Z",
     "deathdate": null,
     "description": null,
     "description_category": null,
     "effective_time": null,
     "encounters": [
       {
-        "_id": "5bf30bcc57a11e27138cff66",
+        "_id": "5bfef1a9b848462b5596bd7d",
         "admitTime": null,
         "admitType": null,
         "codes": {
@@ -238,7 +238,7 @@
     "gender": "M",
     "insurance_providers": [
       {
-        "_id": "5bf30bcc57a11e27138cff68",
+        "_id": "5bfef1a9b848462b5596bd7e",
         "codes": {
           "SOP": [
             "349"
@@ -258,13 +258,13 @@
         "negationReason": null,
         "oid": null,
         "payer": {
-          "_id": "5bf30bcc57a11e27138cff69",
+          "_id": "5bfef1a9b848462b5596bd7f",
           "name": "Other"
         },
         "reason": null,
         "relationship": null,
         "specifics": null,
-        "start_time": 1199163600,
+        "start_time": 1199145600,
         "status_code": null,
         "time": null,
         "type": "OT"
@@ -281,14 +281,14 @@
       null
     ],
     "medical_record_assigner": "Bonnie",
-    "medical_record_number": "9677dfd0140bab87ec46c2dd8bfee0aa5de70a70a68ebcfd5aa67db464005b76",
+    "medical_record_number": "3993742715f1bee6c424d5ac453467cf51c872781d2c86da04189ac08d03414f",
     "notes": "",
     "origin_data": [
 
     ],
     "procedures": [
       {
-        "_id": "5bf30bcc57a11e27138cff67",
+        "_id": "5bfef1a9b848462b5596bd7c",
         "anatomical_approach": null,
         "anatomical_location": null,
         "anatomical_target": null,
@@ -321,7 +321,7 @@
         "result_date_time": null,
         "source": null,
         "specifics": null,
-        "start_time": 1342594800,
+        "start_time": 1342598400,
         "status_code": {
           "HL7 ActStatus": [
             "performed"
@@ -346,7 +346,7 @@
         "code_list_id": "2.16.840.1.113883.3.600.1.462",
         "type": "procedures",
         "id": "CurrentMedicationsDocumentedSNMD_ProcedurePerformed_4851d807_b8b9_4e52_a1ce_a7c97a762502_source",
-        "start_date": 1342594800000,
+        "start_date": 1342598400000,
         "value": [
 
         ],
@@ -355,14 +355,14 @@
         },
         "hqmf_set_id": "442F4F7E-3C22-4641-9BEE-0E968CC38EF2",
         "cms_id": "CMS10v0",
-        "criteria_id": "1672d5e71efaA",
+        "criteria_id": "1675bde99deSL",
         "codes": {
           "SNOMED-CT": [
             "428191000124101"
           ]
         },
         "negation_code_list_id": "2.16.840.1.113883.3.600.1.1502",
-        "coded_entry_id": "5bf30bcc57a11e27138cff67",
+        "coded_entry_id": "5bfef1a9b848462b5596bd7c",
         "code_source": "DEFAULT"
       },
       {
@@ -384,7 +384,7 @@
         },
         "hqmf_set_id": "442F4F7E-3C22-4641-9BEE-0E968CC38EF2",
         "cms_id": "CMS10v0",
-        "criteria_id": "1672d5da57b1G",
+        "criteria_id": "1675bdf6c56Ib",
         "codes": {
           "SNOMED-CT": [
             "10197000"
@@ -397,7 +397,7 @@
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5bf30bcc57a11e27138cff66",
+        "coded_entry_id": "5bfef1a9b848462b5596bd7d",
         "code_source": "DEFAULT"
       },
       {
@@ -410,7 +410,7 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-11-19T19:15:24.409Z",
-    "user_id": "5b8fdcd1b84846143444f3a7"
+    "updated_at": "2018-11-28T19:51:05.649Z",
+    "user_id": "501fdba3044a111b98000001"
   }
 ]
