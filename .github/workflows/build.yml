@@ -287,12 +287,9 @@ jobs:
 
     steps:
       - uses: actions/download-artifact@v2
-        with:
-          path: artifacts
 
       - name: Display structure of downloaded files
         run: ls -R
-        working-directory: artifacts
 
       - name: Codecov
         uses: codecov/codecov-action@v1.5.2
