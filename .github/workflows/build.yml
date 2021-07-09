@@ -80,7 +80,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           path: coverage/.resultset.json
-          name: ruleset.json
+          name: ruleset
 
       - name: Setup Istanbul
         run: sudo npm install -g istanbul
@@ -294,6 +294,6 @@ jobs:
       - name: Codecov
         uses: codecov/codecov-action@v1.5.2
         with:
-         files: ./admin_views.info/lcov.info,./cqm_specs.info/lcov.info,./helper_specs.info/lcov.info
+         files: ./admin_views.info/lcov.info,./calc.info/lcov.info,./coverage.info/lcov.info,./cql_calculator_spec.info/lcov.info,./cql_coloring_spec.info/lcov.info,./cql_logic_view.info/lcov.info,./cqm_specs.info/lcov.info,./helper_specs.info/lcov.info,./input_views.info/lcov.info,./integration.info/lcov.info,./measure.info/lcov.info,./models.info/lcov.info,./patient.info/lcov.info,./production_tests.info/lcov.info,./rulset/.ruleset.json
          fail_ci_if_error: true
          verbose: true
