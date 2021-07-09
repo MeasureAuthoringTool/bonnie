@@ -1,15 +1,12 @@
 describe 'Result', ->
 
-  beforeEach ->
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
-    @measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
-    collection = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
-    @patient = collection.findWhere(first: 'Pass', last: 'NUM2')
-    @oldBonnieValueSetsByOid = bonnie.valueSetsByOid
-    bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS160/value_sets.json')
-
-  afterEach ->
-    bonnie.valueSetsByOid = @oldBonnieValueSetsByOid
+    @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS160v6/CMS160v6.json', 'cqm_measure_data/CMS160v6/value_sets.json'
+    expiredDenex = getJSONFixture('patients/CMS160v6/Expired_DENEX.json')
+    passNum2 = getJSONFixture('patients/CMS160v6/Pass_NUM2.json')
+    patients = new Thorax.Collections.Patients [expiredDenex, passNum2], parse: true
+    @patient = patients.at(0) # Expired DENEX
 
   it 'allows for deferring use of results until populated', ->
     result1 = new Thorax.Models.Result({}, population: @measure.get('populations').first(), patient: @patient)
@@ -19,151 +16,82 @@ describe 'Result', ->
     result2 = new Thorax.Models.Result({ rationale: 'RATIONALE' }, population: @measure.get('populations').first(), patient: @patient)
     expect(result2.calculation.state()).toEqual 'resolved'
 
-  it 'NUMER population not modified by inclusion in NUMEX', ->
-    initial_results = {IPP: 1, DENOM: 1, DENEX: 0, NUMER: 1, NUMEX: 1}
-    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
-    expect(processed_results).toEqual initial_results
 
-  it 'NUMEX membership removed when not a member of NUMER', ->
-    initial_results = {IPP: 1, DENOM: 1, DENEX: 0, NUMER: 0, NUMEX: 1}
-    expected_results = {IPP: 1, DENOM: 1, DENEX: 0, NUMER: 0, NUMEX: 0}
-    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
-    expect(processed_results).toEqual expected_results
-
-  it 'NUMEX membership removed when not a member of DENOM', ->
-    initial_results = {IPP: 1, DENOM: 0, DENEX: 0, NUMER: 0, NUMEX: 1}
-    expected_results = {IPP: 1, DENOM: 0, DENEX: 0, NUMER: 0, NUMEX: 0}
-    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
-    expect(processed_results).toEqual expected_results
-
-  it 'DENOM population not modified by inclusion in DENEX', ->
-    initial_results = {IPP: 1, DENOM: 1, DENEX: 1, NUMER: 0, NUMEX: 0}
-    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
-    expect(processed_results).toEqual initial_results
-
-  it 'DENEX membership removed when not a member of DENOM', ->
-    initial_results = {IPP: 1, DENOM: 0, DENEX: 1, NUMER: 0, NUMEX: 0}
-    expected_results = {IPP: 1, DENOM: 0, DENEX: 0, NUMER: 0, NUMEX: 0}
-    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
-    expect(processed_results).toEqual expected_results
-
-  it 'MSRPOPLEX should be 0 if MSRPOPL not satisfied', ->
-    initial_results = {IPP: 1, MSRPOPL: 0, MSRPOPLEX: 1}
-    expected_results = {IPP: 1, MSRPOPL: 0, MSRPOPLEX: 0}
-    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
-    expect(processed_results).toEqual expected_results
-
-    initial_results = {IPP: 1, MSRPOPL: 0, MSRPOPLEX: 0}
-    expected_results = {IPP: 1, MSRPOPL: 0, MSRPOPLEX: 0}
-    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
-    expect(processed_results).toEqual expected_results
-
-  it 'MSRPOPLEX should be unchanged if MSRPOPL satisfied', ->
-    initial_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1}
-    expected_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1}
-    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
-    expect(processed_results).toEqual expected_results
-
-    initial_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0}
-    expected_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0}
-    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
-    expect(processed_results).toEqual expected_results
-
-  it 'NUMER and NUMEX membership removed there are same counts in DENEX as DENOM', ->
-    initial_results = {IPP: 2, DENOM: 2, DENEX: 2, NUMER: 2, NUMEX: 1}
-    expected_results = {IPP: 2, DENOM: 2, DENEX: 2, NUMER: 0, NUMEX: 0}
-    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
-    expect(processed_results).toEqual expected_results
-
-  it 'NUMER and NUMEX membership removed there are more counts in DENEX than DENOM', ->
-    initial_results = {IPP: 3, DENOM: 2, DENEX: 3, NUMER: 2, NUMEX: 1}
-    expected_results = {IPP: 3, DENOM: 2, DENEX: 3, NUMER: 0, NUMEX: 0}
-    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
-    expect(processed_results).toEqual expected_results
-
-  it 'NUMER and NUMEX membership kept if there are less counts in DENEX as DENOM', ->
-    initial_results = {IPP: 2, DENOM: 2, DENEX: 1, NUMER: 1, NUMEX: 0}
-    expected_results = {IPP: 2, DENOM: 2, DENEX: 1, NUMER: 1, NUMEX: 0}
-    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
-    expect(processed_results).toEqual expected_results
-
-  it 'DENEXCEP and NUMER membership removed if a member of DENEX', ->
-    initial_results = {IPP: 1, DENOM: 1, DENEX: 1, DENEXCEP: 1, NUMER: 1, NUMEX: 0}
-    expected_results = {IPP: 1, DENOM: 1, DENEX: 1, DENEXCEP: 0, NUMER: 0, NUMEX: 0}
-    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
-    expect(processed_results).toEqual expected_results
 
 describe 'Continuous Variable Calculations', ->
 
-  beforeEach ->
-    @universalValueSetsByOid = bonnie.valueSetsByOid
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
 
-    bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS32/value_sets.json')
-    @cql_calculator = new CQLCalculator()
+    @cqm_calculator = new CQMCalculator()
 
-    @measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS32/CMS32v7.json'), parse: true
+    @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS903v0/CMS903v0.json', 'cqm_measure_data/CMS903v0/value_sets.json'
     @population = @measure.get('populations').at(0)
-    @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS32/patients.json'), parse: true
+    visit1ED = getJSONFixture('patients/CMS903v0/Visit_1 ED.json')
+    visit1Excl2ED = getJSONFixture('patients/CMS903v0/Visits 1 Excl_2 ED.json')
+    visits2Excl2ED = getJSONFixture('patients/CMS903v0/Visits 2 Excl_2 ED.json')
+    visits2ED = getJSONFixture('patients/CMS903v0/Visits_2 ED.json')
 
-  afterEach ->
-    bonnie.valueSetsByOid = @universalValueSetsByOid
-    bonnie.valueSetsByOidCached = undefined
+    @patients = new Thorax.Collections.Patients [visit1ED, visit1Excl2ED, visits2Excl2ED, visits2ED], parse: true
 
   it 'can handle single episodes observed', ->
-    patient = @patients.findWhere(last: '1 ED', first: 'Visit')
+    patient = @patients.at(0) # 1 ED Visit
     result = @population.calculate(patient)
-    expect(result.get('values')).toEqual([15])
-    expect(result.get('population_relevance')['values']).toBe(true)
+    expect(result.get('observation_values')).toEqual([15])
+    expect(result.get('population_relevance')['observation_values']).toBe(true)
     expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
     expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
 
     # check the results for the episode
-    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [15] }
-    expect(result.get('episode_results')['5a593cbd942c6d0773593d50']).toEqual(expectedEpisodeResults)
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, observation_values: [15] }
+    expect(result.get('episode_results')['5d5af7364987880000ce1889']).toEqual(expectedEpisodeResults)
 
   it 'can handle multiple episodes observed', ->
-    patient = @patients.findWhere(last: '2 ED', first: 'Visits')
+    patient = @patients.at(3) # 2 ED Visits
     result = @population.calculate(patient)
     # values are ordered when created by the calculator
-    expect(result.get('values')).toEqual([15, 25])
-    expect(result.get('population_relevance')['values']).toBe(true)
+    expect(result.get('observation_values')).toEqual([15, 25])
+    expect(result.get('population_relevance')['observation_values']).toBe(true)
     expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
     expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
 
+    episode_ids = patient.get('source_data_criteria').map((sdc) -> sdc.get('id'))
     # check the results for the episode
-    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [25] }
-    expect(result.get('episode_results')['5a593ef8942c6d0773593de1']).toEqual(expectedEpisodeResults)
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, observation_values: [15] }
+    expect(result.get('episode_results')[episode_ids[2]]).toEqual(expectedEpisodeResults)
     # check the results for the second episode
-    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [15] }
-    expect(result.get('episode_results')['5a593ef8942c6d0773593de3']).toEqual(expectedEpisodeResults)
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, observation_values: [25] }
+    expect(result.get('episode_results')[episode_ids[1]]).toEqual(expectedEpisodeResults)
 
   it 'can handle multiple episodes observed with one excluded', ->
-    patient = @patients.findWhere(last: '2 ED', first: 'Visits 1 Excl')
+    patient = @patients.at (1) # 2 ED Visits 1 Excl
     result = @population.calculate(patient)
-    expect(result.get('values')).toEqual([25])
-    expect(result.get('population_relevance')['values']).toBe(true)
+    expect(result.get('observation_values')).toEqual([15])
+    expect(result.get('population_relevance')['observation_values']).toBe(true)
     expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
     expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
 
+    episode_ids = patient.get('source_data_criteria').map((sdc) -> sdc.get('id'))
+
     # check the results for the episode
-    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [25] }
-    expect(result.get('episode_results')['5a59405f942c6d0773593e15']).toEqual(expectedEpisodeResults)
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, observation_values: [15] }
+    expect(result.get('episode_results')[episode_ids[2]]).toEqual(expectedEpisodeResults)
     # check the results for the second episode
-    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
-    expect(result.get('episode_results')['5a59405f942c6d0773593e17']).toEqual(expectedEpisodeResults)
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, observation_values: [] }
+    expect(result.get('episode_results')[episode_ids[1]]).toEqual(expectedEpisodeResults)
 
   it 'can handle multiple episodes observed with both excluded', ->
-    patient = @patients.findWhere(last: '2 ED', first: 'Visits 2 Excl')
+    patient = @patients.at(2) # 2 ED Visits 2 Excl
     result = @population.calculate(patient)
-    expect(result.get('values')).toEqual([])
-    expect(result.get('population_relevance')['values']).toBe(false)
+    expect(result.get('observation_values')).toEqual([])
+    expect(result.get('population_relevance')['observation_values']).toBe(false)
     expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
     expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
 
+    episode_ids = patient.get('source_data_criteria').map((sdc) -> sdc.get('id'))
     # check the results for the episode
-    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
-    expect(result.get('episode_results')['5a5940d8942c6d0c717eeed6']).toEqual(expectedEpisodeResults)
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, observation_values: [] }
+    expect(result.get('episode_results')[episode_ids[2]]).toEqual(expectedEpisodeResults)
     # check the results for the second episode
-    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
-    expect(result.get('episode_results')['5a5940d8942c6d0c717eeed8']).toEqual(expectedEpisodeResults)
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, observation_values: [] }
+    expect(result.get('episode_results')[episode_ids[1]]).toEqual(expectedEpisodeResults)

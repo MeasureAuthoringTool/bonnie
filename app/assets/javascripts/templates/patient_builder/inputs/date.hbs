@@ -1,0 +1,23 @@
+{{#if showLabel}}
+<div class="row">
+  <div class="col-md-12">
+    <span class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i> {{attributeTitle}}</span> - <samp>{{attributeName}}</samp>
+  </div>
+</div>
+{{/if}}
+
+<div class="row">
+  <div class="form-group col-md-6 datetime-interval-start">
+    <div class="date-control-nullable">
+      <div class="col-md-2 date-null-toggle">
+        <label for="date_is_defined_{{cid}}" class="sr-only">date is defined</label>
+        <input type="checkbox" name="date_is_defined" id="date_is_defined_{{cid}}" value="true" {{#if date_is_defined}}checked{{/if}}/>
+      </div>
+
+      <div class="date-control-date">
+        <label for="date_{{cid}}" class="sr-only">date month/day/year</label>
+        <input type="text" name="date" id="date_{{cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true" {{#if date_is_defined}}value="{{date}}"{{else}}disabled{{/if}}/>
+      </div>
+    </div>
+  </div>
+</div>

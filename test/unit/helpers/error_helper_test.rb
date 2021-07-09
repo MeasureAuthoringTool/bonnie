@@ -1,5 +1,4 @@
 require 'test_helper'
-require './app/helpers/error_helper'
 
 class ErrorHelperTest < ActionView::TestCase
   test 'Empty error message from execution engine' do
@@ -28,9 +27,9 @@ class ErrorHelperTest < ActionView::TestCase
                  controller: 'application', action: 'client_error'}
     request = 'empty'
     error_message = ErrorHelper.describe_error(error_info, exception, request)
-    assert_equal nil, error_message
+    assert_nil error_message
   end
-  
+
   test 'Empty error message' do
     error_info = {section: 'cql-measure-calculation',
                   cms_id: 'CMSv0', type: 'javascript',

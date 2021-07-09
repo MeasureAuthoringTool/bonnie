@@ -1,7 +1,146 @@
 {
   "ignored_warnings": [
-
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 70,
+      "fingerprint": "25e71ae17dae57c3374c9995baa55a160773f826f9c26a7001515418b1ee12dd",
+      "check_name": "MassAssignment",
+      "message": "Parameters should be whitelisted for mass assignment",
+      "file": "app/controllers/api_v1/measures_controller.rb",
+      "line": 216,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.permit!",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ApiV1::MeasuresController",
+        "method": "create"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "30cff35cb06581e251187d8cc135079839e7aaa63b5c745a2afaf0cfd9b92cc1",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/admin/users_controller.rb",
+      "line": 95,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.permit(:email, :admin, :portfolio, :dashboard)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Admin::UsersController",
+        "method": "user_params"
+      },
+      "user_input": ":admin",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 70,
+      "fingerprint": "3ae0c89b685faa65cacc408dca829e6e20aa7a883e3e6432e9b591f31cfae81b",
+      "check_name": "MassAssignment",
+      "message": "Parameters should be whitelisted for mass assignment",
+      "file": "app/controllers/patients_controller.rb",
+      "line": 120,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:cqmPatient).permit!",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PatientsController",
+        "method": "cqm_patient_params"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 70,
+      "fingerprint": "4b6b5e48372023d5fd26746b4c8062738e6247c5b07345351f2ee3f7465d4d1f",
+      "check_name": "MassAssignment",
+      "message": "Parameters should be whitelisted for mass assignment",
+      "file": "app/controllers/patients_controller.rb",
+      "line": 78,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params[:results].permit!",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PatientsController",
+        "method": "qrda_export"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 70,
+      "fingerprint": "4f0b3f72a60ab194470e7ba702fc6d1f586d3f46b2c9e0e03e6fc6ce2947ca3d",
+      "check_name": "MassAssignment",
+      "message": "Parameters should be whitelisted for mass assignment",
+      "file": "app/controllers/api_v1/measures_controller.rb",
+      "line": 237,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.permit!",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ApiV1::MeasuresController",
+        "method": "update"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 70,
+      "fingerprint": "66981d72b037ace4311477301f1270ecdf197f19f54fc1554c191284c91d99ad",
+      "check_name": "MassAssignment",
+      "message": "Parameters should be whitelisted for mass assignment",
+      "file": "app/controllers/measures_controller.rb",
+      "line": 39,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.permit!",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "MeasuresController",
+        "method": "create"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 70,
+      "fingerprint": "a3b8084d4902dedf9782b18ef3bce1d63be1242d10a0f0907761c5060b9a56a0",
+      "check_name": "MassAssignment",
+      "message": "Parameters should be whitelisted for mass assignment",
+      "file": "app/controllers/application_controller.rb",
+      "line": 41,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.permit!",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ApplicationController",
+        "method": "client_error"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "note": ""
+    }
   ],
-  "updated": "2017-05-03 13:20:00 -0400",
-  "brakeman_version": "3.6.1"
+  "updated": "2020-08-18 10:18:17 -0600",
+  "brakeman_version": "4.8.2"
 }

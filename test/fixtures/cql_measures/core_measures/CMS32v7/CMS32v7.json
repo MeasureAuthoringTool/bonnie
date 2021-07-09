@@ -2,7 +2,9 @@
   "_id": {
     "$oid": "5a57f07b942c6d230492c674"
   },
-  "bundle_id": "5a57e977942c6d1e61d32f14",
+  "bundle_id": {
+    "$oid": "5a57e977942c6d1e61d32f14"
+  },
   "calculate_sdes": null,
   "category": "Miscellaneous",
   "cms_id": "CMS32v7",
@@ -62,6 +64,11 @@
       }
     ]
   },
+  "component": false,
+  "component_hqmf_set_ids": [
+
+  ],
+  "composite": false,
   "continuous_variable": true,
   "cql": [
     "library MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients version '7.2.002'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"SNOMEDCT:2013-09\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2013-09'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Discharge To Acute Care Facility\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.87'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Psychiatric/Mental Health Patient\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.299'\r\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292'\r\n\r\ncode \"Patient deceased during stay (discharge status = dead) (finding)\": '371828006' from \"SNOMEDCT:2013-09\" display 'Patient deceased during stay (discharge status = dead) (finding)'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Initial Population\":\r\n\t\"ED Visit\"\r\n\r\ndefine \"Measure Population\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Stratification 1\":\r\n\t\"ED Visit\" EDVisit\r\n\t\twhere EDVisit.principalDiagnosis in \"Psychiatric/Mental Health Patient\"\r\n\r\ndefine \"Stratification 2\":\r\n\t\"ED Visit\" EDVisit\r\n\t\twhere EDVisit.dischargeDisposition in \"Discharge To Acute Care Facility\"\r\n\r\ndefine \"Stratification 3\":\r\n\t\"ED Visit\" EDVisit\r\n\t\twhere not ( EDVisit.principalDiagnosis in \"Psychiatric/Mental Health Patient\" )\r\n\t\t\tand not ( EDVisit.dischargeDisposition in \"Discharge To Acute Care Facility\" )\r\n\r\ndefine \"Measure Population Exclusions\":\r\n\t( \"ED Visit\" EDVisit\r\n\t\t\twhere EDVisit.dischargeDisposition ~ \"Patient deceased during stay (discharge status = dead) (finding)\"\r\n\t)\r\n\t\tunion ( \"ED Visit\" EDVisit\r\n\t\t\t\twith [\"Encounter, Performed\": \"Encounter Inpatient\"] Encounter\r\n\t\t\t\t\tsuch that EDVisit.relevantPeriod ends 1 hour or less before or on start of Encounter.relevantPeriod\r\n\t\t)\r\n\r\ndefine \"ED Visit\":\r\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\twhere EDVisit.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine function \"Measure Observation\"(Encounter \"Encounter, Performed\"):\r\n\tduration in minutes of Encounter.relevantPeriod\r\n"
@@ -3849,7 +3856,9 @@
   "hqmf_id": "40280382-5FA6-FE85-015F-BB40A1CD0B95",
   "hqmf_set_id": "3FD13096-2C8F-40B5-9297-B714E8DE9133",
   "hqmf_version_number": 0,
-  "id": "5a57f07b942c6d230492c674",
+  "id": {
+    "$oid": "5a57f07b942c6d230492c674"
+  },
   "main_cql_library": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
   "measure_attributes": [
     {
@@ -4841,7 +4850,9 @@
   "title": "Median Time from ED Arrival to ED Departure for Discharged ED Patients",
   "type": "eh",
   "updated_at": "2018-02-15T19:54:15.434Z",
-  "user_id": "501fdba3044a111b98000001",
+  "user_id": {
+    "$oid": "501fdba3044a111b98000001"
+  },
   "value_set_oid_version_objects": [
     {
       "oid": "2.16.840.1.113762.1.4.1",

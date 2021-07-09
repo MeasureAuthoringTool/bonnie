@@ -7,9 +7,11 @@ class Thorax.Views.MeasureLayout extends Thorax.LayoutView
 
   context: ->
     _(super).extend
-      cms_id: @measure.get 'cms_id'
-      hqmf_set_id: @measure.get 'hqmf_set_id'
-      cql: @measure.has('cql') # Hide certain features in handlebars if the measure is cql.
+      cms_id: @measure.get('cqmMeasure').cms_id
+      hqmf_set_id: @measure.get('cqmMeasure').hqmf_set_id
+      measurePeriodYear: @measure.getMeasurePeriodYear()
+      component: @measure.get('cqmMeasure').component
+      cql: true # Hide certain features in handlebars if the measure is cql.
 
   # Navigates to the Patient Dashboard
   showDashboard: (showFixedColumns) ->
@@ -34,14 +36,22 @@ class Thorax.Views.MeasureLayout extends Thorax.LayoutView
     population = @measure.get 'displayedPopulation'
     @setView new Thorax.Views.Measure(model: @measure, patients: @patients, populations: @populations, population: population)
 
+  changeMeasurementPeriod: (e) ->
+    measurementPeriodView = new Thorax.Views.MeasurementPeriod(model: @measure)
+    measurementPeriodView.appendTo(@$el)
+    measurementPeriodView.display()
 
 class Thorax.Views.Measure extends Thorax.Views.BonnieView
   template: JST['measure']
 
   events:
     rendered: ->
+      @convertPatientsView = new Thorax.Views.ConvertPatientsView() # Modal dialogs for converting
+      @convertPatientsView.appendTo(@$el)
+
       @exportPatientsView = new Thorax.Views.ExportPatientsView() # Modal dialogs for exporting
       @exportPatientsView.appendTo(@$el)
+
       @$('.d3-measure-viz, .btn-viz-text').hide()
       @$('a[data-toggle="tooltip"]').tooltip()
 
@@ -50,7 +60,8 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       isPrimaryView: @isPrimaryView
 
   initialize: ->
-    @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).rowPadding({top: 14, right: 6}).dataCriteria(@model.get("data_criteria")).measurePopulation(@population).measureValueSets(@model.valueSets())
+    if bonnie.isPortfolio
+      @measureMetadataView = new Thorax.Views.MeasureMetadataView model: @model
     # Determine which population logic view use
     populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @model, population: @population)
 
@@ -61,12 +72,9 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     else
       @logicView = populationLogicView
 
-    @complexityView = new Thorax.Views.MeasureComplexity model: @model
-    @complexityView.listenTo @logicView, 'population:update', (population) -> @updatePopulation(population)
-
     @valueSetsView = new Thorax.Views.MeasureValueSets model: @model
 
-    @populationCalculation = new Thorax.Views.PopulationCalculation(model: @population, isCQL: @model.get('cql')?)
+    @populationCalculation = new Thorax.Views.PopulationCalculation(model: @population)
     @logicView.listenTo @populationCalculation, 'logicView:showCoverage', -> @showCoverage()
     @logicView.listenTo @populationCalculation, 'logicView:clearCoverage', -> @clearCoverage()
 
@@ -76,20 +84,29 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       @$('.d3-measure-viz').empty()
       @$('.d3-measure-viz, .btn-viz-text').hide()
       @$('.btn-viz-chords').show()
-      @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).dataCriteria(@model.get("data_criteria")).measurePopulation(population).measureValueSets(@model.valueSets())
     # FIXME: change the name of these events to reflect what the measure calculation view is actually saying
     @logicView.listenTo @populationCalculation, 'rationale:clear', -> @clearRationale()
     @logicView.listenTo @populationCalculation, 'rationale:show', (result) -> @showRationale(result)
     @measures = @model.collection
 
-  episodesOfCare: ->
-    return null unless @model.has('episode_ids')
-    @model.get('source_data_criteria').filter((sdc) => sdc.get('source_data_criteria') in @model.get('episode_ids'))
-
   updateMeasure: (e) ->
     importMeasureView = new Thorax.Views.ImportMeasure(model: @model)
     importMeasureView.appendTo(@$el)
     importMeasureView.display()
+
+  sharePatients: (e) ->
+    sharePatientsView = new Thorax.Views.SharePatients(model: @model, measures: new Thorax.Collections.Measures(@model.collection))
+    sharePatientsView.appendTo(@$el)
+    sharePatientsView.display()
+
+  convertQdmPatients: (e) ->
+    @convertPatientsView.converting()
+
+    $.fileDownload "patients/convert_patients?hqmf_set_id=#{@model.get('cqmMeasure').hqmf_set_id}",
+      successCallback: => @convertPatientsView.success()
+      failCallback: => @convertPatientsView.fail()
+      httpMethod: "POST"
+      data: {authenticity_token: $("meta[name='csrf-token']").attr('content')}
 
   exportQrdaPatients: (e) ->
     @exportPatientsView.exporting()
@@ -99,20 +116,19 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       @model.get('populations').each (population) ->
         differences.push(_(population.differencesFromExpected().toJSON()).extend(population.coverage().toJSON()))
 
-      $.fileDownload "patients/qrda_export?hqmf_set_id=#{@model.get('hqmf_set_id')}",
+      $.fileDownload "patients/qrda_export?hqmf_set_id=#{@model.get('cqmMeasure').hqmf_set_id}",
         successCallback: => @exportPatientsView.qrdaSuccess()
         failCallback: => @exportPatientsView.fail()
         httpMethod: "POST"
-        data: {authenticity_token: $("meta[name='csrf-token']").attr('content'), results: differences, isCQL: @model.has('cql')}
+        data: {authenticity_token: $("meta[name='csrf-token']").attr('content'), results: differences}
 
   exportExcelPatients: (e) ->
     @exportPatientsView.exporting()
-
     calc_results = {}
     patient_details = {}
     population_details = {}
-    statement_details = CQLMeasureHelpers.buildDefineToFullStatement(@model)
-    file_name = @model.get('cms_id')
+    statement_details = CQLMeasureHelpers.buildDefineToFullStatement(@model.get('cqmMeasure'))
+    file_name = @model.get('cqmMeasure').cms_id
     # Loop iterates over the populations and gets the calculations for each population.
     # From this it builds a map of pop_key->patient_key->results
     for pop in @model.get('populations').models
@@ -129,24 +145,23 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
         # Populates the patient details
         if (patient_details[patient.cid] == undefined)
           patient_details[patient.cid] = {
-            first: patient.get("first")
-            last: patient.get("last")
-            expected_values: patient.get("expected_values")
-            birthdate: patient.get("birthdate")
+            first: patient.getFirstName()
+            last: patient.getLastName()
+            expected_values: patient.getExpectedValues(@model)
+            birthdate: patient.getBirthDate()
             expired: patient.get("expired")
-            deathdate: patient.get("deathdate")
-            ethnicity: patient.get("ethnicity")
-            race: patient.get("race")
-            gender: patient.get("gender")
-            notes: patient.get("notes")
+            deathdate: patient.getDeathDate()
+            ethnicity: patient.getEthnicity().code
+            race: patient.getRace().code
+            gender: patient.getGender().code
+            notes: patient.getNotes()
           }
         # Populates the population details
         if (population_details[pop.cid] == undefined)
           population_details[pop.cid] = {title: pop.get("title"), statement_relevance: result.get("statement_relevance")}
-          criteria = []
-          for popAttrs of pop.attributes
-            if (popAttrs != "title" && popAttrs != "sub_id" && popAttrs != "title")
-              criteria.push(popAttrs)
+          criteria = pop.populationCriteria()
+          if pop.get('observations')?.length > 0
+            criteria.push('OBSERV')
           population_details[pop.cid]["criteria"] = criteria
 
     $.fileDownload "patients/excel_export",
@@ -160,7 +175,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
         population_details: JSON.stringify(population_details)
         statement_details: JSON.stringify(statement_details)
         file_name: file_name
-        measure_hqmf_set_id: @model.get('hqmf_set_id')
+        measure_hqmf_set_id: @model.get('cqmMeasure').hqmf_set_id
       }
 
   # Iterates through the results to remove extraneous fields.
@@ -195,9 +210,9 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     $btn = $(e.currentTarget)
     $btn.toggleClass('btn-danger btn-danger-inverse').prev().toggleClass('hide')
 
-  toggleVisualization: (e) ->
-    @$('.btn-viz-chords, .btn-viz-text, .measure-viz, .d3-measure-viz').toggle()
-    if @$('.d3-measure-viz').children().length == 0
-      d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz)
-      @$('rect').popover()
-      if @populationCalculation.toggledPatient? then @logicView.showRationale(@populationCalculation.toggledPatient) else @logicView.showCoverage()
+class Thorax.Views.MeasureMetadataView extends Thorax.Views.BonnieView
+  template: JST['measure/measure_metadata']
+
+  initialize: ->
+    @hqmf_version_number = @model.get('cqmMeasure').hqmf_version_number
+    @cql_libraries = @model.get('cqmMeasure').cql_libraries

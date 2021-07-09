@@ -1,0 +1,49 @@
+{{#if showLabel}}
+<div class="row">
+  <div class="col-md-12">
+    <span class="control-label"><i class="fa fa-calendar-minus-o" aria-hidden="true"></i> {{attributeTitle}}</span> - <samp>{{attributeName}}</samp>
+  </div>
+</div>
+{{/if}}
+
+<div class="row">
+  <div class="form-group col-md-6 datetime-interval-start">
+    <div class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i> Start</div>
+    <div class="datetime-control-nullable">
+      <div class="col-md-2 datetime-null-toggle">
+        <label for="start_date_{{cid}}_is_defined" class="sr-only">start date is defined</label>
+        <input type="checkbox" name="start_date_is_defined" id="start_date_{{cid}}_is_defined" value="true" {{#if start_date_is_defined}}checked{{/if}}/>
+      </div>
+
+      <div class="datetime-control-date">
+        <label for="start_date_{{cid}}" class="sr-only">start date month/day/year</label>
+        <input type="text" name="start_date" id="start_date_{{cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true" {{#if start_date_is_defined}}value="{{start_date}}"{{else}}disabled{{/if}}/>
+      </div>
+
+      <div class="datetime-control-time">
+        <label for="start_time_{{cid}}" class="sr-only">start time</label>
+        <input type="text" name="start_time" id="start_time_{{cid}}" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" {{#if start_date_is_defined}}value="{{start_time}}"{{else}}disabled{{/if}}/>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group col-md-6 datetime-interval-end">
+    <div class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i> End</div>
+    <div class="datetime-control-nullable">
+      <div class="datetime-null-toggle">
+        <label for="end_date_{{cid}}_is_defined" class="sr-only">end date is defined</label>
+        <input type="checkbox" name="end_date_is_defined" id="end_date_{{cid}}_is_defined" value="true" {{#if end_date_is_defined}}checked{{/if}}/>
+      </div>
+
+      <div class="datetime-control-date">
+        <label for="end_date_{{cid}}" class="sr-only">end date month/day/year</label>
+        <input type="text" name="end_date" id="end_date_{{cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true" {{#if end_date_is_defined}}value="{{end_date}}"{{else}}disabled{{/if}}/>
+      </div>
+
+      <div class="datetime-control-time">
+        <label for="end_time_{{cid}}" class="sr-only">end time</label>
+        <input type="text" name="end_time" id="end_time_{{cid}}" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" {{#if end_date_is_defined}}value="{{end_time}}"{{else}}disabled{{/if}}/>
+      </div>
+    </div>
+  </div>
+</div>

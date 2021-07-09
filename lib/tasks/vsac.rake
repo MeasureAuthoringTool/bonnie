@@ -6,6 +6,7 @@ namespace :bonnie do
     task :lookup_oid => :environment do
       raise "No OID supplied" unless ENV['OID']
       raise "No API Key supplied" unless ENV['VSAC_API_KEY']
+      
       options = {}
       options[:release] = ENV['RELEASE'] if ENV.key?('RELEASE')
       options[:include_draft] = !!ENV['DRAFT'] if ENV.key?('DRAFT')

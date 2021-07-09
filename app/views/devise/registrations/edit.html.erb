@@ -98,12 +98,6 @@
 
 <% end -%>
 
-<% if current_user.is_portfolio? %>
-  <h1>White/Black List Builder</h1>
-  <a href="/#value_sets/edit" class="btn btn-primary btn-lg" >Edit</a>
-  <span class="help-block">Search loaded value sets, correlate codes across value sets via filters, and modify current white/black list value set entries.</span>
-<% end %>
-
 <a href="#" data-toggle="modal" data-target="#deleteAccountDialog">Delete your account</a>
 
 <div class="modal fade" id="deleteAccountDialog" tabindex="-1" role="dialog" aria-hidden="true">

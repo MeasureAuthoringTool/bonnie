@@ -57,6 +57,11 @@
           color: @brand-primary;
         }
       }
+      .share-patients, .btn-measure-listing {
+        .fa {
+          color: @brand-primary;
+        }
+      }
       .import-patients, .btn-measure-listing {
         .fa {
           color: white;
@@ -253,33 +258,6 @@
   }
 }
 
-.vsac-help-container {
-  padding-left: 0;
-  text-align: center;
-  height: 34px;
-  padding-top: 4px;
-
-  a {
-    font-size: 18px;
-    color: @brand-faded;
-    &:focus {
-      outline: none;
-      color: @brand-primary;
-    }
-  }
-
-  .popover {
-    max-width: 600px;
-    width: 600px;
-    margin-bottom: 30px;
-
-    pre {
-      font-size: 12px;
-      white-space: pre-wrap;
-    }
-  }
-}
-
 li .set-op-item .set-op-group > ul {
   padding-left: 0; // addresses overly-nested list markup
 }
@@ -310,4 +288,15 @@ li .set-op-item .set-op-group > ul {
 
 .cql-modal {
   width: 95%;
+}
+
+.metadata-table {
+  caption {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .metadata-row {
+    width: 100%;
+  }
 }

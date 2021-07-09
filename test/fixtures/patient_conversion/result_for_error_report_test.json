@@ -1,0 +1,449 @@
+[
+  {
+    "id": "5ff4d79ca8295500001f1f1e",
+    "patient_outcome": {
+      "conversionMessages": [
+        "Did not convert 1 dataElements with type QDM:FakeType",
+        "Did not convert 1 dataElements with type QDM:AnotherFakeType"
+      ],
+      "validationMessages": [
+        {
+          "severity": "WARNING",
+          "locationCol": 985,
+          "locationLine": 1,
+          "locationString": "Patient.name[0].family",
+          "message": "value should not start or finish with whitespace"
+        }
+      ]
+    },
+    "fhir_patient": {
+      "resourceType": "Patient",
+      "id": "5ff4d79ca8295500001f1f1e",
+      "text": {
+        "status": "generated",
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">john <b>DOE </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Date of birth</td><td><span>09 November 1988</span></td></tr></tbody></table></div>"
+      },
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+          "valueCode": "1002-5"
+        },
+        {
+          "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+          "valueCode": "2135-2"
+        }
+      ],
+      "active": true,
+      "name": [
+        {
+          "use": "usual",
+          "family": "doe",
+          "given": [
+            "john"
+          ]
+        }
+      ],
+      "gender": "female",
+      "birthDate": "1988-11-09"
+    },
+    "expected_values": [
+      {
+        "measure_id": "42E7E489-790F-427A-A1A6-D6E807F65A6D",
+        "population_index": 0,
+        "IPP": 1,
+        "DENOM": 1,
+        "DENEX": 0,
+        "NUMER": 0
+      }
+    ],
+    "measure_ids": [
+      "42E7E489-790F-427A-A1A6-D6E807F65A6D"
+    ],
+    "data_elements": [
+      {
+        "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1001",
+        "valueSetTitle": "Office Visit",
+        "description": "Encounter: Office Visit",
+        "outcome": {
+          "conversionMessages": [
+            "No mapping for status"
+          ],
+          "validationMessages": [
+            {
+              "message": "Profile http://hl7.org/fhir/StructureDefinition/Encounter, Element 'Encounter.class': minimum required = 1, but only found 0",
+              "locationString": "Encounter",
+              "severity": "ERROR",
+              "locationCol": 40,
+              "locationLine": 1
+            }
+          ]
+        },
+        "fhir_resource": {
+          "resourceType": "Encounter",
+          "id": "5ff4d7dba8295500001f1fbf",
+          "status": "unknown",
+          "type": [
+            {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "185463005"
+                }
+              ]
+            }
+          ],
+          "subject": {
+            "reference": "Patient/5ff4d79ca8295500001f1f1e",
+            "display": "john doe"
+          },
+          "period": {
+            "start": "2012-01-05T08:00:00+00:00",
+            "end": "2012-01-05T08:15:00+00:00"
+          }
+        }
+      }
+    ],
+    "created_at": "2021-01-19T20:11:34.370892Z",
+    "updated_at": "2021-01-19T20:11:34.370892Z"
+  },
+  {
+    "id": "60006489a8987a000007832f",
+    "patient_outcome": {
+      "conversionMessages": [],
+      "validationMessages": []
+    },
+    "fhir_patient": {
+      "resourceType": "Patient",
+      "id": "60006489a8987a000007832f",
+      "text": {
+        "status": "generated",
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">PapTest&lt;3Yrs <b>NUM </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Date of birth</td><td><span>11 July 1984</span></td></tr></tbody></table></div>"
+      },
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+          "valueCode": "1002-5"
+        },
+        {
+          "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+          "valueCode": "2135-2"
+        }
+      ],
+      "active": true,
+      "name": [
+        {
+          "use": "usual",
+          "family": "NUM",
+          "given": [
+            "PapTest<3Yrs"
+          ]
+        }
+      ],
+      "gender": "female",
+      "birthDate": "1984-07-11"
+    },
+    "expected_values": [
+      {
+        "measure_id": "42E7E489-790F-427A-A1A6-D6E807F65A6D",
+        "population_index": 0,
+        "IPP": 1,
+        "DENOM": 1,
+        "DENEX": 0,
+        "NUMER": 1
+      }
+    ],
+    "measure_ids": [
+      "42E7E489-790F-427A-A1A6-D6E807F65A6D"
+    ],
+    "data_elements": [
+      {
+        "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1025",
+        "valueSetTitle": "Preventive Care Services - Established Office Visit, 18 and Up",
+        "description": "Encounter: Preventive Care Services - Established Office Visit, 18 and Up",
+        "outcome": {
+          "conversionMessages": [
+            "No mapping for status"
+          ],
+          "validationMessages": [
+            {
+              "message": "Profile http://hl7.org/fhir/StructureDefinition/Encounter, Element 'Encounter.class': minimum required = 1, but only found 0",
+              "locationString": "Encounter",
+              "severity": "ERROR",
+              "locationCol": 40,
+              "locationLine": 1
+            }
+          ]
+        },
+        "fhir_resource": {
+          "resourceType": "Encounter",
+          "id": "600064afa8987a000007839a",
+          "status": "unknown",
+          "type": [
+            {
+              "coding": [
+                {
+                  "system": "http://www.ama-assn.org/go/cpt",
+                  "code": "99395"
+                }
+              ]
+            }
+          ],
+          "subject": {
+            "reference": "Patient/60006489a8987a000007832f",
+            "display": "PapTest<3Yrs NUM"
+          },
+          "period": {
+            "start": "2012-01-14T08:00:00+00:00",
+            "end": "2012-01-14T08:15:00+00:00"
+          }
+        }
+      },
+      {
+        "codeListId": "2.16.840.1.113883.3.464.1003.108.12.1017",
+        "valueSetTitle": "Pap Test",
+        "description": "Observation: Pap Test",
+        "outcome": {
+          "conversionMessages": [
+            "No mapping for status", "another error"
+          ],
+          "validationMessages": []
+        },
+        "fhir_resource": {
+          "resourceType": "Observation",
+          "id": "600064d9a8987a00000783a5",
+          "status": "unknown",
+          "code": {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "10524-7"
+              }
+            ]
+          },
+          "subject": {
+            "reference": "Patient/60006489a8987a000007832f",
+            "display": "PapTest<3Yrs NUM"
+          },
+          "effectivePeriod": {
+            "start": "2012-01-14T08:00:00+00:00",
+            "end": "2012-01-14T08:15:00+00:00"
+          },
+          "issued": "2012-01-14T08:00:00.000+00:00",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "19774-9",
+                "display": "Cytology study comment Cervical or vaginal smear or scraping Cyto stain"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "created_at": "2021-01-19T20:11:34.194711Z",
+    "updated_at": "2021-01-19T20:11:34.194711Z"
+  },
+  {
+    "id": "600064fda8987a00000783cd",
+    "patient_outcome": {
+      "conversionMessages": [],
+      "validationMessages": []
+    },
+    "fhir_patient": {
+      "resourceType": "Patient",
+      "id": "600064fda8987a00000783cd",
+      "text": {
+        "status": "generated",
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">Hospice <b>DENEX </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Date of birth</td><td><span>05 June 1984</span></td></tr></tbody></table></div>"
+      },
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+          "valueCode": "1002-5"
+        },
+        {
+          "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+          "valueCode": "2135-2"
+        }
+      ],
+      "active": true,
+      "name": [
+        {
+          "use": "usual",
+          "family": "DENEX",
+          "given": [
+            "Hospice"
+          ]
+        }
+      ],
+      "gender": "female",
+      "birthDate": "1984-06-05"
+    },
+    "expected_values": [
+      {
+        "measure_id": "42E7E489-790F-427A-A1A6-D6E807F65A6D",
+        "population_index": 0,
+        "IPP": 1,
+        "DENOM": 1,
+        "DENEX": 1,
+        "NUMER": 0
+      }
+    ],
+    "measure_ids": [
+      "42E7E489-790F-427A-A1A6-D6E807F65A6D"
+    ],
+    "data_elements": [
+      {
+        "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1023",
+        "valueSetTitle": "Preventive Care Services-Initial Office Visit, 18 and Up",
+        "description": "Encounter: Preventive Care Services-Initial Office Visit, 18 and Up",
+        "outcome": {
+          "conversionMessages": [
+            "No mapping for status"
+          ],
+          "validationMessages": [
+            {
+              "message": "Profile http://hl7.org/fhir/StructureDefinition/Encounter, Element 'Encounter.class': minimum required = 1, but only found 0",
+              "locationString": "Encounter",
+              "severity": "ERROR",
+              "locationCol": 40,
+              "locationLine": 1
+            }
+          ]
+        },
+        "fhir_resource": {
+          "resourceType": "Encounter",
+          "id": "60006508a8987a00000783e2",
+          "status": "unknown",
+          "type": [
+            {
+              "coding": [
+                {
+                  "system": "http://www.ama-assn.org/go/cpt",
+                  "code": "99385"
+                }
+              ]
+            }
+          ],
+          "subject": {
+            "reference": "Patient/600064fda8987a00000783cd",
+            "display": "Hospice DENEX"
+          },
+          "period": {
+            "start": "2012-01-14T08:00:00+00:00",
+            "end": "2012-01-14T08:15:00+00:00"
+          }
+        }
+      },
+      {
+        "codeListId": "2.16.840.1.113883.3.666.5.307",
+        "valueSetTitle": "Encounter Inpatient",
+        "description": "Encounter: Encounter Inpatient",
+        "outcome": {
+          "conversionMessages": [
+            "No mapping for status"
+          ],
+          "validationMessages": [
+            {
+              "message": "Profile http://hl7.org/fhir/StructureDefinition/Encounter, Element 'Encounter.class': minimum required = 1, but only found 0",
+              "locationString": "Encounter",
+              "severity": "ERROR",
+              "locationCol": 40,
+              "locationLine": 1
+            }
+          ]
+        },
+        "fhir_resource": {
+          "resourceType": "Encounter",
+          "id": "60006521a8987a0000078448",
+          "status": "unknown",
+          "type": [
+            {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "183452005"
+                }
+              ]
+            }
+          ],
+          "subject": {
+            "reference": "Patient/600064fda8987a00000783cd",
+            "display": "Hospice DENEX"
+          },
+          "period": {
+            "start": "2012-01-14T08:00:00+00:00",
+            "end": "2012-01-14T08:15:00+00:00"
+          },
+          "hospitalization": {
+            "dischargeDisposition": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "428371000124100",
+                  "display": "Discharge to healthcare facility for hospice care (procedure)"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "created_at": "2021-01-19T20:11:34.287423Z",
+    "updated_at": "2021-01-19T20:11:34.287423Z"
+  },
+  {
+    "id": "6001c3a2fe119a00006d840a",
+    "patient_outcome": {
+      "conversionMessages": [],
+      "validationMessages": []
+    },
+    "fhir_patient": {
+      "resourceType": "Patient",
+      "id": "6001c3a2fe119a00006d840a",
+      "text": {
+        "status": "generated",
+        "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">characteristics <b>PATIENT </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Date of birth</td><td><span>12 November 1999</span></td></tr></tbody></table></div>"
+      },
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+          "valueCode": "2054-5"
+        },
+        {
+          "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+          "valueCode": "2186-5"
+        }
+      ],
+      "active": true,
+      "name": [
+        {
+          "use": "usual",
+          "family": "patient",
+          "given": [
+            "characteristics"
+          ]
+        }
+      ],
+      "gender": "female",
+      "birthDate": "1999-11-12"
+    },
+    "expected_values": [
+      {
+        "measure_id": "42E7E489-790F-427A-A1A6-D6E807F65A6D",
+        "population_index": 0,
+        "IPP": 0,
+        "DENOM": 0,
+        "DENEX": 0,
+        "NUMER": 0
+      }
+    ],
+    "measure_ids": [
+      "42E7E489-790F-427A-A1A6-D6E807F65A6D"
+    ],
+    "data_elements": [],
+    "created_at": "2021-01-19T20:11:34.298070Z",
+    "updated_at": "2021-01-19T20:11:34.298070Z"
+  }
+]

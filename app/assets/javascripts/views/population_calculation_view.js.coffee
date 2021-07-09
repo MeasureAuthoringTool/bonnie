@@ -10,7 +10,7 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     @measure = @model.measure()
     @differences = @model.differencesFromExpected()
     # We want to display the results sorted by 1) failures first, then 2) last name, then 3) first name
-    @differences.comparator = (d) -> [!d.get('done'), d.get('match'), d.result.patient.get('last'), d.result.patient.get('first')]
+    @differences.comparator = (d) -> [!d.get('done'), d.get('match'), d.result.patient.getLastName(), d.result.patient.getFirstName()]
     @differences.sort()
     # Make sure the sort order updates as results come in
     @differences.on 'change', @differences.sort, @differences
@@ -18,16 +18,19 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     @toggledPatient = null
 
   context: ->
-    _(super).extend({measure_id: @measure.get('hqmf_set_id'), measure_is_composite: @measure.get('composite')})
+    _(super).extend({measure_id: @measure.get('cqmMeasure').hqmf_set_id, measure_is_composite: @measure.get('cqmMeasure').composite})
 
   events:
     'click .select-patient': -> @trigger 'select-patients:change'
 
   differenceContext: (difference) ->
     _(difference.toJSON()).extend
-      patient: difference.result.patient.toJSON()
-      measure_id: @measure.get('hqmf_set_id')
-      episode_of_care: @measure.get('episode_of_care')
+      measure_id: @measure.get('cqmMeasure').hqmf_set_id
+      episode_of_care: @measure.get('cqmMeasure').calculation_method == 'EPISODE_OF_CARE'
+      patientFirstName: difference.result.patient.getFirstName()
+      patientLastName: difference.result.patient.getLastName()
+      patientId: difference.result.patient.id
+
 
   updatePopulation: (population) ->
     selectedResult = @$('.toggle-result').filter(':visible').model().result
@@ -45,46 +48,50 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
 
   showDelete: (e) ->
     result = @$(e.target).model().result
-    deleteButton = @$(".delete-#{result.get('patient_id')}")
+    deleteButton = @$(".delete-#{result.patient.id}")
     deleteIcon = @$(e.currentTarget)
     # if we clicked on the icon, grab the icon button instead
     deleteIcon.toggleClass('btn-danger btn-danger-inverse')
     deleteButton.toggle()
-    shareButton = @$(".share-#{result.get('patient_id')}")
+    shareButton = @$(".share-#{result.patient.id}")
     shareButton.toggle() # get share button out the way
 
   deletePatient: (e) ->
-    result = $(e.target).model().result
-    patient = @measure.get('patients').get result.get('patient_id')
+    difference = $(e.target).model()
+    patient = @measure.get('patients').get difference.result.patient.id
+    # If patient belongs to multiple measures, show dialog asking if we want to remove patient from specific measures else delete patient
+    if (patient.get('cqmPatient').measure_ids.filter (id) -> id?).length > 1 && bonnie.isPortfolio
+      patientsMeasures = @measure.collection.models.filter (measure) -> patient.get('cqmPatient').measure_ids.includes(measure.get('cqmMeasure').hqmf_set_id)
+      # Difference is needed by the patient dialog view if the user ultimately ends up removing patient from current measure
+      deletePatientDialog = new Thorax.Views.DeletePatientDialog(model: patient, availableMeasures: patientsMeasures, submitCallback: @adjustMeasureIds, difference: difference)
+      deletePatientDialog.appendTo(@$el)
+      deletePatientDialog.display()
+    else
+      @patientDestroy(patient, difference.result)
+
+  patientDestroy: (patient, result) ->
     patient.destroy()
     result.destroy()
     @trigger 'rationale:clear'
     @coverageView.showCoverage()
 
+  adjustMeasureIds: (patient, ids, difference) =>
+    patient.attributes.cqmPatient.measure_ids = _.difference(patient.get('cqmPatient').measure_ids, ids);
+    remaining = (patient.get('cqmPatient').measure_ids.filter (id) -> id != null ).length
+    if remaining > 0
+      # if we are removing selected patient from current measure remove from differences view
+      if ids.includes(this.measure.attributes.cqmMeasure.hqmf_set_id)
+        @differences.remove(difference)
+      # Remove patient from throrax collections so UI is up to date when user goes back to dashboard
+      @measure.collection.models.forEach (mes) -> mes.attributes.patients.remove(patient) if ids.includes(mes.attributes.cqmMeasure.hqmf_set_id)
+      patient.save {cqmPatient: patient.get('cqmPatient')}, {silent: true}
+    else
+      @patientDestroy(patient, difference.result)
+
   clonePatient: (e) ->
     result = $(e.target).model().result
-    patient = @measure.get('patients').get result.get('patient_id')
-    bonnie.navigateToPatientBuilder patient.deepClone(omit_id: true, dedupName: true), @measure
-
-  # The button to toggle a patient was disabled as part of BONNIE-1110.
-  togglePatient: (e) ->
-    $btn = $(e.currentTarget)
-
-    result = $btn.model().result
-    patient = @measure.get('patients').get result.get('patient_id')
-
-    # toggle the patient's 'is_shared' attribute
-    if patient.get('is_shared')
-      patient.save({'is_shared': false}, silent: true)
-      $btn.find('.btn-label').text 'Share'
-    else
-      patient.save({'is_shared': true}, silent: true)
-      $btn.find('.btn-label').text 'Shared'
-
-    # switch displayed button
-    $btn.toggleClass 'btn-primary btn-primary-inverse'
-    $btn.find('.share-icon').toggleClass 'fa-plus fa-minus'
-
+    patient = @measure.get('patients').get result.patient.id
+    bonnie.navigateToPatientBuilder patient.deepClone(new_id: true, dedupName: true), @measure
 
   expandResult: (e) ->
     @trigger 'rationale:clear'
@@ -103,8 +110,3 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
       @coverageView.hideCoverage()
       @toggledPatient = result
 
-  togglePatientsListing: ->
-    @patientsListing = !@patientsListing
-    @$('.coverage-summary').toggle()
-    @render()
-    if @patientsListing then @$('.summary').hide() else @$('.summary').show()
