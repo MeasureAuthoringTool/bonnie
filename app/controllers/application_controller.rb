@@ -23,12 +23,15 @@ class ApplicationController < ActionController::Base
     if resource.is_a?(User)
       resource.current_group = resource.find_personal_group
       resource.save
+      # preserve flash messages on redirection
+      # used for harp account linking
+      flash.keep
     end
     super
   end
 
   def after_sign_out_path_for(resource)
-    "#{(respond_to?(:root_path) ? root_path : "/")}users/sign_in"
+    "#{(respond_to?(:root_path) ? root_path : "/")}users/saml/sign_in"
   end
 
   def page_not_found
@@ -57,7 +60,7 @@ class ApplicationController < ActionController::Base
 
   def log_additional_data
     request.env["exception_notifier.exception_data"] = {
-      :current_user => current_user
+      #:current_user => current_user
     }
   end
 
