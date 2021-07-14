@@ -18,7 +18,7 @@ class SamlFailureHandler < Devise::FailureApp
   end
 
   def link_user(email, harp_id, flash)
-    user = User.find_by email: email
+    user = find_user_case_insensitive(email, harp_id)
     if user.nil?
       title = 'No Bonnie Account'
       msg = 'You don\'t currently have a Bonnie account with this HARP Account. '\
@@ -45,5 +45,28 @@ class SamlFailureHandler < Devise::FailureApp
     end
   end
 
+  def find_user_case_insensitive(email, harp_id)
+    user = User.find_by email: email
+    # Find by harp_id case insensitive
+    case_mismatch = false
+    if user.nil?
+      user = User.find_by(harp_id: /^#{harp_id}$/i)
+      case_mismatch = true unless user.nil?
+    end
+    # Find by email case insensitive
+    if user.nil?
+      user = User.find_by(email: /^#{email}$/i)
+      case_mismatch = true unless user.nil?
+    end
+    # HARP is the source of truth, update email and harp_id
+    if case_mismatch
+      # Update harp ID only if it's already approved
+      # Otherwise an unapproved user will get linked
+      user.harp_id = harp_id if user.is_approved?
+      user.email = email
+      user.save
+    end
+    user
+  end
 
 end

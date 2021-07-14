@@ -1,6 +1,7 @@
 print("Migration started");
 // Create a new group collection
 db.createCollection("groups");
+
 // Create a record in the group collection for each user. Those will be used as user private groups
 // group.id can be equal to user.id (for migration simplicity)
 // Update each user object with user.groups = [private group id]
