@@ -13,7 +13,7 @@ class Thorax.Views.InputRelatedToView extends Thorax.Views.BonnieView
 
     # Do not include the current DataElement in the list of available Data Elements
     dataElements = []
-    for dataElement in @sourceDataCriteria.models
+    for dataElement in @sourceDataCriteria
       unless dataElement.get('qdmDataElement').id == @currentDataElementId
         dataElements.push(dataElement)
     @sourceDataCriteria.models = dataElements

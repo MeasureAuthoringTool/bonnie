@@ -7,9 +7,10 @@ on:
     branches: [master, bonnie-prior, bonnie-on-fhir]
 
 jobs:
-  build:
+  build_n_test_bonnie:
 
     runs-on: ubuntu-latest
+    name: Build and Test Bonnie
 
     services:
       mongodb:
@@ -53,7 +54,7 @@ jobs:
       - name: Perform audit check for vulnerabilities
         env:
           RAILS_ENV: test
-        run: bundle exec bundle-audit check --update --ignore=CVE-2020-26247
+        run: bundle exec bundle-audit check --update
 
       - name: Set and run up overcommit
         run: |
@@ -75,11 +76,11 @@ jobs:
         with:
           run: bundle exec rake test
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+      - name: Upload resultset artifact
+        uses: actions/upload-artifact@v2
         with:
-          file: coverage/.resultset.json
-          fail_ci_if_error: true
+          path: coverage/.resultset.json
+          name: ruleset
 
       - name: Setup Istanbul
         run: sudo npm install -g istanbul
@@ -90,11 +91,11 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=admin_views
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+      - name: Upload admin_views
+        uses: actions/upload-artifact@v2
         with:
-          file: coverage-frontend/default/lcov.info
-          fail_ci_if_error: true
+          path: coverage-frontend/default/lcov.info
+          name: admin_views.info
 
 # ------- Teaspoon tests for "cqm_specs" directory ----------
       - name: Run teaspoon tests for cqm_specs
@@ -102,11 +103,11 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=cqm_specs
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+      - name: Upload cqm_specs
+        uses: actions/upload-artifact@v2
         with:
-          file: coverage-frontend/default/lcov.info
-          fail_ci_if_error: true
+          path: coverage-frontend/default/lcov.info
+          name: cqm_specs.info
 # ----------------------------------------------------------------------
 
 # ------- Teaspoon tests for "helper_specs" directory ----------
@@ -115,11 +116,11 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=helper_specs
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+      - name: Upload helper_specs
+        uses: actions/upload-artifact@v2
         with:
-          file: coverage-frontend/default/lcov.info
-          fail_ci_if_error: true
+          path: coverage-frontend/default/lcov.info
+          name: helper_specs.info
 # ----------------------------------------------------------------------
 
 # ------- Teaspoon tests for "integration" directory ----------
@@ -128,11 +129,11 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=integration
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+      - name: Upload integration
+        uses: actions/upload-artifact@v2
         with:
-          file: coverage-frontend/default/lcov.info
-          fail_ci_if_error: true
+          path: coverage-frontend/default/lcov.info
+          name: integration.info
 # ----------------------------------------------------------------------
 
 # ------- Teaspoon tests for "models" directory ----------
@@ -141,11 +142,11 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=models
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+      - name: Upload models
+        uses: actions/upload-artifact@v2
         with:
-          file: coverage-frontend/default/lcov.info
-          fail_ci_if_error: true
+          path: coverage-frontend/default/lcov.info
+          name: models.info
 # ----------------------------------------------------------------------
 
 # ------- Teaspoon tests for "patient_builder_tests/input_views" directory ----------
@@ -154,11 +155,11 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=patient_builder_tests/input_views
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+      - name: Upload input_views
+        uses: actions/upload-artifact@v2
         with:
-          file: coverage-frontend/default/lcov.info
-          fail_ci_if_error: true
+          path: coverage-frontend/default/lcov.info
+          name: input_views.info
 # ----------------------------------------------------------------------
 
 # ------- Teaspoon tests for "patient_builder_tests/measure" directory ----------
@@ -167,11 +168,11 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=patient_builder_tests/measure
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+      - name: Upload measure
+        uses: actions/upload-artifact@v2
         with:
-          file: coverage-frontend/default/lcov.info
-          fail_ci_if_error: true
+          path: coverage-frontend/default/lcov.info
+          name: measure.info
 # ----------------------------------------------------------------------
 
 # ------- Teaspoon tests for "patient_builder_tests/patient" directory ----------
@@ -180,11 +181,11 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=patient_builder_tests/patient
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+      - name: Upload patient
+        uses: actions/upload-artifact@v2
         with:
-          file: coverage-frontend/default/lcov.info
-          fail_ci_if_error: true
+          path: coverage-frontend/default/lcov.info
+          name: patient.info
 # ----------------------------------------------------------------------
 
 # ------- Teaspoon tests for "patient_builder_tests/criteria" directory ----------
@@ -193,11 +194,11 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=patient_builder_tests/criteria
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+      - name: Upload criteria
+        uses: actions/upload-artifact@v2
         with:
-          file: coverage-frontend/default/lcov.info
-          fail_ci_if_error: true
+          path: coverage-frontend/default/lcov.info
+          name: coverage.info
 # ----------------------------------------------------------------------
 
 # ------- Teaspoon tests for "production_tests" directory ----------
@@ -206,11 +207,11 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=production_tests
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+      - name: Upload production_tests
+        uses: actions/upload-artifact@v2
         with:
-          file: coverage-frontend/default/lcov.info
-          fail_ci_if_error: true
+          path: coverage-frontend/default/lcov.info
+          name: production_tests.info
 # ----------------------------------------------------------------------
 
 # ------- Teaspoon tests for "calc" directory ----------
@@ -219,11 +220,11 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=calc
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+      - name: Upload calc
+        uses: actions/upload-artifact@v2
         with:
-          file: coverage-frontend/default/lcov.info
-          fail_ci_if_error: true
+          path: coverage-frontend/default/lcov.info
+          name: calc.info
 # ----------------------------------------------------------------------
 
 # ------- Teaspoon tests for "patient_builder_tests/cql/cql_logic_view_spec" file ----------
@@ -232,11 +233,11 @@ jobs:
         with:
           run: bundle exec rake teaspoon FILE=spec/javascripts/patient_builder_tests/cql/cql_logic_view_spec.js.coffee
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+      - name: Upload cql_logic_view_spec
+        uses: actions/upload-artifact@v2
         with:
-          file: coverage-frontend/default/lcov.info
-          fail_ci_if_error: true
+          path: coverage-frontend/default/lcov.info
+          name: cql_logic_view_spec.info
 # ----------------------------------------------------------------------
 
 # ------- Teaspoon tests for "patient_builder_tests/cql/cql_truncated_statement_view_spec" file ----------
@@ -245,11 +246,11 @@ jobs:
         with:
           run: bundle exec rake teaspoon FILE=spec/javascripts/patient_builder_tests/cql/cql_truncated_statement_view_spec.js.coffee
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+      - name: Upload cql_truncated_statement_view_spec
+        uses: actions/upload-artifact@v2
         with:
-          file: coverage-frontend/default/lcov.info
-          fail_ci_if_error: true
+          path: coverage-frontend/default/lcov.info
+          name: cql_logic_view_spec.info
 # ----------------------------------------------------------------------
 
 # ------- Teaspoon tests for "patient_builder_tests/cql/cql_coloring_spec.js.coffee" file ----------
@@ -258,11 +259,11 @@ jobs:
         with:
           run: bundle exec rake teaspoon FILE=spec/javascripts/patient_builder_tests/cql/cql_coloring_spec.js.coffee
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+      - name: Upload cql_coloring_spec
+        uses: actions/upload-artifact@v2
         with:
-          file: coverage-frontend/default/lcov.info
-          fail_ci_if_error: true
+          path: coverage-frontend/default/lcov.info
+          name: cql_coloring_spec.info
 # ----------------------------------------------------------------------
 
 # ------- Teaspoon tests for "cql_calculator_spec.js.coffee" file ----------
@@ -271,9 +272,28 @@ jobs:
         with:
           run: bundle exec rake teaspoon FILE=spec/javascripts/cql_calculator_spec.js.coffee
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+      - name: Upload cql_calculator_spec
+        uses: actions/upload-artifact@v2
         with:
-          file: coverage-frontend/default/lcov.info
-          fail_ci_if_error: true
+          path: coverage-frontend/default/lcov.info
+          name: cql_calculator_spec.info
 # ----------------------------------------------------------------------
+
+
+  upload_codecov:
+    needs: build_n_test_bonnie
+    runs-on: ubuntu-latest
+    name: upload to codecov
+
+    steps:
+      - uses: actions/download-artifact@v2
+
+      - name: Display structure of downloaded files
+        run: ls -R
+
+      - name: Codecov
+        uses: codecov/codecov-action@v1.5.2
+        with:
+         files: ./admin_views.info/lcov.info,./calc.info/lcov.info,./coverage.info/lcov.info,./cql_calculator_spec.info/lcov.info,./cql_coloring_spec.info/lcov.info,./cql_logic_view.info/lcov.info,./cqm_specs.info/lcov.info,./helper_specs.info/lcov.info,./input_views.info/lcov.info,./integration.info/lcov.info,./measure.info/lcov.info,./models.info/lcov.info,./patient.info/lcov.info,./production_tests.info/lcov.info,./rulset/.ruleset.json
+         fail_ci_if_error: true
+         verbose: true

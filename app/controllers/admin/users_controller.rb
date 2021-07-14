@@ -92,23 +92,29 @@ class Admin::UsersController < ApplicationController
 
   def user_by_email
     user = {}
-    if params[:email]
-      user = User.where(email: params[:email]).only(:first_name, :last_name, :email).first
-    end
+    user = User.where(email: params[:email]).only(:first_name, :last_name, :email).first if params[:email]
     render json: user
   end
 
   def users_by_group
     users = []
-    if params[:id]
-      users = User.where(group_ids: { '$in' => [params[:id]] }).only(:first_name, :last_name, :email).to_a
-    end
+    users = User.where(group_ids: { '$in' => [params[:id]] }).only(:first_name, :last_name, :email).to_a if params[:id]
     render json: users
   end
 
   def update_group_and_users
     group = Group.find(params[:group_id])
-    group.name = params[:group_name] if params[:group_name]
+    params_group_name = params[:group_name]
+
+    if group.name != params_group_name
+      down_cased_name = params_group_name.downcase
+      non_personal_groups = Group.where(is_personal: false)
+      non_personal_groups.all.each do |g|
+        raise ActionController::BadRequest, "Group name #{params_group_name} is already used." if g.name.downcase == down_cased_name
+      end
+    end
+
+    group.name = params_group_name if params_group_name
     group.save
     params[:users_to_add]&.each do |id|
       user = User.find(id)
@@ -117,10 +123,25 @@ class Admin::UsersController < ApplicationController
     end
     params[:users_to_remove]&.each do |id|
       user = User.find(id)
-      user.groups = user.groups.select { |g| g.id != group.id }
+      user.groups = user.groups.reject { |g| g.id == group.id }
       user.save
     end
     render json: group
+  end
+
+  def update_groups_to_a_user
+    user = User.find(params[:user_id])
+    params[:groups_to_add]&.each do |groupId|
+      group = Group.find(groupId)
+      user.groups << group
+      user.save
+    end
+    params[:groups_to_remove]&.each do |groupId|
+      group = Group.find(groupId)
+      user.groups = user.groups.select { |g| g.id != group.id }
+    end
+    user.save
+    render json: user
   end
 
   def patients

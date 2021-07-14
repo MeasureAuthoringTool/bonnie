@@ -8,6 +8,9 @@ class Admin::UsersControllerTest < ActionController::TestCase
     patients_set = File.join('cqm_patients', 'CMS903v0')
     users_set = File.join('users', 'base_set')
     collection_fixtures(users_set, patients_set)
+
+    User.create_indexes
+
     @user = User.by_email('bonnie@example.com').first
     @user.init_personal_group
     @user.save
@@ -26,6 +29,8 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
     load_measure_fixtures_from_folder(File.join('measures', 'CMS903v0'), @user)
     associate_user_with_patients(@user, CQM::Patient.all)
+
+    Group.create_indexes
 
     @public_group = Group.new(name: "SemanticBits", is_personal: false)
     @public_group.save
@@ -262,6 +267,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
     # remove user from group
     get :update_group_and_users, params: {
+      group_name: 'CMS',
       group_id: @public_group.id,
       users_to_remove: [@user_admin.id],
     }
@@ -270,5 +276,54 @@ class Admin::UsersControllerTest < ActionController::TestCase
     group = Group.find(@public_group.id)
     assert_equal 1, user.groups.length
     assert_equal 'CMS', group.name
+  end
+
+  test "update groups to a user" do
+    sign_in @user_admin
+
+    post :update_groups_to_a_user, params: {
+      user_id: @user_admin.id,
+      groups_to_add: [],
+      groups_to_remove: []
+    }
+    assert_response :success
+    user = User.find(@user_admin.id)
+    assert_equal 1, user.groups.length
+
+    post :update_groups_to_a_user, params: {
+      user_id: @user_admin.id,
+      groups_to_add: [@public_group.id],
+      groups_to_remove: []
+    }
+    assert_response :success
+    user = User.find(@user_admin.id)
+    assert_equal 2, user.groups.length
+
+    post :update_groups_to_a_user, params: {
+      user_id: @user_admin.id,
+      groups_to_add: [@public_group.id],
+      groups_to_remove: [@user_admin.id]
+    }
+    assert_response :success
+    user = User.find(@user_admin.id)
+    assert_equal 1, user.groups.length
+  end
+
+  test "update group to already existing name" do
+    sign_in @user_admin
+
+    my_group = Group.new(name: "MyGroup")
+    my_group.save
+
+    begin
+      get :update_group_and_users, params: {
+        group_name: 'MYGROUP',  # test case insensitivity
+        group_id: @public_group.id,
+        users_to_add: [],
+        users_to_remove: []
+      }
+    rescue Exception => e
+      assert_equal e.to_s, "Group name MYGROUP is already used."
+    end
   end
 end

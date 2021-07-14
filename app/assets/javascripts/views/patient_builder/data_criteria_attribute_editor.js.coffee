@@ -99,7 +99,13 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
 
   _createInputViewForType: (type) ->
     if ENTITY_TYPES.includes(type)
-      @inputView = new Thorax.Views.InputCompositeView({ schema: cqm.models["#{type}Schema"], typeName: type, allowNull: false})
+      @inputView = new Thorax.Views.InputCompositeView({
+        schema: cqm.models["#{type}Schema"],
+        typeName: type, allowNull: false,
+        cqmValueSets: @parent.measure.get('cqmValueSets'),
+        codeSystemMap: @parent.measure.codeSystemMap(),
+        defaultYear: @parent.measure.getMeasurePeriodYear()
+      })
     else
       @inputView = switch type
         when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap()})
@@ -113,7 +119,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
         when 'Ratio' then new Thorax.Views.InputRatioView()
         when 'String' then new Thorax.Views.InputStringView({ allowNull: false })
         when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
-        when 'relatedTo' then new Thorax.Views.InputRelatedToView(sourceDataCriteria: @parent.parent.parent.model.get('source_data_criteria'), currentDataElementId: @dataElement.id)
+        when 'relatedTo' then new Thorax.Views.InputRelatedToView(sourceDataCriteria: @parent.model.collection.models, currentDataElementId: @dataElement.id)
         else null
     @showInputViewPlaceholder = !@inputView?
     @listenTo(@inputView, 'valueChanged', @updateAddButtonStatus) if @inputView?
