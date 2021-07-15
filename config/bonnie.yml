@@ -22,6 +22,7 @@ defaults: &defaults
   smtp_port: 25
   smtp_tls: false
   bonnie_email: bonnie@example.com # For standard notifications
+  bonnie_from_email: dont-reply-sb-bonnie-help@hcqis.org # For email sender
   bonnie_error_email: bonnie@example.com # For frontend/backend exceptions
   patient_conversion_service_url: https://bonniedev-fhir.semanticbits.com/bonnie-patient-conversion/patients/convertMany
   ## --- Session auto-logout ---
@@ -53,6 +54,7 @@ production:
   smtp_tls: <%= ENV["BONNIE_SMTP_TLS"] %>
   bonnie_email: <%= ENV["BONNIE_EMAIL"] %>
   bonnie_error_email: <%= ENV["BONNIE_ERROR_EMAIL"] %>
+  bonnie_from_email: <%= ENV["BONNIE_FROM_EMAIL"] %>
   virus_scan:
     enabled: <%= ENV["VIRUS_SCAN_ENABLED"] %>
     scan_url: <%= ENV["VIRUS_SCAN_URL"] %>

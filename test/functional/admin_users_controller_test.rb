@@ -70,7 +70,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     # Verify transmission of new user email
     mail = ActionMailer::Base.deliveries.last
     assert_equal @user_unapproved.email, mail.to.first
-    assert_equal APP_CONFIG['bonnie_email'], mail.from.first
+    assert_equal APP_CONFIG['bonnie_from_email'], mail.from.first
     assert_equal "Welcome to Bonnie", mail.subject
   end
 
