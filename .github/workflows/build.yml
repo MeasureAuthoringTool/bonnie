@@ -8,11 +8,12 @@ on:
 
 jobs:
   build:
+    name: Build-and-Test
 
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        tests: [admin_views, cqm_specs, fhir_measures]
+        tests: [admin_views, cqm_specs, fhir_measures, helper_specs, integration, models, patient_builder_tests/input_views_1, patient_builder_tests/input_views_2, patient_builder_tests/input_views_3, patient_builder_tests/measure]
 
     services:
       mongodb:
