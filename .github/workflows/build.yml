@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        tests: [admin_views, cqm_specs, fhir_measures, helper_specs, integration, models, patient_builder_tests/input_views_1, patient_builder_tests/input_views_2, patient_builder_tests/input_views_3, patient_builder_tests/measure]
+        tests: [admin_views, cqm_specs, fhir_measures, helper_specs, integration, models, patient_builder_tests/input_views_1, patient_builder_tests/input_views_2, patient_builder_tests/input_views_3, patient_builder_tests/measure, patient_builder_tests/patient, patient_builder_tests/criteria, production_tests, calc, spec/javascripts/patient_builder_tests/cql/cql_logic_view_spec.js.coffee, spec/javascripts/patient_builder_tests/cql/cql_truncated_statement_view_spec.js.coffee, spec/javascripts/patient_builder_tests/cql/cql_coloring_spec.js.coffee]
 
     services:
       mongodb:
@@ -89,7 +89,7 @@ jobs:
         run: sudo npm install -g istanbul
 
 # ------- Teaspoon tests for "admin_views" directory ----------
-      - name: Run teaspoon tests for admin_views
+      - name: Run teaspoon tests
         uses: GabrielBB/xvfb-action@v1
         with:
           run: bundle exec rake teaspoon DIR=${{ matrix.tests }}
