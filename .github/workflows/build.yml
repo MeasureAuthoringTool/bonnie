@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-      tests: [admin_views, cqm_specs, fhir_measures]
+      node: [admin_views, cqm_specs, fhir_measures]
 
     services:
       mongodb:
@@ -91,7 +91,7 @@ jobs:
       - name: Run teaspoon tests for admin_views
         uses: GabrielBB/xvfb-action@v1
         with:
-          run: bundle exec rake teaspoon DIR=${{ matrix.tests }}
+          run: bundle exec rake teaspoon DIR=${{ matrix.node }}
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
