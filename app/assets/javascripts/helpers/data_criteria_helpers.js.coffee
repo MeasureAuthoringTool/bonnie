@@ -302,8 +302,9 @@
         attrs.push("additionalInstruction: #{@stringifyType(type.additionalInstruction[0], codeSystemMap)}")
       if type.patientInstruction?
         attrs.push("patientInstruction: #{@stringifyType(type.patientInstruction)}")
-      if type.timing?
-        attrs.push("timing: #{@stringifyType(type.timing)}")
+      # Display dosage.timing as a separate chip/pass
+#      if type.timing?
+#        attrs.push("timing: #{@stringifyType(type.timing)}")
       if type.asNeeded?
         attrs.push("asNeeded: #{@stringifyType(type.asNeeded, codeSystemMap)}")
       if type.site?
@@ -919,6 +920,7 @@
         valueSets: () -> [FhirValueSets.REASON_MEDICATION_NOT_GIVEN_VS]
       }
     ]
+#    FIXME
     MedicationDispense: [
       {
         path: 'medication'
@@ -948,6 +950,42 @@
         getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]
         setValue: (fhirResource, value) -> fhirResource.dosageInstruction = if value? then [value] else  null
         types: ['Dosage']
+      },
+      {
+        path: 'dosageInstruction.timing'
+        title: 'dosageInstruction.timing'
+        getValue: (fhirResource) => fhirResource?.dosageInstruction?[0]?.timing
+        setValue: (fhirResource, timing) =>
+          if !timing?
+            fhirResource?.dosageInstruction?[0]?.timing = null
+          else
+            fhirResource.dosageInstruction = [ new cqm.models.Dosage() ] unless fhirResource?.dosageInstruction
+            fhirResource.dosageInstruction[0].timing = timing
+        types: ['Timing']
+      },
+      {
+        path: 'daysSupply',
+        title: 'daysSupply',
+        getValue: (fhirResource) => fhirResource?.daysSupply
+        setValue: (fhirResource, daysSupply) =>
+          if !daysSupply?
+            fhirResource?.daysSupply = null
+          else
+            fhirResource?.daysSupply = daysSupply
+        types: ['SimpleQuantity']
+      },
+      {
+        path: 'status'
+        title: 'status'
+        getValue: (fhirResource) => fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) =>
+          if !codeValue?
+            fhirResource?.status = null
+          else
+            fhirResource?.status = cqm.models.MedicationDispenseStatus.parsePrimitive(codeValue)
+        types: ['Code']
+#        FIXME
+        valueSets: () => [MedicationDispenseStatusValueSet.JSON]
       }
     ]
     MedicationRequest: [
