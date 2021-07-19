@@ -2,6 +2,8 @@
 class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieView
   template: JST['patient_builder/data_criteria_attribute_editor']
 
+  ENTITY_TYPES = ['PatientEntity', 'CarePartner', 'Practitioner', 'Organization', 'Location']
+
   # Expected options to be passed in using the constructor options hash:
   #   model - Thorax.Models.SourceDataCriteria - The source data criteria we are displaying attributes for
   initialize: ->
@@ -96,20 +98,29 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       @render()
 
   _createInputViewForType: (type) ->
-    @inputView = switch type
-      when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap()})
-      when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
-      when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
-      when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false })
-      when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ allowNull: false })
-      when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView({ defaultYear: @parent.measure.getMeasurePeriodYear()})
-      when 'Interval<Quantity>' then new Thorax.Views.InputIntervalQuantityView()
-      when 'Quantity' then new Thorax.Views.InputQuantityView()
-      when 'Ratio' then new Thorax.Views.InputRatioView()
-      when 'String' then new Thorax.Views.InputStringView({ allowNull: false })
-      when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
-      when 'relatedTo' then new Thorax.Views.InputRelatedToView(sourceDataCriteria: @parent.parent.parent.model.get('source_data_criteria'), currentDataElementId: @dataElement.id)
-      else null
+    if ENTITY_TYPES.includes(type)
+      @inputView = new Thorax.Views.InputCompositeView({
+        schema: cqm.models["#{type}Schema"],
+        typeName: type, allowNull: false,
+        cqmValueSets: @parent.measure.get('cqmValueSets'),
+        codeSystemMap: @parent.measure.codeSystemMap(),
+        defaultYear: @parent.measure.getMeasurePeriodYear()
+      })
+    else
+      @inputView = switch type
+        when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap()})
+        when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
+        when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
+        when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false })
+        when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ allowNull: false })
+        when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView({ defaultYear: @parent.measure.getMeasurePeriodYear()})
+        when 'Interval<Quantity>' then new Thorax.Views.InputIntervalQuantityView()
+        when 'Quantity' then new Thorax.Views.InputQuantityView()
+        when 'Ratio' then new Thorax.Views.InputRatioView()
+        when 'String' then new Thorax.Views.InputStringView({ allowNull: false })
+        when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
+        when 'relatedTo' then new Thorax.Views.InputRelatedToView(sourceDataCriteria: @parent.model.collection.models, currentDataElementId: @dataElement.id)
+        else null
     @showInputViewPlaceholder = !@inputView?
     @listenTo(@inputView, 'valueChanged', @updateAddButtonStatus) if @inputView?
 
@@ -150,7 +161,10 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
         else
           return ['???'] # TODO: Handle situation of unknown type better.
       else if info.caster.instance # if this is a schema array we may be able to ask for the caster's instance type
-        return [info.caster.instance]
+        if info.caster.instance == 'AnyEntity'
+          return ENTITY_TYPES
+        else
+          return [info.caster.instance]
       else
         return ['???'] # TODO: Handle situation of unknown type better.
 
@@ -161,7 +175,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
 
     # It this is an AnyEntity type
     else if info.instance == 'AnyEntity'
-      return ['PatientEntity', 'CarePartner', 'Practitioner', 'Organization']
+      return ENTITY_TYPES
 
     # If it is an interval, it may be one of DateTime or one of Quantity
     else if info.instance == 'Interval'

@@ -13,6 +13,9 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     patients_set = File.join("cqm_patients","base_set")
     collection_fixtures(users_set, patients_set)
     @user = User.by_email('bonnie@example.com').first
+    @user.init_personal_group
+    @user.save
+
     associate_user_with_patients(@user, CQM::Patient.all)
     sign_in @user
     @vcr_options = {match_requests_on: [:method, :uri_no_st]}
@@ -97,7 +100,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     end
     assert_equal "Error Uploading Measure", flash[:error][:title]
     assert_equal "The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.", flash[:error][:summary]
-    assert_equal "Measure loading process encountered error: Error processing package file: Measure folder found with no hqmf Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href='https://bonnie-qdm.healthit.gov'>Bonnie-QDM</a>.", flash[:error][:body]
+    assert_equal "Measure loading process encountered error: Error processing package file: Measure folder found with no hqmf Please re-package and re-export your measure from the MAT.<br/>", flash[:error][:body]
     assert_response :redirect
   end
 
@@ -120,7 +123,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     end
     assert_equal 'Error Uploading Measure', flash[:error][:title]
     assert_equal 'The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.', flash[:error][:summary]
-    assert_equal "Measure loading process encountered error: Elm library AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk referenced but not found. Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href='https://bonnie-qdm.healthit.gov'>Bonnie-QDM</a>.", flash[:error][:body]
+    assert_equal "Measure loading process encountered error: Elm library AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk referenced but not found. Please re-package and re-export your measure from the MAT.<br/>", flash[:error][:body]
     assert_response :redirect
   end
 

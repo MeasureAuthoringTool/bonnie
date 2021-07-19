@@ -17,7 +17,7 @@
     ],
     "display_name": "Patient deceased during stay (discharge status = dead) (finding)",
     "oid": "drc-0ac9a6fa81973474300040c727b4bf760d7b15dc0b7da1752984ccc96147b98b",
-    "user_id": {
+    "group_id": {
       "$oid": "501fdba3044a111b98000001"
     },
     "version": ""
@@ -60,7 +60,7 @@
     ],
     "display_name": "Discharge To Acute Care Facility",
     "oid": "2.16.840.1.113883.3.117.1.7.1.87",
-    "user_id": {
+    "group_id": {
       "$oid": "501fdba3044a111b98000001"
     },
     "version": "Draft"
@@ -83,7 +83,7 @@
     ],
     "display_name": "Emergency Department Visit",
     "oid": "2.16.840.1.113883.3.117.1.7.1.292",
-    "user_id": {
+    "group_id": {
       "$oid": "501fdba3044a111b98000001"
     },
     "version": "Draft"
@@ -126,7 +126,7 @@
     ],
     "display_name": "Encounter Inpatient",
     "oid": "2.16.840.1.113883.3.666.5.307",
-    "user_id": {
+    "group_id": {
       "$oid": "501fdba3044a111b98000001"
     },
     "version": "Draft"
@@ -159,7 +159,7 @@
     ],
     "display_name": "Ethnicity",
     "oid": "2.16.840.1.114222.4.11.837",
-    "user_id": {
+    "group_id": {
       "$oid": "501fdba3044a111b98000001"
     },
     "version": "Draft"
@@ -202,7 +202,7 @@
     ],
     "display_name": "Observation Services",
     "oid": "2.16.840.1.113762.1.4.1111.143",
-    "user_id": {
+    "group_id": {
       "$oid": "501fdba3044a111b98000001"
     },
     "version": "Draft"
@@ -235,7 +235,7 @@
     ],
     "display_name": "ONC Administrative Sex",
     "oid": "2.16.840.1.113762.1.4.1",
-    "user_id": {
+    "group_id": {
       "$oid": "501fdba3044a111b98000001"
     },
     "version": "Draft"
@@ -1868,7 +1868,7 @@
     ],
     "display_name": "Payer",
     "oid": "2.16.840.1.114222.4.11.3591",
-    "user_id": {
+    "group_id": {
       "$oid": "501fdba3044a111b98000001"
     },
     "version": "Draft"
@@ -20641,7 +20641,7 @@
     ],
     "display_name": "Psychiatric/Mental Health Diagnosis",
     "oid": "2.16.840.1.113883.3.117.1.7.1.299",
-    "user_id": {
+    "group_id": {
       "$oid": "501fdba3044a111b98000001"
     },
     "version": "Draft"
@@ -20714,7 +20714,7 @@
     ],
     "display_name": "Race",
     "oid": "2.16.840.1.114222.4.11.836",
-    "user_id": {
+    "group_id": {
       "$oid": "501fdba3044a111b98000001"
     },
     "version": "Draft"

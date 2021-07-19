@@ -1,0 +1,29 @@
+<div class="modal fade" id="confirmation_dialog" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog"  role="dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title">Please Confirm</h1>
+      </div>
+      <div class="modal-body">
+        <p>
+          {{#if message}}
+            <span>{{message}}</span>
+          {{else}}
+            <span>Are you sure you want to continue with this action?</span>
+          {{/if}}
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button
+          id="continue_action"
+          class="btn btn-primary"
+          data-call-method="continueAction">Continue
+        </button>
+        <button
+          id="cancel_action"
+          class="btn btn-default"
+          data-call-method="hideModal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

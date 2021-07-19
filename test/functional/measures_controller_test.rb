@@ -16,6 +16,8 @@ include Devise::Test::ControllerHelpers
     load_measure_fixtures_from_folder(File.join('measures', 'CMS160v6'), @user)
     collection_fixtures(users_set, patients_set, strat_measure_patients_set)
     @user = User.by_email('bonnie@example.com').first
+    @user.init_personal_group
+    @user.save
     associate_user_with_patients(@user, CQM::Patient.all)
     sign_in @user
 
@@ -227,7 +229,7 @@ include Devise::Test::ControllerHelpers
       assert_response :redirect
       assert_equal 'Error Uploading Measure', flash[:error][:title]
       assert_equal 'The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.', flash[:error][:summary]
-      assert_equal "Measure loading process encountered error: Error processing package file: Zip end of central directory signature not found Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href='https://bonnie-qdm.healthit.gov'>Bonnie-QDM</a>.", flash[:error][:body]
+      assert_equal "Measure loading process encountered error: Error processing package file: Zip end of central directory signature not found Please re-package and re-export your measure from the MAT.<br/>", flash[:error][:body]
     end
   end
 
@@ -457,7 +459,6 @@ include Devise::Test::ControllerHelpers
   test 'measure destroy' do
     VCR.use_cassette('measure_destroy', @vcr_options) do
       measure_file1 = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS903v0.zip'), 'application/zip')
-      measure_file2 = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS134v8.zip'), 'application/zip')
 
       post :create, params: {
         vsac_query_type: 'profile',
@@ -469,27 +470,17 @@ include Devise::Test::ControllerHelpers
         measure_type: 'ep',
         calculation_type: 'patient'
       }
-      post :create, params: {
-        vsac_query_type: 'profile',
-        vsac_query_profile: 'Latest eCQM',
-        vsac_query_include_draft: 'false',
-        vsac_query_measure_defined: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
-        measure_file: measure_file2,
-        measure_type: 'ep',
-        calculation_type: 'patient'
-      }
-
-      assert_equal 3, CQM::Measure.count
-      assert_equal 3, CQM::MeasurePackage.count
-      assert_equal 71, CQM::ValueSet.count
-
-      delete :destroy, params: {id: CQM::Measure.where({cms_id: 'CMS134v8'}).first.id}
-      assert_response :success
 
       assert_equal 2, CQM::Measure.count
       assert_equal 2, CQM::MeasurePackage.count
       assert_equal 26, CQM::ValueSet.count
+
+      delete :destroy, params: {id: CQM::Measure.where({cms_id: 'CMS903v0'}).first.id}
+      assert_response :success
+
+      assert_equal 1, CQM::Measure.count
+      assert_equal 1, CQM::MeasurePackage.count
+      assert_equal 16, CQM::ValueSet.count
     end
   end
 
@@ -503,7 +494,7 @@ include Devise::Test::ControllerHelpers
     post :create, params: {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_equal 'Error Uploading Measure', flash[:error][:title]
     assert_equal 'The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.', flash[:error][:summary]
-    assert_equal "Measure loading process encountered error: Error processing package file: Zip end of central directory signature not found Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href='https://bonnie-qdm.healthit.gov'>Bonnie-QDM</a>.", flash[:error][:body]
+    assert_equal "Measure loading process encountered error: Error processing package file: Zip end of central directory signature not found Please re-package and re-export your measure from the MAT.<br/>", flash[:error][:body]
     assert_response :redirect
   end
 
@@ -517,7 +508,7 @@ include Devise::Test::ControllerHelpers
     post :create, params: {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', vsac_api_key: ENV['VSAC_API_KEY']}
     assert_equal 'Error Uploading Measure', flash[:error][:title]
     assert_equal 'The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.', flash[:error][:summary]
-    assert_equal "Measure loading process encountered error: Error processing package file: No measure found Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href='https://bonnie-qdm.healthit.gov'>Bonnie-QDM</a>.", flash[:error][:body]
+    assert_equal "Measure loading process encountered error: Error processing package file: No measure found Please re-package and re-export your measure from the MAT.<br/>", flash[:error][:body]
     assert_response :redirect
   end
 
@@ -535,7 +526,7 @@ include Devise::Test::ControllerHelpers
     assert_includes flash[:error].keys, :title
     assert_includes flash[:error].keys, :summary
     assert_equal 'The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.', flash[:error][:summary]
-    assert_equal "Measure loading process encountered error: Error processing package file: Measure package missing required element: CQL Libraries Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href='https://bonnie-qdm.healthit.gov'>Bonnie-QDM</a>.", flash[:error][:body]
+    assert_equal "Measure loading process encountered error: Error processing package file: Measure package missing required element: CQL Libraries Please re-package and re-export your measure from the MAT.<br/>", flash[:error][:body]
     flash.clear
     assert_equal 2, Dir.glob(File.join(@error_dir, '**')).count
   end
@@ -710,8 +701,8 @@ include Devise::Test::ControllerHelpers
     measure = CQM::Measure.where({hqmf_id: '40280382667FECC30167190FAE723AAE'}).first
     assert_equal '4DC3E7AA-8777-4749-A1E4-37E942036076', measure.hqmf_set_id
     assert_equal 10, measure.value_sets.count
-    assert_equal @user.id, measure.user_id
-    measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
+    assert_equal @user.current_group.id, measure.group_id
+    measure.value_sets.each {|vs| assert_equal @user.current_group.id, vs.group_id}
     assert_equal true, measure.calculation_method == 'EPISODE_OF_CARE'
     assert_nil measure.calculate_sdes
 
@@ -728,8 +719,8 @@ include Devise::Test::ControllerHelpers
     assert_equal 'ps1strat3', measure.population_sets[0].stratifications[2].title
     assert_equal '4DC3E7AA-8777-4749-A1E4-37E942036076', measure.hqmf_set_id
     assert_equal 10, measure.value_sets.count
-    assert_equal @user.id, measure.user_id
-    measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
+    assert_equal @user.current_group.id, measure.group_id
+    measure.value_sets.each {|vs| assert_equal @user.current_group.id, vs.group_id}
     assert_equal true, measure.calculation_method == 'EPISODE_OF_CARE'
     measure_id_before = measure._id
 
@@ -754,8 +745,8 @@ include Devise::Test::ControllerHelpers
     assert_equal '4DC3E7AA-8777-4749-A1E4-37E942036076', measure.hqmf_set_id
     assert_equal 'CMS903v999', measure.cms_id
     assert_equal 10, measure.value_sets.count
-    assert_equal @user.id, measure.user_id
-    measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
+    assert_equal @user.current_group.id, measure.group_id
+    measure.value_sets.each {|vs| assert_equal @user.current_group.id, vs.group_id}
     assert_equal true, measure.calculation_method == 'EPISODE_OF_CARE'
     assert_nil measure.calculate_sdes
 
