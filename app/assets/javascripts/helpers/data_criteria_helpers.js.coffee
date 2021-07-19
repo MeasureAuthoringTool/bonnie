@@ -503,7 +503,7 @@
           codeableConcept = @getCodeableConceptForCoding(coding)
           fhirResource.reasonCode = if codeableConcept? then [codeableConcept] else codeableConcept
         types: ['CodeableConcept'],
-        valueSets: () -> [FhirValueSets.PROCEDURE_REASON_VS]
+        valueSets: () -> [ProcedureReasonValueSet.JSON]
       },
       {
         path: 'usedCode',
