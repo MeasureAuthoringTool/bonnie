@@ -364,8 +364,8 @@
       {
         path: 'clinicalStatus'
         title: 'clinicalStatus'
-        getValue: (fhirResource) => fhirResource?.clinicalStatus?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource?.clinicalStatus?.coding?[0]
+        setValue: (fhirResource, coding) ->
           fhirResource.clinicalStatus = @getCodeableConceptForCoding(coding)
         types: [
           'CodeableConcept'
@@ -375,16 +375,16 @@
       {
         path: 'onset'
         title: 'onset'
-        getValue: (fhirResource) => fhirResource?.onset
-        setValue: (fhirResource, value) =>
+        getValue: (fhirResource) -> fhirResource?.onset
+        setValue: (fhirResource, value) ->
           fhirResource.onset = value
         types: ['DateTime', 'Age', 'Period', 'Range']
       },
       {
         path: 'verificationStatus',
         title: 'verificationStatus',
-        getValue: (fhirResource) => fhirResource?.verificationStatus?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource?.verificationStatus?.coding?[0]
+        setValue: (fhirResource, coding) ->
           fhirResource.verificationStatus = @getCodeableConceptForCoding(coding)
         types: [
           'CodeableConcept'
@@ -396,8 +396,8 @@
       {
         path: 'clinicalStatus'
         title: 'clinicalStatus'
-        getValue: (fhirResource) => fhirResource?.clinicalStatus?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource?.clinicalStatus?.coding?[0]
+        setValue: (fhirResource, coding) ->
           fhirResource.clinicalStatus = @getCodeableConceptForCoding(coding)
         types: [
           'CodeableConcept'
@@ -407,8 +407,8 @@
       {
         path: 'verificationStatus',
         title: 'verificationStatus',
-        getValue: (fhirResource) => fhirResource?.verificationStatus?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource?.verificationStatus?.coding?[0]
+        setValue: (fhirResource, coding) ->
           fhirResource.verificationStatus = @getCodeableConceptForCoding(coding)
         types: [
           'CodeableConcept'
@@ -418,24 +418,24 @@
       {
         path: 'onset'
         title: 'onset'
-        getValue: (fhirResource) => fhirResource?.onset
-        setValue: (fhirResource, value) =>
+        getValue: (fhirResource) -> fhirResource?.onset
+        setValue: (fhirResource, value) ->
           fhirResource.onset = value
         types: ['DateTime', 'Age', 'Period', 'Range']
       },
       {
         path: 'abatement',
         title: 'abatement',
-        getValue: (fhirResource) => fhirResource?.abatement
-        setValue: (fhirResource, value) =>
+        getValue: (fhirResource) -> fhirResource?.abatement
+        setValue: (fhirResource, value) ->
           fhirResource.abatement = value
         types: ['DateTime', 'Age', 'Period', 'Range']
       },
       {
         path: 'bodySite',
         title: 'bodySite',
-        getValue: (fhirResource) => fhirResource?.bodySite?[0]?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource?.bodySite?[0]?.coding?[0]
+        setValue: (fhirResource, coding) ->
           codeableConcept = @getCodeableConceptForCoding(coding)
           fhirResource.bodySite = if codeableConcept? then [codeableConcept] else codeableConcept
         types: [
@@ -446,8 +446,8 @@
       {
         path: 'category',
         title: 'category',
-        getValue: (fhirResource) => fhirResource?.category?[0]?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource?.category?[0]?.coding?[0]
+        setValue: (fhirResource, coding) ->
           codeableConcept = @getCodeableConceptForCoding(coding)
           fhirResource.category = if codeableConcept? then [codeableConcept] else codeableConcept
         types: [
@@ -461,28 +461,28 @@
       {
         path: 'status'
         title: 'status'
-        getValue: (fhirResource) => fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) =>
+        getValue: (fhirResource) -> fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) ->
           if codeValue?
             fhirResource?.status = cqm.models.ProcedureStatus.parsePrimitive(codeValue)
           else
             fhirResource?.status = null
         types: ['Code']
-        valueSets: () => [FhirValueSets.EVENT_STATUS_VS]
+        valueSets: () -> [FhirValueSets.EVENT_STATUS_VS]
       },
       {
         path: 'performed',
         title: 'performed',
-        getValue: (fhirResource) => fhirResource?.performed
-        setValue: (fhirResource, value) =>
+        getValue: (fhirResource) -> fhirResource?.performed
+        setValue: (fhirResource, value) ->
           fhirResource.performed = value
         types: ['DateTime', 'Period']
       },
       {
         path: 'category',
         title: 'category',
-        getValue: (fhirResource) => fhirResource?.category?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource?.category?.coding?[0]
+        setValue: (fhirResource, coding) ->
           fhirResource.category = @getCodeableConceptForCoding(coding)
         types: ['CodeableConcept'],
         valueSets: () -> [FhirValueSets.PROCEDURE_CATEGORY_VS]
@@ -490,8 +490,8 @@
       {
         path: 'statusReason',
         title: 'statusReason',
-        getValue: (fhirResource) => fhirResource?.statusReason?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource?.statusReason?.coding?[0]
+        setValue: (fhirResource, coding) ->
           fhirResource.statusReason = @getCodeableConceptForCoding(coding)
         types: ['CodeableConcept'],
         valueSets: () -> [FhirValueSets.PROCEDURE_NOT_PERFORMED_REASON_VS]
@@ -499,8 +499,8 @@
       {
         path: 'usedCode',
         title: 'usedCode',
-        getValue: (fhirResource) => fhirResource?.usedCode?[0]?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource?.usedCode?[0]?.coding?[0]
+        setValue: (fhirResource, coding) ->
           codeableConcept = @getCodeableConceptForCoding(coding)
           fhirResource.usedCode = if codeableConcept? then [codeableConcept] else codeableConcept
         types: ['CodeableConcept'],
@@ -513,28 +513,28 @@
       {
         path: 'status'
         title: 'status'
-        getValue: (fhirResource) => fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) =>
+        getValue: (fhirResource) -> fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) ->
           if (codeValue)
             fhirResource?.status = cqm.models.DiagnosticReportStatus.parsePrimitive(codeValue)
           else
             fhirResource?.status = null
         types: ['Code']
-        valueSets: () => [DiagnosticReportStatusValueSet.JSON]
+        valueSets: () -> [DiagnosticReportStatusValueSet.JSON]
       },
       {
         path: 'effective',
         title: 'effective',
-        getValue: (fhirResource) => fhirResource.effective
-        setValue: (fhirResource, value) =>
+        getValue: (fhirResource) -> fhirResource.effective
+        setValue: (fhirResource, value) ->
           fhirResource.effective = value
         types: ['DateTime', 'Period']
       },
       {
         path: 'encounter'
         title: 'encounter'
-        getValue: (fhirResource) => fhirResource.encounter
-        setValue: (fhirResource, reference) =>
+        getValue: (fhirResource) -> fhirResource.encounter
+        setValue: (fhirResource, reference) ->
           fhirResource.encounter = reference
         types: ['Reference']
         referenceTypes: ['Encounter']
@@ -542,8 +542,8 @@
       {
         path: 'category',
         title: 'category',
-        getValue: (fhirResource) => fhirResource.category?[0]?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource.category?[0]?.coding?[0]
+        setValue: (fhirResource, coding) ->
           codeableConcept = @getCodeableConceptForCoding(coding)
           fhirResource.category = if codeableConcept? then [codeableConcept] else codeableConcept
         types: ['CodeableConcept'],
@@ -558,24 +558,24 @@
       {
         path: 'status'
         title: 'status'
-        getValue: (fhirResource) => fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) =>
+        getValue: (fhirResource) -> fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) ->
           if (codeValue)
             fhirResource.status = cqm.models.ObservationStatus.parsePrimitive(codeValue)
           else
             fhirResource.status = null
         types: ['Code']
-        valueSets: () => [ObservationStatusValueSet.JSON]
+        valueSets: () -> [ObservationStatusValueSet.JSON]
       },
       {
         path: 'value'
         title: 'value'
-        getValue: (fhirResource) =>
+        getValue: (fhirResource) ->
           if  cqm.models.CodeableConcept.isCodeableConcept(fhirResource?.value)
             return fhirResource.value.coding?[0]
           else
             fhirResource?.value
-        setValue: (fhirResource, value) =>
+        setValue: (fhirResource, value) ->
           attrType = value?.getTypeName?() || value?.constructor?.name
           if attrType == 'Coding'
             fhirResource.value = @getCodeableConceptForCoding(value)
@@ -588,8 +588,8 @@
       {
         path: 'category',
         title: 'category',
-        getValue: (fhirResource) => fhirResource.category?[0]?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource.category?[0]?.coding?[0]
+        setValue: (fhirResource, coding) ->
           codeableConcept = @getCodeableConceptForCoding(coding)
           fhirResource.category = if codeableConcept? then [codeableConcept] else codeableConcept
         types: ['CodeableConcept'],
@@ -598,31 +598,31 @@
       {
         path: 'effective',
         title: 'effective',
-        getValue: (fhirResource) => fhirResource.effective
-        setValue: (fhirResource, value) =>
+        getValue: (fhirResource) -> fhirResource.effective
+        setValue: (fhirResource, value) ->
           fhirResource.effective = value
         types: ['DateTime', 'Period', 'Timing', 'Instant']
       },
       {
         path: 'component.code',
         title: 'component.code',
-        getValue: (fhirResource) => fhirResource.component?[0]?.code?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource.component?[0]?.code?.coding?[0]
+        setValue: (fhirResource, coding) ->
           unless fhirResource.component?
             fhirResource.component = [new cqm.models.ObservationComponent()]
           fhirResource.component[0].code = @getCodeableConceptForCoding(coding)
         types: ['CodeableConcept'],
-        valueSets: () => [LOINCCodesValueSet.JSON]
+        valueSets: () -> [LOINCCodesValueSet.JSON]
       },
       {
         path: 'component.value',
         title: 'component.value',
-        getValue: (fhirResource) =>
+        getValue: (fhirResource) ->
           if  cqm.models.CodeableConcept.isCodeableConcept(fhirResource.component?[0]?.value)
             fhirResource.component[0].value.coding?[0]
           else
             fhirResource.component?[0]?.value
-        setValue: (fhirResource, value) =>
+        setValue: (fhirResource, value) ->
           attrType = value?.getTypeName?() || value?.constructor?.name
           unless fhirResource.component?
             fhirResource.component = [new cqm.models.ObservationComponent()]
@@ -632,13 +632,13 @@
             fhirResource.component[0].value = value
         types: ['Quantity', 'CodeableConcept', 'String', 'Boolean', 'Integer',
             'Range', 'Ratio', 'SampledData','Time', 'DateTime', 'Period'],
-        valueSets: () => []
+        valueSets: () -> []
       },
       {
         path: 'encounter'
         title: 'encounter'
-        getValue: (fhirResource) => fhirResource.encounter
-        setValue: (fhirResource, reference) =>
+        getValue: (fhirResource) -> fhirResource.encounter
+        setValue: (fhirResource, reference) ->
           fhirResource.encounter = reference
         types: ['Reference']
         referenceTypes: ['Encounter']
@@ -653,26 +653,26 @@
       {
         path: 'intent'
         title: 'intent'
-        getValue: (fhirResource) => fhirResource?.intent?.value
-        setValue: (fhirResource, codeValue) =>
+        getValue: (fhirResource) -> fhirResource?.intent?.value
+        setValue: (fhirResource, codeValue) ->
           if (codeValue)
             fhirResource?.intent = cqm.models.ServiceRequestIntent.parsePrimitive(codeValue)
           else
             fhirResource?.intent = null
         types: ['Code']
-        valueSets: () => [FhirValueSets.REQUEST_INTENT]
+        valueSets: () -> [FhirValueSets.REQUEST_INTENT]
       },
       {
         path: 'status'
         title: 'status'
-        getValue: (fhirResource) => fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) =>
+        getValue: (fhirResource) -> fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) ->
           if (codeValue)
             fhirResource?.status = cqm.models.ServiceRequestStatus.parsePrimitive(codeValue)
           else
             fhirResource?.status = null
         types: ['Code']
-        valueSets: () => [FhirValueSets.REQUEST_STATUS]
+        valueSets: () -> [FhirValueSets.REQUEST_STATUS]
       }
     ]
     Claim: []
@@ -684,7 +684,7 @@
         path: 'timing',
         title: 'timing',
         getValue: (fhirResource) -> fhirResource.timing
-        setValue: (fhirResource, value) =>
+        setValue: (fhirResource, value) ->
           fhirResource.timing = value
         types: ['DateTime', 'Period', 'Timing']
       }
@@ -703,20 +703,20 @@
       {
         path: 'class'
         title: 'class'
-        getValue: (fhirResource) => fhirResource?['class']
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource?['class']
+        setValue: (fhirResource, coding) ->
           if !coding?
             fhirResource?['class'] = null
           else
             fhirResource?['class'] = coding
         types: ['Coding']
-        valueSets: () => [FhirValueSets.ACT_ENCOUNTER_CODE_VS]
+        valueSets: () -> [FhirValueSets.ACT_ENCOUNTER_CODE_VS]
       },
       {
         path: 'diagnosis.condition'
         title: 'diagnosis.condition'
-        getValue: (fhirResource) => fhirResource?['diagnosis']?[0]?.condition
-        setValue: (fhirResource, reference) =>
+        getValue: (fhirResource) -> fhirResource?['diagnosis']?[0]?.condition
+        setValue: (fhirResource, reference) ->
           fhirResource?['diagnosis'] = [ new cqm.models.EncounterDiagnosis() ] unless fhirResource?['diagnosis']?
           fhirResource?['diagnosis'][0]?.condition = reference
         types: ['Reference']
@@ -728,7 +728,7 @@
         path: 'diagnosis.use'
         title: 'diagnosis.use'
         getValue: (fhirResource) -> fhirResource?['diagnosis']?[0]?.use?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        setValue: (fhirResource, coding) ->
           fhirResource?['diagnosis'] = [ new cqm.models.EncounterDiagnosis() ] unless fhirResource?['diagnosis']?
           fhirResource.diagnosis[0]?.use = @getCodeableConceptForCoding(coding)
         types: ['CodeableConcept']
@@ -738,7 +738,7 @@
         path: 'diagnosis.rank'
         title: 'diagnosis.rank'
         getValue: (fhirResource) -> fhirResource?['diagnosis']?[0]?.rank
-        setValue: (fhirResource, value) =>
+        setValue: (fhirResource, value) ->
           fhirResource?['diagnosis'] = [ new cqm.models.EncounterDiagnosis() ] unless fhirResource?['diagnosis']?
           fhirResource['diagnosis'][0]?.rank = value
         types: ['PositiveInt']
@@ -746,18 +746,18 @@
       {
         path: 'length'
         title: 'length'
-        getValue: (fhirResource) =>
+        getValue: (fhirResource) ->
           fhirResource?.length
-        setValue: (fhirResource, value) =>
+        setValue: (fhirResource, value) ->
           fhirResource?.length = value
         types: ['Duration']
       },
       {
         path: 'location.period'
         title: 'location.period'
-        getValue: (fhirResource) =>
+        getValue: (fhirResource) ->
           fhirResource?.location?[0]?.period
-        setValue: (fhirResource, value) =>
+        setValue: (fhirResource, value) ->
           if !fhirResource.location
             encounterLocation = new cqm.models.EncounterLocation()
             fhirResource.location = [encounterLocation]
@@ -779,22 +779,22 @@
       {
         path: 'status'
         title: 'status'
-        getValue: (fhirResource) =>
+        getValue: (fhirResource) ->
           return fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) =>
+        setValue: (fhirResource, codeValue) ->
           if !codeValue?
             fhirResource?.status = null
           else
             fhirResource?.status = cqm.models.EncounterStatus.parsePrimitive(codeValue)
         types: ['Code']
-        valueSets: () =>
+        valueSets: () ->
           FhirValueSets.ENCOUNTER_STATUS_VS
       },
       {
         path: 'hospitalization.admitSource',
         title: 'hospitalization.admitSource',
-        getValue: (fhirResource) => fhirResource?.hospitalization?.admitSource?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource?.hospitalization?.admitSource?.coding?[0]
+        setValue: (fhirResource, coding) ->
           if !fhirResource.hospitalization
             hospitalization = new cqm.models.EncounterHospitalization()
             fhirResource.hospitalization = hospitalization
@@ -805,9 +805,9 @@
       {
         path: 'hospitalization.dischargeDisposition',
         title: 'hospitalization.dischargeDisposition',
-        getValue: (fhirResource) =>
+        getValue: (fhirResource) ->
           return fhirResource?.hospitalization?.dischargeDisposition?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        setValue: (fhirResource, coding) ->
           # EncounterHospitalization
           if !fhirResource.hospitalization
             hospitalization = new cqm.models.EncounterHospitalization()
@@ -816,7 +816,7 @@
         types: [
           'CodeableConcept' # User will see 'CodeableConcept', but it works with Coding behind the scenes
         ]
-        valueSets: () =>
+        valueSets: () ->
           FhirValueSets.DISCHARGE_DISPOSITION_VS
       },
     ]
@@ -825,14 +825,14 @@
       {
         path: 'status'
         title: 'status'
-        getValue: (fhirResource) => fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) =>
+        getValue: (fhirResource) -> fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) ->
           if (codeValue)
             fhirResource?.status = cqm.models.ImmunizationStatus.parsePrimitive(codeValue)
           else
             fhirResource?.status = null
         types: ['Code']
-        valueSets: () => [ ImmunizationStatusValueSet.JSON ]
+        valueSets: () -> [ ImmunizationStatusValueSet.JSON ]
       }
     ]
     ImmunizationEvaluation: []
@@ -842,21 +842,21 @@
       {
         path: 'dosage.route',
         title: 'dosage.route',
-        getValue: (fhirResource) =>
+        getValue: (fhirResource) ->
           return fhirResource?.dosage?.route?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        setValue: (fhirResource, coding) ->
           if !fhirResource.MedicationAdministrationDosage
             fhirResource.dosage = new cqm.models.MedicationAdministrationDosage()
           fhirResource.dosage.route = @getCodeableConceptForCoding(coding)
         types: ['CodeableConcept']
-        valueSets: () => [FhirValueSets.ROUTE_CODES_VS]
+        valueSets: () -> [FhirValueSets.ROUTE_CODES_VS]
       },
 #      {
 #        path: 'dosage.rate',
 #        title: 'dosage.rate',
-#        getValue: (fhirResource) =>
+#        getValue: (fhirResource) ->
 #          return fhirResource?.dosage?.rate
-#        setValue: (fhirResource, value) =>
+#        setValue: (fhirResource, value) ->
 #          if !fhirResource.MedicationAdministrationDosage
 #            fhirResource.dosage = new cqm.models.MedicationAdministrationDosage()
 #          if !value?
@@ -868,14 +868,14 @@
       {
         path: 'medication'
         title: 'medication'
-        getValue: (fhirResource) =>
+        getValue: (fhirResource) ->
           if !fhirResource?.medication?
             return null
           if cqm.models.CodeableConcept.isCodeableConcept(fhirResource?.medication)
             return fhirResource.medication.coding?[0]
           else
             fhirResource?.medication
-        setValue: (fhirResource, value) =>
+        setValue: (fhirResource, value) ->
           if cqm.models.Coding.isCoding(value)
             codeableConcept = @getCodeableConceptForCoding(value)
             fhirResource.medication = codeableConcept
@@ -890,8 +890,8 @@
       {
         path: 'reasonCode',
         title: 'reasonCode',
-        getValue: (fhirResource) => fhirResource?.reasonCode?[0]?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource?.reasonCode?[0]?.coding?[0]
+        setValue: (fhirResource, coding) ->
           codeableConcept = @getCodeableConceptForCoding(coding)
           fhirResource.reasonCode = if codeableConcept? then [codeableConcept] else codeableConcept
         types: ['CodeableConcept']
@@ -900,20 +900,20 @@
       {
         path: 'status'
         title: 'status'
-        getValue: (fhirResource) => fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) =>
+        getValue: (fhirResource) -> fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) ->
           if !codeValue?
             fhirResource?.status = null
           else
             fhirResource?.status = cqm.models.MedicationAdministrationStatus.parsePrimitive(codeValue)
         types: ['Code']
-        valueSets: () => [FhirValueSets.MEDICATION_ADMIN_STATUS_VS]
+        valueSets: () -> [FhirValueSets.MEDICATION_ADMIN_STATUS_VS]
       },
       {
         path: 'statusReason'
         title: 'statusReason'
-        getValue: (fhirResource) => fhirResource?.statusReason?[0]?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource?.statusReason?[0]?.coding?[0]
+        setValue: (fhirResource, coding) ->
           codeableConcept = @getCodeableConceptForCoding(coding)
           fhirResource.statusReason = if codeableConcept? then [codeableConcept] else codeableConcept
         types: ['CodeableConcept']
@@ -924,14 +924,14 @@
       {
         path: 'medication'
         title: 'medication'
-        getValue: (fhirResource) =>
+        getValue: (fhirResource) ->
           if !fhirResource?.medication?
             return null
           if cqm.models.CodeableConcept.isCodeableConcept(fhirResource?.medication)
             return fhirResource.medication.coding?[0]
           else
             fhirResource?.medication
-        setValue: (fhirResource, value) =>
+        setValue: (fhirResource, value) ->
           if cqm.models.Coding.isCoding(value)
             codeableConcept = @getCodeableConceptForCoding(value)
             fhirResource.medication = codeableConcept
@@ -953,8 +953,8 @@
       {
         path: 'dosageInstruction.timing'
         title: 'dosageInstruction.timing'
-        getValue: (fhirResource) => fhirResource?.dosageInstruction?[0]?.timing
-        setValue: (fhirResource, timing) =>
+        getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]?.timing
+        setValue: (fhirResource, timing) ->
           if !timing?
             fhirResource?.dosageInstruction?[0]?.timing = null
           else
@@ -965,8 +965,8 @@
       {
         path: 'daysSupply',
         title: 'daysSupply',
-        getValue: (fhirResource) => fhirResource?.daysSupply
-        setValue: (fhirResource, daysSupply) =>
+        getValue: (fhirResource) -> fhirResource?.daysSupply
+        setValue: (fhirResource, daysSupply) ->
           if !daysSupply?
             fhirResource?.daysSupply = null
           else
@@ -976,15 +976,14 @@
       {
         path: 'status'
         title: 'status'
-        getValue: (fhirResource) => fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) =>
+        getValue: (fhirResource) -> fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) ->
           if !codeValue?
             fhirResource?.status = null
           else
             fhirResource?.status = cqm.models.MedicationDispenseStatus.parsePrimitive(codeValue)
         types: ['Code']
-#        FIXME
-        valueSets: () => [MedicationDispenseStatusValueSet.JSON]
+        valueSets: () -> [MedicationDispenseStatusValueSet.JSON]
       }
     ]
     MedicationRequest: [
@@ -992,8 +991,8 @@
 #      {
 #        path: 'doNotPerform'
 #        title: 'doNotPerform'
-#        getValue: (fhirResource) => fhirResource?.doNotPerform?.value
-#        setValue: (fhirResource, primitiveBoolean) =>
+#        getValue: (fhirResource) -> fhirResource?.doNotPerform?.value
+#        setValue: (fhirResource, primitiveBoolean) ->
 #          if !primitiveBoolean?
 #            fhirResource?.doNotPerform = null
 #          else
@@ -1003,14 +1002,14 @@
       {
         path: 'medication'
         title: 'medication'
-        getValue: (fhirResource) =>
+        getValue: (fhirResource) ->
           if !fhirResource?.medication?
             return null
           if cqm.models.CodeableConcept.isCodeableConcept(fhirResource?.medication)
             return fhirResource.medication.coding?[0]
           else
             fhirResource?.medication
-        setValue: (fhirResource, value) =>
+        setValue: (fhirResource, value) ->
           if cqm.models.Coding.isCoding(value)
             codeableConcept = @getCodeableConceptForCoding(value)
             fhirResource.medication = codeableConcept
@@ -1025,32 +1024,32 @@
       {
         path: 'status'
         title: 'status'
-        getValue: (fhirResource) => fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) =>
+        getValue: (fhirResource) -> fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) ->
           if !codeValue?
             fhirResource?.status = null
           else
             fhirResource?.status = cqm.models.MedicationRequestStatus.parsePrimitive(codeValue)
         types: ['Code']
-        valueSets: () => [FhirValueSets.MEDICATION_REQUEST_STATUS_VS]
+        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_STATUS_VS]
       },
       {
         path: 'intent'
         title: 'intent'
-        getValue: (fhirResource) => fhirResource?.intent?.value
-        setValue: (fhirResource, codeValue) =>
+        getValue: (fhirResource) -> fhirResource?.intent?.value
+        setValue: (fhirResource, codeValue) ->
           if !codeValue?
             fhirResource?.intent = null
           else
             fhirResource?.intent = cqm.models.MedicationRequestIntent.parsePrimitive(codeValue)
         types: ['Code']
-        valueSets: () => [FhirValueSets.MEDICATION_REQUEST_INTENT_VS]
+        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_INTENT_VS]
       },
       {
         path: 'category'
         title: 'category'
-        getValue: (fhirResource) => fhirResource?.category?[0]?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource?.category?[0]?.coding?[0]
+        setValue: (fhirResource, coding) ->
           codeableConcept = @getCodeableConceptForCoding(coding)
           fhirResource.category = if codeableConcept? then [codeableConcept] else codeableConcept
         types: ['CodeableConcept']
@@ -1059,8 +1058,8 @@
       {
         path: 'dispenseRequest.validityPeriod'
         title: 'dispenseRequest.validityPeriod'
-        getValue: (fhirResource) => fhirResource?.dispenseRequest?.validityPeriod
-        setValue: (fhirResource, period) =>
+        getValue: (fhirResource) -> fhirResource?.dispenseRequest?.validityPeriod
+        setValue: (fhirResource, period) ->
           if !period?
             fhirResource?.dispenseRequest?.validityPeriod = null
           else
@@ -1071,13 +1070,13 @@
       {
         path: 'dosageInstruction.doseAndRate.rate'
         title: 'dosageInstruction.doseAndRate.rate'
-        getValue: (fhirResource) =>
+        getValue: (fhirResource) ->
           if  cqm.models.SimpleQuantity.isSimpleQuantity(fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate)
             # Widget supports only Quantity:  convert SimpleQuantity -> Quantity
             return cqm.models.Quantity.parse(fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate.toJSON())
           else
             return fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate
-        setValue: (fhirResource, rate) =>
+        setValue: (fhirResource, rate) ->
           if !rate?
             fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate = null
           else
@@ -1093,8 +1092,8 @@
       {
         path: 'dosageInstruction.timing.code'
         title: 'dosageInstruction.timing.code'
-        getValue: (fhirResource) => fhirResource?.dosageInstruction?[0]?.timing?.code?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]?.timing?.code?.coding?[0]
+        setValue: (fhirResource, coding) ->
           if !coding?
             fhirResource?.dosageInstruction?[0]?.timing?.code = null
           else
@@ -1110,8 +1109,8 @@
       {
         path: 'dosageInstructions.timing.repeat.bounds'
         title: 'dosageInstructions.timing.repeat.bounds'
-        getValue: (fhirResource) => fhirResource?.dosageInstruction?[0]?.timing?.repeat?.bounds
-        setValue: (fhirResource, bounds) =>
+        getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]?.timing?.repeat?.bounds
+        setValue: (fhirResource, bounds) ->
           if !bounds?
             fhirResource?.dosageInstruction?[0]?.timing?.repeat?.bounds = null
           else
@@ -1124,8 +1123,8 @@
       {
         path: 'reasonCode'
         title: 'reasonCode'
-        getValue: (fhirResource) => fhirResource?.reasonCode?[0]?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource?.reasonCode?[0]?.coding?[0]
+        setValue: (fhirResource, coding) ->
           codeableConcept = @getCodeableConceptForCoding(coding)
           fhirResource.reasonCode = if codeableConcept? then [codeableConcept] else codeableConcept
         valueSets: () -> [ConditionCodesValueSet.JSON]
@@ -1134,8 +1133,8 @@
       {
         path: 'statusReason'
         title: 'statusReason'
-        getValue: (fhirResource) => fhirResource?.statusReason?.coding?[0]
-        setValue: (fhirResource, coding) =>
+        getValue: (fhirResource) -> fhirResource?.statusReason?.coding?[0]
+        setValue: (fhirResource, coding) ->
           fhirResource?.statusReason = @getCodeableConceptForCoding(coding)
         valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_STATUS_REASON_VS]
         types: ['CodeableConcept']
@@ -1145,14 +1144,14 @@
       {
         path: 'status'
         title: 'status'
-        getValue: (fhirResource) => fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) =>
+        getValue: (fhirResource) -> fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) ->
           if !codeValue?
             fhirResource?.status = null
           else
             fhirResource?.status = cqm.models.MedicationStatementStatus.parsePrimitive(codeValue)
         types: ['Code']
-        valueSets: () => [FhirValueSets.MEDICATION_STATEMENT_STATUS_VS]
+        valueSets: () -> [FhirValueSets.MEDICATION_STATEMENT_STATUS_VS]
       }
     ]
     Patient: []
