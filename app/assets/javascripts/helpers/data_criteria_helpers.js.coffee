@@ -496,6 +496,16 @@
         valueSets: () -> [FhirValueSets.PROCEDURE_NOT_PERFORMED_REASON_VS]
       },
       {
+        path: 'reasonCode',
+        title: 'reasonCode',
+        getValue: (fhirResource) => fhirResource?.reasonCode?[0].coding?[0]
+        setValue: (fhirResource, coding) =>
+          codeableConcept = @getCodeableConceptForCoding(coding)
+          fhirResource.reasonCode = if codeableConcept? then [codeableConcept] else codeableConcept
+        types: ['CodeableConcept'],
+        valueSets: () -> [FhirValueSets.PROCEDURE_REASON_VS]
+      },
+      {
         path: 'usedCode',
         title: 'usedCode',
         getValue: (fhirResource) => fhirResource?.usedCode?[0]?.coding?[0]
