@@ -920,7 +920,6 @@
         valueSets: () -> [FhirValueSets.REASON_MEDICATION_NOT_GIVEN_VS]
       }
     ]
-#    FIXME
     MedicationDispense: [
       {
         path: 'medication'
