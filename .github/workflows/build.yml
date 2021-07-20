@@ -280,8 +280,8 @@ jobs:
 #          fail_ci_if_error: true
 # ----------------------------------------------------------------------
 
-jobs:
-  build:
+
+  audit:
     name: build-and-audit
 
     runs-on: ubuntu-latest
