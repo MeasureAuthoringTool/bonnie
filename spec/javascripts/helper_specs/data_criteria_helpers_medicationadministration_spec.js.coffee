@@ -13,6 +13,12 @@ describe 'DataCriteriaHelpers', ->
     it 'should support MedicationAdministration.reasonCode', ->
       DataCriteriaAsserts.assertCodeableConcept('MedicationAdministration', 'reasonCode', 'reasonCode')
 
+    it 'should support MedicationAdministration.effective as period', ->
+      DataCriteriaAsserts.assertPeriod('MedicationAdministration', 'effective', 'effective')
+
+    it 'should support MedicationAdministration.effective as dateTime', ->
+      DataCriteriaAsserts.assertDateTime('MedicationAdministration', 'effective', 'effective')
+
     it 'should support MedicationAdministration.status', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationAdministration']
       expect(attrs).toBeDefined

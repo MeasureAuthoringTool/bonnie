@@ -526,7 +526,7 @@
         path: 'effective',
         title: 'effective',
         getValue: (fhirResource) -> fhirResource.effective
-        setValue: (fhirResource, value) =>
+        setValue: (fhirResource, value) ->
           fhirResource.effective = value
         types: ['DateTime', 'Period']
       },
@@ -599,7 +599,7 @@
         path: 'effective',
         title: 'effective',
         getValue: (fhirResource) -> fhirResource.effective
-        setValue: (fhirResource, value) =>
+        setValue: (fhirResource, value) ->
           fhirResource.effective = value
         types: ['DateTime', 'Period', 'Timing', 'Instant']
       },
@@ -941,6 +941,14 @@
           fhirResource.statusReason = if codeableConcept? then [codeableConcept] else codeableConcept
         types: ['CodeableConcept']
         valueSets: () -> [FhirValueSets.REASON_MEDICATION_NOT_GIVEN_VS]
+      },
+      {
+        path: 'effective',
+        title: 'effective',
+        getValue: (fhirResource) -> fhirResource.effective
+        setValue: (fhirResource, value) ->
+          fhirResource.effective = value
+        types: ['DateTime', 'Period']
       }
     ]
     MedicationDispense: [
