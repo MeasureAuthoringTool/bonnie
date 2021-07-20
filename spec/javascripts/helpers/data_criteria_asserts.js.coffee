@@ -71,3 +71,19 @@
     # Verify after setting values
     expect(value.start.value).toEqual period.start.value
     expect(value.end.value).toEqual period.end.value
+
+  @assertDateTime: (resourceType, path, title) ->
+    attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]
+    attr = attrs.find (attr) => attr.path is path
+    expect(attr.path).toEqual path
+    expect(attr.title).toEqual title
+    # Create fhir resource and Period
+    fhirResource = new cqm.models[resourceType]()
+
+    dateTime = cqm.models.PrimitiveDateTime.parsePrimitive('2020-09-02T13:54:57')
+
+    attr.setValue(fhirResource, dateTime)
+
+    value = attr.getValue(fhirResource.clone())
+    # Verify after setting values
+    expect(value.value).toEqual dateTime.value
