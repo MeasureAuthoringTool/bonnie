@@ -819,6 +819,16 @@
         valueSets: () ->
           FhirValueSets.DISCHARGE_DISPOSITION_VS
       },
+      {
+        path: 'reasonCode'
+        title: 'reasonCode'
+        getValue: (fhirResource) => fhirResource?.reasonCode?[0]?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          codeableConcept = @getCodeableConceptForCoding(coding)
+          fhirResource.reasonCode = if codeableConcept? then [codeableConcept] else codeableConcept
+        valueSets: () -> [FhirValueSets.ENCOUNTER_REASON_CODE_VS]
+        types: ['CodeableConcept']
+      },
     ]
     Flag: []
     Immunization: [
