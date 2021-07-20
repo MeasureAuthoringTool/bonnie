@@ -2340,3 +2340,65 @@
       }]
     }
   }
+
+  # Description https://www.hl7.org/fhir/valueset-encounter-reason.html
+  # Used in: Encounter.reasonCode
+  @ENCOUNTER_REASON_CODE_VS = {
+    "resourceType" : "ValueSet",
+    "id" : "encounter-reason",
+    "meta" : {
+      "lastUpdated" : "2019-11-01T09:29:23.356+11:00",
+      "profile" : ["http://hl7.org/fhir/StructureDefinition/shareablevalueset"]
+    },
+    "text" : {
+      "status" : "generated",
+      "div" : "<div>!-- Snipped for Brevity --></div>"
+    },
+    "extension" : [{
+      "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-wg",
+      "valueCode" : "pa"
+    }],
+    "url" : "http://hl7.org/fhir/ValueSet/encounter-reason",
+    "identifier" : [{
+      "system" : "urn:ietf:rfc:3986",
+      "value" : "urn:oid:2.16.840.1.113883.4.642.3.261"
+    }],
+    "version" : "4.0.1",
+    "name" : "EncounterReasonCodes",
+    "title" : "Encounter Reason Codes",
+    "status" : "draft",
+    "experimental" : false,
+    "date" : "2019-11-01T09:29:23+11:00",
+    "publisher" : "FHIR Project team",
+    "contact" : [{
+      "telecom" : [{
+        "system" : "url",
+        "value" : "http://hl7.org/fhir"
+      }]
+    }],
+    "description" : "This examples value set defines the set of codes that can be used to indicate reasons for an encounter.",
+    "copyright" : "This resource includes content from SNOMED Clinical TermsÂ® (SNOMED CTÂ®) which is copyright of the International Health Terminology Standards Development Organisation (IHTSDO). Implementers of these specifications must have the appropriate SNOMED CT Affiliate license - for more information contact http://www.snomed.org/snomed-ct/get-snomed-ct or info@snomed.org",
+    "compose" : {
+      "include" : [{
+        "system" : "http://snomed.info/sct",
+        "concept" : [
+          {
+            "code": "404684003",
+            "display": "Clinical finding"
+          },
+          {
+            "code": "71388002",
+            "display": "Procedure"
+          },
+          {
+            "code": "243796009",
+            "display": "Context-dependent categories"
+          },
+          {
+            "code": "272379006",
+            "display": "Events"
+          }
+        ]
+      }]
+    }
+  }
