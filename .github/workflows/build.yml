@@ -2,15 +2,78 @@ name: Continuous Integration
 
 on:
   push:
-    branches: [master, bonnie-prior, bonnie-on-fhir]
+    branches: [master, bonnie-prior]
   pull_request:
-    branches: [master, bonnie-prior, bonnie-on-fhir]
+    branches: [master, bonnie-prior]
 
 jobs:
-  build_n_test_bonnie:
+  build:
+    name: Build-and-Test
 
     runs-on: ubuntu-latest
-    name: Build and Test Bonnie
+    strategy:
+      matrix:
+        tests: [admin_views, cqm_specs, fhir_measures, helper_specs, integration, models, patient_builder_tests/input_views, patient_builder_tests/measure, patient_builder_tests/patient, patient_builder_tests/criteria, production_tests, calc, spec/javascripts/patient_builder_tests/cql/cql_logic_view_spec.js.coffee, spec/javascripts/patient_builder_tests/cql/cql_truncated_statement_view_spec.js.coffee, spec/javascripts/patient_builder_tests/cql/cql_coloring_spec.js.coffee, spec/javascripts/cql_calculator_spec.js.coffee]
+
+    services:
+      mongodb:
+        image: mongo:3.6.22
+        ports:
+          - 27017:27017
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby 2.7.2
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.2
+          bundler-cache: true
+
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      - name: Use latest npm
+        run: npm install -g npm
+
+      - name: Install bundler & bundle-audit
+        run: |
+          gem install bundler -v 2.1.4
+          gem install bundle-audit
+
+      - name: Install ruby gems
+        run: bundle install --jobs 4 --retry 3
+
+      - name: Set and run up overcommit
+        run: |
+          git config --global user.email "overcommitd@semanticbits.com"
+          git config --global user.name "GitHub Actions CI"
+          bundle exec overcommit --sign
+          bundle exec overcommit --run
+
+      - name: NPM install
+        run: npm ci
+
+      - name: Setup Istanbul
+        run: sudo npm install -g istanbul
+
+# ------- Teaspoon tests for "admin_views" directory ----------
+      - name: Run teaspoon tests
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake teaspoon DIR=${{ matrix.tests }}
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage-frontend/default/lcov.info
+          fail_ci_if_error: true
+
+  audit:
+    name: Build-and-Audit
+
+    runs-on: ubuntu-latest
 
     services:
       mongodb:
@@ -54,7 +117,7 @@ jobs:
       - name: Perform audit check for vulnerabilities
         env:
           RAILS_ENV: test
-        run: bundle exec bundle-audit check --update
+        run: bundle exec bundle-audit check
 
       - name: Set and run up overcommit
         run: |
@@ -67,7 +130,7 @@ jobs:
         run: npm ci
 
       - name: NPM audit
-        run: npm audit --audit-level=high
+        run: npm audit --production --audit-level=high
 
       - name: Build and test with Rake
         env:
@@ -76,224 +139,11 @@ jobs:
         with:
           run: bundle exec rake test
 
-      - name: Upload resultset artifact
-        uses: actions/upload-artifact@v2
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
         with:
-          path: coverage/.resultset.json
-          name: ruleset
+          file: coverage/.resultset.json
+          fail_ci_if_error: true
 
       - name: Setup Istanbul
         run: sudo npm install -g istanbul
-
-# ------- Teaspoon tests for "admin_views" directory ----------
-      - name: Run teaspoon tests for admin_views
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: bundle exec rake teaspoon DIR=admin_views
-
-      - name: Upload admin_views
-        uses: actions/upload-artifact@v2
-        with:
-          path: coverage-frontend/default/lcov.info
-          name: admin_views.info
-
-# ------- Teaspoon tests for "cqm_specs" directory ----------
-      - name: Run teaspoon tests for cqm_specs
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: bundle exec rake teaspoon DIR=cqm_specs
-
-      - name: Upload cqm_specs
-        uses: actions/upload-artifact@v2
-        with:
-          path: coverage-frontend/default/lcov.info
-          name: cqm_specs.info
-# ----------------------------------------------------------------------
-
-# ------- Teaspoon tests for "helper_specs" directory ----------
-      - name: Run teaspoon tests for helper_specs
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: bundle exec rake teaspoon DIR=helper_specs
-
-      - name: Upload helper_specs
-        uses: actions/upload-artifact@v2
-        with:
-          path: coverage-frontend/default/lcov.info
-          name: helper_specs.info
-# ----------------------------------------------------------------------
-
-# ------- Teaspoon tests for "integration" directory ----------
-      - name: Run teaspoon tests for integration
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: bundle exec rake teaspoon DIR=integration
-
-      - name: Upload integration
-        uses: actions/upload-artifact@v2
-        with:
-          path: coverage-frontend/default/lcov.info
-          name: integration.info
-# ----------------------------------------------------------------------
-
-# ------- Teaspoon tests for "models" directory ----------
-      - name: Run teaspoon tests for models
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: bundle exec rake teaspoon DIR=models
-
-      - name: Upload models
-        uses: actions/upload-artifact@v2
-        with:
-          path: coverage-frontend/default/lcov.info
-          name: models.info
-# ----------------------------------------------------------------------
-
-# ------- Teaspoon tests for "patient_builder_tests/input_views" directory ----------
-      - name: Run teaspoon tests for patient_builder_tests/input_views
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: bundle exec rake teaspoon DIR=patient_builder_tests/input_views
-
-      - name: Upload input_views
-        uses: actions/upload-artifact@v2
-        with:
-          path: coverage-frontend/default/lcov.info
-          name: input_views.info
-# ----------------------------------------------------------------------
-
-# ------- Teaspoon tests for "patient_builder_tests/measure" directory ----------
-      - name: Run teaspoon tests for patient_builder_tests/measure
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: bundle exec rake teaspoon DIR=patient_builder_tests/measure
-
-      - name: Upload measure
-        uses: actions/upload-artifact@v2
-        with:
-          path: coverage-frontend/default/lcov.info
-          name: measure.info
-# ----------------------------------------------------------------------
-
-# ------- Teaspoon tests for "patient_builder_tests/patient" directory ----------
-      - name: Run teaspoon tests for patient_builder_tests/patient
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: bundle exec rake teaspoon DIR=patient_builder_tests/patient
-
-      - name: Upload patient
-        uses: actions/upload-artifact@v2
-        with:
-          path: coverage-frontend/default/lcov.info
-          name: patient.info
-# ----------------------------------------------------------------------
-
-# ------- Teaspoon tests for "patient_builder_tests/criteria" directory ----------
-      - name: Run teaspoon tests for patient_builder_tests/criteria
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: bundle exec rake teaspoon DIR=patient_builder_tests/criteria
-
-      - name: Upload criteria
-        uses: actions/upload-artifact@v2
-        with:
-          path: coverage-frontend/default/lcov.info
-          name: coverage.info
-# ----------------------------------------------------------------------
-
-# ------- Teaspoon tests for "production_tests" directory ----------
-      - name: Run teaspoon tests for production_tests
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: bundle exec rake teaspoon DIR=production_tests
-
-      - name: Upload production_tests
-        uses: actions/upload-artifact@v2
-        with:
-          path: coverage-frontend/default/lcov.info
-          name: production_tests.info
-# ----------------------------------------------------------------------
-
-# ------- Teaspoon tests for "calc" directory ----------
-      - name: Run teaspoon tests for calc
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: bundle exec rake teaspoon DIR=calc
-
-      - name: Upload calc
-        uses: actions/upload-artifact@v2
-        with:
-          path: coverage-frontend/default/lcov.info
-          name: calc.info
-# ----------------------------------------------------------------------
-
-# ------- Teaspoon tests for "patient_builder_tests/cql/cql_logic_view_spec" file ----------
-      - name: Run teaspoon tests for patient_builder_tests/cql/cql_logic_view_spec
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: bundle exec rake teaspoon FILE=spec/javascripts/patient_builder_tests/cql/cql_logic_view_spec.js.coffee
-
-      - name: Upload cql_logic_view_spec
-        uses: actions/upload-artifact@v2
-        with:
-          path: coverage-frontend/default/lcov.info
-          name: cql_logic_view_spec.info
-# ----------------------------------------------------------------------
-
-# ------- Teaspoon tests for "patient_builder_tests/cql/cql_truncated_statement_view_spec" file ----------
-      - name: Run teaspoon tests for patient_builder_tests/cql/cql_truncated_statement_view_spec
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: bundle exec rake teaspoon FILE=spec/javascripts/patient_builder_tests/cql/cql_truncated_statement_view_spec.js.coffee
-
-      - name: Upload cql_truncated_statement_view_spec
-        uses: actions/upload-artifact@v2
-        with:
-          path: coverage-frontend/default/lcov.info
-          name: cql_logic_view_spec.info
-# ----------------------------------------------------------------------
-
-# ------- Teaspoon tests for "patient_builder_tests/cql/cql_coloring_spec.js.coffee" file ----------
-      - name: Run teaspoon tests for patient_builder_tests/cql/cql_coloring_spec
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: bundle exec rake teaspoon FILE=spec/javascripts/patient_builder_tests/cql/cql_coloring_spec.js.coffee
-
-      - name: Upload cql_coloring_spec
-        uses: actions/upload-artifact@v2
-        with:
-          path: coverage-frontend/default/lcov.info
-          name: cql_coloring_spec.info
-# ----------------------------------------------------------------------
-
-# ------- Teaspoon tests for "cql_calculator_spec.js.coffee" file ----------
-      - name: Run teaspoon tests for cql_calculator_spec.js.coffee
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: bundle exec rake teaspoon FILE=spec/javascripts/cql_calculator_spec.js.coffee
-
-      - name: Upload cql_calculator_spec
-        uses: actions/upload-artifact@v2
-        with:
-          path: coverage-frontend/default/lcov.info
-          name: cql_calculator_spec.info
-# ----------------------------------------------------------------------
-
-
-  upload_codecov:
-    needs: build_n_test_bonnie
-    runs-on: ubuntu-latest
-    name: upload to codecov
-
-    steps:
-      - uses: actions/download-artifact@v2
-
-      - name: Display structure of downloaded files
-        run: ls -R
-
-      - name: Codecov
-        uses: codecov/codecov-action@v1.5.2
-        with:
-         files: ./admin_views.info/lcov.info,./calc.info/lcov.info,./coverage.info/lcov.info,./cql_calculator_spec.info/lcov.info,./cql_coloring_spec.info/lcov.info,./cql_logic_view.info/lcov.info,./cqm_specs.info/lcov.info,./helper_specs.info/lcov.info,./input_views.info/lcov.info,./integration.info/lcov.info,./measure.info/lcov.info,./models.info/lcov.info,./patient.info/lcov.info,./production_tests.info/lcov.info,./rulset/.ruleset.json
-         fail_ci_if_error: true
-         verbose: true
