@@ -497,6 +497,16 @@
         valueSets: () -> [FhirValueSets.PROCEDURE_NOT_PERFORMED_REASON_VS]
       },
       {
+        path: 'reasonCode',
+        title: 'reasonCode',
+        getValue: (fhirResource) -> fhirResource?.reasonCode?[0].coding?[0]
+        setValue: (fhirResource, coding) =>
+          codeableConcept = @getCodeableConceptForCoding(coding)
+          fhirResource.reasonCode = if codeableConcept? then [codeableConcept] else codeableConcept
+        types: ['CodeableConcept'],
+        valueSets: () -> [ProcedureReasonValueSet.JSON]
+      },
+      {
         path: 'usedCode',
         title: 'usedCode',
         getValue: (fhirResource) -> fhirResource?.usedCode?[0]?.coding?[0]
@@ -673,7 +683,25 @@
             fhirResource?.status = null
         types: ['Code']
         valueSets: () -> [FhirValueSets.REQUEST_STATUS]
-      }
+      },
+      {
+        path: 'reasonCode'
+        title: 'reasonCode'
+        getValue: (fhirResource) => fhirResource?.reasonCode?[0]?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          codeableConcept = @getCodeableConceptForCoding(coding)
+          fhirResource.reasonCode = if codeableConcept? then [codeableConcept] else codeableConcept
+        valueSets: () -> [window.ProcedureReasonCodeValueSet.JSON]
+        types: ['CodeableConcept']
+      },
+      {
+        path: 'id'
+        title: 'id'
+        getValue: (fhirResource) => fhirResource?.id
+        setValue: (fhirResource, value) =>
+          fhirResource.id = value
+        types: ['String']
+      },
     ]
     Claim: []
     Communication: [
@@ -839,7 +867,7 @@
         setValue: (fhirResource, coding) =>
           codeableConcept = @getCodeableConceptForCoding(coding)
           fhirResource.reasonCode = if codeableConcept? then [codeableConcept] else codeableConcept
-        valueSets: () -> [FhirValueSets.ENCOUNTER_REASON_CODE_VS]
+        valueSets: () -> [window.EncounterReasonCodeValueSet.JSON]
         types: ['CodeableConcept']
       },
     ]
@@ -1189,4 +1217,30 @@
     Practitioner: []
     PractitionerRole: []
     RelatedPerson: []
-    Task: []
+    Task: [
+      {
+        path: 'basedOn'
+        title: 'basedOn'
+        getValue: (fhirResource) -> fhirResource.basedOn?[0]
+        setValue: (fhirResource, reference) ->
+          if reference?
+            fhirResource?.basedOn = [] unless fhirResource?.basedOn?
+            fhirResource.basedOn[0] = reference
+          else
+            fhirResource.basedOn = null
+
+        types: ['Reference']
+        # referenceTypes placeholder, will be updarted
+        referenceTypes: ['Placeholder'],
+        postInit: (taskBasedOn, task, dataElements) ->
+          taskBasedOn.referenceTypes = Object.keys(dataElements)
+      }
+    ]
+
+  # Dynamic initialization
+  @postInitDataElements: (dataElements) ->
+    for dataElement in Object.values(dataElements)
+      for attrDef in Object.values(dataElement)
+        attrDef.postInit?(attrDef, dataElement, dataElements)
+
+  @postInitDataElements(@DATA_ELEMENT_ATTRIBUTES)
