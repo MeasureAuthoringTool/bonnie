@@ -681,7 +681,7 @@
         setValue: (fhirResource, coding) =>
           codeableConcept = @getCodeableConceptForCoding(coding)
           fhirResource.reasonCode = if codeableConcept? then [codeableConcept] else codeableConcept
-        valueSets: () -> [@ProcedureReasonCodeValueSet.JSON]
+        valueSets: () -> [window.ProcedureReasonCodeValueSet.JSON]
         types: ['CodeableConcept']
       },
       {
@@ -844,7 +844,7 @@
         setValue: (fhirResource, coding) =>
           codeableConcept = @getCodeableConceptForCoding(coding)
           fhirResource.reasonCode = if codeableConcept? then [codeableConcept] else codeableConcept
-        valueSets: () -> [@EncounterReasonCodeValueSet.JSON]
+        valueSets: () -> [window.EncounterReasonCodeValueSet.JSON]
         types: ['CodeableConcept']
       },
     ]
