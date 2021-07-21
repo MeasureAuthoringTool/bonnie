@@ -1176,4 +1176,30 @@
     Practitioner: []
     PractitionerRole: []
     RelatedPerson: []
-    Task: []
+    Task: [
+      {
+        path: 'basedOn'
+        title: 'basedOn'
+        getValue: (fhirResource) -> fhirResource.basedOn?[0]
+        setValue: (fhirResource, reference) ->
+          if reference?
+            fhirResource?.basedOn = [] unless fhirResource?.basedOn?
+            fhirResource.basedOn[0] = reference
+          else
+            fhirResource.basedOn = null
+
+        types: ['Reference']
+        # referenceTypes placeholder, will be updarted
+        referenceTypes: ['Placeholder'],
+        postInit: (taskBasedOn, task, dataElements) ->
+          taskBasedOn.referenceTypes = Object.keys(dataElements)
+      }
+    ]
+
+  # Dynamic initialization
+  @postInitDataElements: (dataElements) ->
+    for dataElement in Object.values(dataElements)
+      for attrDef in Object.values(dataElement)
+        attrDef.postInit?(attrDef, dataElement, dataElements)
+
+  @postInitDataElements(@DATA_ELEMENT_ATTRIBUTES)
