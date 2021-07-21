@@ -459,7 +459,7 @@
 		    path: 'severity'
 		    title: 'severity'
 		    getValue: (fhirResource) -> fhirResource?.severity?.coding?[0]
-		    setValue: (fhirResource, coding) ->
+		    setValue: (fhirResource, coding) =>
 			    fhirResource.severity = @getCodeableConceptForCoding(coding)
 		    types: [
 			    'CodeableConcept'
@@ -470,7 +470,7 @@
 		    path: 'recorder'
 		    title: 'recorder'
 		    getValue: (fhirResource) -> fhirResource.recorder
-		    setValue: (fhirResource, reference) ->
+		    setValue: (fhirResource, reference) =>
 			    fhirResource.recorder = reference
 		    types: ['Reference']
 		    referenceTypes: ['Practitioner', 'PractitionerRole', 'RelatedPerson']
@@ -479,7 +479,7 @@
 		    path: 'asserter'
 		    title: 'asserter'
 		    getValue: (fhirResource) -> fhirResource.asserter
-		    setValue: (fhirResource, reference) ->
+		    setValue: (fhirResource, reference) =>
 			    fhirResource.asserter = reference
 		    types: ['Reference']
 		    referenceTypes: ['Practitioner', 'PractitionerRole', 'RelatedPerson']
