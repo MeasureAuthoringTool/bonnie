@@ -681,7 +681,7 @@
         path: 'status'
         title: 'status'
         getValue: (fhirResource) => fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) =>
+        setValue: (fhirResource, codeValue) ->
           if !codeValue?
             fhirResource?.status = null
           else
