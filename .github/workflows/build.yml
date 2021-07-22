@@ -7,6 +7,7 @@ on:
     branches: [master, bonnie-prior]
 
 jobs:
+#----main job for teaspoon tests-------
   build:
     name: Build-and-Test
 
@@ -70,6 +71,7 @@ jobs:
           file: coverage-frontend/default/lcov.info
           fail_ci_if_error: true
 
+#--------Audit Job-------------
   audit:
     name: Build-and-Audit
 
