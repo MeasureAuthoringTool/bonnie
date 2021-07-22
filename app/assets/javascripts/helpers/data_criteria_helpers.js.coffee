@@ -733,7 +733,20 @@
       },
     ]
     Claim: []
-    Communication: []
+    Communication: [
+      {
+        path: 'status'
+        title: 'status'
+        getValue: (fhirResource) => fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) ->
+          if !codeValue?
+            fhirResource?.status = null
+          else
+            fhirResource?.status = codeValue;
+        types: ['Code']
+        valueSets: () => [EventStatusValueSet.JSON]
+      }
+    ]
     CommunicationRequest: []
     DeviceRequest: []
     DeviceUseStatement: [
