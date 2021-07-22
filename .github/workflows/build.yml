@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        tests: [admin_views, cqm_specs, fhir_measures, helper_specs, integration, models, patient_builder_tests/input_views, patient_builder_tests/measure, patient_builder_tests/patient, patient_builder_tests/criteria, production_tests, calc, spec/javascripts/patient_builder_tests/cql/cql_logic_view_spec.js.coffee, spec/javascripts/patient_builder_tests/cql/cql_truncated_statement_view_spec.js.coffee, spec/javascripts/patient_builder_tests/cql/cql_coloring_spec.js.coffee, spec/javascripts/cql_calculator_spec.js.coffee]
+        tests: [admin_views, cqm_specs, helper_specs, integration, models, patient_builder_tests/input_views, patient_builder_tests/measure, patient_builder_tests/patient, patient_builder_tests/criteria, production_tests, calc, spec/javascripts/patient_builder_tests/cql/cql_logic_view_spec.js.coffee, spec/javascripts/patient_builder_tests/cql/cql_truncated_statement_view_spec.js.coffee, spec/javascripts/patient_builder_tests/cql/cql_coloring_spec.js.coffee, spec/javascripts/cql_calculator_spec.js.coffee]
 
     services:
       mongodb:
