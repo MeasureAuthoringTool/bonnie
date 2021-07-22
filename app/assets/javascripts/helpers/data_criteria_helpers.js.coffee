@@ -464,7 +464,7 @@
         types: [
           'CodeableConcept'
         ]
-        valueSets: () -> [FhirValueSets.CONDITION_SEVERITY_VS]
+        valueSets: () -> [ConditionSeverityValueSet.JSON]
       },
       {
         path: 'recorder'
