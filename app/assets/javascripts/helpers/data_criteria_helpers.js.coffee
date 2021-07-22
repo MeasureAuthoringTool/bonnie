@@ -454,6 +454,35 @@
           'CodeableConcept'
         ],
         valueSets: () -> [FhirValueSets.CONDITION_CATEGORY_VS]
+      },
+      {
+        path: 'severity'
+        title: 'severity'
+        getValue: (fhirResource) -> fhirResource?.severity?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          fhirResource.severity = @getCodeableConceptForCoding(coding)
+        types: [
+          'CodeableConcept'
+        ]
+        valueSets: () -> [ConditionSeverityValueSet.JSON]
+      },
+      {
+        path: 'recorder'
+        title: 'recorder'
+        getValue: (fhirResource) -> fhirResource.recorder
+        setValue: (fhirResource, reference) ->
+          fhirResource.recorder = reference
+        types: ['Reference']
+        referenceTypes: ['Practitioner', 'PractitionerRole', 'RelatedPerson']
+      },
+      {
+        path: 'asserter'
+        title: 'asserter'
+        getValue: (fhirResource) -> fhirResource.asserter
+        setValue: (fhirResource, reference) ->
+          fhirResource.asserter = reference
+        types: ['Reference']
+        referenceTypes: ['Practitioner', 'PractitionerRole', 'RelatedPerson']
       }
     ]
     FamilyMemberHistory: []
