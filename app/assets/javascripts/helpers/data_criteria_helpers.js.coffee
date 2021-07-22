@@ -733,7 +733,20 @@
       },
     ]
     Claim: []
-    Communication: []
+    Communication: [
+      {
+        path: 'status'
+        title: 'status'
+        getValue: (fhirResource) => fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) ->
+          if !codeValue?
+            fhirResource?.status = null
+          else
+            fhirResource?.status = codeValue;
+        types: ['Code']
+        valueSets: () => [EventStatusValueSet.JSON]
+      }
+    ]
     CommunicationRequest: []
     DeviceRequest: []
     DeviceUseStatement: [
@@ -1250,6 +1263,18 @@
         referenceTypes: ['Placeholder'],
         postInit: (taskBasedOn, task, dataElements) ->
           taskBasedOn.referenceTypes = Object.keys(dataElements)
+      },
+      {
+        path: 'status'
+        title: 'status'
+        getValue: (fhirResource) -> fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) =>
+          if !codeValue?
+            fhirResource?.status = null
+          else
+            fhirResource?.status = cqm.models.TaskStatus.parsePrimitive(codeValue)
+        types: ['Code']
+        valueSets: () -> [TastStatusValueSet.JSON]
       }
     ]
 
