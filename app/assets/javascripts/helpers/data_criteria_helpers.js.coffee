@@ -716,20 +716,12 @@
       {
         path: 'reasonCode'
         title: 'reasonCode'
-        getValue: (fhirResource) => fhirResource?.reasonCode?[0]?.coding?[0]
+        getValue: (fhirResource) -> fhirResource?.reasonCode?[0]?.coding?[0]
         setValue: (fhirResource, coding) =>
           codeableConcept = @getCodeableConceptForCoding(coding)
           fhirResource.reasonCode = if codeableConcept? then [codeableConcept] else codeableConcept
         valueSets: () -> [window.ProcedureReasonCodeValueSet.JSON]
         types: ['CodeableConcept']
-      },
-      {
-        path: 'id'
-        title: 'id'
-        getValue: (fhirResource) => fhirResource?.id
-        setValue: (fhirResource, value) =>
-          fhirResource.id = value
-        types: ['String']
       },
     ]
     Claim: []
