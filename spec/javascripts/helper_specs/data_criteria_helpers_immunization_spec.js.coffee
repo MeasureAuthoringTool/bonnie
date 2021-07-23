@@ -12,4 +12,4 @@ describe 'DataCriteriaHelpers', ->
       attr = attrs.find (attr) -> attr.path is 'occurrence'
       expect(attr.path).toEqual 'occurrence'
       expect(attr.types.length).toBe 1
-      expect(attr.types).toEqual ['DateTime',]
+      expect(attr.types).toEqual ['DateTime']

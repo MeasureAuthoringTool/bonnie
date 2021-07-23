@@ -734,7 +734,7 @@
           if !codeValue?
             fhirResource?.status = null
           else
-            fhirResource?.status = codeValue;
+            fhirResource?.status = cqm.models.CommunicationStatus.parsePrimitive(codeValue)
         types: ['Code']
         valueSets: () => [EventStatusValueSet.JSON]
       }
@@ -1259,7 +1259,7 @@
             fhirResource.basedOn = null
 
         types: ['Reference']
-        # referenceTypes placeholder, will be updarted
+        # referenceTypes placeholder, will be updated
         referenceTypes: ['Placeholder'],
         postInit: (taskBasedOn, task, dataElements) ->
           taskBasedOn.referenceTypes = Object.keys(dataElements)
@@ -1274,7 +1274,7 @@
           else
             fhirResource?.status = cqm.models.TaskStatus.parsePrimitive(codeValue)
         types: ['Code']
-        valueSets: () -> [TastStatusValueSet.JSON]
+        valueSets: () -> [TaskStatusValueSet.JSON]
       }
     ]
 

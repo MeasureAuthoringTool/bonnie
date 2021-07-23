@@ -1,4 +1,4 @@
-@TastStatusValueSet = class TastStatusValueSet
+@TaskStatusValueSet = class TaskStatusValueSet
   @JSON = {
     "resourceType": "ValueSet",
     "version": "4.0.1",
