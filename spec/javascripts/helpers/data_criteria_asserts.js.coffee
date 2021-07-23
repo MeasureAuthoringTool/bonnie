@@ -88,6 +88,22 @@
     # Verify after setting values
     expect(value.value).toEqual dateTime.value
 
+  @assertString: (resourceType, path, title) ->
+    attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]
+    attr = attrs.find (attr) => attr.path is path
+    expect(attr.path).toEqual path
+    expect(attr.title).toEqual title
+    # Create fhir resource and Period
+    fhirResource = new cqm.models[resourceType]()
+
+    primitiveString = cqm.models.PrimitiveString.parsePrimitive('random string value')
+
+    attr.setValue(fhirResource, primitiveString)
+
+    value = attr.getValue(fhirResource.clone())
+    # Verify after setting values
+    expect(value.value).toEqual primitiveString.value
+
   @assertReference: (resourceType, path, title) ->
     attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]
     attr = attrs.find (attr) => attr.path is path
