@@ -734,7 +734,7 @@
           if !codeValue?
             fhirResource?.status = null
           else
-            fhirResource?.status = codeValue;
+            fhirResource?.status = cqm.models.CommunicationStatus.parsePrimitive(codeValue)
         types: ['Code']
         valueSets: () => [EventStatusValueSet.JSON]
       }
@@ -1274,7 +1274,7 @@
           else
             fhirResource?.status = cqm.models.TaskStatus.parsePrimitive(codeValue)
         types: ['Code']
-        valueSets: () -> [TastStatusValueSet.JSON]
+        valueSets: () -> [TaskStatusValueSet.JSON]
       }
     ]
 
