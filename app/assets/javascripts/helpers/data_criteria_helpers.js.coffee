@@ -1259,7 +1259,7 @@
             fhirResource.basedOn = null
 
         types: ['Reference']
-        # referenceTypes placeholder, will be updarted
+        # referenceTypes placeholder, will be updated
         referenceTypes: ['Placeholder'],
         postInit: (taskBasedOn, task, dataElements) ->
           taskBasedOn.referenceTypes = Object.keys(dataElements)
