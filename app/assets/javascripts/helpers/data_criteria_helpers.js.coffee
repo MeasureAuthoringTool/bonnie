@@ -913,6 +913,14 @@
             fhirResource?.status = null
         types: ['Code']
         valueSets: () -> [ ImmunizationStatusValueSet.JSON ]
+      },
+      {
+        path: 'occurrence'
+        title: 'occurrence'
+        getValue: (fhirResource) -> fhirResource?.occurrence
+        setValue: (fhirResource, occurrence) ->
+          fhirResource?.occurrence = occurrence
+        types: ['DateTime']
       }
     ]
     ImmunizationEvaluation: []
