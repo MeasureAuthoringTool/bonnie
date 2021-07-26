@@ -740,7 +740,32 @@
       }
     ]
     CommunicationRequest: []
-    DeviceRequest: []
+    DeviceRequest: [
+      {
+        path: 'status'
+        title: 'status'
+        getValue: (fhirResource) -> fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) ->
+          if !codeValue?
+            fhirResource?.status = null
+          else
+            fhirResource?.status = cqm.models.DeviceRequestStatus.parsePrimitive(codeValue)
+        types: ['Code']
+        valueSets: () -> [FhirValueSets.REQUEST_STATUS]
+      },
+      {
+        path: 'intent'
+        title: 'intent'
+        getValue: (fhirResource) -> fhirResource?.intent?.value
+        setValue: (fhirResource, codeValue) ->
+          if !codeValue?
+            fhirResource?.intent = null
+          else
+            fhirResource?.intent = cqm.models.RequestIntent.parsePrimitive(codeValue)
+        types: ['Code']
+        valueSets: () -> [FhirValueSets.REQUEST_INTENT]
+      }
+    ]
     DeviceUseStatement: [
       {
         path: 'timing',
