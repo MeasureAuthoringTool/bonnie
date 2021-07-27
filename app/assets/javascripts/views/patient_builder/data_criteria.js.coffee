@@ -123,9 +123,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @addModifierExtensionsView = new Thorax.Views.AddExtensionsView(dataElement: @model.get('dataElement'), extensionsAccessor: 'modifierExtension')
     @listenTo @addModifierExtensionsView, 'extensionModified', @modifierExtensionModified
 
-    # view that allows for negating the data criteria, will not display on non-negateable data criteria
-#    @negationRationaleView = new Thorax.Views.InputCodingView({ cqmValueSets: @measure.get('cqmValueSets'), codeSystemMap: @measure.codeSystemMap(), attributeName: 'negationRationale', initialValue: @model.get('dataElement').negationRationale })
-#    @listenTo @negationRationaleView, 'valueChanged', @updateAttributeFromInputChange
+    # view that performs negation on an elligible resource
+    if @model.canHaveNegation()
+      @negation = NegationHelpers.isResourceNegated(@model.get('dataElement').fhir_resource)
+      @negationRationaleView = @negationView()
 
     @model.on 'highlight', (type) =>
       @$('.criteria-data').addClass(type)
@@ -184,7 +185,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       @$el.toggleClass 'during-measurement-period', @isDuringMeasurePeriod()
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
-#    'change .negation-select': 'toggleNegationSelect'
+    'change .negation-select': 'toggleNegationSelect'
 
   updateAttributeFromInputChange: (inputView) ->
     @model.get('dataElement').fhir_resource[inputView.attributeName] = inputView.value
@@ -318,14 +319,13 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   isExpanded: -> @$('form').is ':visible'
 
-#  toggleNegationSelect: (e) ->
-#    if $(e.target).is(":checked")
-#      @$('.negationRationaleCodeEntry').removeClass('hidden')
-#    else
-#      @$('.negationRationaleCodeEntry').addClass('hidden')
-#      @model.get('dataElement').negationRationale = null
-#      @model.set('negation', false, {silent: true})
-#    @negationRationaleView.resetCodeSelection()
+  toggleNegationSelect: (e) ->
+    if $(e.target).is(":checked")
+      @$('.negationRational').removeClass('hidden')
+      @negationRationaleView.setNegation()
+    else
+      @negationRationaleView.resetNegation()
+      @$('.negationRational').addClass('hidden')
 
   toggleDetails: (e) ->
     e.preventDefault()
@@ -348,3 +348,14 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     # Remove attributes from other resources/criteria that reference this resource
     @parent.parent.removeReferenceAttributes(@model.get('dataElement').fhir_resource.id)
     @model.destroy()
+
+  negationView: ->
+    resource = @model.get('dataElement').fhir_resource
+    switch resource.resourceType
+      when 'Communication'
+        new Thorax.Views.CommunicationNegationView({
+          cqmValueSets: @measure.get('cqmValueSets'),
+          codeSystemMap: @measure.codeSystemMap(),
+          resource: resource
+        })
+      else undefined
