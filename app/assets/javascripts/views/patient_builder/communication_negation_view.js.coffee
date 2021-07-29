@@ -27,7 +27,7 @@ class Thorax.Views.CommunicationNegationView extends Thorax.Views.BonnieView
     })
     @reasonCode = new Thorax.Views.InputCodingView({
       initialValue: @resource.reasonCode?[0].coding?[0]
-      cqmValueSets: [].concat(@cqmValueSets)
+      cqmValueSets: @cqmValueSets
       codeSystemMap: @codeSystemMap
       name: 'reason code'
     })
@@ -44,7 +44,6 @@ class Thorax.Views.CommunicationNegationView extends Thorax.Views.BonnieView
     @resource.modifierExtension = @resource.modifierExtension?.filter(
       (extension) -> extension.url?.value != NegationHelpers.QICORE_NOT_DONE_URL)
 
-# mark neagation set to true
   setNegation: ->
     value = cqm.models.PrimitiveBoolean.parsePrimitive(true)
     if @resource.modifierExtension
