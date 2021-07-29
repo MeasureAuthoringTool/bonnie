@@ -51,7 +51,6 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
           @handleValueSetCodeChange()
       else
         @$('select[name="valueset"] > option:first').prop('selected', true)
-        @handleValueSetChange()
 
   #context: ->
   #  _(super).extend
