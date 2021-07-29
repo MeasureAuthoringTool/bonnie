@@ -227,9 +227,9 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
 
   # TODO: not a great way to find valueset by code as same named code might be in two valueset
   _findValueSetForCode: (code) ->
-    valueSet = @cqmValueSets.find (vs) =>
-      matchingConcept = vs?.compose?.include?.find (concept) =>
-        concept.concept?.find (conceptEntry) =>
+    valueSet = @cqmValueSets.find (vs) ->
+      matchingConcept = vs?.compose?.include?.find (concept) ->
+        concept.concept?.find (conceptEntry) ->
           return conceptEntry.code == code
       return matchingConcept?
     return valueSet
