@@ -132,7 +132,7 @@ class Thorax.Models.Patient extends Thorax.Model
         {
           url: 'ombCategory'
           valueCoding: {
-            system: 'urn:oid:2.16.840.1.113883.6.238'
+            system: 'http://cts.nlm.nih.gov/fhir/cs/cdcrec'
             code: race.code
             display: race.display
             userSelected: true
@@ -159,7 +159,7 @@ class Thorax.Models.Patient extends Thorax.Model
         {
           url: 'ombCategory'
           valueCoding: {
-            system: "urn:oid:2.16.840.1.113883.6.238"
+            system: "http://cts.nlm.nih.gov/fhir/cs/cdcrec"
             code: ethnicity.code
             display: ethnicity.display
             userSelected: true
