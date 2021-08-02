@@ -71,3 +71,55 @@
     # Verify after setting values
     expect(value.start.value).toEqual period.start.value
     expect(value.end.value).toEqual period.end.value
+
+  @assertDateTime: (resourceType, path, title) ->
+    attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]
+    attr = attrs.find (attr) => attr.path is path
+    expect(attr.path).toEqual path
+    expect(attr.title).toEqual title
+    # Create fhir resource and Period
+    fhirResource = new cqm.models[resourceType]()
+
+    dateTime = cqm.models.PrimitiveDateTime.parsePrimitive('2020-09-02T13:54:57')
+
+    attr.setValue(fhirResource, dateTime)
+
+    value = attr.getValue(fhirResource.clone())
+    # Verify after setting values
+    expect(value.value).toEqual dateTime.value
+
+  @assertString: (resourceType, path, title) ->
+    attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]
+    attr = attrs.find (attr) => attr.path is path
+    expect(attr.path).toEqual path
+    expect(attr.title).toEqual title
+    # Create fhir resource and Period
+    fhirResource = new cqm.models[resourceType]()
+
+    primitiveString = cqm.models.PrimitiveString.parsePrimitive('random string value')
+
+    attr.setValue(fhirResource, primitiveString)
+
+    value = attr.getValue(fhirResource.clone())
+    # Verify after setting values
+    expect(value.value).toEqual primitiveString.value
+
+  @assertReference: (resourceType, path, title) ->
+    attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]
+    attr = attrs.find (attr) => attr.path is path
+    expect(attr.path).toEqual path
+    expect(attr.title).toEqual title
+
+    test_reference = new cqm.models.Reference()
+    test_reference.reference = "http://someserver/some-path"
+    test_reference.type = "patient"
+
+    fhirResource = new cqm.models[resourceType]()
+    attr.setValue(fhirResource, test_reference)
+
+    value = attr.getValue(fhirResource)
+    expect(value).toBeDefined
+    expect(value.type).toBe 'patient'
+    expect(value.reference).toBe 'http://someserver/some-path'
+
+

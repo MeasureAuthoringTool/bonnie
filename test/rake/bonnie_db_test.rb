@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'vcr_setup.rb'
+require 'vcr_setup'
 
 class BonnieDbTest < ActiveSupport::TestCase
   setup do
@@ -11,6 +11,8 @@ class BonnieDbTest < ActiveSupport::TestCase
     collection_fixtures(users_set, patients_set)
     @email = 'bonnie@example.com'
     @user = User.by_email('bonnie@example.com').first
+    @user.init_personal_group
+    @user.save
 
     @set_id_1 = '4DC3E7AA-8777-4749-A1E4-37E942036076'
     @set_id_2 = 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
@@ -35,7 +37,7 @@ class BonnieDbTest < ActiveSupport::TestCase
     assert_output(
       "Re-saving \"#{measure_1.title}\" [bonnie@example.com]\n" +
       "Re-saving \"#{measure_2.title}\" [bonnie@example.com]\n" +
-      "Re-saving \"#{measure_w_no_user.title}\" [deleted user]\n"
+      "Re-saving \"#{measure_w_no_user.title}\" [deleted group]\n"
                  ) { Rake::Task['bonnie:db:resave_measures'].execute }
   end
 

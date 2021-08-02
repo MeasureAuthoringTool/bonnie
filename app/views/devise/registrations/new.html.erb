@@ -47,21 +47,12 @@
   <div class="form-group row">
     <div class="col-md-6">
       <div class="input-group input-group-lg required">
-        <label for="user_password" class="sr-only">Password (required) </label>
-        <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i></span>
-        <%= f.password_field :password, class: "form-control", placeholder: "password*", required: true, 'aria-required': true %>
-      </div>
-      Must be at least 8 characters long and contain characters from at least two of: lowercase letters, uppercase letters, numbers, and special characters.
-    </div>
-    <div class="col-md-6">
-      <div class="input-group input-group-lg required">
-        <label for="user_password_confirmation" class="sr-only">Password Confirmation (required) </label>
-        <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i></span>
-        <%= f.password_field :password_confirmation, class: "form-control", placeholder: "confirm password*", required: true, 'aria-required': true %>
+        <label for="registered_harp_id" class="sr-only">HARP ID</label>
+        <span class="input-group-addon"><i class="fa fa-id-card fa-lg fa-fw" aria-hidden="true"></i></span>
+        <%= f.text_field :harp_id, class: "form-control", placeholder: "HARP ID*", required: true, 'aria-required': true %>
       </div>
     </div>
   </div>
-
   <div id="termsAndConditions">
     <p><strong>Terms and conditions for use of Bonnie.</strong></p>
     <p>Performance measures and related data specifications (the "Measures") are copyrighted by the noted quality measure providers as indicated in the applicable Measure. Coding vocabularies are owned by their copyright owners. By using the Measures, a user ("User") agrees to these Terms of Use. Measures are not clinical guidelines and do not establish a standard of medical care and quality measure providers are not responsible for any use of or reliance on the Measures.</p>
@@ -90,6 +81,38 @@
 
 <% end -%>
 
+<% flash.each do |message_type, message| %>
+  <% if flash[:msg] %>
+    <div class="modal fade in msgDialog" id="msgDialog" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog" role="dialog" aria-labelledby="modalTitle">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 id="modalTitle"><%= flash[:msg][:title] %></h1>
+          </div>
+          <div class="modal-body">
+            <% if flash[:msg][:summary] %>
+            <div>
+              <h4><%= flash[:msg][:summary] %></h4>
+            </div>
+            <% end %>
+            <p>
+              <%= flash[:msg][:body] %>
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<% if not user_signed_in? %>
+  <script>
+      window.disableSessionManagement = true;
+  </script>
+<% end %>
 <script>
   $(function() {
     $('#agree_license').on('change', function(e) {
@@ -100,5 +123,6 @@
     });
 
     $('.field_with_errors').parent().removeClass('required').addClass('has-error'); //allows icon to change color appropriately for validation
+    $('.modal').modal('show');
   });
 </script>
