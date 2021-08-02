@@ -45,13 +45,12 @@ class Thorax.Views.CommunicationNegationView extends Thorax.Views.BonnieView
       (extension) -> extension.url?.value != NegationHelpers.QICORE_NOT_DONE_URL)
 
   setNegation: ->
-    value = cqm.models.PrimitiveBoolean.parsePrimitive(true)
     if @resource.modifierExtension
       @resource.modifierExtension.push(
-        NegationHelpers.createExtension(value, 'Boolean', NegationHelpers.QICORE_NOT_DONE_URL))
+        NegationHelpers.createExtension(true, 'Boolean', NegationHelpers.QICORE_NOT_DONE_URL))
     else
       @resource.modifierExtension = [
-        NegationHelpers.createExtension(value, 'Boolean', NegationHelpers.QICORE_NOT_DONE_URL) ]
+        NegationHelpers.createExtension(true, 'Boolean', NegationHelpers.QICORE_NOT_DONE_URL) ]
 
   performNegation: (view) ->
     switch view.name

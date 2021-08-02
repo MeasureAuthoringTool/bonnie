@@ -7,8 +7,6 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
   initialize: ->
     @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
     if !@isPeriodType() then @set('end_date', undefined)
-    # TODO negation
-#    @set('negation', @get('dataElement').negationRationale?)
 
   clone: ->
     # Clone the DataElement

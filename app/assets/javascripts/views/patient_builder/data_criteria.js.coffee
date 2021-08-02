@@ -321,11 +321,11 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   toggleNegationSelect: (e) ->
     if $(e.target).is(":checked")
-      @$('.negationRational').removeClass('hidden')
+      @$('.negation-rationale').removeClass('hidden')
       @negationRationaleView.setNegation()
     else
       @negationRationaleView.resetNegation()
-      @$('.negationRational').addClass('hidden')
+      @$('.negation-rationale').addClass('hidden')
 
   toggleDetails: (e) ->
     e.preventDefault()

@@ -50,7 +50,7 @@ describe 'CommunicationNegation', ->
     # verify if modifierExtension for negation is set
     expect(communicationView.model.get('dataElement').fhir_resource.modifierExtension[0].url.value)
       .toEqual(NegationHelpers.QICORE_NOT_DONE_URL)
-    expect(communicationView.model.get('dataElement').fhir_resource.modifierExtension[0].value.value.value).toEqual(true)
+    expect(communicationView.model.get('dataElement').fhir_resource.modifierExtension[0].value.value).toEqual(true)
     # set not-done status
     communicationView.negationRationaleView.status.$el.find("select[name='valueset']").val('2.16.840.1.113883.4.642.3.109').change()
     communicationView.negationRationaleView.status.$el.find("select[name='vs_code']").val('not-done').change()
