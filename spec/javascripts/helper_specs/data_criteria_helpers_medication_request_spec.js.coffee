@@ -130,3 +130,26 @@ describe 'DataCriteriaHelpers', ->
 
       expect(value.start.value).toEqual '2020-09-02T13:54:57'
       expect(value.end.value).toEqual '2020-10-02T13:54:57'
+
+    fit 'should support MedicationRequest.dosageInstruction.timing', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationRequest']
+      attr = attrs.find (attr) -> attr.path is 'dosageInstruction.timing'
+      expect(attr.path).toEqual 'dosageInstruction.timing'
+      expect(attr.title).toEqual 'dosageInstruction.timing'
+      expect(attr.types).toEqual [ 'Timing' ]
+
+      fhirResource = new cqm.models['MedicationRequest']()
+
+      # set Timing
+      timing = new cqm.models.Timing()
+      timing.code = new cqm.models.CodeableConcept()
+      timing.code.coding = [ new cqm.models.Coding() ]
+      timing.code.coding[0].system = cqm.models.PrimitiveUri.parsePrimitive('a system')
+      timing.code.coding[0].code = cqm.models.PrimitiveCode.parsePrimitive('a code')
+
+      attr.setValue(fhirResource, timing)
+
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined()
+      expect(value.code.coding[0].system.value).toBe 'a system'
+      expect(value.code.coding[0].code.value).toBe 'a code'
