@@ -159,7 +159,7 @@ class Thorax.Models.Patient extends Thorax.Model
         {
           url: 'ombCategory'
           valueCoding: {
-            system: "http://cts.nlm.nih.gov/fhir/cs/cdcrec"
+            system: 'http://cts.nlm.nih.gov/fhir/cs/cdcrec'
             code: ethnicity.code
             display: ethnicity.display
             userSelected: true
