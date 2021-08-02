@@ -131,7 +131,7 @@ describe 'DataCriteriaHelpers', ->
       expect(value.start.value).toEqual '2020-09-02T13:54:57'
       expect(value.end.value).toEqual '2020-10-02T13:54:57'
 
-    fit 'should support MedicationRequest.dosageInstruction.timing', ->
+    it 'should support MedicationRequest.dosageInstruction.timing', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationRequest']
       attr = attrs.find (attr) -> attr.path is 'dosageInstruction.timing'
       expect(attr.path).toEqual 'dosageInstruction.timing'
