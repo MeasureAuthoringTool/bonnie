@@ -69,3 +69,14 @@ describe 'CommunicationNegation', ->
     communicationView.negationRationaleView.reasonCode.$el.find("select[name='valueset']").val('drc-e00384f945cf589f5153bbe56a6a0de12cdd18eaeb2889fc0d38ac4b30298698').change()
     expect(JSON.stringify(communicationView.model.get('dataElement').fhir_resource.reasonCode[0].coding[0].extension))
       .toEqual('[{"url":"http://hl7.org/fhir/StructureDefinition/valueset-reference","valueUri":"urn:uuid:ab99fafd-c95f-4616-a80b-94efa0ed0482"}]')
+
+  it "resets negation of a resource that has negation", ->
+    communicationView = Object.values(@patientBuilder.editCriteriaCollectionView.children)[1]
+    expect(communicationView.model.get('dataElement').fhir_resource.modifierExtension[0].url.value)
+      .toEqual(NegationHelpers.QICORE_NOT_DONE_URL)
+    expect(communicationView.model.get('dataElement').fhir_resource.modifierExtension[0].value.value).toEqual(true)
+    # reset the negation by unchecking the negation checkbox
+    communicationView.$el.find('input[name="negation"]').trigger('click')
+    expect(communicationView.model.get('dataElement').fhir_resource.modifierExtension).toEqual([])
+    expect(communicationView.model.get('dataElement').fhir_resource.extension).toEqual([])
+    expect(communicationView.model.get('dataElement').fhir_resource.status).toBeUndefined()
