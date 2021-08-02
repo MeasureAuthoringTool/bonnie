@@ -126,3 +126,12 @@ describe 'DataCriteriaHelpers', ->
 
     it 'should support Condition.category', ->
       DataCriteriaAsserts.assertCodeableConcept('Condition', 'category', 'category')
+
+    it 'should support Condition.severity', ->
+      DataCriteriaAsserts.assertCodeableConcept('Condition', 'severity', 'severity')
+
+    it 'should support Condition.recorder', ->
+      DataCriteriaAsserts.assertReference('Condition', 'recorder', 'recorder')
+
+    it 'should support Condition.asserter', ->
+      DataCriteriaAsserts.assertReference('Condition', 'asserter', 'asserter')
