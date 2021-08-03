@@ -1,11 +1,11 @@
 # Input view whichs stores its value state as Coding.
-# It can be used as an editor for Coding.
-class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
+# It can be used as an editor for CodeableConcept.
+class Thorax.Views.InputCodeableConceptView extends Thorax.Views.BonnieView
   # Same template used by InputCodingView & InputCodeView
   template: JST['patient_builder/inputs/code']
 
   # Expected options to be passed in using the constructor options hash:
-  #   initialValue - Coding - Optional. Initial value of code.
+  #   initialValue - CodeableConcept - Optional. Initial value of code.
   #   cqmValueSets - List of CQM Value sets. Optional (FHIR JSON).
   #   codeSystemMap - Map of all coding systems to system names in the measure.
   #   allowNull - boolean - Optional. If a null or empty integer is allowed. Defaults to false.
@@ -146,7 +146,7 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
     cqlCoding.display = cqm.models.PrimitiveString.parsePrimitive(concept?.display || null)
     cqlCoding.userSelected = cqm.models.PrimitiveBoolean.parsePrimitive(true)
 
-    @value = cqlCoding
+    @value = DataTypeHelpers.getCodeableConceptForCoding(cqlCoding)
     @trigger 'valueChanged', @
 
   # Helper function that builds up a list of code systems in the given value set then builds out the code system select box.
@@ -198,7 +198,7 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
     cqlCoding.code = cqm.models.PrimitiveCode.parsePrimitive(selectedConcept.code)
     cqlCoding.display = cqm.models.PrimitiveString.parsePrimitive(selectedConcept.display_name || null)
     cqlCoding.userSelected = cqm.models.PrimitiveBoolean.parsePrimitive(true)
-    @value = cqlCoding
+    @value = DataTypeHelpers.getCodeableConceptForCoding(cqlCoding)
     @trigger 'valueChanged', @
 
   # cleans up value set selection stuff
@@ -233,7 +233,7 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
         cqlCoding.system = cqm.models.PrimitiveUri.parsePrimitive(customCodeSystemUri)
         cqlCoding.code = cqm.models.PrimitiveCode.parsePrimitive(customCode || null)
         cqlCoding.userSelected = cqm.models.PrimitiveBoolean.parsePrimitive(true)
-        @value = cqlCoding
+        @value = DataTypeHelpers.getCodeableConceptForCoding(cqlCoding)
       else
         @value = null
 
@@ -244,7 +244,7 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
         cqlCoding.system = cqm.models.PrimitiveUri.parsePrimitive(codeSystemUri)
         cqlCoding.code = cqm.models.PrimitiveCode.parsePrimitive(customCode || null)
         cqlCoding.userSelected = cqm.models.PrimitiveBoolean.parsePrimitive(true)
-        @value = cqlCoding
+        @value = DataTypeHelpers.getCodeableConceptForCoding(cqlCoding)
       else
         @value = null
 

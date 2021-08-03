@@ -12,7 +12,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     DataCriteriaHelpers.getAttributes(@dataElement).forEach (attr, index, array) =>
       @attributeList.push(
         name: attr.path
-        title: attr.title
+        title: attr.path
         types: attr.types?.sort()
         valueSets: attr.valueSets?()
         referenceTypes: attr.referenceTypes?.sort()
@@ -81,31 +81,33 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       disabledStatus = !@inputView.hasValidValue()
     @$('.input-add > button').prop('disabled', disabledStatus)
 
+  asReferenceType: () ->
+    resourceType = @inputView.value?.type
+    valueSetId = @inputView.value?.vs
+    newId = cqm.ObjectID().toHexString()
+    newFhirId = @parent.parent.parent.addChildCriteria(resourceType, newId, valueSetId, @dataElement)
+    # set reference attribute using generated fhirId from new Resource
+    reference = new cqm.models.Reference()
+    reference.reference = cqm.models.PrimitiveString.parsePrimitive(resourceType + '/' + newFhirId)
+    reference
+
   # Button click handler for adding the value to the attribute
   addValue: (e) ->
     e.preventDefault()
     # double check we have a currently selected attribute and a valid value
-    if @currentAttribute? && @inputView?.hasValidValue()
-      attrMeta = DataCriteriaHelpers.getAttribute(@dataElement, @currentAttribute.name)
-      if @currentAttributeType is 'Reference'
-        prevVal = attrMeta?.getValue(@dataElement.fhir_resource)
-        if prevVal? && cqm.models.Reference.isReference(prevVal)
-          [prevResourceType, prevResourceId] = prevVal.reference?.value?.split('/')
-          if prevResourceType? && prevResourceId?
-            # delete existing resource data element
-            @parent.parent.parent.deleteCriteriaById(prevResourceId)
-        # Create new Resource for Reference target
-        resourceType = @inputView.value?.type
-        valueSetId = @inputView.value?.vs
-        newId = cqm.ObjectID().toHexString()
-        newFhirId = @parent.parent.parent.addChildCriteria(resourceType, newId, valueSetId, @dataElement)
-        # set reference attribute using generated fhirId from new Resource
-        reference = new cqm.models.Reference()
-        reference.reference = cqm.models.PrimitiveString.parsePrimitive(resourceType + '/' + newFhirId)
-        attrMeta?.setValue(@dataElement.fhir_resource, reference)
 
-      else
-        attrMeta?.setValue(@dataElement.fhir_resource, @inputView.value)
+    if @currentAttribute? && @inputView?.hasValidValue()
+      attrDef = DataCriteriaHelpers.getAttribute(@dataElement, @currentAttribute.name)
+      value = @inputView.value
+      if @currentAttributeType is 'Reference'
+        value = @asReferenceType()
+      if attrDef.isArray
+        # Initialize with an empty array if not defined
+        array = attrDef.getValue(@dataElement.fhir_resource) || []
+        array.push(value)
+        attrDef.setValue(@dataElement.fhir_resource, array)
+       else
+        attrDef.setValue(@dataElement.fhir_resource, value)
 
       @trigger 'attributesModified', @
 
@@ -120,7 +122,8 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
   _createInputViewForType: (type) ->
     @inputView = switch type
       when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @currentAttribute?.valueSets || @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap() })
-      when 'CodeableConcept', 'Coding' then new Thorax.Views.InputCodingView({ cqmValueSets: (@currentAttribute?.valueSets || []).concat(@parent.measure.get('cqmValueSets')), codeSystemMap: @parent.measure.codeSystemMap() })
+      when 'Coding' then new Thorax.Views.InputCodingView({ cqmValueSets: (@currentAttribute?.valueSets || []).concat(@parent.measure.get('cqmValueSets')), codeSystemMap: @parent.measure.codeSystemMap() })
+      when 'CodeableConcept' then new Thorax.Views.InputCodeableConceptView({ cqmValueSets: (@currentAttribute?.valueSets || []).concat(@parent.measure.get('cqmValueSets')), codeSystemMap: @parent.measure.codeSystemMap() })
       when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
       when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
       when 'Instant' then new Thorax.Views.InputInstantView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
