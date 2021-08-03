@@ -1184,7 +1184,7 @@
         path: 'dosageInstruction.timing'
         title: 'dosageInstruction.timing'
         getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]?.timing
-        setValue: (fhirResource, timing) =>
+        setValue: (fhirResource, timing) ->
           if !timing?
             fhirResource?.dosageInstruction?[0]?.timing = null
           else
