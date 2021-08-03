@@ -557,7 +557,32 @@
       }
     ]
     CommunicationRequest: []
-    DeviceRequest: []
+    DeviceRequest: [
+      {
+        path: 'status'
+        title: 'status'
+        getValue: (fhirResource) -> fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) ->
+          if !codeValue?
+            fhirResource?.status = null
+          else
+            fhirResource?.status = cqm.models.DeviceRequestStatus.parsePrimitive(codeValue)
+        types: ['Code']
+        valueSets: () -> [FhirValueSets.REQUEST_STATUS]
+      },
+      {
+        path: 'intent'
+        title: 'intent'
+        getValue: (fhirResource) -> fhirResource?.intent?.value
+        setValue: (fhirResource, codeValue) ->
+          if !codeValue?
+            fhirResource?.intent = null
+          else
+            fhirResource?.intent = cqm.models.RequestIntent.parsePrimitive(codeValue)
+        types: ['Code']
+        valueSets: () -> [FhirValueSets.REQUEST_INTENT]
+      }
+    ]
     DeviceUseStatement: [
       {
         path: 'timing',
@@ -864,10 +889,22 @@
         types: ['Period']
       },
       {
+        path: 'dosageInstruction.timing'
+        title: 'dosageInstruction.timing'
+        getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]?.timing
+        setValue: (fhirResource, timing) ->
+          if !timing?
+            fhirResource?.dosageInstruction?[0]?.timing = null
+          else
+            fhirResource.dosageInstruction = [ new cqm.models.Dosage() ] unless fhirResource?.dosageInstruction
+            fhirResource.dosageInstruction[0].timing = timing
+        types: ['Timing']
+      },
+      {
         path: 'dosageInstruction.doseAndRate.rate'
         getValue: (fhirResource) ->
           if  cqm.models.SimpleQuantity.isSimpleQuantity(fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate)
-# Widget supports only Quantity:  convert SimpleQuantity -> Quantity
+            # Widget supports only Quantity:  convert SimpleQuantity -> Quantity
             return cqm.models.Quantity.parse(fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate.toJSON())
           else
             return fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate
@@ -878,7 +915,7 @@
             fhirResource.dosageInstruction = [ new cqm.models.Dosage() ] unless fhirResource?.dosageInstruction
             fhirResource.dosageInstruction[0].doseAndRate = [ new cqm.models.DosageDoseAndRate() ] unless fhirResource?.dosageInstruction?[0]?.doseAndRate
             if cqm.models.Quantity.isQuantity(rate)
-# Widget supports only Quantity: convert Quantity -> SimpleQuantity
+              # Widget supports only Quantity: convert Quantity -> SimpleQuantity
               fhirResource.dosageInstruction[0].doseAndRate[0].rate = cqm.models.SimpleQuantity.parse(rate.toJSON())
             else
               fhirResource.dosageInstruction[0].doseAndRate[0].rate = rate
