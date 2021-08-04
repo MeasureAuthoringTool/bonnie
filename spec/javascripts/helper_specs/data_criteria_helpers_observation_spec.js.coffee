@@ -6,18 +6,17 @@ describe 'DataCriteriaHelpers', ->
 
 
     it 'should support Observation.status', ->
-      DataCriteriaAsserts.assertCode('Observation', 'status', 'status', (fhirResource) -> cqm.models.ObservationStatus.isObservationStatus(fhirResource.status))
+      DataCriteriaAsserts.assertCode('Observation', 'status', (fhirResource) -> cqm.models.ObservationStatus.isObservationStatus(fhirResource.status))
 
     it 'should support Observation.category', ->
-      DataCriteriaAsserts.assertCodeableConcept('Observation', 'category', 'category')
+      DataCriteriaAsserts.assertCodeableConcept('Observation', 'category')
 
     it 'should support Observation.component.code', ->
-      DataCriteriaAsserts.assertCodeableConcept('Observation', 'component.code', 'component.code')
+      DataCriteriaAsserts.assertCodeableConcept('Observation', 'component.code')
 
     it 'should support Observation.effective', ->
       attr = @observationAttrs.find (attr) -> attr.path is 'effective'
       expect(attr.path).toEqual 'effective'
-      expect(attr.title).toEqual 'effective'
       expect(attr.types).toEqual ['DateTime', 'Period', 'Timing', 'Instant']
 
       # set DateTime/Timing
@@ -29,7 +28,6 @@ describe 'DataCriteriaHelpers', ->
     it 'should support Observation.value', ->
       value = @observationAttrs.find (attr) -> attr.path is 'value'
       expect(value.path).toEqual 'value'
-      expect(value.title).toEqual 'value'
       expect(value.types).toEqual ['Boolean', 'CodeableConcept', 'DateTime', 'Integer', 'Period',
         'Quantity', 'Range', 'Ratio', 'SampledData', 'String', 'Time']
 
@@ -57,7 +55,6 @@ describe 'DataCriteriaHelpers', ->
     it 'should support Observation.component.value', ->
       attribute = @observationAttrs.find (attr) -> attr.path is 'component.value'
       expect(attribute.path).toEqual 'component.value'
-      expect(attribute.title).toEqual 'component.value'
       expect(attribute.types).toEqual ['Quantity', 'CodeableConcept', 'String', 'Boolean', 'Integer',
         'Range', 'Ratio', 'SampledData','Time', 'DateTime', 'Period']
 
@@ -115,7 +112,6 @@ describe 'DataCriteriaHelpers', ->
       encounterAttr = @observationAttrs.find (attr) -> attr.path is 'encounter'
       expect(encounterAttr).toBeDefined
       expect(encounterAttr.path).toBe 'encounter'
-      expect(encounterAttr.title).toBe 'encounter'
       expect(encounterAttr.types.length).toBe 1
       expect(encounterAttr.types[0]).toBe 'Reference'
       expect(encounterAttr.referenceTypes.length).toBe 1

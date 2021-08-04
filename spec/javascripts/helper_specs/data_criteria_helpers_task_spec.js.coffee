@@ -11,8 +11,8 @@ describe 'DataCriteriaHelpers', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Task']
       attr = attrs.find (attr) -> attr.path is 'basedOn'
       expect(attr.path).toEqual 'basedOn'
-      expect(attr.title).toEqual 'basedOn'
       expect(attr.types.length).toBe 1
+      expect(attr.isArray).toBe true
       expect(attr.types[0]).toBe 'Reference'
       expect(attr.referenceTypes.length).toBe Object.keys(DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES).length
       expect(attr.referenceTypes).toEqual Object.keys(DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES)
@@ -20,10 +20,12 @@ describe 'DataCriteriaHelpers', ->
       fhirResource = new cqm.models['Task']()
       #   Reference
       ref = cqm.models.Reference.parse({"reference": "random-reference"})
-      attr.setValue(fhirResource, ref)
+      attr.setValue(fhirResource, [ref])
       value = attr.getValue(fhirResource.clone())
 
-      expect(value.reference.value).toEqual 'random-reference'
+      expect(Array.isArray(value)).toBe true
+
+      expect(value[0].reference.value).toEqual 'random-reference'
 
     it 'should support Task.status', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Task']
@@ -31,7 +33,6 @@ describe 'DataCriteriaHelpers', ->
       attr = attrs.find (attr) => attr.path is 'status'
       expect(attr).toBeDefined
       expect(attr.path).toBe 'status'
-      expect(attr.title).toBe 'status'
       expect(attr.types.length).toBe 1
       expect(attr.types[0]).toBe 'Code'
 

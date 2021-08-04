@@ -5,12 +5,11 @@ describe 'DataCriteriaHelpers', ->
 
   describe 'DiagnosticReport Attributes', ->
     it 'should support DiagnosticReport.status', ->
-      DataCriteriaAsserts.assertCode('DiagnosticReport', 'status', 'status', (fhirResource) -> cqm.models.DiagnosticReportStatus.isDiagnosticReportStatus(fhirResource.status))
+      DataCriteriaAsserts.assertCode('DiagnosticReport', 'status', (fhirResource) -> cqm.models.DiagnosticReportStatus.isDiagnosticReportStatus(fhirResource.status))
 
     it 'should support DiagnosticReport.effective', ->
       attr = @attrs.find (attr) -> attr.path is 'effective'
       expect(attr.path).toEqual 'effective'
-      expect(attr.title).toEqual 'effective'
       expect(attr.types).toEqual ['DateTime', 'Period']
 
       # set DateTime
@@ -33,13 +32,12 @@ describe 'DataCriteriaHelpers', ->
       expect(actualPeriod.end.value).toEqual period.end.value
 
     it 'should support DiagnosticReport.category', ->
-      DataCriteriaAsserts.assertCodeableConcept('DiagnosticReport', 'category', 'category')
+      DataCriteriaAsserts.assertCodeableConcept('DiagnosticReport', 'category')
 
     it 'should support DiagnosticReport.encounter', ->
       encounterAttr = @attrs.find (attr) -> attr.path is 'encounter'
       expect(encounterAttr).toBeDefined
       expect(encounterAttr.path).toBe 'encounter'
-      expect(encounterAttr.title).toBe 'encounter'
       expect(encounterAttr.types.length).toBe 1
       expect(encounterAttr.types[0]).toBe 'Reference'
       expect(encounterAttr.referenceTypes.length).toBe 1

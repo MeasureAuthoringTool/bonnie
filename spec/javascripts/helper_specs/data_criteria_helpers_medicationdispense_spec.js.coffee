@@ -11,19 +11,16 @@ describe 'DataCriteriaHelpers', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationDispense']
       attr = attrs.find (attr) -> attr.path is 'medication'
       expect(attr.path).toEqual 'medication'
-      expect(attr.title).toEqual 'medication'
       expect(attr.types).toEqual [ 'CodeableConcept', 'Reference' ]
 
       fhirResource = new cqm.models['MedicationDispense']()
       # CodeableConcept
-      coding = new cqm.models.Coding()
-      coding.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
-      coding.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
-      attr.setValue(fhirResource, coding)
+      codeableConcept = DataTypeHelpers.createCodeableConcept('code1', 'system1')
+      attr.setValue(fhirResource, codeableConcept)
       value = attr.getValue(fhirResource.clone())
       expect(value).toBeDefined
-      expect(value.code.value).toBe 'code1'
-      expect(value.system.value).toBe 'system1'
+      expect(value.coding[0].code.value).toBe 'code1'
+      expect(value.coding[0].system.value).toBe 'system1'
 
       #   Reference
       ref = cqm.models.Reference.parse({"reference": "random-reference"})
@@ -36,7 +33,6 @@ describe 'DataCriteriaHelpers', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationDispense']
       attr = attrs.find (attr) -> attr.path is 'dosageInstruction'
       expect(attr.path).toEqual 'dosageInstruction'
-      expect(attr.title).toEqual 'dosageInstruction'
       expect(attr.types).toEqual [ 'Dosage' ]
 
       fhirResource = new cqm.models['MedicationDispense']()
@@ -68,7 +64,6 @@ describe 'DataCriteriaHelpers', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationDispense']
       attr = attrs.find (attr) -> attr.path is 'status'
       expect(attr.path).toEqual 'status'
-      expect(attr.title).toEqual 'status'
       expect(attr.types).toEqual [ 'Code' ]
 
       fhirResource = new cqm.models['MedicationDispense']()
@@ -85,7 +80,6 @@ describe 'DataCriteriaHelpers', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationDispense']
       attr = attrs.find (attr) -> attr.path is 'daysSupply'
       expect(attr.path).toEqual 'daysSupply'
-      expect(attr.title).toEqual 'daysSupply'
       expect(attr.types).toEqual [ 'SimpleQuantity' ]
 
       fhirResource = new cqm.models['MedicationDispense']()
@@ -102,7 +96,6 @@ describe 'DataCriteriaHelpers', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationDispense']
       attr = attrs.find (attr) -> attr.path is 'dosageInstruction.timing'
       expect(attr.path).toEqual 'dosageInstruction.timing'
-      expect(attr.title).toEqual 'dosageInstruction.timing'
       expect(attr.types).toEqual [ 'Timing' ]
 
       fhirResource = new cqm.models['MedicationDispense']()

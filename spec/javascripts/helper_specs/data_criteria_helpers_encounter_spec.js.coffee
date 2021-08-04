@@ -2,7 +2,7 @@ describe 'DataCriteriaHelpers', ->
 
   describe 'Encounter attributes', ->
     it 'should support Encounter.class', ->
-      DataCriteriaAsserts.assertCoding('Encounter', 'class', 'class')
+      DataCriteriaAsserts.assertCoding('Encounter', 'class')
 
     it 'should support Encounter.diagnosis.condition', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
@@ -10,7 +10,6 @@ describe 'DataCriteriaHelpers', ->
       attr = attrs.find (attr) => attr.path is 'diagnosis.condition'
       expect(attr).toBeDefined
       expect(attr.path).toBe 'diagnosis.condition'
-      expect(attr.title).toBe 'diagnosis.condition'
       expect(attr.types.length).toBe 1
       expect(attr.types[0]).toBe 'Reference'
       expect(attr.referenceTypes.length).toBe 2
@@ -30,7 +29,7 @@ describe 'DataCriteriaHelpers', ->
       expect(value.reference.value).toBe 'Condition/12345'
 
     it 'should support Encounter.diagnosis.use', ->
-      DataCriteriaAsserts.assertCodeableConcept('Encounter', 'diagnosis.use', 'diagnosis.use')
+      DataCriteriaAsserts.assertCodeableConcept('Encounter', 'diagnosis.use')
 
     it 'should support Encounter.diagnosis.rank', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
@@ -38,7 +37,6 @@ describe 'DataCriteriaHelpers', ->
       attr = attrs.find (attr) -> attr.path is 'diagnosis.rank'
       expect(attr).toBeDefined
       expect(attr.path).toBe 'diagnosis.rank'
-      expect(attr.title).toBe 'diagnosis.rank'
       expect(attr.types.length).toBe 1
       expect(attr.types[0]).toBe 'PositiveInt'
 
@@ -56,7 +54,6 @@ describe 'DataCriteriaHelpers', ->
       attr = attrs.find (attr) => attr.path is 'length'
       expect(attr).toBeDefined
       expect(attr.path).toBe 'length'
-      expect(attr.title).toBe 'length'
       expect(attr.types.length).toBe 1
       expect(attr.types[0]).toBe 'Duration'
 
@@ -80,7 +77,6 @@ describe 'DataCriteriaHelpers', ->
       attr = attrs.find (attr) => attr.path is 'status'
       expect(attr).toBeDefined
       expect(attr.path).toBe 'status'
-      expect(attr.title).toBe 'status'
       expect(attr.types.length).toBe 1
       expect(attr.types[0]).toBe 'Code'
 
@@ -101,7 +97,6 @@ describe 'DataCriteriaHelpers', ->
       attr = attrs.find (attr) => attr.path is 'location.period'
       expect(attr).toBeDefined
       expect(attr.path).toBe 'location.period'
-      expect(attr.title).toBe 'location.period'
       expect(attr.types.length).toBe 1
       expect(attr.types[0]).toBe 'Period'
 
@@ -125,7 +120,6 @@ describe 'DataCriteriaHelpers', ->
       attr = attrs.find (attr) -> attr.path is 'location.location'
       expect(attr).toBeDefined
       expect(attr.path).toBe 'location.location'
-      expect(attr.title).toBe 'location.location'
       expect(attr.types.length).toBe 1
       expect(attr.types[0]).toBe 'Reference'
       expect(attr.referenceTypes.length).toBe 1
@@ -149,7 +143,6 @@ describe 'DataCriteriaHelpers', ->
       attr = attrs.find (attr) -> attr.path is 'identifier'
       expect(attr).toBeDefined
       expect(attr.path).toBe 'identifier'
-      expect(attr.title).toBe 'identifier'
       expect(attr.types.length).toBe 1
       expect(attr.types[0]).toBe 'Identifier'
 
@@ -177,7 +170,7 @@ describe 'DataCriteriaHelpers', ->
       expect(value).toBeUndefined()
 
     it 'should support Encounter.hospitalization.dischargeDisposition', ->
-      DataCriteriaAsserts.assertCodeableConcept('Encounter', 'hospitalization.dischargeDisposition', 'hospitalization.dischargeDisposition')
+      DataCriteriaAsserts.assertCodeableConcept('Encounter', 'hospitalization.dischargeDisposition')
 
     it 'should support Encounter.hospitalization.admitSource', ->
-      DataCriteriaAsserts.assertCodeableConcept('Encounter', 'hospitalization.admitSource', 'hospitalization.admitSource')
+      DataCriteriaAsserts.assertCodeableConcept('Encounter', 'hospitalization.admitSource')

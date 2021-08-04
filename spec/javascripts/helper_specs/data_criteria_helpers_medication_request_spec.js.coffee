@@ -7,31 +7,30 @@ describe 'DataCriteriaHelpers', ->
       expect(DataCriteriaHelpers.isPrimaryCodePathSupported(dataElement)).toBe(false)
 
     it 'should support MedicationRequest.status', ->
-      DataCriteriaAsserts.assertCode('MedicationRequest', 'status', 'status', (fhirResource) -> cqm.models.MedicationRequestStatus.isMedicationRequestStatus(fhirResource.status))
+      DataCriteriaAsserts.assertCode('MedicationRequest', 'status', (fhirResource) -> cqm.models.MedicationRequestStatus.isMedicationRequestStatus(fhirResource.status))
 
     it 'should support MedicationRequest.intent', ->
-      DataCriteriaAsserts.assertCode('MedicationRequest', 'intent', 'intent', (fhirResource) -> cqm.models.MedicationRequestIntent.isMedicationRequestIntent(fhirResource.intent))
+      DataCriteriaAsserts.assertCode('MedicationRequest', 'intent', (fhirResource) -> cqm.models.MedicationRequestIntent.isMedicationRequestIntent(fhirResource.intent))
 
     it 'should support MedicationRequest.category', ->
-      DataCriteriaAsserts.assertCodeableConcept('MedicationRequest', 'category', 'category')
+      DataCriteriaAsserts.assertCodeableConcept('MedicationRequest', 'category')
 
     it 'should support MedicationRequest.reasonCode', ->
-      DataCriteriaAsserts.assertCodeableConcept('MedicationRequest', 'reasonCode', 'reasonCode')
+      DataCriteriaAsserts.assertCodeableConcept('MedicationRequest', 'reasonCode')
 
     it 'should support MedicationRequest.statusReason', ->
-      DataCriteriaAsserts.assertCodeableConcept('MedicationRequest', 'statusReason', 'statusReason')
+      DataCriteriaAsserts.assertCodeableConcept('MedicationRequest', 'statusReason')
 
     it 'should support MedicationRequest.dosageInstruction.timing.code', ->
-      DataCriteriaAsserts.assertCodeableConcept('MedicationRequest', 'dosageInstruction.timing.code', 'dosageInstruction.timing.code')
+      DataCriteriaAsserts.assertCodeableConcept('MedicationRequest', 'dosageInstruction.timing.code')
 
     it 'should support MedicationRequest.dispenseRequest.validityPeriod', ->
-      DataCriteriaAsserts.assertPeriod('MedicationRequest', 'dispenseRequest.validityPeriod', 'dispenseRequest.validityPeriod')
+      DataCriteriaAsserts.assertPeriod('MedicationRequest', 'dispenseRequest.validityPeriod')
 
     it 'should support MedicationRequest.dosageInstruction.doseAndRate.rate', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationRequest']
       attr = attrs.find (attr) => attr.path is 'dosageInstruction.doseAndRate.rate'
       expect(attr.path).toEqual 'dosageInstruction.doseAndRate.rate'
-      expect(attr.title).toEqual 'dosageInstruction.doseAndRate.rate'
       expect(attr.types).toEqual [ 'Ratio', 'Range', 'SimpleQuantity' ]
 
       fhirResource = new cqm.models['MedicationRequest']()
@@ -70,7 +69,6 @@ describe 'DataCriteriaHelpers', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationRequest']
       attr = attrs.find (attr) -> attr.path is 'medication'
       expect(attr.path).toEqual 'medication'
-      expect(attr.title).toEqual 'medication'
       expect(attr.types).toEqual [ 'CodeableConcept', 'Reference' ]
 
       fhirResource = new cqm.models['MedicationRequest']()
@@ -95,7 +93,6 @@ describe 'DataCriteriaHelpers', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationRequest']
       attr = attrs.find (attr) => attr.path is 'dosageInstructions.timing.repeat.bounds'
       expect(attr.path).toEqual 'dosageInstructions.timing.repeat.bounds'
-      expect(attr.title).toEqual 'dosageInstructions.timing.repeat.bounds'
       expect(attr.types).toEqual [ 'Duration', 'Range', 'Period' ]
 
       fhirResource = new cqm.models['MedicationRequest']()
@@ -120,7 +117,7 @@ describe 'DataCriteriaHelpers', ->
       expect(value.high.unit.value).toEqual 'h'
 
       # Period
-      DataCriteriaAsserts.assertPeriod('MedicationRequest', 'dosageInstructions.timing.repeat.bounds', 'dosageInstructions.timing.repeat.bounds')
+      DataCriteriaAsserts.assertPeriod('MedicationRequest', 'dosageInstructions.timing.repeat.bounds')
       period = new cqm.models.Period()
       period.start = cqm.models.PrimitiveDateTime.parsePrimitive('2020-09-02T13:54:57')
       period.end = cqm.models.PrimitiveDateTime.parsePrimitive('2020-10-02T13:54:57')
@@ -135,7 +132,6 @@ describe 'DataCriteriaHelpers', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationRequest']
       attr = attrs.find (attr) -> attr.path is 'dosageInstruction.timing'
       expect(attr.path).toEqual 'dosageInstruction.timing'
-      expect(attr.title).toEqual 'dosageInstruction.timing'
       expect(attr.types).toEqual [ 'Timing' ]
 
       fhirResource = new cqm.models['MedicationRequest']()

@@ -7,7 +7,6 @@ describe 'DataCriteriaHelpers', ->
       attr = attrs.find (attr) => attr.path is 'status'
       expect(attr).toBeDefined
       expect(attr.path).toBe 'status'
-      expect(attr.title).toBe 'status'
       expect(attr.types.length).toBe 1
       expect(attr.types[0]).toBe 'Code'
 

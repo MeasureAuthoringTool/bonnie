@@ -1,5 +1,11 @@
 @DataTypeHelpers = class DataTypeHelpers
 
+  @createCodeableConcept: (code, system) ->
+    coding = new cqm.models.Coding()
+    coding.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
+    coding.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
+    @getCodeableConceptForCoding(coding)
+
   @getCodeableConceptForCoding: (coding) ->
     return null unless coding?
     codeableConcept = new cqm.models.CodeableConcept()
