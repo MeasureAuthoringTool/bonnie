@@ -11,5 +11,6 @@
 // may get better load performance if you require the specific files that are being used in the spec that tests them.
 //= require underscore/underscore-min
 //= require application
-
 // For more information: http://github.com/modeset/teaspoon
+window.disableSessionManagement = true;
+

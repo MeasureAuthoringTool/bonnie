@@ -6,7 +6,8 @@ module Admin
     respond_to :json
 
     def index
-      groups = Group.where(is_personal: false).order(:name.asc).to_a
+      groups = Group.where(is_personal: false).sort_by { |obj| obj.name.downcase }.to_a
+
       # pipeline stages for aggregation
       stages = [
         {
@@ -19,12 +20,46 @@ module Admin
       measures = CQM::Measure.collection.aggregate(stages).as_json
       patients = CQM::Patient.collection.aggregate(stages).as_json
       groups.each do |group|
-        group[:measure_count] = get_count_for_group(measures, group)
-        group[:patient_count] = get_count_for_group(patients, group)
+        group[:measure_count] = get_count_by_id(measures, group.id)
+        group[:patient_count] = get_count_by_id(patients, group.id)
       end
       respond_with groups do |format|
         format.json { render json: groups.as_json }
       end
+    end
+
+    def create_group
+      group_name = params[:group_name]
+      down_cased_name = group_name.downcase
+
+      non_personal_groups = Group.where(is_personal: false)
+
+      non_personal_groups.all.each do |g|
+        raise ActionController::BadRequest, "Group name #{group_name} is already used." if g.name.downcase == down_cased_name
+      end
+
+      group = Group.new
+      group.name = group_name
+      group.save
+      render json: group
+    end
+
+    def find_group_by_name
+      group = {}
+      if params[:group_name]
+        group = Group.where(name: params[:group_name]).first
+      end
+      render json: group
+    end
+
+    def get_groups_by_group_ids
+      groups = []
+      if params[:group_ids]
+        params[:group_ids].each do |groupId|
+          groups.push(Group.find(groupId))
+        end
+      end
+      render json: groups
     end
 
     private
@@ -33,9 +68,5 @@ module Admin
       raise "User #{current_user.email} requesting resource requiring admin access" unless current_user.admin?
     end
 
-    def get_count_for_group(group_objects, group)
-      count_obj = group_objects.detect { |group_object| group_object['_id'] == group.id.to_s }
-      count_obj ? count_obj['count'] : 0
-    end
   end
 end
