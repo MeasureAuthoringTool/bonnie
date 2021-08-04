@@ -8,7 +8,17 @@ class Thorax.Views.InputReferenceView extends Thorax.Views.BonnieView
   #   referenceTypes - list of reference types (data elements to be created)
   #   cqmValueSets - value sets to display for the data elements to be created
   initialize: ->
-    @value = { 'type': null, 'vs': null }
+    @valueSetOptions = @cqmValueSets
+    @value = { 'type': null, 'vs': null, isExistingResource: false}
+    @existingResources = []
+    for dataCriterion in @dataCriteria || []
+      fhirid = dataCriterion.get('dataElement').fhir_resource.id
+      unless fhirid == @parentDataElement.fhir_resource.id
+        @existingResources.push({
+          id: dataCriterion.get('dataElement').fhir_resource.id,
+          name: dataCriterion.get('dataElement').description,
+          type: dataCriterion.get('dataElement').fhir_resource.resourceType
+        })
 
   events:
     'change select[name="referenceType"]': 'handleTypeChange'
@@ -28,23 +38,35 @@ class Thorax.Views.InputReferenceView extends Thorax.Views.BonnieView
   hasValidValue: ->
     @value?.type? && @value?.vs?
 
+  getExistingResourceType: (valueSetId) ->
+    @existingResources.find((resource) -> resource.id == valueSetId)?.type
+
   # Event listener for select change event on the main select box for chosing custom or from valueset code
   handleTypeChange: (e) ->
     type = @$('select[name="referenceType"]').val()
-    if type != ''
-      @value.type = type
-    else
+    @showCustom = true
+    if type == ''
       @value.type = null
+    else if type == 'existing_resources'
+      @value.type = type
+      @valueSetOptions = @existingResources
+      @showCustom = false
+    else
+      @value.type = type
+      @valueSetOptions = @cqmValueSets
     @trigger 'valueChanged', @
     @render()
 
 #   Event listener for select change event on the main select box for chosing custom or from valueset code
   handleValueSetChange: (e) ->
     valueSetId = @$('select[name="valueset"]').val()
-    if valueSetId != '--'
-      @value.vs = valueSetId
-    else
+    if valueSetId == '--'
       @value.vs = null
+    else if  @value.type == 'existing_resources'
+      @value.vs = valueSetId
+      @value.type = @getExistingResourceType(valueSetId)
+      @value.isExistingResource = true
+    else
+      @value.vs = valueSetId
     @trigger 'valueChanged', @
     @render()
-
