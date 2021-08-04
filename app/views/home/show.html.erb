@@ -18,8 +18,15 @@
             <h1 class="logo">BONNIE</h1>
             <p class="tagline">A tool for testing electronic clinical quality measures</p>
           </div>
-          <div class="login col-md-4">
-            <a href="/users/sign_in" class="btn-login">login</a>
+          <div class="col-md-4">
+            <div class="login">
+              <a href="/users/saml/sign_in" class="btn-login">login</a>
+              <div class="btn-register">
+                <a href="/users/sign_up">
+                  register
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -81,5 +88,10 @@
         <p>BONNIE is sponsored by the <a href="http://cms.hhs.gov/">Centers for Medicare & Medicaid Services (CMS)</a> and <a href="http://healthit.gov">Office of the National Coordinator for Health Information Technology (ONC)</a> and has been developed by <a href="http://www.semanticbits.com">SemanticBits, LLC</a></p>
       </div>
     </footer>
+<% if not user_signed_in? %>
+    <script>
+        window.disableSessionManagement = true;
+    </script>
+<% end %>
   </body>
 </html>

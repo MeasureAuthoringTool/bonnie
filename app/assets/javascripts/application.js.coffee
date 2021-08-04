@@ -34,6 +34,7 @@
 #= require bootstrap-file-input/bootstrap.file-input
 #= require MutationObserver-shim/dist/mutationobserver.min
 #= require tinymce
+#= require rxjs/dist/bundles/rxjs.umd.js
 #
 #= require costanza/js/costanza
 #= require costanza/thorax

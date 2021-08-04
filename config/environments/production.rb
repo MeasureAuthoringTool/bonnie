@@ -31,10 +31,13 @@ Bonnie::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+  # config.force_ssl = true
 
-  # Set log level to info
-  config.log_level = :info
+  # Enable stdout logger
+  config.logger = Logger.new(STDOUT)
+
+  # Set log level
+  config.log_level = :ERROR
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]

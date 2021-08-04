@@ -21,6 +21,45 @@
     @applicationVersion = '<%=Bonnie::Version.current%>';
     @support_fhir_version = '<%=Bonnie::Version.fhir_ver%>';
 
+    $('a.switch-group-link').on 'click ', _.bind(@onSwitchRole, this)
+
+    if !window.disableSessionManagement
+      showWarningInactiveMs = parseInt('<%= APP_CONFIG['show_warning_inactive_ms'] %>', 10)
+      logoutInactiveMs = parseInt('<%= APP_CONFIG['logout_inactive_ms'] %>', 10)
+      @registerUserSessionAutoLogout(showWarningInactiveMs, logoutInactiveMs)
+
+#   User inactivity auto-logout
+  registerUserSessionAutoLogout: (showWarningInactiveMs, logoutInactiveMs) ->
+    logoutInactiveAfterWarningMs = logoutInactiveMs - showWarningInactiveMs
+    # List of events should be consistend with the events used in the warning dialog
+    userEvents = rxjs.merge(
+        # Add an initial (stub) event, it's needed to trigger a timeout in case of no user interactions since the app is loaded.
+        # EMPTY doesn't trigger an event, only a completion.
+        rxjs.of({type: 'initial'}),
+        rxjs.fromEvent(document, 'click'),
+#        rxjs.fromEvent(document, 'mousemove'),
+        rxjs.fromEvent(document, 'keydown')
+    )
+    userEvents.pipe(rxjs.operators.debounceTime(showWarningInactiveMs)).subscribe((x) =>
+      if !window.disableSessionManagement
+        now = Date.now()
+        logoutAtMs = now + logoutInactiveAfterWarningMs
+        @showInactiveWarning(logoutAtMs)
+    )
+    userEvents.pipe(rxjs.operators.debounceTime(logoutInactiveMs)).subscribe((x) =>
+      if !window.disableSessionManagement
+        @logout()
+    )
+
+  logout: ->
+    # Ajax DELETE doesn't work as expected. It terminates bonnie's session, but not the SAML one.
+    logoutLink = document.createElement('a')
+    logoutLink.id = 'autoLogoutLink'
+    logoutLink.href = '/users/sign_out'
+    logoutLink.setAttribute('data-method', 'delete')
+    document.body.appendChild(logoutLink)
+    logoutLink.click()
+
   routes:
     '':                                                'renderMeasures'
     'measures':                                        'renderMeasures'
@@ -28,6 +67,7 @@
     'measures/:set_id/patients/:id/edit': 'renderPatientBuilder'
     'measures/:set_id/patients/new':      'renderPatientBuilder'
     'admin/users':                                     'renderUsers'
+    'admin/groups':                                     'renderGroups'
     # This will catch any unmatched hashes and route them to showPageNotFound
     '*path':                                            'showPageNotFound'
 
@@ -55,6 +95,12 @@
     @users = new Thorax.Collections.Users()
     usersView = new Thorax.Views.Users(collection: @users)
     @mainView.setView(usersView)
+
+  renderGroups: ->
+    @navigationSetup "Admin", "admin"
+    groups = new Thorax.Collections.Groups()
+    groupsView = new Thorax.Views.GroupsView(collection: groups)
+    @mainView.setView(groupsView)
 
   renderPatientBuilder: (measuresetId, patientId) ->
     measure = _.find(@measures.models, (measure) -> measure.get('cqmMeasure').set_id is measuresetId) if measuresetId
@@ -104,6 +150,22 @@
     msgDialogView.appendTo('#bonnie')
     msgDialogView.display()
 
+  showInactiveWarning: (logoutAtMs) ->
+    # Make sure only one inactive session warning is show
+    return if $('#inactiveWarningDialog').length > 0
+    wrn = new Thorax.Views.InactiveWarningDialog(logoutAtMs: logoutAtMs)
+    wrn.appendTo(document.body)
+    wrn.display()
+
   showPageNotFound: ->
     @mainView.setView new Thorax.Views.ErrorView
     @breadcrumb.clear()
+
+  onSwitchRole: (e) ->
+    target = $(e.target).closest('a')
+    if /^measures.+patients.+/.test(Backbone.history.fragment)
+      e.preventDefault()
+      href = target.attr('href')
+      switchRoleConfirmDialog = new Thorax.Views.SwitchRoleConfirmationDialog( href: href )
+      switchRoleConfirmDialog.appendTo('#bonnie')
+      switchRoleConfirmDialog.display()
