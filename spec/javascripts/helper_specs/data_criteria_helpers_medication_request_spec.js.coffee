@@ -89,45 +89,6 @@ describe 'DataCriteriaHelpers', ->
 
       expect(value.reference.value).toEqual 'random-reference'
 
-    it 'should support MedicationRequest.dosageInstructions.timing.repeat.bounds', ->
-      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationRequest']
-      attr = attrs.find (attr) => attr.path is 'dosageInstructions.timing.repeat.bounds'
-      expect(attr.path).toEqual 'dosageInstructions.timing.repeat.bounds'
-      expect(attr.types).toEqual [ 'Duration', 'Range', 'Period' ]
-
-      fhirResource = new cqm.models['MedicationRequest']()
-
-      # Duration
-      duration = cqm.models.Duration.parse({"unit": "ml", "value": "100"})
-      attr.setValue(fhirResource, duration)
-      value = attr.getValue(fhirResource.clone())
-
-      expect(value.value.value).toEqual '100'
-      expect(value.unit.value).toEqual 'ml'
-
-      # Range
-      range = cqm.models.Range.parse({"low": {"value": "3", "unit": "h"}, "high": {"value": "4", "unit": "h"}})
-      attr.setValue(fhirResource, range)
-      value = attr.getValue(fhirResource.clone())
-
-      expect(value.low.value.value).toEqual '3'
-      expect(value.low.unit.value).toEqual 'h'
-
-      expect(value.high.value.value).toEqual '4'
-      expect(value.high.unit.value).toEqual 'h'
-
-      # Period
-      DataCriteriaAsserts.assertPeriod('MedicationRequest', 'dosageInstructions.timing.repeat.bounds')
-      period = new cqm.models.Period()
-      period.start = cqm.models.PrimitiveDateTime.parsePrimitive('2020-09-02T13:54:57')
-      period.end = cqm.models.PrimitiveDateTime.parsePrimitive('2020-10-02T13:54:57')
-
-      attr.setValue(fhirResource, period)
-      value = attr.getValue(fhirResource.clone())
-
-      expect(value.start.value).toEqual '2020-09-02T13:54:57'
-      expect(value.end.value).toEqual '2020-10-02T13:54:57'
-
     it 'should support MedicationRequest.dosageInstruction.timing', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationRequest']
       attr = attrs.find (attr) -> attr.path is 'dosageInstruction.timing'

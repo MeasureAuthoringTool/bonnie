@@ -918,31 +918,6 @@
         types: ['Ratio', 'Range', 'SimpleQuantity']
       },
       {
-        path: 'dosageInstruction.timing.code'
-        getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]?.timing?.code
-        setValue: (fhirResource, codeableConcept) ->
-          fhirResource.dosageInstruction = [ new cqm.models.Dosage() ] unless fhirResource?.dosageInstruction
-          fhirResource.dosageInstruction[0].timing = new cqm.models.Timing() unless fhirResource?.dosageInstruction?[0]?.timing
-          fhirResource.dosageInstruction[0].timing.code = codeableConcept
-
-        valueSets: () ->
-          [FhirValueSets.TIMING_ABBREVIATION_VS]
-        types: ['CodeableConcept']
-      },
-      {
-        path: 'dosageInstructions.timing.repeat.bounds'
-        getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]?.timing?.repeat?.bounds
-        setValue: (fhirResource, bounds) ->
-          if !bounds?
-            fhirResource?.dosageInstruction?[0]?.timing?.repeat?.bounds = null
-          else
-            fhirResource.dosageInstruction = [ new cqm.models.Dosage() ] unless fhirResource?.dosageInstruction
-            fhirResource.dosageInstruction[0].timing = new cqm.models.Timing() unless fhirResource?.dosageInstruction?[0]?.timing
-            fhirResource.dosageInstruction[0].timing.repeat = new cqm.models.TimingRepeat() unless fhirResource?.dosageInstruction?[0]?.timing?.repeat
-            fhirResource.dosageInstruction[0].timing.repeat.bounds = bounds
-        types: ['Duration', 'Range', 'Period']
-      },
-      {
         path: 'reasonCode'
         isArray: true
         types: ['CodeableConcept']
@@ -974,7 +949,6 @@
     Task: [
       {
         path: 'basedOn'
-        isArray: true
         types: ['Reference']
         isArray: true
         # referenceTypes placeholder, will be updated
