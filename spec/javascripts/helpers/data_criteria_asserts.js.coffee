@@ -51,7 +51,6 @@
     attr.setValue(fhirResource, valueToSet)
 
     # clone the resource to make sure setter/getter work with correct data type
-    debugger
     value = attr.getValue(fhirResource.clone())
     expect(value).toBeDefined
     if attr.isArray

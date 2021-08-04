@@ -2,7 +2,6 @@ describe 'DataCriteriaHelpers', ->
 
   describe 'AllergyIntolerance attributes', ->
     it 'should support AllergyIntolerance.clinicalStatus', ->
-      debugger
       DataCriteriaAsserts.assertCodeableConcept('AllergyIntolerance', 'clinicalStatus')
 
     it 'should support AllergyIntolerance.verificationStatus', ->
