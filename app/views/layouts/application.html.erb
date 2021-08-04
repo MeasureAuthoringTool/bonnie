@@ -54,9 +54,12 @@
        <% end %>
       $(document).ready(function() {
         Backbone.history.start();
-        <% if (flash[:error]) %>
+          <% if (flash[:error]) %>
           bonnie.showError(<%= json_escape(flash[:error].to_json).html_safe %>);
-        <% end %>
+          <% end %>
+          <% if (flash[:msg]) %>
+          bonnie.showMsg(<%= json_escape(flash[:msg].to_json).html_safe %>);
+          <% end %>
         $('.skip-content').on('click', function(e) {
           e.preventDefault();
           $('#bonnie').attr('tabindex', -1).on('blur focusout', function() {
