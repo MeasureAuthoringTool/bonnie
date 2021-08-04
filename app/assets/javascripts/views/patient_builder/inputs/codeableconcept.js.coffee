@@ -72,9 +72,9 @@ class Thorax.Views.InputCodeableConceptView extends Thorax.Views.BonnieView
   # when an initial code is passed in we need to find if it is in a value set and
   # populate the dropdowns appropiately
   _findValueSetForCode: (coding) ->
-    valueSet = @cqmValueSets.find (vs) =>
-      matchingConcept = vs?.compose?.include?.find (concept) =>
-        concept.concept?.find (conceptEntry) =>
+    valueSet = @cqmValueSets.find (vs) ->
+      matchingConcept = vs?.compose?.include?.find (concept) ->
+        concept.concept?.find (conceptEntry) ->
           return concept.system == coding.system?.value && conceptEntry.code == coding.code?.value
       return matchingConcept?
     return valueSet
@@ -100,7 +100,7 @@ class Thorax.Views.InputCodeableConceptView extends Thorax.Views.BonnieView
       @$('.code-vs-select-input, .code-custom-input').addClass('hidden')
       @_cleanUpValueSetStructures()
       @value = null
-      @trigger 'valueChanged', @
+      @trigger 'valueChanged', this
 
     # user wants to enter a custom code
     else if id == 'custom'
@@ -109,7 +109,7 @@ class Thorax.Views.InputCodeableConceptView extends Thorax.Views.BonnieView
       @_cleanUpValueSetStructures()
       @_populateCustomCodeSystemDropdown()
       @value = null
-      @trigger 'valueChanged', @
+      @trigger 'valueChanged', this
       @$('.code-custom-input').removeClass('hidden')
 
     # user wants to choose from a valueset
@@ -123,7 +123,7 @@ class Thorax.Views.InputCodeableConceptView extends Thorax.Views.BonnieView
   # Event listener for code system change on selecting from a value set
   handleValueSetCodeSystemChange: (e) ->
     system = @$('select[name="vs_codesystem"]').val()
-    @selectedCodeSystem = @valueSetCodesByCodeSystem.find (codeSystem) => codeSystem.system == system
+    @selectedCodeSystem = @valueSetCodesByCodeSystem.find (codeSystem) -> codeSystem.system == system
     # populate code dropdown and select the first code
     @_populateValueSetCodeDropdown()
 
@@ -147,7 +147,7 @@ class Thorax.Views.InputCodeableConceptView extends Thorax.Views.BonnieView
     cqlCoding.userSelected = cqm.models.PrimitiveBoolean.parsePrimitive(true)
 
     @value = DataTypeHelpers.getCodeableConceptForCoding(cqlCoding)
-    @trigger 'valueChanged', @
+    @trigger 'valueChanged', this
 
   # Helper function that builds up a list of code systems in the given value set then builds out the code system select box.
   # This then calls _populateValueSetCodeDropdown to fill out the code drop down with codes in the first system.
@@ -172,7 +172,7 @@ class Thorax.Views.InputCodeableConceptView extends Thorax.Views.BonnieView
     @valueSetCodesByCodeSystem.sort( (a, b) -> a.name?.localeCompare(b.name) )
     # wipeout code system selection and replace options
     codeSystemSelect = @$('select[name="vs_codesystem"]').empty()
-    @valueSetCodesByCodeSystem.forEach (codeSystem) =>
+    @valueSetCodesByCodeSystem.forEach (codeSystem) ->
       $("<option value=\"#{codeSystem.system}\">#{codeSystem.name}</option>").appendTo(codeSystemSelect)
     codeSystemSelect.find('option:first').prop('selected', true)
 
@@ -186,7 +186,7 @@ class Thorax.Views.InputCodeableConceptView extends Thorax.Views.BonnieView
 
     # Sort codes
     @selectedCodeSystem.codes.sort( (a, b) -> a.code?.localeCompare(b.code) )
-    @selectedCodeSystem.codes.forEach (code) =>
+    @selectedCodeSystem.codes.forEach (code) ->
       $("<option value=\"#{code.code}\">#{code.code} - #{code.display_name}</option>").appendTo(codeSelect)
     codeSelect.find('option:first').prop('selected', true)
 
@@ -199,13 +199,13 @@ class Thorax.Views.InputCodeableConceptView extends Thorax.Views.BonnieView
     cqlCoding.display = cqm.models.PrimitiveString.parsePrimitive(selectedConcept.display_name || null)
     cqlCoding.userSelected = cqm.models.PrimitiveBoolean.parsePrimitive(true)
     @value = DataTypeHelpers.getCodeableConceptForCoding(cqlCoding)
-    @trigger 'valueChanged', @
+    @trigger 'valueChanged', this
 
   # cleans up value set selection stuff
   _cleanUpValueSetStructures: ->
-      @valueSet = null
-      @valueSetCodesByCodeSystem = null
-      @selectedCodeSystem = null
+    @valueSet = null
+    @valueSetCodesByCodeSystem = null
+    @selectedCodeSystem = null
 
   # Event listener for code system change on selecting from a value set
   handleCustomCodeSystemChange: (e) ->
@@ -248,7 +248,7 @@ class Thorax.Views.InputCodeableConceptView extends Thorax.Views.BonnieView
       else
         @value = null
 
-    @trigger 'valueChanged', @
+    @trigger 'valueChanged', this
 
   # Helper that builds up the custom code system dropdown based on all code systems in the measure.
   _populateCustomCodeSystemDropdown: ->
@@ -260,7 +260,7 @@ class Thorax.Views.InputCodeableConceptView extends Thorax.Views.BonnieView
 
     # wipeout code system selection and replace options
     codeSystemSelect = @$('select[name="custom_codesystem_select"]').empty()
-    @allCodeSystems.forEach (codeSystem) =>
+    @allCodeSystems.forEach (codeSystem) ->
       $("<option value=\"#{codeSystem.system}\">#{codeSystem.name}</option>").appendTo(codeSystemSelect)
     codeSystemSelect.find('option:first').prop('selected', true)
 

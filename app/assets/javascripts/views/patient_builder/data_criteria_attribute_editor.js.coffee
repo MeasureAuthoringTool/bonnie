@@ -106,7 +106,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
         array = attrDef.getValue(@dataElement.fhir_resource) || []
         array.push(value)
         attrDef.setValue(@dataElement.fhir_resource, array)
-       else
+      else
         attrDef.setValue(@dataElement.fhir_resource, value)
 
       @trigger 'attributesModified', @

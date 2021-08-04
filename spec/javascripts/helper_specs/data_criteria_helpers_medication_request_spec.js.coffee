@@ -21,9 +21,6 @@ describe 'DataCriteriaHelpers', ->
     it 'should support MedicationRequest.statusReason', ->
       DataCriteriaAsserts.assertCodeableConcept('MedicationRequest', 'statusReason')
 
-    it 'should support MedicationRequest.dosageInstruction.timing.code', ->
-      DataCriteriaAsserts.assertCodeableConcept('MedicationRequest', 'dosageInstruction.timing.code')
-
     it 'should support MedicationRequest.dispenseRequest.validityPeriod', ->
       DataCriteriaAsserts.assertPeriod('MedicationRequest', 'dispenseRequest.validityPeriod')
 
@@ -73,14 +70,12 @@ describe 'DataCriteriaHelpers', ->
 
       fhirResource = new cqm.models['MedicationRequest']()
       #   CodeableConcept
-      coding = new cqm.models.Coding()
-      coding.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
-      coding.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
-      attr.setValue(fhirResource, coding)
+      codeableConcept = DataTypeHelpers.createCodeableConcept('code1', 'system1')
+      attr.setValue(fhirResource, codeableConcept)
       value = attr.getValue(fhirResource.clone())
       expect(value).toBeDefined
-      expect(value.code.value).toBe 'code1'
-      expect(value.system.value).toBe 'system1'
+      expect(value.coding[0].code.value).toBe 'code1'
+      expect(value.coding[0].system.value).toBe 'system1'
 
       #   Reference
       ref = cqm.models.Reference.parse({"reference": "random-reference"})

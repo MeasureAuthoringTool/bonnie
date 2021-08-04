@@ -19,7 +19,7 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
         value.forEach (elem, index) =>
           stringValue = "#{DataCriteriaHelpers.stringifyType(elem, codeSystemMap)}"
           displayAttributes.push({ name: attrDef.path, title: attrDef.path, value: stringValue, isArrayValue: true, index: index })
-       else
+      else
         stringValue = "#{DataCriteriaHelpers.stringifyType(value, codeSystemMap)}"
         displayAttributes.push({ name: attrDef.path, title: attrDef.path, value: stringValue })
 

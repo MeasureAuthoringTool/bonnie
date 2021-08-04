@@ -62,9 +62,6 @@
     cqlDateTime = @getCQLDateTimeFromString(dateStr).add(8, cqm.models.CQL.DateTime.Unit.HOUR)
     cqm.models.PrimitiveDateTime.parsePrimitive cqlDateTime.toString()
 
-  @getPrimitiveInstantForCqlDateTime: (dateTime) ->
-    cqm.models.PrimitiveInstant.parsePrimitive dateTime?.toString()
-
   @getPrimitiveDateForCqlDate: (date) ->
     cqm.models.PrimitiveDate.parsePrimitive date?.toString()
 
