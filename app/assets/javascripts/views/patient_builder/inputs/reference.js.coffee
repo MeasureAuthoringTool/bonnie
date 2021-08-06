@@ -11,13 +11,14 @@ class Thorax.Views.InputReferenceView extends Thorax.Views.BonnieView
     @valueSetOptions = @cqmValueSets
     @value = { 'type': null, 'vs': null, isExistingResource: false}
     @existingResources = []
-    for dataCriterion in @dataCriteria || []
+    for dataCriterion in @dataCriteria
       fhirid = dataCriterion.get('dataElement').fhir_resource.id
-      unless fhirid == @parentDataElement.fhir_resource.id
+      resourceType = dataCriterion.get('dataElement').fhir_resource.resourceType
+      if fhirid != @parentDataElement.fhir_resource.id && @referenceTypes.includes(resourceType)
         @existingResources.push({
-          id: dataCriterion.get('dataElement').fhir_resource.id,
-          name: dataCriterion.get('dataElement').description,
-          type: dataCriterion.get('dataElement').fhir_resource.resourceType
+          id: fhirid,
+          name: "#{dataCriterion.get('dataElement').description}(...#{fhirid.slice(-6)})",
+          type: resourceType
         })
 
   events:
@@ -44,13 +45,13 @@ class Thorax.Views.InputReferenceView extends Thorax.Views.BonnieView
   # Event listener for select change event on the main select box for chosing custom or from valueset code
   handleTypeChange: (e) ->
     type = @$('select[name="referenceType"]').val()
-    @showCustom = true
+    @showExistingResources = false
     if type == ''
       @value.type = null
     else if type == 'existing_resources'
       @value.type = type
       @valueSetOptions = @existingResources
-      @showCustom = false
+      @showExistingResources = true
     else
       @value.type = type
       @valueSetOptions = @cqmValueSets
@@ -69,4 +70,3 @@ class Thorax.Views.InputReferenceView extends Thorax.Views.BonnieView
     else
       @value.vs = valueSetId
     @trigger 'valueChanged', @
-    @render()
