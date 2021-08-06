@@ -65,7 +65,7 @@ describe 'InputView', ->
 
     it 'handles change to CodeableConcept', ->
       @view.$('select[name="type"] > option[value="CodeableConcept"]').prop('selected', true).change()
-      expect(@view.inputView instanceof Thorax.Views.InputCodingView).toBe true
+      expect(@view.inputView instanceof Thorax.Views.InputCodeableConceptView).toBe true
       expect(@view.hasValidValue()).toBe false
       expect(@view.value).toBe null
 
