@@ -2,8 +2,8 @@
 
   @createCodeableConcept: (code, system) ->
     coding = new cqm.models.Coding()
-    coding.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
-    coding.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
+    coding.code = cqm.models.PrimitiveCode.parsePrimitive(code)
+    coding.system = cqm.models.PrimitiveUrl.parsePrimitive(system)
     @getCodeableConceptForCoding(coding)
 
   @getCodeableConceptForCoding: (coding) ->

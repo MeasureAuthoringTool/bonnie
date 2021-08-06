@@ -781,7 +781,6 @@
       },
       {
         path: 'intent'
-        getValue: (fhirResource) -> fhirResource?.intent?.value
         types: ['Code']
         valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_INTENT_VS]
       },

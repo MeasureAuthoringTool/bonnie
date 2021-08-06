@@ -154,18 +154,18 @@ describe 'DataCriteriaHelpers', ->
       valueToSet.system = cqm.models.PrimitiveUri.parsePrimitive('someuri')
       valueToSet.value = cqm.models.PrimitiveString.parsePrimitive('abs53dr585tm')
       valueToSet.assigner = cqm.models.Reference.parse({display: 'SB'})
-      attr.setValue(fhirResource, valueToSet)
+      attr.setValue(fhirResource, [valueToSet])
 
       # clone the resource to make sure setter/getter work with correct data type
       value = attr.getValue(fhirResource.clone())
       expect(value).toBeDefined
-      expect(value.use.value).toBe 'xyz'
-      expect(value.system.value).toBe 'someuri'
-      expect(value.value.value).toBe 'abs53dr585tm'
-      expect(value.assigner.display.value).toBe 'SB'
+      expect(value[0].use.value).toBe 'xyz'
+      expect(value[0].system.value).toBe 'someuri'
+      expect(value[0].value.value).toBe 'abs53dr585tm'
+      expect(value[0].assigner.display.value).toBe 'SB'
 
-      # null value test
-      attr.setValue(fhirResource, null)
+      # remove value test
+      attr.setValue(fhirResource, undefined)
       value = attr.getValue(fhirResource)
       expect(value).toBeUndefined()
 
