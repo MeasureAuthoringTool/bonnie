@@ -2,7 +2,7 @@ describe 'DataCriteriaHelpers', ->
 
   describe 'Immunization Attributes', ->
     it 'should support Immunization.status', ->
-      DataCriteriaAsserts.assertCode('Immunization', 'status', (fhirResource) -> cqm.models.ImmunizationStatus.isImmunizationStatus(fhirResource.status))
+      DataCriteriaAsserts.assertCode('Immunization', 'status', cqm.models.ImmunizationStatus)
 
     it 'should support Immunization.occurrence as datatime', ->
       DataCriteriaAsserts.assertDateTime('Immunization', 'occurrence')

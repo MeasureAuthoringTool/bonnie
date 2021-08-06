@@ -188,95 +188,115 @@
       return "[" + type.coding.map( (coding) => "#{@stringifyType(coding, codeSystemMap)}" ).join(', ') + "]"
 
     if cqm.models.Timing.isTiming(type)
-      attrs = []
-      if type?.event?[0]?
-        attrs.push("event : #{@stringifyType(type.event[0])}")
-      if type?.repeat?.bounds?
-        attrs.push("repeat.bounds : #{@stringifyType(type.repeat.bounds)}")
-      if type?.repeat?.count?
-        attrs.push("repeat.count : #{@stringifyType(type.repeat.count)}")
-      if type?.repeat?.countMax?
-        attrs.push("repeat.countMax : #{@stringifyType(type.repeat.countMax)}")
-      if type?.repeat?.duration?
-        attrs.push("repeat.duration : #{@stringifyType(type.repeat.duration)}")
-      if type?.repeat?.durationMax?
-        attrs.push("repeat.durationMax : #{@stringifyType(type.repeat.durationMax)}")
-      if type?.repeat?.durationUnit?
-        attrs.push("repeat.durationUnit : #{@stringifyType(type.repeat.durationUnit, codeSystemMap)}")
-      if type?.repeat?.frequency?
-        attrs.push("repeat.frequency : #{@stringifyType(type.repeat.frequency)}")
-      if type?.repeat?.frequencyMax?
-        attrs.push("repeat.frequencyMax : #{@stringifyType(type.repeat.frequencyMax)}")
-      if type?.repeat?.period?
-        attrs.push("repeat.period : #{@stringifyType(type.repeat.period)}")
-      if type?.repeat?.periodMax?
-        attrs.push("repeat.periodMax : #{@stringifyType(type.repeat.periodMax)}")
-      if type?.repeat?.periodUnit?
-        attrs.push("repeat.periodUnit : #{@stringifyType(type.repeat.periodUnit)}")
-      if type?.repeat?.dayOfWeek?[0]?
-        attrs.push("repeat.dayOfWeek : #{@stringifyType(type.repeat.dayOfWeek[0])}")
-      if type?.repeat?.timeOfDay?[0]?
-        attrs.push("repeat.timeOfDay : #{@stringifyType(type.repeat.timeOfDay[0])}")
-      if type?.repeat?.when?[0]?
-        attrs.push("repeat.when : #{@stringifyType(type.repeat.when[0])}")
-      if type?.repeat?.offset?
-        attrs.push("repeat.offset : #{@stringifyType(type.repeat.offset)}")
-      if type?.code?
-        attrs.push("code: #{@stringifyType(type.code, codeSystemMap)}")
+      return @stringifyTiming(type, codeSystemMap)
 
-      return attrs.join(" | ")
     if cqm.models.Dosage.isDosage(type)
-      attrs = []
-      if type.sequence?
-        attrs.push("sequence: #{@stringifyType(type.sequence)}")
-      if type.text?
-        attrs.push("text: #{@stringifyType(type.text)}")
-      if type.additionalInstruction?[0]?
-        attrs.push("additionalInstruction: #{@stringifyType(type.additionalInstruction[0], codeSystemMap)}")
-      if type.patientInstruction?
-        attrs.push("patientInstruction: #{@stringifyType(type.patientInstruction)}")
-      # Display dosage.timing as a separate chip/pass
-#      if type.timing?
-#        attrs.push("timing: #{@stringifyType(type.timing)}")
-      if type.asNeeded?
-        attrs.push("asNeeded: #{@stringifyType(type.asNeeded, codeSystemMap)}")
-      if type.site?
-        attrs.push("site: #{@stringifyType(type.site, codeSystemMap)}")
-      if type.route?
-        attrs.push("route: #{@stringifyType(type.route, codeSystemMap)}")
-      if type.method?
-        attrs.push("method: #{@stringifyType(type.method, codeSystemMap)}")
-      if type.doseAndRate?[0]?.type?
-        attrs.push("doseAndRate.type: #{@stringifyType(type.doseAndRate[0].type, codeSystemMap)}")
-      if type.doseAndRate?[0]?.dose?
-        attrs.push("doseAndRate.dose: #{@stringifyType(type.doseAndRate[0].dose)}")
-      if type.doseAndRate?[0]?.rate?
-        attrs.push("doseAndRate.rate: #{@stringifyType(type.doseAndRate[0].rate)}")
-      if type?.maxDosePerPeriod?
-        attrs.push("maxDosePerPeriod: #{@stringifyType(type.maxDosePerPeriod)}")
-      if type?.maxDosePerAdministration?
-        attrs.push("maxDosePerAdministration: #{@stringifyType(type.maxDosePerAdministration)}")
-      if type?.maxDosePerLifetime?
-        attrs.push("maxDosePerLifetime: #{@stringifyType(type.maxDosePerLifetime)}")
-      return attrs.join(" | ")
+      return @stringifyDosage(type, codeSystemMap)
 
     if cqm.models.Identifier.isIdentifier(type)
-      attrs = []
-      if type.use?
-        attrs.push("use: #{@stringifyType(type.use, codeSystemMap)}")
-      if type.type?
-        attrs.push("type: #{@stringifyType(type.type, codeSystemMap)}")
-      if type.system?
-        attrs.push("system: #{@stringifyType(type.system)}")
-      if type.value?
-        attrs.push("value: #{@stringifyType(type.value)}")
-      if type.period?
-        attrs.push("period: #{@stringifyType(type.period)}")
-      if type.assigner?.display?
-        attrs.push("assigner: #{type.assigner.display.value}")
-      return attrs.join(" | ")
+      return @stringifyIdentifier(type, codeSystemMap)
+
+    if cqm.models.ObservationComponent.isObservationComponent(type)
+      return @stringifyObservationComponent(type, codeSystemMap)
 
     return JSON.stringify(type)
+
+  @stringifyObservationComponent: (type, codeSystemMap) ->
+    attrs = []
+    if type.code?
+      attrs.push("code: #{@stringifyType(type.code, codeSystemMap)}")
+    if type.value?
+      attrs.push("value: #{@stringifyType(type.value, codeSystemMap)}")
+    return attrs.join(" | ")
+
+  @stringifyDosage: (type, codeSystemMap) ->
+    attrs = []
+    if type.sequence?
+      attrs.push("sequence: #{@stringifyType(type.sequence)}")
+    if type.text?
+      attrs.push("text: #{@stringifyType(type.text)}")
+    if type.additionalInstruction?[0]?
+      attrs.push("additionalInstruction: #{@stringifyType(type.additionalInstruction[0], codeSystemMap)}")
+    if type.patientInstruction?
+      attrs.push("patientInstruction: #{@stringifyType(type.patientInstruction)}")
+    # Display dosage.timing as a separate chip/pass
+    #      if type.timing?
+    #        attrs.push("timing: #{@stringifyType(type.timing)}")
+    if type.asNeeded?
+      attrs.push("asNeeded: #{@stringifyType(type.asNeeded, codeSystemMap)}")
+    if type.site?
+      attrs.push("site: #{@stringifyType(type.site, codeSystemMap)}")
+    if type.route?
+      attrs.push("route: #{@stringifyType(type.route, codeSystemMap)}")
+    if type.method?
+      attrs.push("method: #{@stringifyType(type.method, codeSystemMap)}")
+    if type.doseAndRate?[0]?.type?
+      attrs.push("doseAndRate.type: #{@stringifyType(type.doseAndRate[0].type, codeSystemMap)}")
+    if type.doseAndRate?[0]?.dose?
+      attrs.push("doseAndRate.dose: #{@stringifyType(type.doseAndRate[0].dose)}")
+    if type.doseAndRate?[0]?.rate?
+      attrs.push("doseAndRate.rate: #{@stringifyType(type.doseAndRate[0].rate)}")
+    if type?.maxDosePerPeriod?
+      attrs.push("maxDosePerPeriod: #{@stringifyType(type.maxDosePerPeriod)}")
+    if type?.maxDosePerAdministration?
+      attrs.push("maxDosePerAdministration: #{@stringifyType(type.maxDosePerAdministration)}")
+    if type?.maxDosePerLifetime?
+      attrs.push("maxDosePerLifetime: #{@stringifyType(type.maxDosePerLifetime)}")
+    return attrs.join(" | ")
+
+  @stringifyTiming: (type, codeSystemMap) ->
+    attrs = []
+    if type?.event?[0]?
+      attrs.push("event : #{@stringifyType(type.event[0])}")
+    if type?.repeat?.bounds?
+      attrs.push("repeat.bounds : #{@stringifyType(type.repeat.bounds)}")
+    if type?.repeat?.count?
+      attrs.push("repeat.count : #{@stringifyType(type.repeat.count)}")
+    if type?.repeat?.countMax?
+      attrs.push("repeat.countMax : #{@stringifyType(type.repeat.countMax)}")
+    if type?.repeat?.duration?
+      attrs.push("repeat.duration : #{@stringifyType(type.repeat.duration)}")
+    if type?.repeat?.durationMax?
+      attrs.push("repeat.durationMax : #{@stringifyType(type.repeat.durationMax)}")
+    if type?.repeat?.durationUnit?
+      attrs.push("repeat.durationUnit : #{@stringifyType(type.repeat.durationUnit, codeSystemMap)}")
+    if type?.repeat?.frequency?
+      attrs.push("repeat.frequency : #{@stringifyType(type.repeat.frequency)}")
+    if type?.repeat?.frequencyMax?
+      attrs.push("repeat.frequencyMax : #{@stringifyType(type.repeat.frequencyMax)}")
+    if type?.repeat?.period?
+      attrs.push("repeat.period : #{@stringifyType(type.repeat.period)}")
+    if type?.repeat?.periodMax?
+      attrs.push("repeat.periodMax : #{@stringifyType(type.repeat.periodMax)}")
+    if type?.repeat?.periodUnit?
+      attrs.push("repeat.periodUnit : #{@stringifyType(type.repeat.periodUnit)}")
+    if type?.repeat?.dayOfWeek?[0]?
+      attrs.push("repeat.dayOfWeek : #{@stringifyType(type.repeat.dayOfWeek[0])}")
+    if type?.repeat?.timeOfDay?[0]?
+      attrs.push("repeat.timeOfDay : #{@stringifyType(type.repeat.timeOfDay[0])}")
+    if type?.repeat?.when?[0]?
+      attrs.push("repeat.when : #{@stringifyType(type.repeat.when[0])}")
+    if type?.repeat?.offset?
+      attrs.push("repeat.offset : #{@stringifyType(type.repeat.offset)}")
+    if type?.code?
+      attrs.push("code: #{@stringifyType(type.code, codeSystemMap)}")
+    return attrs.join(" | ")
+
+  @stringifyIdentifier: (type, codeSystemMap) ->
+    attrs = []
+    if type.use?
+      attrs.push("use: #{@stringifyType(type.use, codeSystemMap)}")
+    if type.type?
+      attrs.push("type: #{@stringifyType(type.type, codeSystemMap)}")
+    if type.system?
+      attrs.push("system: #{@stringifyType(type.system)}")
+    if type.value?
+      attrs.push("value: #{@stringifyType(type.value)}")
+    if type.period?
+      attrs.push("period: #{@stringifyType(type.period)}")
+    if type.assigner?.display?
+      attrs.push("assigner: #{type.assigner.display.value}")
+    return attrs.join(" | ")
 
 # Data element attributes per resource type.
 # Each resource has an array of entries per attribute.
@@ -374,12 +394,6 @@
     Procedure: [
       {
         path: 'status'
-        getValue: (fhirResource) -> fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) ->
-          if codeValue?
-            fhirResource?.status = cqm.models.ProcedureStatus.parsePrimitive(codeValue)
-          else
-            fhirResource?.status = null
         types: ['Code']
         valueSets: () -> [FhirValueSets.EVENT_STATUS_VS]
       },
@@ -415,12 +429,6 @@
     DiagnosticReport: [
       {
         path: 'status'
-        getValue: (fhirResource) -> fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) ->
-          if (codeValue)
-            fhirResource?.status = cqm.models.DiagnosticReportStatus.parsePrimitive(codeValue)
-          else
-            fhirResource?.status = null
         types: ['Code']
         valueSets: () -> [DiagnosticReportStatusValueSet.JSON]
       },
@@ -447,12 +455,6 @@
     Observation: [
       {
         path: 'status'
-        getValue: (fhirResource) -> fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) ->
-          if (codeValue)
-            fhirResource.status = cqm.models.ObservationStatus.parsePrimitive(codeValue)
-          else
-            fhirResource.status = null
         types: ['Code']
         valueSets: () -> [ObservationStatusValueSet.JSON]
       },
@@ -473,29 +475,14 @@
         types: ['DateTime', 'Period', 'Timing', 'Instant']
       },
       {
-        path: 'component.code'
-        getValue: (fhirResource) -> fhirResource.component?[0]?.code
-        setValue: (fhirResource, codeableConcept) ->
-          unless fhirResource.component?
-            fhirResource.component = [new cqm.models.ObservationComponent()]
-          fhirResource.component[0].code = codeableConcept
-        types: ['CodeableConcept'],
-        valueSets: () -> [LOINCCodesValueSet.JSON]
-      },
-      {
-        path: 'component.value'
-        getValue: (fhirResource) ->
-          if  cqm.models.CodeableConcept.isCodeableConcept(fhirResource.component?[0]?.value)
-            fhirResource.component[0].value.coding?[0]
-          else
-            fhirResource.component?[0]?.value
-        setValue: (fhirResource, value) ->
-          unless fhirResource.component?
-            fhirResource.component = [new cqm.models.ObservationComponent()]
-          fhirResource.component[0].value = value
-        types: ['Quantity', 'CodeableConcept', 'String', 'Boolean', 'Integer',
-          'Range', 'Ratio', 'SampledData','Time', 'DateTime', 'Period'],
+        path: 'component'
+        types: ['ObservationComponent']
         valueSets: () -> []
+        isArray: true
+        # TODO: Can be created with a composite view widget, autogenerated based in fields introspection.
+        #  In that case it will last custom value set bindings
+        #  We can come up with a lookup for VS bindings
+#        isComposite: true
       },
       {
         path: 'encounter'
@@ -511,23 +498,11 @@
     ServiceRequest: [
       {
         path: 'intent'
-        getValue: (fhirResource) -> fhirResource?.intent?.value
-        setValue: (fhirResource, codeValue) ->
-          if (codeValue)
-            fhirResource?.intent = cqm.models.ServiceRequestIntent.parsePrimitive(codeValue)
-          else
-            fhirResource?.intent = null
         types: ['Code']
         valueSets: () -> [FhirValueSets.REQUEST_INTENT]
       },
       {
         path: 'status'
-        getValue: (fhirResource) -> fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) ->
-          if (codeValue)
-            fhirResource?.status = cqm.models.ServiceRequestStatus.parsePrimitive(codeValue)
-          else
-            fhirResource?.status = null
         types: ['Code']
         valueSets: () -> [FhirValueSets.REQUEST_STATUS]
       },
@@ -535,19 +510,13 @@
         path: 'reasonCode'
         isArray: true
         types: ['CodeableConcept']
-        valueSets: () -> [window.ProcedureReasonCodeValueSet.JSON]
+        valueSets: () -> [ProcedureReasonCodeValueSet.JSON]
       },
     ]
     Claim: []
     Communication: [
       {
         path: 'status'
-        getValue: (fhirResource) -> fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) ->
-          if !codeValue?
-            fhirResource?.status = null
-          else
-            fhirResource?.status = cqm.models.CommunicationStatus.parsePrimitive(codeValue)
         types: ['Code']
         valueSets: () -> [EventStatusValueSet.JSON]
       }
@@ -556,25 +525,11 @@
     DeviceRequest: [
       {
         path: 'status'
-        title: 'status'
-        getValue: (fhirResource) -> fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) ->
-          if !codeValue?
-            fhirResource?.status = null
-          else
-            fhirResource?.status = cqm.models.DeviceRequestStatus.parsePrimitive(codeValue)
         types: ['Code']
         valueSets: () -> [FhirValueSets.REQUEST_STATUS]
       },
       {
         path: 'intent'
-        title: 'intent'
-        getValue: (fhirResource) -> fhirResource?.intent?.value
-        setValue: (fhirResource, codeValue) ->
-          if !codeValue?
-            fhirResource?.intent = null
-          else
-            fhirResource?.intent = cqm.models.RequestIntent.parsePrimitive(codeValue)
         types: ['Code']
         valueSets: () -> [FhirValueSets.REQUEST_INTENT]
       }
@@ -591,9 +546,8 @@
     Encounter: [
       {
         path: 'identifier'
-        getValue: (fhirResource) -> fhirResource?.identifier?[0]
-        setValue: (fhirResource, value) -> fhirResource.identifier = if value? then [value] else  null
         types: ['Identifier']
+        isArray: true
       },
       {
         path: 'class'
@@ -656,13 +610,6 @@
       },
       {
         path: 'status'
-        getValue: (fhirResource) ->
-          return fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) ->
-          if !codeValue?
-            fhirResource?.status = null
-          else
-            fhirResource?.status = cqm.models.EncounterStatus.parsePrimitive(codeValue)
         types: ['Code']
         valueSets: () ->
           FhirValueSets.ENCOUNTER_STATUS_VS
@@ -698,19 +645,13 @@
         path: 'reasonCode'
         isArray: true
         types: ['CodeableConcept']
-        valueSets: () -> [window.EncounterReasonCodeValueSet.JSON]
+        valueSets: () -> [ EncounterReasonCodeValueSet.JSON ]
       },
     ]
     Flag: []
     Immunization: [
       {
         path: 'status'
-        getValue: (fhirResource) -> fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) ->
-          if (codeValue)
-            fhirResource?.status = cqm.models.ImmunizationStatus.parsePrimitive(codeValue)
-          else
-            fhirResource?.status = null
         types: ['Code']
         valueSets: () -> [ ImmunizationStatusValueSet.JSON ]
       },
@@ -761,12 +702,6 @@
       },
       {
         path: 'status'
-        getValue: (fhirResource) -> fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) ->
-          if !codeValue?
-            fhirResource?.status = null
-          else
-            fhirResource?.status = cqm.models.MedicationAdministrationStatus.parsePrimitive(codeValue)
         types: ['Code']
         valueSets: () -> [FhirValueSets.MEDICATION_ADMIN_STATUS_VS]
       },
@@ -817,12 +752,6 @@
       },
       {
         path: 'status'
-        getValue: (fhirResource) -> fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) ->
-          if !codeValue?
-            fhirResource?.status = null
-          else
-            fhirResource?.status = cqm.models.MedicationDispenseStatus.parsePrimitive(codeValue)
         types: ['Code']
         valueSets: () -> [MedicationDispenseStatusValueSet.JSON]
       }
@@ -847,23 +776,12 @@
       },
       {
         path: 'status'
-        getValue: (fhirResource) -> fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) ->
-          if !codeValue?
-            fhirResource?.status = null
-          else
-            fhirResource?.status = cqm.models.MedicationRequestStatus.parsePrimitive(codeValue)
         types: ['Code']
         valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_STATUS_VS]
       },
       {
         path: 'intent'
         getValue: (fhirResource) -> fhirResource?.intent?.value
-        setValue: (fhirResource, codeValue) ->
-          if !codeValue?
-            fhirResource?.intent = null
-          else
-            fhirResource?.intent = cqm.models.MedicationRequestIntent.parsePrimitive(codeValue)
         types: ['Code']
         valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_INTENT_VS]
       },
@@ -932,12 +850,6 @@
     MedicationStatement: [
       {
         path: 'status'
-        getValue: (fhirResource) -> fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) ->
-          if !codeValue?
-            fhirResource?.status = null
-          else
-            fhirResource?.status = cqm.models.MedicationStatementStatus.parsePrimitive(codeValue)
         types: ['Code']
         valueSets: () -> [FhirValueSets.MEDICATION_STATEMENT_STATUS_VS]
       }
@@ -958,12 +870,6 @@
       },
       {
         path: 'status'
-        getValue: (fhirResource) -> fhirResource?.status?.value
-        setValue: (fhirResource, codeValue) ->
-          if !codeValue?
-            fhirResource?.status = null
-          else
-            fhirResource?.status = cqm.models.TaskStatus.parsePrimitive(codeValue)
         types: ['Code']
         valueSets: () -> [TaskStatusValueSet.JSON]
       }

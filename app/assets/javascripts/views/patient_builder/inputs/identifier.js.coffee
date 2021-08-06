@@ -7,6 +7,7 @@ class Thorax.Views.InputIdentifierView extends Thorax.Views.BonnieView
       cqmValueSets: [ IdentifierUseValueSet.JSON ],
       codeSystemMap: @codeSystemMap,
       name: 'use'
+      codeType: cqm.models.IdentifierUse
     })
 
     @typeView = new Thorax.Views.InputCodingView({
@@ -39,7 +40,7 @@ class Thorax.Views.InputIdentifierView extends Thorax.Views.BonnieView
 
     switch view.name
       when @useView.name
-        @value.use = cqm.models.IdentifierUse.parsePrimitive(view.value)
+        @value.use = view.value
       when @typeView.name
         @value.type = new cqm.models.CodeableConcept()
         @value.type.coding = [view.value]

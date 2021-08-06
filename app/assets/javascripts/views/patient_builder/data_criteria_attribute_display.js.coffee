@@ -35,7 +35,7 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
     if attributeIndex != undefined
       attrDef.getValue(@dataElement.fhir_resource).splice(attributeIndex, 1)
     else
-      attrDef.setValue(@dataElement.fhir_resource, value)
+      attrDef.setValue(@dataElement.fhir_resource, null)
 
     @trigger 'attributesModified', @
 

@@ -6,7 +6,7 @@ describe 'DataCriteriaHelpers', ->
 
 
     it 'should support Observation.status', ->
-      DataCriteriaAsserts.assertCode('Observation', 'status', (fhirResource) -> cqm.models.ObservationStatus.isObservationStatus(fhirResource.status))
+      DataCriteriaAsserts.assertCode('Observation', 'status', cqm.models.ObservationStatus)
 
     it 'should support Observation.category', ->
       DataCriteriaAsserts.assertCodeableConcept('Observation', 'category')

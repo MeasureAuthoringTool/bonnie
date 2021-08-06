@@ -83,13 +83,13 @@ describe 'DataCriteriaHelpers', ->
       fhirResource = new cqm.models.Encounter()
       expect(attr.getValue(fhirResource)).toBeUndefined
 
-      valueToSet = 'a code'
+      valueToSet = cqm.models.EncounterStatus.parsePrimitive('a code')
       attr.setValue(fhirResource, valueToSet)
 
       # clone the resource to make sure setter/getter work with correct data type
       value = attr.getValue(fhirResource.clone())
       expect(value).toBeDefined
-      expect(value).toBe 'a code'
+      expect(value.value).toBe 'a code'
 
     it 'should support Encounter.location.period', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']

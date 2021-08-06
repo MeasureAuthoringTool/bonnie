@@ -7,10 +7,10 @@ describe 'DataCriteriaHelpers', ->
       expect(DataCriteriaHelpers.isPrimaryCodePathSupported(dataElement)).toBe(false)
 
     it 'should support MedicationRequest.status', ->
-      DataCriteriaAsserts.assertCode('MedicationRequest', 'status', (fhirResource) -> cqm.models.MedicationRequestStatus.isMedicationRequestStatus(fhirResource.status))
+      DataCriteriaAsserts.assertCode('MedicationRequest', 'status', cqm.models.MedicationRequestStatus)
 
     it 'should support MedicationRequest.intent', ->
-      DataCriteriaAsserts.assertCode('MedicationRequest', 'intent', (fhirResource) -> cqm.models.MedicationRequestIntent.isMedicationRequestIntent(fhirResource.intent))
+      DataCriteriaAsserts.assertCode('MedicationRequest', 'intent', cqm.models.MedicationRequestIntent)
 
     it 'should support MedicationRequest.category', ->
       DataCriteriaAsserts.assertCodeableConcept('MedicationRequest', 'category')

@@ -69,3 +69,10 @@
     return null unless dateTimeStr?
     cqlDate = @getCQLDateFromString(dateTimeStr)
     cqm.models.PrimitiveDate.parsePrimitive cqlDate.toString()
+
+  @createType: (typeName, componentsValues) ->
+    instance = new cqm.models[typeName]()
+    for entry in Object.entries(componentsValues)
+      [key, value] = entry
+      instance[key] = value
+    instance

@@ -12,10 +12,7 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
   #   isSystemFixed - boolean - Optional. Default to false. If true, then the Custom system is always the first system from the list of systems.
   #     It's used for a PrimitiveCode, when a system is implied for an attribute (see bindings).
   initialize: ->
-    if @initialValue?
-      @value = @initialValue
-    else
-      @value = null
+    @setValue(@initialValue)
 
     if !@hasOwnProperty('allowNull')
       @allowNull = false
@@ -42,6 +39,12 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
   #context: ->
   #  _(super).extend
 
+  setValue: (val) ->
+    if !val
+      @value = null
+    else
+      @value = @codeType.parsePrimitive(val)
+
   # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
   # if the add button should be active or not
   hasValidValue: ->
@@ -59,7 +62,7 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
     if id == '--'
       @$('.code-vs-select-input, .code-custom-input').addClass('hidden')
       @_cleanUpValueSetStructures()
-      @value = null
+      @setValue(null)
       @trigger 'valueChanged', @
 
     # user wants to enter a custom code
@@ -72,7 +75,7 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
       @$('select[name="custom_codesystem_select"]').prop('disabled', true)
       @$('input[name="custom_codesystem"]').val(@codeSystems[@systemFixed])
       @$('input[name="custom_codesystem"]').prop('disabled', true)
-      @value = null
+      @setValue(null)
       @trigger 'valueChanged', @
       @$('.code-custom-input').removeClass('hidden')
 
@@ -103,7 +106,7 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
     composeInclude = @valueSet?.compose?.include.find (composeInclude) -> composeInclude?.system == system
     concept = composeInclude?.concept.find (concept) -> concept?.code == code
 
-    @value = code
+    @setValue(code)
     @trigger 'valueChanged', @
 
   # Helper function that builds up a list of code systems in the given value set then builds out the code system select box.
@@ -150,7 +153,7 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
     # set to the first one in the list
     selectedConcept = @selectedCodeSystem.codes[0]
 
-    @value = selectedConcept.code
+    @setValue(selectedConcept.code)
     @trigger 'valueChanged', @
 
   # cleans up value set selection stuff
@@ -181,16 +184,16 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
     # custom code system
     if codeSystemOid == ''
       if (customCodeSystem != '' && customCode != '')
-        @value = customCode || null
+        @setValue(customCode)
       else
-        @value = null
+        @setValue(null)
 
     # only custom code, use selected code system
     else
       if customCode != ''
-        @value = customCode || null
+        @setValue(customCode)
       else
-        @value = null
+        @setValue(null)
 
     @trigger 'valueChanged', @
 

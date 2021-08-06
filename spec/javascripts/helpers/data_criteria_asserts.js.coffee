@@ -65,7 +65,7 @@
   @assertCoding: (resourceType, path) ->
     @assertCodingWithType(resourceType, path,'Coding')
 
-  @assertCode: (resourceType, path, customAssert) ->
+  @assertCode: (resourceType, path, codeClass) ->
     attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]
     expect(attrs).toBeDefined
     attr = attrs.find (attr) => attr.path is path
@@ -77,16 +77,13 @@
     fhirResource = new cqm.models[resourceType]()
     expect(attr.getValue(fhirResource)).toBeUndefined
 
-    valueToSet = 'a code'
+    valueToSet = codeClass.parsePrimitive('a code')
     attr.setValue(fhirResource, valueToSet)
-
-    if customAssert?
-      expect(customAssert(fhirResource)).toBe true
 
     # clone the resource to make sure setter/getter work with correct data type
     value = attr.getValue(fhirResource.clone())
     expect(value).toBeDefined
-    expect(value).toBe 'a code'
+    expect(value.value).toBe 'a code'
 
   @assertPeriod: (resourceType, path) ->
     attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]

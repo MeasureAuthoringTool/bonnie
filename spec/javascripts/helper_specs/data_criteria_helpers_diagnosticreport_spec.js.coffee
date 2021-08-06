@@ -5,7 +5,7 @@ describe 'DataCriteriaHelpers', ->
 
   describe 'DiagnosticReport Attributes', ->
     it 'should support DiagnosticReport.status', ->
-      DataCriteriaAsserts.assertCode('DiagnosticReport', 'status', (fhirResource) -> cqm.models.DiagnosticReportStatus.isDiagnosticReportStatus(fhirResource.status))
+      DataCriteriaAsserts.assertCode('DiagnosticReport', 'status', cqm.models.DiagnosticReportStatus)
 
     it 'should support DiagnosticReport.effective', ->
       attr = @attrs.find (attr) -> attr.path is 'effective'
