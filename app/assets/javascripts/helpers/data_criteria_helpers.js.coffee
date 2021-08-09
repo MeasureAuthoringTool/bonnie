@@ -1181,11 +1181,23 @@
         types: ['Period']
       },
       {
+        path: 'dosageInstruction.timing'
+        title: 'dosageInstruction.timing'
+        getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]?.timing
+        setValue: (fhirResource, timing) ->
+          if !timing?
+            fhirResource?.dosageInstruction?[0]?.timing = null
+          else
+            fhirResource.dosageInstruction = [ new cqm.models.Dosage() ] unless fhirResource?.dosageInstruction
+            fhirResource.dosageInstruction[0].timing = timing
+        types: ['Timing']
+      },
+      {
         path: 'dosageInstruction.doseAndRate.rate'
         title: 'dosageInstruction.doseAndRate.rate'
         getValue: (fhirResource) ->
           if  cqm.models.SimpleQuantity.isSimpleQuantity(fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate)
-# Widget supports only Quantity:  convert SimpleQuantity -> Quantity
+            # Widget supports only Quantity:  convert SimpleQuantity -> Quantity
             return cqm.models.Quantity.parse(fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate.toJSON())
           else
             return fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate
@@ -1196,42 +1208,11 @@
             fhirResource.dosageInstruction = [ new cqm.models.Dosage() ] unless fhirResource?.dosageInstruction
             fhirResource.dosageInstruction[0].doseAndRate = [ new cqm.models.DosageDoseAndRate() ] unless fhirResource?.dosageInstruction?[0]?.doseAndRate
             if cqm.models.Quantity.isQuantity(rate)
-# Widget supports only Quantity: convert Quantity -> SimpleQuantity
+              # Widget supports only Quantity: convert Quantity -> SimpleQuantity
               fhirResource.dosageInstruction[0].doseAndRate[0].rate = cqm.models.SimpleQuantity.parse(rate.toJSON())
             else
               fhirResource.dosageInstruction[0].doseAndRate[0].rate = rate
         types: ['Ratio', 'Range', 'SimpleQuantity']
-      },
-      {
-        path: 'dosageInstruction.timing.code'
-        title: 'dosageInstruction.timing.code'
-        getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]?.timing?.code?.coding?[0]
-        setValue: (fhirResource, coding) ->
-          if !coding?
-            fhirResource?.dosageInstruction?[0]?.timing?.code = null
-          else
-            fhirResource.dosageInstruction = [ new cqm.models.Dosage() ] unless fhirResource?.dosageInstruction
-            fhirResource.dosageInstruction[0].timing = new cqm.models.Timing() unless fhirResource?.dosageInstruction?[0]?.timing
-            fhirResource.dosageInstruction[0].timing.code = new cqm.models.CodeableConcept()
-            fhirResource.dosageInstruction[0].timing.code.coding = [ coding ]
-
-        valueSets: () ->
-          [FhirValueSets.TIMING_ABBREVIATION_VS]
-        types: ['CodeableConcept']
-      },
-      {
-        path: 'dosageInstructions.timing.repeat.bounds'
-        title: 'dosageInstructions.timing.repeat.bounds'
-        getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]?.timing?.repeat?.bounds
-        setValue: (fhirResource, bounds) ->
-          if !bounds?
-            fhirResource?.dosageInstruction?[0]?.timing?.repeat?.bounds = null
-          else
-            fhirResource.dosageInstruction = [ new cqm.models.Dosage() ] unless fhirResource?.dosageInstruction
-            fhirResource.dosageInstruction[0].timing = new cqm.models.Timing() unless fhirResource?.dosageInstruction?[0]?.timing
-            fhirResource.dosageInstruction[0].timing.repeat = new cqm.models.TimingRepeat() unless fhirResource?.dosageInstruction?[0]?.timing?.repeat
-            fhirResource.dosageInstruction[0].timing.repeat.bounds = bounds
-        types: ['Duration', 'Range', 'Period']
       },
       {
         path: 'reasonCode'
