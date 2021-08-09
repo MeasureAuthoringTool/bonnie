@@ -7,8 +7,6 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
   initialize: ->
     @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
     if !@isPeriodType() then @set('end_date', undefined)
-    # TODO negation
-#    @set('negation', @get('dataElement').negationRationale?)
 
   clone: ->
     # Clone the DataElement
@@ -58,9 +56,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     icons[element_category] || 'question'
 
   canHaveNegation: ->
-#    TODO FHIR negation
-#    @get('dataElement').schema.path('negationRationale')?
-    false
+    NegationHelpers.canHaveNegation(@get('fhir_resource').resourceType)
 
   # determines if a data criteria has a time period associated with it: it potentially has both
   # a start and end date.

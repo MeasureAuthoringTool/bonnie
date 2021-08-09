@@ -37,7 +37,20 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
     'change select[name="vs_code"]': 'handleValueSetCodeChange'
     'change select[name="custom_codesystem_select"]': 'handleCustomCodeSystemChange'
     rendered: ->
-      @$('select[name="valueset"] > option:first').prop('selected', true)
+      # if there is a value on render, we have to set all the vaues accordingly
+      if @value?
+        value = @value # local copy, because this will modify value when causing re-selection
+        valueSet = @_findValueSetForCode(@value)
+        # if there is a value set for this code, make all the modifications for the code to be selected
+        if valueSet?
+          @$("select[name=\"valueset\"] > option[value=\"#{valueSet.id}\"]").prop('selected', true)
+          @handleValueSetChange()
+          @$("select[name=\"vs_codesystem\"] > option[value=\"#{valueSet.name}\"]").prop('selected', true)
+          @handleValueSetCodeSystemChange()
+          @$("select[name=\"vs_code\"] > option[value=\"#{value}\"]").prop('selected', true)
+          @handleValueSetCodeChange()
+      else
+        @$('select[name="valueset"] > option:first').prop('selected', true)
 
   #context: ->
   #  _(super).extend
@@ -211,3 +224,12 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
     # configure custom code entry to be empty and active
     @$('input[name="custom_codesystem"]').val('').prop('disabled', false)
     @$('input[name="custom_code"]').val('')
+
+  # TODO: not a great way to find valueset by code as same named code might be in two valueset
+  _findValueSetForCode: (code) ->
+    valueSet = @cqmValueSets.find (vs) ->
+      matchingConcept = vs?.compose?.include?.find (concept) ->
+        concept.concept?.find (conceptEntry) ->
+          return conceptEntry.code == code
+      return matchingConcept?
+    return valueSet

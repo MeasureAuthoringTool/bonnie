@@ -1,0 +1,160 @@
+{
+  "id": "60f084f230b51ad5fbca10db",
+  "expected_values": [
+    {
+      "measure_id": "5AE26FB9-FD51-4CA7-85E7-BE8840875135",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "NUMER": 1
+    }
+  ],
+  "measure_ids": [
+    "5AE26FB9-FD51-4CA7-85E7-BE8840875135"
+  ],
+  "fhir_patient": {
+    "resourceType": "Patient",
+    "extension": [
+      {
+        "extension": [
+          {
+            "url": "ombCategory",
+            "valueCoding": {
+              "system": "urn:oid:2.16.840.1.113883.6.238",
+              "code": "1002-5",
+              "display": "American Indian or Alaska Native",
+              "userSelected": true
+            }
+          },
+          {
+            "url": "text",
+            "valueString": "American Indian or Alaska Native"
+          }
+        ],
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
+      },
+      {
+        "extension": [
+          {
+            "url": "ombCategory",
+            "valueCoding": {
+              "system": "urn:oid:2.16.840.1.113883.6.238",
+              "code": "2135-2",
+              "display": "Hispanic or Latino",
+              "userSelected": true
+            }
+          },
+          {
+            "url": "text",
+            "valueString": "Hispanic or Latino"
+          }
+        ],
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
+      }
+    ],
+    "name": [
+      {
+        "family": "john",
+        "given": [
+          "doe"
+        ]
+      }
+    ],
+    "gender": "male",
+    "birthDate": "1985-01-01",
+    "id": "60f084f230b51ad5fbca10db"
+  },
+  "data_elements": [
+    {
+      "codeListId": "2.16.840.1.113883.3.526.3.1283",
+      "valueSetTitle": "Level of Severity of Retinopathy Findings",
+      "description": "Communication: Level of Severity of Retinopathy Findings",
+      "fhir_resource": {
+        "resourceType": "Communication",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "version": "2020-09",
+                "code": "312903003",
+                "display": "Mild nonproliferative retinopathy due to diabetes mellitus (disorder)",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "sent": "2022-07-27T08:00:00.000+00:00",
+        "received": "2022-07-27T08:00:00.000+00:00",
+        "id": "level-of-severity-of-retinopathy-findings-3cd5"
+      }
+    },
+    {
+      "codeListId": "2.16.840.1.113883.3.526.3.1283",
+      "valueSetTitle": "Level of Severity of Retinopathy Findings",
+      "description": "Communication: Level of Severity of Retinopathy Findings",
+      "fhir_resource": {
+        "resourceType": "Communication",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-recorded",
+            "valueDateTime": "2012-07-27T08:00:00.000+00:00"
+          }
+        ],
+        "modifierExtension": [
+          {
+            "url": "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-notDone",
+            "valueBoolean": true
+          }
+        ],
+        "status": "not-done",
+        "statusReason": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "105480006",
+              "display": "Refusal of treatment by patient (situation)",
+              "userSelected": true
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "version": "2020-09",
+                "code": "312903003",
+                "display": "Mild nonproliferative retinopathy due to diabetes mellitus (disorder)",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "sent": "2022-07-15T08:00:00.000+00:00",
+        "received": "2022-07-15T08:00:00.000+00:00",
+        "reasonCode": [
+          {
+            "coding": [
+              {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/valueset-reference",
+                    "valueUri": "urn:uuid:ede31fab-babc-4769-b242-9eebd2ed7a7b"
+                  }
+                ],
+                "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+                "code": "active",
+                "display": "allergy-active",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "id": "level-of-severity-of-retinopathy-findings-10dc"
+      }
+    }
+  ],
+  "created_at": "2021-07-15T18:58:03.843Z",
+  "updated_at": "2021-07-15T18:58:03.843Z"
+}

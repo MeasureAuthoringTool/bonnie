@@ -26,9 +26,9 @@ describe 'InputView', ->
       view.render()
       expect(view.hasValidValue()).toBe true
       expect(view.value).toBe 'planned'
-      expect(view.$('select[name="valueset"]').val()).toBe '--'
-      expect(view.$('select[name="vs_codesystem"]').val()).toBe null
-      expect(view.$('select[name="vs_code"]').val()).toBe null
+      expect(view.$('select[name="valueset"]').val()).toBe 'encounter-status'
+      expect(view.$('select[name="vs_codesystem"]').val()).toBe 'http://hl7.org/fhir/encounter-status'
+      expect(view.$('select[name="vs_code"]').val()).toBe 'planned'
 
     it 'starts with no valid value, selects from value set, and goes back to no selection', ->
       view = new Thorax.Views.InputCodeView(cqmValueSets: FhirValueSets.ENCOUNTER_STATUS_VS)
