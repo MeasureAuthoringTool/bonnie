@@ -88,20 +88,18 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     if @currentAttribute? && @inputView?.hasValidValue()
       attrMeta = DataCriteriaHelpers.getAttribute(@dataElement, @currentAttribute.name)
       if @currentAttributeType is 'Reference'
-        prevVal = attrMeta?.getValue(@dataElement.fhir_resource)
-        if prevVal? && cqm.models.Reference.isReference(prevVal)
-          [prevResourceType, prevResourceId] = prevVal.reference?.value?.split('/')
-          if prevResourceType? && prevResourceId?
-            # delete existing resource data element
-            @parent.parent.parent.deleteCriteriaById(prevResourceId)
-        # Create new Resource for Reference target
         resourceType = @inputView.value?.type
         valueSetId = @inputView.value?.vs
-        newId = cqm.ObjectID().toHexString()
-        newFhirId = @parent.parent.parent.addChildCriteria(resourceType, newId, valueSetId, @dataElement)
+        fhirid = ''
+        if @inputView.value?.isExistingResource
+          fhirid = valueSetId # for existing resources, fhirid is valueSetId
+        else
+          # Create new Resource for Reference target
+          objectId = cqm.ObjectID().toHexString()
+          fhirid = @parent.parent.parent.addChildCriteria(resourceType, objectId, valueSetId, @dataElement)
         # set reference attribute using generated fhirId from new Resource
         reference = new cqm.models.Reference()
-        reference.reference = cqm.models.PrimitiveString.parsePrimitive(resourceType + '/' + newFhirId)
+        reference.reference = cqm.models.PrimitiveString.parsePrimitive(resourceType + '/' + fhirid)
         attrMeta?.setValue(@dataElement.fhir_resource, reference)
 
       else
@@ -140,7 +138,12 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       when 'id' then new Thorax.Views.InputIdView()
       when 'Boolean' then new Thorax.Views.InputBooleanView()
       when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
-      when 'Reference' then new Thorax.Views.InputReferenceView({ allowNull: false, referenceTypes: @currentAttribute.referenceTypes, parentDataElement: @dataElement, cqmValueSets: @parent.measure.get('cqmValueSets') })
+      when 'Reference' then new Thorax.Views.InputReferenceView({
+        allowNull: false,
+        referenceTypes: @currentAttribute.referenceTypes,
+        parentDataElement: @dataElement,
+        dataCriteria: @parent.model.collection.models,
+        cqmValueSets: @parent.measure.get('cqmValueSets') })
       when 'SampledData' then new Thorax.Views.InputSampledDataView()
       when 'Timing' then new Thorax.Views.InputTimingView({ codeSystemMap: @parent.measure.codeSystemMap(), defaultYear: @parent.measure.getMeasurePeriodYear() })
       when 'Dosage' then new Thorax.Views.InputDosageView({ cqmValueSets: @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap() })

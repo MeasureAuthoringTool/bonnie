@@ -8,7 +8,11 @@ describe 'InputView', ->
       @measure = loadFhirMeasure 'fhir_measures/CMS108/CMS108.json'
 
     it 'starts with no valid value, no valueset or referenceType', ->
-      view = new Thorax.Views.InputReferenceView(cqmValueSets: @measure.get('cqmValueSets'), referenceTypes: ['Condition', 'Procedure'])
+      view = new Thorax.Views.InputReferenceView({
+        cqmValueSets: @measure.get('cqmValueSets'),
+        referenceTypes: ['Condition', 'Procedure'],
+        dataCriteria: []
+      })
       view.render()
       expect(view.hasValidValue()).toBe false
       expect(view.value?.type).toBe null
@@ -17,7 +21,11 @@ describe 'InputView', ->
       expect(view.$('select[name="referenceType"]').val()).toBe ''
 
     it 'starts with no valid value, selects from value set, and goes back to no selection', ->
-      view = new Thorax.Views.InputReferenceView(cqmValueSets: @measure.get('cqmValueSets'), referenceTypes: ['Condition', 'Procedure'])
+      view = new Thorax.Views.InputReferenceView({
+        cqmValueSets: @measure.get('cqmValueSets'),
+        referenceTypes: ['Condition', 'Procedure'],
+        dataCriteria: []
+      })
       view.render()
       expect(view.hasValidValue()).toBe false
       expect(view.value?.type).toBe null
