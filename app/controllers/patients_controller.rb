@@ -15,7 +15,7 @@ class PatientsController < ApplicationController
     end
     populate_measure_ids(updated_patient)
     updated_patient._id = old_patient._id if old_patient
-    updated_patient.user_id = current_user._id
+    updated_patient.group_id = current_user.current_group.id
     updated_patient.upsert
     render :json => updated_patient
   end
@@ -23,7 +23,7 @@ class PatientsController < ApplicationController
   def create
     begin
       patient = CQM::Patient.transform_json(cqm_patient_params)
-      patient[:user_id] = current_user.id
+      patient[:group_id] = current_user.current_group&.id
     rescue Mongoid::Errors::UnknownAttribute
       render json: { status: "error", messages: "Patient not properly structured for creation." }, status: :internal_server_error
       return
@@ -77,7 +77,9 @@ class PatientsController < ApplicationController
 
     measure_id = params[:measure_id]
     uploaded_file = params[:patient_import_file]
-    raise UploadedFileNotZip.new if uploaded_file.content_type != "application/zip"
+    if uploaded_file.content_type != "application/zip" && uploaded_file.content_type != "application/x-zip-compressed"
+      raise UploadedFileNotZip.new
+    end
 
     measure = CQM::Measure.where(id: measure_id).first
     raise MeasureUpdateMeasureNotFound.new if measure.nil?
@@ -100,7 +102,7 @@ class PatientsController < ApplicationController
     patients.each do |patient|
       patient.measure_ids = [measure.set_id]
       new_id = BSON::ObjectId.new
-      patient[:user_id] = current_user._id
+      patient[:group_id] = current_user.current_group.id
       patient.id = new_id
       # 1. Create a new patient id so a new copy of patients is created on every import.
       # Current Bonnie's limitation: Patient's fhir id should be equal to CqmPatient.id. Used in cqm-execution to

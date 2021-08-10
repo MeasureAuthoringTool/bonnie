@@ -5,7 +5,7 @@ class Admin::UsersMailer < ActionMailer::Base
     @body = body
     mail to: user.email,
       subject: subject,
-      from: APP_CONFIG['bonnie_email']
+      from: APP_CONFIG['bonnie_from_email']
   end
 
 end

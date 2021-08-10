@@ -11,6 +11,8 @@ module ApiV1
       users_set = File.join('users', 'base_set')
       collection_fixtures(users_set)
       @user = User.by_email('bonnie@example.com').first
+      @user.init_personal_group
+      @user.save
       sign_in @user
       @token = StubToken.new
       @token.resource_owner_id = @user.id
