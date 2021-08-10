@@ -10,6 +10,8 @@ class BonnieDbTest < ActiveSupport::TestCase
     collection_fixtures(users_set, patients_set)
     @email = 'bonnie@example.com'
     @user = User.by_email('bonnie@example.com').first
+    @user.init_personal_group
+    @user.save
 
     @hqmf_set_id_1 = '4DC3E7AA-8777-4749-A1E4-37E942036076'
     @hqmf_set_id_2 = 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
@@ -27,13 +29,13 @@ class BonnieDbTest < ActiveSupport::TestCase
     measure_1 = CQM::Measure.where(hqmf_set_id: @hqmf_set_id_1).first
     measure_2 = CQM::Measure.where(hqmf_set_id: @hqmf_set_id_2).first
     measure_w_no_user = CQM::Measure.where(hqmf_set_id: @hqmf_set_id_3).first
-    measure_w_no_user.user = nil
+    measure_w_no_user.group = nil
     measure_w_no_user.save!
 
     assert_output(
       "Re-saving \"#{measure_1.title}\" [bonnie@example.com]\n" +
       "Re-saving \"#{measure_2.title}\" [bonnie@example.com]\n" +
-      "Re-saving \"#{measure_w_no_user.title}\" [deleted user]\n"
+      "Re-saving \"#{measure_w_no_user.title}\" [deleted group]\n"
                  ) { Rake::Task['bonnie:db:resave_measures'].execute }
   end
 

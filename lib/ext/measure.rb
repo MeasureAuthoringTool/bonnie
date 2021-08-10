@@ -2,14 +2,14 @@ module CQM
   # Measure contains the information necessary to represent the CQL version of a Clinical Quality Measure,
   # As needed by the Bonnie & Cypress applications
   class Measure
-    belongs_to :user, optional: true
-    scope :by_user, ->(user) { where user_id: user.id }
-    index 'user_id' => 1
-    index 'user_id' => 1, 'hqmf_set_id' => 1
+    belongs_to :group, optional: true
+    scope :by_user, ->(user) { where group_id: user.current_group.id }
+    index 'group_id' => 1
+    index 'group_id' => 1, 'hqmf_set_id' => 1
     has_and_belongs_to_many :patients, class_name: 'CQM::Patient'
     # Find the measures matching a patient
     def self.for_patient(record)
-      where user_id: record.user_id, hqmf_set_id: { '$in' => record.measure_ids }
+      where group_id: record.group_id, hqmf_set_id: { '$in' => record.measure_ids }
     end
 
     def save_self_and_child_docs
@@ -18,10 +18,10 @@ module CQM
       value_sets.each(&:save!)
     end
 
-    def associate_self_and_child_docs_to_user(user)
-      self.user = user
-      package.user = user if package.present?
-      value_sets.each { |vs| vs.user = user }
+    def associate_self_and_child_docs_to_group(group)
+      self.group = group
+      package.group = group if package.present?
+      value_sets.each { |vs| vs.group = group }
     end
 
     # note that this method doesn't change the _id of embedded documents, but that should be fine
@@ -48,7 +48,7 @@ module CQM
 
     def dup_and_remove_user(mongoid_doc)
       new_doc = mongoid_doc.dup
-      new_doc.user = nil
+      new_doc.group = nil
       return new_doc
     end
 

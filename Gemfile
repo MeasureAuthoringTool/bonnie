@@ -12,10 +12,10 @@ gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
-gem 'cqm-models', '~> 3.0.6'
-gem 'cqm-reports', '~> 3.1.2'
+gem 'cqm-models', '~>3.1.1'
+gem 'cqm-reports', '~> 3.1.4'
 
-gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers.git', :branch => 'qdm_55'
+gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers.git', :branch => 'bonnie-prior-version'
 
 # needed for HDS
 gem 'rubyzip', '>= 1.3.0'
@@ -44,7 +44,7 @@ group :test, :development, :ci do
   gem "overcommit"
   gem 'rubocop', '~> 0.88.0'
   gem 'rubocop-ast', '~> 0.3.0'
-  gem 'teaspoon-jasmine'
+  gem 'teaspoon-jasmine', '2.3.4'
   gem 'simplecov', :require => false
   gem 'minitest'
   gem 'rails_best_practices'
@@ -92,3 +92,5 @@ gem 'browser'
 
 gem "reverse_markdown", "~> 2.0"
 gem "tinymce-rails"
+
+gem "devise_saml_authenticatable"
