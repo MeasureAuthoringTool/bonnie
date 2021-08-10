@@ -39,14 +39,14 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
       # if there is a value on render, we have to set all the vaues accordingly
       if @value?
         value = @value # local copy, because this will modify value when causing re-selection
-        valueSet = @_findValueSetForCode(@value)
+        valueSet = @_findValueSetForCode(@value.value)
         # if there is a value set for this code, make all the modifications for the code to be selected
         if valueSet?
           @$("select[name=\"valueset\"] > option[value=\"#{valueSet.id}\"]").prop('selected', true)
           @handleValueSetChange()
           @$("select[name=\"vs_codesystem\"] > option[value=\"#{valueSet.name}\"]").prop('selected', true)
           @handleValueSetCodeSystemChange()
-          @$("select[name=\"vs_code\"] > option[value=\"#{value}\"]").prop('selected', true)
+          @$("select[name=\"vs_code\"] > option[value=\"#{value.value}\"]").prop('selected', true)
           @handleValueSetCodeChange()
       else
         @$('select[name="valueset"] > option:first').prop('selected', true)
@@ -55,10 +55,10 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
   #  _(super).extend
 
   setValue: (val) ->
-    if !val
+    if !val?
       @value = null
     else
-      @value = @codeType.parsePrimitive(val)
+      @value = if val instanceof cqm.models.PrimitiveCode then val else @codeType.parsePrimitive(val)
 
   # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
   # if the add button should be active or not
