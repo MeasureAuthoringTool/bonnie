@@ -4,9 +4,10 @@ class Thorax.Views.CommunicationNegationView extends Thorax.Views.BonnieView
 
   initialize: ->
     @status = new Thorax.Views.InputCodeView({
-      initialValue: @resource.status?.value
-      cqmValueSets: [FhirValueSets.EVENT_STATUS_VS],
-      codeSystemMap: @codeSystemMap,
+      initialValue: @resource.status
+      cqmValueSets: [FhirValueSets.EVENT_STATUS_VS]
+      codeSystemMap: @codeSystemMap
+      codeType: cqm.models.CommunicationStatus
       name: 'status'})
     @statusReason = new Thorax.Views.InputCodingView({
       initialValue: @resource.statusReason?.coding?[0]
@@ -55,7 +56,7 @@ class Thorax.Views.CommunicationNegationView extends Thorax.Views.BonnieView
   performNegation: (view) ->
     switch view.name
       when 'status'
-        @resource.status = if view.value then cqm.models.CommunicationStatus.parsePrimitive(view.value) else undefined
+        @resource.status = if view.value then view.value else undefined
       when 'status reason'
         @resource.statusReason = NegationHelpers.getCodeableConcept(view.value)
       when 'recorded'

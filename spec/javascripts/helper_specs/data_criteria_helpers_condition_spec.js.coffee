@@ -5,22 +5,18 @@ describe 'DataCriteriaHelpers', ->
       conditionAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']
       clinicalStatus = conditionAttrs[0]
       expect(clinicalStatus.path).toEqual 'clinicalStatus'
-      expect(clinicalStatus.title).toEqual 'clinicalStatus'
       expect(clinicalStatus.types).toEqual ['CodeableConcept']
 
       verificationStatus = conditionAttrs[1]
       expect(verificationStatus.path).toEqual 'verificationStatus'
-      expect(verificationStatus.title).toEqual 'verificationStatus'
       expect(verificationStatus.types).toEqual ['CodeableConcept']
 
       onset = conditionAttrs[2]
       expect(onset.path).toEqual 'onset'
-      expect(onset.title).toEqual 'onset'
       expect(onset.types).toEqual ['DateTime', 'Age', 'Period', 'Range']
 
       abatement = conditionAttrs[3]
       expect(abatement.path).toEqual 'abatement'
-      expect(abatement.title).toEqual 'abatement'
       expect(abatement.types).toEqual ['DateTime', 'Age', 'Period', 'Range']
 
     it 'should set and get values for clinicalStatus', ->
@@ -122,16 +118,16 @@ describe 'DataCriteriaHelpers', ->
       expect(abatementValue.end.value).toEqual period.end.value
 
     it 'should support Condition.bodySite', ->
-      DataCriteriaAsserts.assertCodeableConcept('Condition', 'bodySite', 'bodySite')
+      DataCriteriaAsserts.assertCodeableConcept('Condition', 'bodySite')
 
     it 'should support Condition.category', ->
-      DataCriteriaAsserts.assertCodeableConcept('Condition', 'category', 'category')
+      DataCriteriaAsserts.assertCodeableConcept('Condition', 'category')
 
     it 'should support Condition.severity', ->
-      DataCriteriaAsserts.assertCodeableConcept('Condition', 'severity', 'severity')
+      DataCriteriaAsserts.assertCodeableConcept('Condition', 'severity')
 
     it 'should support Condition.recorder', ->
-      DataCriteriaAsserts.assertReference('Condition', 'recorder', 'recorder')
+      DataCriteriaAsserts.assertReference('Condition', 'recorder')
 
     it 'should support Condition.asserter', ->
-      DataCriteriaAsserts.assertReference('Condition', 'asserter', 'asserter')
+      DataCriteriaAsserts.assertReference('Condition', 'asserter')

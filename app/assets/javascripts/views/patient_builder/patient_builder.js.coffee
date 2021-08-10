@@ -195,13 +195,13 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     for timingAttr in patientDataCriteria.getPrimaryTimingAttributes()
       if timingAttr.type == 'Period'
         interval = @createDefaultInterval()
-        fhirResource[timingAttr.name] = DataCriteriaHelpers.createPeriodFromInterval(interval)
+        fhirResource[timingAttr.name] = DataTypeHelpers.createPeriodFromInterval(interval)
       else if timingAttr.type == 'dateTime'
-        fhirResource[timingAttr.name] = DataCriteriaHelpers.getPrimitiveDateTimeForCqlDateTime(@createDefaultInterval().low)
+        fhirResource[timingAttr.name] = DataTypeHelpers.getPrimitiveDateTimeForCqlDateTime(@createDefaultInterval().low)
       else if timingAttr.type == 'instant'
-        fhirResource[timingAttr.name] = DataCriteriaHelpers.getPrimitiveInstantForCqlDateTime(@createDefaultInterval().low)
+        fhirResource[timingAttr.name] = DataTypeHelpers.getPrimitiveInstantForCqlDateTime(@createDefaultInterval().low)
       else if timingAttr.type == 'date'
-        fhirResource[timingAttr.name] = DataCriteriaHelpers.getPrimitiveDateForCqlDate(@createDefaultDate())
+        fhirResource[timingAttr.name] = DataTypeHelpers.getPrimitiveDateForCqlDate(@createDefaultDate())
     @addCriteria patientDataCriteria
     return false
 

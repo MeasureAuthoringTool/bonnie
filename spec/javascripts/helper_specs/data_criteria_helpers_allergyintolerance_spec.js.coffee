@@ -2,16 +2,15 @@ describe 'DataCriteriaHelpers', ->
 
   describe 'AllergyIntolerance attributes', ->
     it 'should support AllergyIntolerance.clinicalStatus', ->
-      DataCriteriaAsserts.assertCodeableConcept('AllergyIntolerance', 'clinicalStatus', 'clinicalStatus')
+      DataCriteriaAsserts.assertCodeableConcept('AllergyIntolerance', 'clinicalStatus')
 
     it 'should support AllergyIntolerance.verificationStatus', ->
-      DataCriteriaAsserts.assertCodeableConcept('AllergyIntolerance', 'verificationStatus', 'verificationStatus')
+      DataCriteriaAsserts.assertCodeableConcept('AllergyIntolerance', 'verificationStatus')
 
     it 'should support onset', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['AllergyIntolerance']
       attr = attrs.find (attr) => attr.path is 'onset'
       expect(attr.path).toEqual 'onset'
-      expect(attr.title).toEqual 'onset'
       expect(attr.types).toEqual ['DateTime', 'Age', 'Period', 'Range']
 
       fhirResource = new cqm.models.AllergyIntolerance()

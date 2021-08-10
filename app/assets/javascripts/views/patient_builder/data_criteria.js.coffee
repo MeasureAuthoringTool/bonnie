@@ -75,7 +75,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       initialValue = @model.get('dataElement').fhir_resource[timingAttr.name]
       switch timingAttr.type
         when 'Period'
-          dateInterval = DataCriteriaHelpers.createIntervalFromPeriod(initialValue)
+          dateInterval = DataTypeHelpers.createIntervalFromPeriod(initialValue)
           intervalView = new Thorax.Views.InputIntervalDateTimeView(
             initialValue: dateInterval,
             attributeName: timingAttr.name, attributeTitle: timingAttr.title,
@@ -83,7 +83,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
           @timingAttributeViews.push intervalView
           @listenTo intervalView, 'valueChanged', @updateDateInputChange
         when 'dateTime', 'instant'
-          dateTime = DataCriteriaHelpers.getCQLDateTimeFromString(initialValue?.value)
+          dateTime = DataTypeHelpers.getCQLDateTimeFromString(initialValue?.value)
           dateTimeView = new Thorax.Views.InputCqlDateTimeView(
             initialValue: dateTime,
             attributeName: timingAttr.name, attributeTitle: timingAttr.title,
@@ -91,7 +91,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
           @timingAttributeViews.push dateTimeView
           @listenTo dateTimeView, 'valueChanged', @updateDateInputChange
         when 'date'
-          date = DataCriteriaHelpers.getCQLDateTimeFromString(initialValue?.value)
+          date = DataTypeHelpers.getCQLDateTimeFromString(initialValue?.value)
           dateView = new Thorax.Views.InputDateView(
             initialValue: date,
             attributeName: timingAttr.name, attributeTitle: timingAttr.title,
@@ -153,11 +153,11 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     primaryTimingAttribute = @model.getPrimaryTimingAttribute()
     primaryTimingValue = @model.get('dataElement').fhir_resource[primaryTimingAttribute?.name]
     if primaryTimingAttribute?.type == 'Period'
-      primaryTimingValue = DataCriteriaHelpers.createIntervalFromPeriod primaryTimingValue
+      primaryTimingValue = DataTypeHelpers.createIntervalFromPeriod primaryTimingValue
     else if primaryTimingAttribute?.type == 'dateTime' || primaryTimingAttribute?.type == 'instant'
-      primaryTimingValue = DataCriteriaHelpers.getCQLDateTimeFromString primaryTimingValue?.value
+      primaryTimingValue = DataTypeHelpers.getCQLDateTimeFromString primaryTimingValue?.value
     else if primaryTimingAttribute?.type == 'date'
-      primaryTimingValue = DataCriteriaHelpers.getCQLDateFromString primaryTimingValue?.value
+      primaryTimingValue = DataTypeHelpers.getCQLDateFromString primaryTimingValue?.value
 
     _(super).extend
       # When we create the form and populate it, we want to convert times to moment-formatted dates
@@ -195,16 +195,16 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     attributes = DataCriteriaHelpers.PRIMARY_TIMING_ATTRIBUTES[@model.get('dataElement').fhir_resource.resourceType]
     if attributes[inputView.attributeName] == 'Period'
       @model.get('dataElement')
-        .fhir_resource[inputView.attributeName] = DataCriteriaHelpers.createPeriodFromInterval(inputView.value)
+        .fhir_resource[inputView.attributeName] = DataTypeHelpers.createPeriodFromInterval(inputView.value)
     else if attributes[inputView.attributeName] == 'instant'
       @model.get('dataElement')
-        .fhir_resource[inputView.attributeName] = DataCriteriaHelpers.getPrimitiveInstantForCqlDateTime inputView.value
+        .fhir_resource[inputView.attributeName] = DataTypeHelpers.getPrimitiveInstantForCqlDateTime inputView.value
     else if attributes[inputView.attributeName] == 'dateTime'
       @model.get('dataElement')
-        .fhir_resource[inputView.attributeName] = DataCriteriaHelpers.getPrimitiveDateTimeForCqlDateTime inputView.value
+        .fhir_resource[inputView.attributeName] = DataTypeHelpers.getPrimitiveDateTimeForCqlDateTime inputView.value
     else if attributes[inputView.attributeName] == 'date'
       @model.get('dataElement')
-        .fhir_resource[inputView.attributeName] = DataCriteriaHelpers.getPrimitiveDateForCqlDate inputView.value
+        .fhir_resource[inputView.attributeName] = DataTypeHelpers.getPrimitiveDateForCqlDate inputView.value
     @triggerMaterialize()
 
   attributesModified: ->
@@ -224,10 +224,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     if !timingAttribute?
       return false
     if timingAttribute.start || timingAttribute.end
-      interval = DataCriteriaHelpers.createIntervalFromPeriod(timingAttribute)
+      interval = DataTypeHelpers.createIntervalFromPeriod(timingAttribute)
       interval.low?.year is interval.high?.year is @model.measure().getMeasurePeriodYear()
     else if (timingAttribute.value)
-      cqlDate = DataCriteriaHelpers.getCQLDateFromString(timingAttribute.value)
+      cqlDate = DataTypeHelpers.getCQLDateFromString(timingAttribute.value)
       cqlDate?.year is @model.measure().getMeasurePeriodYear()
 
   # Copy timing attributes (relevantPeriod, prevelancePeriod etc..) onto the criteria being dragged from the criteria it is being dragged ontop of
@@ -263,7 +263,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     else if targetAttr.type == 'Period' && droppedAttr.type == 'dateTime'
       if targetResource[targetAttr.name]?.start?
         droppedResource[droppedAttr.name] =
-          DataCriteriaHelpers.getPrimitiveDateTimeForStringDateTime(targetResource[targetAttr.name].start?.value)
+          DataTypeHelpers.getPrimitiveDateTimeForStringDateTime(targetResource[targetAttr.name].start?.value)
       else
         droppedResource[droppedAttr.name] = null
 
@@ -271,7 +271,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     else if targetAttr.type == 'dateTime' && droppedAttr.type == 'Period'
       if targetResource[targetAttr.name]?
         droppedResource[droppedAttr.name] =
-          DataCriteriaHelpers.getPeriodForStringDateTime(targetResource[targetAttr.name].value)
+          DataTypeHelpers.getPeriodForStringDateTime(targetResource[targetAttr.name].value)
       else
         droppedResource[droppedAttr.name] = null
 
@@ -279,7 +279,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     else if targetAttr.type == 'dateTime' && droppedAttr.type == 'date'
       if targetResource[targetAttr.name]?
         droppedResource[droppedAttr.name] =
-          DataCriteriaHelpers.getPrimitiveDateForStringDateTime(targetResource[targetAttr.name].value)
+          DataTypeHelpers.getPrimitiveDateForStringDateTime(targetResource[targetAttr.name].value)
       else
         droppedResource[droppedAttr.name] = null
 
@@ -287,7 +287,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     else if targetAttr.type == 'date' && droppedAttr.type == 'dateTime'
       if targetResource[targetAttr.name]?
         droppedResource[droppedAttr.name] =
-          DataCriteriaHelpers.getPrimitiveDateTimeForStringDate(targetResource[targetAttr.name].value)
+          DataTypeHelpers.getPrimitiveDateTimeForStringDate(targetResource[targetAttr.name].value)
       else
         droppedResource[droppedAttr.name] = null
 
@@ -295,7 +295,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     else if targetAttr.type == 'Period' && droppedAttr.type == 'date'
       if targetResource[targetAttr.name]?
         droppedResource[droppedAttr.name] =
-          DataCriteriaHelpers.getPrimitiveDateForStringDateTime(targetResource[targetAttr.name].start?.value)
+          DataTypeHelpers.getPrimitiveDateForStringDateTime(targetResource[targetAttr.name].start?.value)
       else
         droppedResource[droppedAttr.name] = null
 
@@ -303,7 +303,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     else if targetAttr.type == 'date' && droppedAttr.type == 'Period'
       if targetResource[targetAttr.name]?
         droppedResource[droppedAttr.name] =
-          DataCriteriaHelpers.getPeriodForStringDate(targetResource[targetAttr.name].value)
+          DataTypeHelpers.getPeriodForStringDate(targetResource[targetAttr.name].value)
       else
         droppedResource[droppedAttr.name] = null
 

@@ -67,9 +67,10 @@ class Thorax.Views.InputTimingRepeatView extends Thorax.Views.BonnieView
       cqmValueSets: [ UnitsOfTimeValueSet.JSON ],
       codeSystemMap: @codeSystemMap,
       name: 'durationUnitView',
+      codeType: cqm.models.UnitsOfTime
       update: (view) =>
         if view.value?
-          @value.durationUnit = cqm.models.UnitsOfTime.parsePrimitive(view.value)
+          @value.durationUnit = view.value
         else
           @value.durationUnit = undefined
     })
@@ -114,24 +115,26 @@ class Thorax.Views.InputTimingRepeatView extends Thorax.Views.BonnieView
           @value.periodMax = undefined
     })
     @periodUnitView = new Thorax.Views.InputCodeView({
-      initialValue: @value?.periodUnit,
-      cqmValueSets: [ UnitsOfTimeValueSet.JSON ],
-      codeSystemMap: @codeSystemMap,
-      name: 'periodUnitView',
+      initialValue: @value?.periodUnit
+      cqmValueSets: [ UnitsOfTimeValueSet.JSON ]
+      codeSystemMap: @codeSystemMap
+      codeType: cqm.models.UnitsOfTime
+      name: 'periodUnitView'
       update: (view) =>
         if view.value?
-          @value.periodUnit = cqm.models.UnitsOfTime.parsePrimitive(view.value)
+          @value.periodUnit = view.value
         else
           @value.periodUnit = undefined
     })
     @dayOfWeekView = new Thorax.Views.InputCodeView({
-      initialValue: @value?.dayOfWeek,
-      cqmValueSets: [ DaysOfWeekValueSet.JSON ],
-      codeSystemMap: @codeSystemMap,
+      initialValue: @value?.dayOfWeek
+      cqmValueSets: [ DaysOfWeekValueSet.JSON ]
+      codeSystemMap: @codeSystemMap
+      codeType: cqm.models.DayOfWeek
       name: 'dayOfWeekView',
       update: (view) =>
         if view.value?
-          @value.dayOfWeek = [ cqm.models.DayOfWeek.parsePrimitive(view.value) ]
+          @value.dayOfWeek = [ view.value ]
         else
           @value.dayOfWeek = undefined
     })
@@ -150,9 +153,10 @@ class Thorax.Views.InputTimingRepeatView extends Thorax.Views.BonnieView
       cqmValueSets: [ EventTimingValueSet.JSON ],
       codeSystemMap: @codeSystemMap,
       name: 'whenView',
+      codeType: cqm.models.EventTiming
       update: (view) =>
         if view.value?
-          @value.when = [ cqm.models.EventTiming.parsePrimitive(view.value) ]
+          @value.when = [ view.value ]
         else
           @value.when = undefined
     })

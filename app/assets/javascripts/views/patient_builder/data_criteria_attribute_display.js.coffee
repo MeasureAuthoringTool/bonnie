@@ -11,12 +11,17 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
   context: ->
     # build list of non-null attributes and their string representation
     displayAttributes = []
-    DataCriteriaHelpers.getAttributes(@dataElement).forEach (attr) =>
-      value = attr.getValue(@dataElement.fhir_resource)
+    DataCriteriaHelpers.getAttributes(@dataElement).forEach (attrDef) =>
+      value = attrDef.getValue(@dataElement.fhir_resource)
       return if !value?
       codeSystemMap = @parent.measure.codeSystemMap()
-      stringValue = "#{DataCriteriaHelpers.stringifyType(value, codeSystemMap)}"
-      displayAttributes.push({ name: attr.path, title: attr.title, value: stringValue })
+      if Array.isArray(value)
+        value.forEach (elem, index) =>
+          stringValue = "#{DataCriteriaHelpers.stringifyType(elem, codeSystemMap)}"
+          displayAttributes.push({ name: attrDef.path, title: attrDef.path, value: stringValue, isArrayValue: true, index: index })
+      else
+        stringValue = "#{DataCriteriaHelpers.stringifyType(value, codeSystemMap)}"
+        displayAttributes.push({ name: attrDef.path, title: attrDef.path, value: stringValue })
 
     _(super).extend
       displayAttributes: displayAttributes
@@ -24,18 +29,13 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
   # button click handler for removing an attribute or element in a list attribute
   removeValue: (e) ->
     attributeName = $(e.target).data('attribute-name')
-#    attributeIndex = $(e.target).data('attribute-index')
+    attributeIndex = $(e.target).data('attribute-index')
 
-    attr = DataCriteriaHelpers.getAttribute(@dataElement, attributeName)
-    attr?.setValue(@dataElement.fhir_resource, null)
-
-#    # if we are removing an element in an array attribute
-#    if attributeIndex != undefined
-#      asArray = attr.getValue(@dataElement.fhir_resource)
-#      asArray.splice(attributeIndex, 1)
-#      asArray?.setValue(@dataElement.fhir_resource, asArray)
-#    else # we are removing an attribute
-#      attr?.setValue(@dataElement.fhir_resource, null)
+    attrDef = DataCriteriaHelpers.getAttribute(@dataElement, attributeName)
+    if attributeIndex != undefined
+      attrDef.getValue(@dataElement.fhir_resource).splice(attributeIndex, 1)
+    else
+      attrDef.setValue(@dataElement.fhir_resource, null)
 
     @trigger 'attributesModified', @
 

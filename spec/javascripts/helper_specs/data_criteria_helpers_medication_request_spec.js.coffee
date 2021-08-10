@@ -7,28 +7,27 @@ describe 'DataCriteriaHelpers', ->
       expect(DataCriteriaHelpers.isPrimaryCodePathSupported(dataElement)).toBe(false)
 
     it 'should support MedicationRequest.status', ->
-      DataCriteriaAsserts.assertCode('MedicationRequest', 'status', 'status', (fhirResource) -> cqm.models.MedicationRequestStatus.isMedicationRequestStatus(fhirResource.status))
+      DataCriteriaAsserts.assertCode('MedicationRequest', 'status', cqm.models.MedicationRequestStatus)
 
     it 'should support MedicationRequest.intent', ->
-      DataCriteriaAsserts.assertCode('MedicationRequest', 'intent', 'intent', (fhirResource) -> cqm.models.MedicationRequestIntent.isMedicationRequestIntent(fhirResource.intent))
+      DataCriteriaAsserts.assertCode('MedicationRequest', 'intent', cqm.models.MedicationRequestIntent)
 
     it 'should support MedicationRequest.category', ->
-      DataCriteriaAsserts.assertCodeableConcept('MedicationRequest', 'category', 'category')
+      DataCriteriaAsserts.assertCodeableConcept('MedicationRequest', 'category')
 
     it 'should support MedicationRequest.reasonCode', ->
-      DataCriteriaAsserts.assertCodeableConcept('MedicationRequest', 'reasonCode', 'reasonCode')
+      DataCriteriaAsserts.assertCodeableConcept('MedicationRequest', 'reasonCode')
 
     it 'should support MedicationRequest.statusReason', ->
-      DataCriteriaAsserts.assertCodeableConcept('MedicationRequest', 'statusReason', 'statusReason')
+      DataCriteriaAsserts.assertCodeableConcept('MedicationRequest', 'statusReason')
 
     it 'should support MedicationRequest.dispenseRequest.validityPeriod', ->
-      DataCriteriaAsserts.assertPeriod('MedicationRequest', 'dispenseRequest.validityPeriod', 'dispenseRequest.validityPeriod')
+      DataCriteriaAsserts.assertPeriod('MedicationRequest', 'dispenseRequest.validityPeriod')
 
     it 'should support MedicationRequest.dosageInstruction.doseAndRate.rate', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationRequest']
       attr = attrs.find (attr) => attr.path is 'dosageInstruction.doseAndRate.rate'
       expect(attr.path).toEqual 'dosageInstruction.doseAndRate.rate'
-      expect(attr.title).toEqual 'dosageInstruction.doseAndRate.rate'
       expect(attr.types).toEqual [ 'Ratio', 'Range', 'SimpleQuantity' ]
 
       fhirResource = new cqm.models['MedicationRequest']()
@@ -67,19 +66,16 @@ describe 'DataCriteriaHelpers', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationRequest']
       attr = attrs.find (attr) -> attr.path is 'medication'
       expect(attr.path).toEqual 'medication'
-      expect(attr.title).toEqual 'medication'
       expect(attr.types).toEqual [ 'CodeableConcept', 'Reference' ]
 
       fhirResource = new cqm.models['MedicationRequest']()
       #   CodeableConcept
-      coding = new cqm.models.Coding()
-      coding.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
-      coding.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
-      attr.setValue(fhirResource, coding)
+      codeableConcept = DataTypeHelpers.createCodeableConcept('code1', 'system1')
+      attr.setValue(fhirResource, codeableConcept)
       value = attr.getValue(fhirResource.clone())
       expect(value).toBeDefined
-      expect(value.code.value).toBe 'code1'
-      expect(value.system.value).toBe 'system1'
+      expect(value.coding[0].code.value).toBe 'code1'
+      expect(value.coding[0].system.value).toBe 'system1'
 
       #   Reference
       ref = cqm.models.Reference.parse({"reference": "random-reference"})
@@ -92,7 +88,6 @@ describe 'DataCriteriaHelpers', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationRequest']
       attr = attrs.find (attr) -> attr.path is 'dosageInstruction.timing'
       expect(attr.path).toEqual 'dosageInstruction.timing'
-      expect(attr.title).toEqual 'dosageInstruction.timing'
       expect(attr.types).toEqual [ 'Timing' ]
 
       fhirResource = new cqm.models['MedicationRequest']()

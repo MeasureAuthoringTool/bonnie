@@ -98,9 +98,9 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
     if @selectedValueType
       @selectedValue = switch @selectedValueType
         when 'Date'
-          DataCriteriaHelpers.getPrimitiveDateForCqlDate(value)
+          DataTypeHelpers.getPrimitiveDateForCqlDate(value)
         when 'DateTime'
-          DataCriteriaHelpers.getPrimitiveDateTimeForCqlDateTime(value)
+          DataTypeHelpers.getPrimitiveDateTimeForCqlDateTime(value)
         when 'Period', 'Boolean', 'Integer', 'PositiveInt', 'UnsignedInt', 'Decimal', 'Duration', 'String', 'Age', 'Range', 'Ratio', 'Quantity', 'Id', 'Canonical'
           value
         else null
