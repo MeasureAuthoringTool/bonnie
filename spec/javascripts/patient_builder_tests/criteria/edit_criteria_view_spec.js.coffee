@@ -253,3 +253,24 @@ describe 'EditCriteriaView', ->
     @conditionView.$el.find("button[data-call-method='removeCriteria']").click()
     # Check that the Encounter's diagnosis.condition was set to null
     expect(@encounterView.model.get('dataElement').fhir_resource['diagnosis'][0].condition).toBe null
+
+  it 'adds existing resource as a reference attribute', ->
+    # grab the second 4th criteria view which is an Encounter
+    encounterView = Object.values(@patientBuilder.editCriteriaCollectionView.children)[3]
+    attrEditorView = encounterView.attributeEditorView
+    attrDisplayView = encounterView.attributeDisplayView
+    # Fixture does not have Condition Reference already added
+    expect(attrDisplayView.dataElement.fhir_resource.diagnosis).toBeUndefined()
+    # select existing Condition resource
+    attrEditorView.$el.find("select[name='attribute_name']").val('diagnosis.condition').change()
+    attrEditorView.$el.find("select[name='referenceType']").val('existing_resources').change()
+    attrEditorView.$el.find("select[name='valueset']").val('hemorrhagic-stroke-6c6b').change()
+
+    expect(attrEditorView.currentAttribute.name).toBe 'diagnosis.condition'
+    expect(attrEditorView.inputView.value.type).toEqual 'Condition'
+    expect(attrEditorView.inputView.value.vs).toEqual 'hemorrhagic-stroke-6c6b'
+    # Click the attribute add button
+    encounterView.$el.find(".input-add button[data-call-method='addValue']").click()
+
+    # Check the diagnosis.condition Reference attribute set to resource with fhir id 'hemorrhagic-stroke-6c6b'
+    expect(attrDisplayView.dataElement.fhir_resource.diagnosis[0].condition.reference.value.includes('Condition/hemorrhagic-stroke-6c6b')).toBe true

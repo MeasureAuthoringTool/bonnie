@@ -366,38 +366,6 @@ describe 'PatientBuilderView', ->
 
 #     afterEach -> @patientBuilder.remove()
 
-#   describe "setting and unsetting a criteria as not performed", ->
-#     beforeEach ->
-#       @patientBuilder.appendTo 'body'
-
-#     it "does not serialize negationRationale for element that can't be negated", ->
-#       # 0th source_data_criteria is a diagnosis and therefore cannot have a negation and will not contain the negation
-#       expect(@patientBuilder.model.get('source_data_criteria').at(0).get('qdmDataElement').negationRationale).toEqual undefined
-
-#     it "serializes negationRationale to null for element that can be negated but isnt", ->
-#       # 1st source_data_criteria is an encounter that is not negated
-#       expect(@patientBuilder.model.get('source_data_criteria').at(1).get('qdmDataElement').negationRationale).toEqual null
-
-#     it "serializes negationRationale for element that is negated", ->
-#       # The 2nd source_data_criteria is an intervention with negationRationale set to 'Emergency Department Visit' code:
-#       expect(@patientBuilder.model.get('source_data_criteria').at(2).get('qdmDataElement').negationRationale.code).toEqual '4525004'
-#       expect(@patientBuilder.model.get('source_data_criteria').at(2).get('qdmDataElement').negationRationale.system).toEqual '2.16.840.1.113883.6.96'
-
-#     it "toggles negations correctly", ->
-#       @patientBuilder.$('.criteria-data').children().toggleClass('hide')
-#       expect(@patientBuilder.model.get('source_data_criteria').at(1).get('negation')).toBe false
-#       expect(@patientBuilder.model.get('source_data_criteria').at(1).get('qdmDataElement').negationRationale).toBeNull()
-#       @patientBuilder.$('input[name=negation]:first').click()
-#       @patientBuilder.$('select[name="valueset"]').val('drc-99a051cdb6879ebe3d81f5c15cecbf4157040a6e1c12c711bacb61246e5a0d61').change()
-#       # No need to select code for test, one is selected by default
-#       expect(@patientBuilder.model.get('source_data_criteria').at(1).get('negation')).toBe true
-#       expect(@patientBuilder.model.get('source_data_criteria').at(1).get('qdmDataElement').negationRationale).toExist()
-#       @patientBuilder.$('input[name=negation]:first').click()
-#       expect(@patientBuilder.model.get('source_data_criteria').at(1).get('negation')).toBe false
-#       expect(@patientBuilder.model.get('source_data_criteria').at(1).get('qdmDataElement').negationRationale).toBeNull()
-
-#     afterEach -> @patientBuilder.remove()
-
 #   describe "blurring basic fields of a criteria", ->
 #     beforeEach ->
 #       @patientBuilder.appendTo 'body'

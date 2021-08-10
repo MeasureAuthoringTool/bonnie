@@ -38,3 +38,7 @@ class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
 
   updateValue: ->
     @value = if @view.value? then DataTypeHelpers.getPrimitiveDateTimeForCqlDateTime(@view.value) else null
+
+  reset: ->
+    dateCheckbox = @view.$el.find('input[name="date_is_defined"]')
+    dateCheckbox.trigger('click') if dateCheckbox.is(':checked')
