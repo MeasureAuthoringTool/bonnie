@@ -9,8 +9,12 @@ class RecordTest < ActiveSupport::TestCase
     patients_set = File.join('cqm_patients', 'expected_values_set')
     @measure_set_id = '93F3479F-75D8-4731-9A3F-B7749D8BCD37'
     @measure = CQM::Measure.where(hqmf_set_id: @measure_set_id).first
-    user = User.create(email: 'bonnie@example.com', password: 'b0nn13p455', approved: true, admin: true)
-    collection_fixtures_with_user([patients_set], user)
+    @user = User.create(email: 'bonnie@example.com', approved: true, admin: true)
+    if @user.current_group.nil?
+      init_personal_group
+      save
+    end
+    collection_fixtures_with_user([patients_set], @user)
 
     @composite_measure = CQM::Measure.where(hqmf_set_id: '244B4F52-C9CA-45AA-8BDB-2F005DA05BFC').first
   end
@@ -18,6 +22,7 @@ class RecordTest < ActiveSupport::TestCase
   # Runs the update_expected_value_structure! method on the patient and collects the changes it yields.
   def collect_expected_changes_and_verify_block_no_block(patient, measure)
     patient_clone = Marshal.load(Marshal.dump(patient))
+    patient_clone.group = @user.current_group
     changes = []
     patient.update_expected_value_structure!(measure) do |change_type, change_reason, expected_value_set|
       changes << {
@@ -96,7 +101,7 @@ class RecordTest < ActiveSupport::TestCase
                            'IPP' => 1, 'DENOM' => 1, 'DENEX' => 1, 'NUMER' => 0, 'DENEXCEP' => 0}
     assert_equal expected_value_set, changes[0][:expected_value_set]
 
-    # check final expecteds structure
+    # check final expected structure
     expected_value_sets = [{ 'measure_id' => @measure_set_id, 'population_index' => 0,
                              'IPP' => 1, 'DENOM' => 1, 'DENEX' => 1, 'NUMER' => 0, 'DENEXCEP' => 0},
                            { 'measure_id' => '4DF3479F-82F4-183B-9254-F2492BA43523', 'population_index' => 0,

@@ -19,6 +19,6 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal [@user.email], email.to
     assert_equal 'Welcome to Bonnie', email.subject
     # Activation email is sent from our "non hard coded" address
-    assert_equal [APP_CONFIG['bonnie_email']], email.from
+    assert_equal [APP_CONFIG['bonnie_from_email']], email.from
   end
 end

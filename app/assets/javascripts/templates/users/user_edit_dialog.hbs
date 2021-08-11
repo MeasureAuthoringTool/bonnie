@@ -1,0 +1,47 @@
+<div class="modal fade user-group-edit-dialog" id="user-edit-dialog" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog"  role="dialog" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="userEditModalTitle">Edit User</h1>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="email">Email address:</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+          <label for="harp_id">HARP ID:</label>
+          <input type="text" class="form-control" id="harp_id" name="harp_id" placeholder="Enter HARP ID">
+          <label for="approved" class="sr-only">approved</label>
+          <input type="checkbox" class="form-check-input" id="approved" name="approved" hidden>
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="admin" name="admin">
+          <label class="form-check-label" for="admin">Admin?</label>
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="portfolio" name="portfolio">
+          <label class="form-check-label" for="portfolio">Portfolio?</label>
+        </div>
+        <div class="form-group">
+          {{view displayUserGroupsView}}
+        </div>
+        <div class="form-group">
+          <label for="groupName">Add a new group to the user</label>
+          <div class="add-panel">
+            <input type="text" class="form-control" id="groupName" name="groupName"
+                placeholder="Group Name" title="Enter a Group Name">
+            <span id="error-message" class="error-message"></span>
+          </div>
+          <div>
+            {{#button "addGroup" class="btn btn-primary" title="Add Group"}}Add{{/button}}
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="saveUserDialogOK" class="btn btn-primary" title="OK">OK</button>
+        <button type="button" id="saveUserDialogCancel" class="btn btn-default" title="Cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

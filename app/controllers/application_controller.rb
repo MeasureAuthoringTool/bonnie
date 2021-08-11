@@ -18,8 +18,20 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # hook to make sure user logins to private group always
+  def after_sign_in_path_for(resource)
+    if resource.is_a?(User)
+      resource.current_group = resource.find_personal_group
+      resource.save
+      # preserve flash messages on redirection
+      # used for harp account linking
+      flash.keep
+    end
+    super
+  end
+
   def after_sign_out_path_for(resource)
-    "#{(respond_to?(:root_path) ? root_path : "/")}users/sign_in"
+    "#{(respond_to?(:root_path) ? root_path : "/")}users/saml/sign_in"
   end
 
   def page_not_found
@@ -48,7 +60,12 @@ class ApplicationController < ActionController::Base
 
   def log_additional_data
     request.env["exception_notifier.exception_data"] = {
-      :current_user => current_user
+      #:current_user => current_user
     }
+  end
+
+  def get_count_by_id(group_objects, id)
+    count_obj = group_objects.detect { |group_object| group_object['_id'] == id.to_s }
+    count_obj ? count_obj['count'] : 0
   end
 end
