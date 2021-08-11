@@ -9,7 +9,7 @@ Bonnie::Application.routes.draw do
   post '/oauth/authorize/change_user' => 'doorkeeper_override/authorizations#change_user'
 
   apipie
-  devise_for :users,:controllers => {:registrations => "registrations"}
+  devise_for :users, :controllers => { :registrations => "registrations" }
 
   devise_scope :user do
     get "/needs_approval" => "registrations#needs_approval"
@@ -26,9 +26,14 @@ Bonnie::Application.routes.draw do
   get '404', :to => 'application#page_not_found'
   get '500', :to => 'application#server_error'
 
+  # switch user group route
+  get '/user/switch_group/:group_id', to: 'home#switch_group'
+
   # The following route is for the reporting of front end (javascript) errors
   # to the backend.
   post '/application/client_error' => 'application#client_error'
+
+  get 'user/registered_not_active', to: 'home#registered_not_active'
 
   root to: 'home#index'
 
@@ -75,6 +80,10 @@ Bonnie::Application.routes.draw do
         post 'email_active'
         post 'email_all'
         post 'email_single'
+        get 'user_by_email'
+        get 'users_by_group'
+        post 'update_group_and_users'
+        post 'update_groups_to_a_user'
       end
       member do
         post 'approve'
@@ -82,6 +91,13 @@ Bonnie::Application.routes.draw do
         get 'patients'
         get 'measures'
         post 'log_in_as'
+      end
+    end
+    resources :groups do
+      collection do
+        post 'create_group'
+        post 'get_groups_by_group_ids'
+        get 'find_group_by_name'
       end
     end
   end

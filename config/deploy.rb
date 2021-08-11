@@ -1,5 +1,4 @@
 # config valid only for Capistrano 3.1
-lock '3.14.1'
 
 set :application, 'bonnie'
 set :repo_url, 'https://github.com/MeasureAuthoringTool/bonnie.git'

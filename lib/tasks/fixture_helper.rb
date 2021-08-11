@@ -19,9 +19,7 @@ def load_measure_fixtures_from_folder(fixture_path, user = nil)
     mongo_collection_name = sub_folder.basename.to_s
     sub_folder.children.select { |f| f.extname == '.json' }.each do |fixture_file|
       loaded_ids = load_fixture_file(fixture_file, mongo_collection_name, user)
-      if mongo_collection_name == 'cqm_measure_packages'
-        measure_package_id = loaded_ids[0]
-      elsif mongo_collection_name == 'cqm_measures'
+      if mongo_collection_name == 'cqm_measures'
         measure_id = loaded_ids[0]
       end
     end
@@ -31,7 +29,7 @@ end
 def load_fhir_measure_from_json_fixture(fixture_path, user)
   measure_hash = JSON.parse File.read(File.join(Rails.root, fixture_path))
   measure = CQM::Measure.transform_json(measure_hash)
-  measure.user = user
+  measure.group = user
   measure.save!
   measure
 end
@@ -39,7 +37,7 @@ end
 def load_patient_from_json_fixture(fixture_path, user)
   patient = JSON.parse File.read(File.join(Rails.root, fixture_path))
   cqm_patient = CQM::Patient.transform_json(patient)
-  cqm_patient.user = user
+  cqm_patient.group = user.current_group
   cqm_patient.save!
   cqm_patient
 end
@@ -65,7 +63,7 @@ def load_fixture_file(file, collection_name, user = nil)
     convert_times(fj)
     convert_mongoid_ids(fj)
     fix_binary_data(fj)
-    fj["user_id"] = user.id if user.present?
+    fj["group_id"] = user.current_group.id if user.present?
     begin
       Mongoid.default_client[collection_name].insert_one(fj)
       loaded_ids << fj["_id"]
@@ -130,21 +128,21 @@ end
 
 def associate_user_with_measures(user,measures)
   measures.each do |m|
-    m.user = user
+    m.group = user.current_group
     m.save
   end
 end
 
 def associate_user_with_patients(user,patients)
   patients.each do |p|
-    p.user = user
+    p.group = user.current_group
     p.save
   end
 end
 
 def associate_user_with_value_sets(user,value_sets)
   value_sets.each do |vs|
-    vs.user = user
+    vs.group = user.current_group
     vs.save
   end
 end
