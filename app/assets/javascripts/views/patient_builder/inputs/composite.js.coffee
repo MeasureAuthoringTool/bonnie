@@ -61,6 +61,7 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
       when 'Ratio' then new Thorax.Views.InputRatioView({ name: name })
       when 'Time' then new Thorax.Views.InputTimeView({ name: name, allowNull: false })
       when 'String' then new Thorax.Views.InputStringView({ placeholder: attributeName, name: name, allowNull: false })
+      when 'SampledData' then new Thorax.Views.InputSampledDataView({ name: name })
       when 'Any' then new Thorax.Views.InputAnyView({
         attributeName: name,
         name: name,
