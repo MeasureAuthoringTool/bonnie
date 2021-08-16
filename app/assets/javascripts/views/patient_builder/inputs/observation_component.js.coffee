@@ -8,10 +8,10 @@ class Thorax.Views.InputObservationComponentView extends Thorax.Views.BonnieView
   #   defaultYear   - required
   initialize: ->
     @value = null
-    @observationComponentCodeView = new Thorax.Views.InputCodeableConceptView({ name: 'code', cqmValueSets: [LOINCCodesValueSet.JSON], codeSystemMap: @codeSystemMap })
+    @observationComponentCodeView = new Thorax.Views.InputCodeableConceptView({ subview_name: 'code', cqmValueSets: [LOINCCodesValueSet.JSON], codeSystemMap: @codeSystemMap })
     @observationComponentValueView = new Thorax.Views.InputAnyView({
       attributeName: 'value',
-      name: 'value',
+      subview_name: 'value',
       defaultYear: @defaultYear,
       types: ['Quantity', 'CodeableConcept', 'String', 'Boolean', 'Integer',
         'Range', 'Ratio', 'SampledData','Time', 'DateTime', 'Period']
@@ -28,9 +28,9 @@ class Thorax.Views.InputObservationComponentView extends Thorax.Views.BonnieView
 
   update: (view) ->
     if view.value?
-      @value[view.name] = view.value
+      @value[view.subview_name] = view.value
     else
-      @value[view.name] = undefined
+      @value[view.subview_name] = undefined
 
   updateValueFromSubviews: ->
     @value = new cqm.models.ObservationComponent() unless @value?

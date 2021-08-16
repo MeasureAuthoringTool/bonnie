@@ -39,8 +39,8 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
     if type != ''
       @inputView?.remove()
       @inputView = @_createInputViewForType(type, @attributeName)
-      @value = @inputView.value
-      @listenTo(@inputView, 'valueChanged', @handleInputUpdate)
+      @value = @inputView?.value
+      @listenTo(@inputView, 'valueChanged', @handleInputUpdate) if @inputView?
       @trigger 'valueChanged', @
     else
       @value = null
@@ -52,7 +52,7 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
     @render()
 
   handleInputUpdate: ->
-    if @inputView.hasValidValue()
+    if @inputView?.hasValidValue()
       @value = @inputView.value
     else
       @value = null
@@ -77,4 +77,5 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
       when 'Ratio' then new Thorax.Views.InputRatioView()
       when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
       when 'String' then new Thorax.Views.InputStringView({ allowNull: false })
+      when 'SampledData' then new Thorax.Views.InputSampledDataView({ })
       else null

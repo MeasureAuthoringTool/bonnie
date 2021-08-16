@@ -206,7 +206,10 @@
     if type.code?
       attrs.push("code: #{@stringifyType(type.code, codeSystemMap)}")
     if type.value?
-      attrs.push("value: #{@stringifyType(type.value, codeSystemMap)}")
+      if cqm.models.SampledData.isSampledData(type.value)
+        attrs.push("value: [#{@stringifyType(type.value, codeSystemMap)}]")
+      else
+        attrs.push("value: #{@stringifyType(type.value, codeSystemMap)}")
     return attrs.join(" | ")
 
   @stringifyDosage: (type, codeSystemMap) ->
