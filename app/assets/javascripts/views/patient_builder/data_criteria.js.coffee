@@ -127,6 +127,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     if @model.canHaveNegation()
       @negation = NegationHelpers.isResourceNegated(@model.get('dataElement').fhir_resource)
       @negationRationaleView = @negationView()
+      @listenTo @negationRationaleView, 'valueChanged', @triggerMaterialize
 
     @model.on 'highlight', (type) =>
       @$('.criteria-data').addClass(type)
