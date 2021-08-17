@@ -44,6 +44,7 @@ class Thorax.Views.CommunicationNegationView extends Thorax.Views.BonnieView
     @reasonCode.resetCodeSelection()
     @resource.modifierExtension = @resource.modifierExtension?.filter(
       (extension) -> extension.url?.value != NegationHelpers.QICORE_NOT_DONE_URL)
+    @trigger 'valueChanged', this
 
   setNegation: ->
     if @resource.modifierExtension
@@ -64,3 +65,4 @@ class Thorax.Views.CommunicationNegationView extends Thorax.Views.BonnieView
       when 'reason code'
         NegationHelpers.setResonCodeExtension(view, @resource)
       else undefined
+    @trigger 'valueChanged', this
