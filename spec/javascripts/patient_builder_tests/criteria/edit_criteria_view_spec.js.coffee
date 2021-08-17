@@ -70,9 +70,9 @@ describe 'EditCriteriaView', ->
     # uncheck datetime checkbox
     authoredOnDateTimeView.$el.find("input[name='date_is_defined']").prop('checked', false).change()
     # check that it changed on the data element
-    expect(@serviceRequestView.model.get('dataElement').fhir_resource['authoredOn'].value).toBe(undefined)
+    expect(@serviceRequestView.model.get('dataElement').fhir_resource['authoredOn']).toBe(null)
     # check that it was changed using route through patientBuilder.model
-    expect(@patientBuilder.model.get('cqmPatient').data_elements[0].fhir_resource['authoredOn'].value).toBe(undefined)
+    expect(@patientBuilder.model.get('cqmPatient').data_elements[0].fhir_resource['authoredOn']).toBe(null)
 
   it 'should update Encounter.period when both start and end date is updated', ->
     periodView = @encounterView.timingAttributeViews[0]
