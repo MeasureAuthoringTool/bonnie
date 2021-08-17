@@ -37,5 +37,5 @@ class Thorax.Views.InputInstantView extends Thorax.Views.BonnieView
     @trigger 'valueChanged', this
 
   updateValue: ->
-    @value = if @view.value? then DataTypeHelpers.getPrimitiveDateTimeForCqlDateTime(@view.value) else null
+    @value = if @view.value? then DataTypeHelpers.getPrimitiveInstantForCqlDateTime(@view.value) else null
 

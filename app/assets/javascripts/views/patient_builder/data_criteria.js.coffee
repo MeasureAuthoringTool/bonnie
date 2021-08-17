@@ -92,7 +92,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
           @listenTo dateTimeView, 'valueChanged', @updateDateInputChange
         when 'date'
           date = DataTypeHelpers.getCQLDateTimeFromString(initialValue?.value)
-          dateView = new Thorax.Views.InputDateView(
+          dateView = new Thorax.Views.InputCqlDateView(
             initialValue: date,
             attributeName: timingAttr.name, attributeTitle: timingAttr.title,
             showLabel: true, defaultYear: @measure.getMeasurePeriodYear())

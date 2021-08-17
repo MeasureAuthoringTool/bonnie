@@ -1,11 +1,12 @@
 describe 'InputView', ->
 
-  describe 'InputDateView', ->
+  describe 'InputCqlDateView', ->
 
     describe 'initalization', ->
 
       it 'can start with a fully filled date', ->
-        view = new Thorax.Views.InputDateView(initialValue: cqm.models.PrimitiveDate.parsePrimitive('2020-02-23'))
+        date = new cqm.models.CQL.Date(2020, 2, 23)
+        view = new Thorax.Views.InputCqlDateView(initialValue: date)
         view.render()
 
         expect(view.hasValidValue()).toBe true
@@ -15,7 +16,7 @@ describe 'InputView', ->
         view.remove()
 
       it 'can default to null date if none is provided', ->
-        view = new Thorax.Views.InputDateView()
+        view = new Thorax.Views.InputCqlDateView()
         view.render()
 
         expect(view.$el.find("input[name='date_is_defined']").prop('checked')).toBe false
@@ -27,7 +28,9 @@ describe 'InputView', ->
     describe 'handles changes', ->
 
       beforeEach ->
-        @view = new Thorax.Views.InputDateView(initialValue: cqm.models.PrimitiveDate.parsePrimitive('2020-02-23'))
+        date = new cqm.models.CQL.Date(2020, 2, 23)
+
+        @view = new Thorax.Views.InputCqlDateView(initialValue: date)
         @view.render()
 
       afterEach ->
@@ -40,7 +43,8 @@ describe 'InputView', ->
         @view.$el.find("input[name='date']").val('02/15/2020').datepicker('update')
 
         expect(@view.trigger).toHaveBeenCalledWith('valueChanged', @view)
-        expect(@view.value.value).toEqual('2020-02-15')
+        newDate = new cqm.models.CQL.Date(2020, 2, 15)
+        expect(@view.value).toEqual(newDate)
 
       it 'triggers valueChange when end null check boxes checked', ->
         spyOn(@view, 'trigger')
@@ -62,7 +66,7 @@ describe 'InputView', ->
         # get today in MP year and check the default is today 8:00-8:15
         today = new Date()
         newDate = new cqm.models.CQL.Date(2020, today.getMonth() + 1, today.getDate())
-        expect(@view.value.value).toEqual(DataTypeHelpers.getPrimitiveDateForCqlDate(newDate).value)
+        expect(@view.value).toEqual(newDate)
 
         # check fields
         expect(@view.$el.find("input[name='date_is_defined']").prop('checked')).toBe true
@@ -72,7 +76,8 @@ describe 'InputView', ->
     describe 'createDefault', ->
 
       it 'defaults to 2020 when the defaultYear is not provided', ->
-        view = new Thorax.Views.InputDateView(initialValue: cqm.models.PrimitiveDate.parsePrimitive('2020-02-23'))
+        date = new cqm.models.CQL.Date(2020, 2, 23)
+        view = new Thorax.Views.InputCqlDateView(initialValue: date)
 
         # get today in 2020 and check the default is today 8:00-8:15
         today = new Date()
@@ -80,7 +85,8 @@ describe 'InputView', ->
         expect(view.createDefault()).toEqual(newDate)
 
       it 'uses defaultYear when provided', ->
-        view = new Thorax.Views.InputDateView(initialValue: cqm.models.PrimitiveDate.parsePrimitive('2020-02-23'), defaultYear: 2019)
+        date = new cqm.models.CQL.Date(2020, 2, 23)
+        view = new Thorax.Views.InputCqlDateView(initialValue: date, defaultYear: 2019)
 
         # get today in 2019 and check the default is today 8:00-8:15
         today = new Date()
