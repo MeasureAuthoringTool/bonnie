@@ -49,12 +49,15 @@
     @createPeriodFromInterval(interval)
 
   @getPrimitiveDateTimeForCqlDateTime: (dateTime) ->
+    return null unless dateTime?
     cqm.models.PrimitiveDateTime.parsePrimitive dateTime?.toString()
 
   @getPrimitiveInstantForCqlDateTime: (dateTime) ->
+    return null unless dateTime?
     cqm.models.PrimitiveInstant.parsePrimitive dateTime?.toString()
 
   @getPrimitiveDateTimeForStringDateTime: (dateTimeStr) ->
+    return null unless dateTimeStr?
     cqm.models.PrimitiveDateTime.parsePrimitive dateTimeStr
 
   @getPrimitiveDateTimeForStringDate: (dateStr) ->
@@ -63,6 +66,7 @@
     cqm.models.PrimitiveDateTime.parsePrimitive cqlDateTime.toString()
 
   @getPrimitiveDateForCqlDate: (date) ->
+    return null unless date?
     cqm.models.PrimitiveDate.parsePrimitive date?.toString()
 
   @getPrimitiveDateForStringDateTime: (dateTimeStr) ->

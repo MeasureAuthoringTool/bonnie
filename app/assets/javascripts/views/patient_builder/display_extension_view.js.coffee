@@ -18,7 +18,8 @@ class Thorax.Views.DisplayExtensionsView extends Thorax.Views.BonnieView
       if !extensionsUrls.hasOwnProperty(url)
         extensionsUrls[url] = extensions.length
         extensions.push({ url: extension.url?.value, values: [] })
-      extensions[extensionsUrls[url]].values.push({ url: url, value: DataCriteriaHelpers.stringifyType(extension.value), index: originalIndex })
+      codeSystemMap = @parent.measure.codeSystemMap()
+      extensions[extensionsUrls[url]].values.push({ url: url, value: DataCriteriaHelpers.stringifyType(extension.value, codeSystemMap), index: originalIndex })
 
     _(super).extend
       extensions: extensions
