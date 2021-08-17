@@ -86,10 +86,10 @@ class Thorax.Views.InputDateView extends Thorax.Views.BonnieView
       if !@cqlDateValue.equals(newDate)
         @cqlDateValue = newDate
         @value = DataTypeHelpers.getPrimitiveDateForCqlDate(newDate)
-        @trigger 'valueChanged', @
+        @trigger 'valueChanged', this
 
     # if either before xor after was null trigger change
     else
       @cqlDateValue = newDate
       @value = DataTypeHelpers.getPrimitiveDateForCqlDate(newDate)
-      @trigger 'valueChanged', @
+      @trigger 'valueChanged', this
