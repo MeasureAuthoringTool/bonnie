@@ -64,4 +64,4 @@ production:
   # PROD
   # https://docs.google.com/spreadsheets/d/1RJ2LV5yrTuL0wpQG2Op9lXIf6pP3ExCBF_XC_iTgo8k/edit#gid=0
   # https://spreadsheets.google.com/feeds/list/1RJ2LV5yrTuL0wpQG2Op9lXIf6pP3ExCBF_XC_iTgo8k/od6/public/values?alt=json
-  spreadsheet_location: 'https://spreadsheets.google.com/feeds/list/1RJ2LV5yrTuL0wpQG2Op9lXIf6pP3ExCBF_XC_iTgo8k/od6/public/values?alt=json'
+  spreadsheet_location: <%= ENV["SPREADSHEET_LOCATION"] %> 
