@@ -5,11 +5,9 @@ describe 'DataCriteriaHelpers', ->
       procedureAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Procedure']
       status = procedureAttrs[0]
       expect(status.path).toEqual 'status'
-      expect(status.title).toEqual 'status'
       expect(status.types).toEqual ['Code']
       performed = procedureAttrs[1]
       expect(performed.path).toEqual 'performed'
-      expect(performed.title).toEqual 'performed'
       expect(performed.types).toEqual ['DateTime', 'Period']
 
     it 'should set and get values for procedure status', ->
@@ -69,10 +67,10 @@ describe 'DataCriteriaHelpers', ->
       expect(performedValue.end.value).toEqual period.end.value
 
     it 'should support Procedure.category', ->
-      DataCriteriaAsserts.assertCodeableConcept('Procedure', 'category', 'category')
+      DataCriteriaAsserts.assertCodeableConcept('Procedure', 'category')
 
     it 'should support Procedure.statusReason', ->
-      DataCriteriaAsserts.assertCodeableConcept('Procedure', 'statusReason', 'statusReason')
+      DataCriteriaAsserts.assertCodeableConcept('Procedure', 'statusReason')
 
     it 'should support Procedure.usedCode', ->
-      DataCriteriaAsserts.assertCodeableConcept('Procedure', 'usedCode', 'usedCode')
+      DataCriteriaAsserts.assertCodeableConcept('Procedure', 'usedCode')

@@ -1,5 +1,5 @@
 # Input view whichs stores its value state as Coding.
-# It can be used as an editor for Coding, CodeableConcept if accessors are adjusted accordingly.
+# It can be used as an editor for Coding.
 class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
   # Same template used by InputCodingView & InputCodeView
   template: JST['patient_builder/inputs/code']

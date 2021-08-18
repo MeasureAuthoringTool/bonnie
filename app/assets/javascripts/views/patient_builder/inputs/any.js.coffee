@@ -3,8 +3,9 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
   template: JST['patient_builder/inputs/any']
 
   # Expected options to be passed in using the constructor options hash:
-  #   attributeName - The name of the attribute. Required
+  #   attributeName - The name of the attribute. Required for Coding and CodeableConcept.
   #   cqmValueSets - List of CQM Value sets. Required.
+  #   codeSystemMap - codeSystemMap, Required for Coding and CodeableConcept.
   #   defaultYear - Default year to use for Date/DateTime input views.
   #   initialValue - optional
   #   types - Optional - list of supported/displayed types. Must be a sub-set of the types from _createInputViewForType
@@ -38,8 +39,8 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
     if type != ''
       @inputView?.remove()
       @inputView = @_createInputViewForType(type, @attributeName)
-      @value = @inputView.value
-      @listenTo(@inputView, 'valueChanged', @handleInputUpdate)
+      @value = @inputView?.value
+      @listenTo(@inputView, 'valueChanged', @handleInputUpdate) if @inputView?
       @trigger 'valueChanged', @
     else
       @value = null
@@ -51,7 +52,7 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
     @render()
 
   handleInputUpdate: ->
-    if @inputView.hasValidValue()
+    if @inputView?.hasValidValue()
       @value = @inputView.value
     else
       @value = null
@@ -60,8 +61,10 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
   _createInputViewForType: (type, placeholderText) ->
     return switch type
       when 'Boolean' then new Thorax.Views.InputBooleanView()
-      when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap })
-      when 'CodeableConcept' then new Thorax.Views.InputCodingView({ cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap  })
+      # TODO Pass specific code type
+      when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap, codeType: cqm.models.PrimitiveCode })
+      when 'Coding' then new Thorax.Views.InputCodingView({ cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap  })
+      when 'CodeableConcept' then new Thorax.Views.InputCodeableConceptView({ cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap  })
       when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @defaultYear })
       when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @defaultYear })
       when 'Instant' then new Thorax.Views.InputInstantView({ allowNull: false, defaultYear: @defaultYear })
@@ -73,4 +76,6 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
       when 'Period' then new Thorax.Views.InputPeriodView({ defaultYear: @defaultYear })
       when 'Ratio' then new Thorax.Views.InputRatioView()
       when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
+      when 'String' then new Thorax.Views.InputStringView({ allowNull: false })
+      when 'SampledData' then new Thorax.Views.InputSampledDataView({ })
       else null

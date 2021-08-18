@@ -7,8 +7,6 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
   initialize: ->
     @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
     if !@isPeriodType() then @set('end_date', undefined)
-    # TODO negation
-#    @set('negation', @get('dataElement').negationRationale?)
 
   clone: ->
     # Clone the DataElement
@@ -58,9 +56,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     icons[element_category] || 'question'
 
   canHaveNegation: ->
-#    TODO FHIR negation
-#    @get('dataElement').schema.path('negationRationale')?
-    false
+    NegationHelpers.canHaveNegation(@get('fhir_resource').resourceType)
 
   # determines if a data criteria has a time period associated with it: it potentially has both
   # a start and end date.
@@ -103,70 +99,6 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
         type: timingAttributes[attribute]
       )
     return primaryTimingAttributes
-
-  # Mapping of attribute name to human friendly titles. This is globally acessible and used by view classes for labels.
-  @ATTRIBUTE_TITLE_MAP:
-    'admissionSource': 'Admission Source'
-    'anatomicalLocationSite': 'Anatomical Location Site'
-    'category': 'Category'
-    'cause': 'Cause'
-    'birthDatetime': 'Birth DateTime'
-    'code': 'Code'
-    'components': 'Components'
-    'expiredDatetime': 'Expiration DateTime'
-    'daysSupplied': 'Days Supplied'
-    'diagnoses': 'Diagnoses'
-    'dischargeDisposition': 'Discharge Disposition'
-    'dispenser': 'Dispenser'
-    'dosage': 'Dosage'
-    'facilityLocations': 'Facility Locations'
-    'facilityLocation': 'Facility Location'
-    'frequency': 'Frequency'
-    'identifier': 'Identifier'
-    'incisionDatetime': 'Incision DateTime'
-    'lengthOfStay': 'Length of Stay'
-    'locationPeriod': 'Location Period'
-    'medium': 'Medium'
-    'method': 'Method'
-    'namingSystem': 'Naming System'
-    'negationRationale': 'Negation Rationale'
-    'ordinality': 'Ordinality'
-    'participant': 'Participant'
-    'performer': 'Performer'
-    'prescriber': 'Prescriber'
-    'presentOnAdmissionIndicator': 'Present on Admission Indicator'
-    'principalDiagnosis': 'Principal Diagnosis'
-    'priority': 'Priority'
-    'qualification': 'Qualification'
-    'rank': 'Rank'
-    'reason': 'Reason'
-    'receivedDatetime': 'Received DateTime'
-    'recipient': 'Recipient'
-    'referenceRange': 'Reference Range'
-    'refills': 'Refills'
-    'relatedTo': 'Related To'
-    'relationship': 'Relationship'
-    'result': 'Result'
-    'resultDatetime': 'Result DateTime'
-    'requester': 'Requester'
-    'recorder': 'Recorder'
-    'role': 'Role'
-    'route': 'Route'
-    'sender': 'Sender'
-    'sentDatetime': 'Sent DateTime'
-    'setting': 'Setting'
-    'severity': 'Severity'
-    'statusDate': 'Status Date'
-    'specialty': 'Specialty'
-    'status': 'Status'
-    'supply': 'Supply'
-    'targetOutcome': 'Target Outcome'
-    'type': 'Type'
-    'value': 'Value'
-
-  # return the human friendly title for an attribute, if it exists, otherwise return the name.
-  getAttributeTitle: (attributeName) ->
-    Thorax.Models.SourceDataCriteria.ATTRIBUTE_TITLE_MAP[attributeName] || attributeName
 
 Thorax.Models.SourceDataCriteria.generateCriteriaId = ->
     chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"

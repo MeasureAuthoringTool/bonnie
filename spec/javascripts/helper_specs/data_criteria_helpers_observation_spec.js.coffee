@@ -4,20 +4,15 @@ describe 'DataCriteriaHelpers', ->
     beforeEach ->
       @observationAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Observation']
 
-
     it 'should support Observation.status', ->
-      DataCriteriaAsserts.assertCode('Observation', 'status', 'status', (fhirResource) -> cqm.models.ObservationStatus.isObservationStatus(fhirResource.status))
+      DataCriteriaAsserts.assertCode('Observation', 'status', cqm.models.ObservationStatus)
 
     it 'should support Observation.category', ->
-      DataCriteriaAsserts.assertCodeableConcept('Observation', 'category', 'category')
-
-    it 'should support Observation.component.code', ->
-      DataCriteriaAsserts.assertCodeableConcept('Observation', 'component.code', 'component.code')
+      DataCriteriaAsserts.assertCodeableConcept('Observation', 'category')
 
     it 'should support Observation.effective', ->
       attr = @observationAttrs.find (attr) -> attr.path is 'effective'
       expect(attr.path).toEqual 'effective'
-      expect(attr.title).toEqual 'effective'
       expect(attr.types).toEqual ['DateTime', 'Period', 'Timing', 'Instant']
 
       # set DateTime/Timing
@@ -29,60 +24,57 @@ describe 'DataCriteriaHelpers', ->
     it 'should support Observation.value', ->
       value = @observationAttrs.find (attr) -> attr.path is 'value'
       expect(value.path).toEqual 'value'
-      expect(value.title).toEqual 'value'
       expect(value.types).toEqual ['Boolean', 'CodeableConcept', 'DateTime', 'Integer', 'Period',
         'Quantity', 'Range', 'Ratio', 'SampledData', 'String', 'Time']
 
       # set Boolean value
-      valueBoolean = cqm.models.PrimitiveBoolean.parsePrimitive(true)
-      fhirResource = new cqm.models.Observation()
-      value.setValue(fhirResource, valueBoolean)
-      expect(fhirResource.value.value).toEqual valueBoolean.value
-      attrValue = value.getValue(fhirResource)
-      expect(attrValue.value).toEqual valueBoolean.value
+      DataCriteriaAsserts.assertBoolean('Observation', 'value')
 
       # set DateTime value
-      valueDateTime = cqm.models.PrimitiveDateTime.parsePrimitive('2012-02-02T08:45:00.000+00:00')
-      value.setValue(fhirResource, valueDateTime)
-      expect(fhirResource.value.value).toEqual '2012-02-02T08:45:00.000+00:00'
+      DataCriteriaAsserts.assertDateTime('Observation', 'value')
 
       # set CodeableConcept value
-      coding = cqm.models.Coding.parse({system: 'SNOMEDCT', code:'123456', version: 'version'})
-      value.setValue(fhirResource, coding)
-      attrValue = value.getValue(fhirResource)
-      expect(attrValue.system.value).toEqual coding.system.value
-      expect(attrValue.code.value).toEqual coding.code.value
-      expect(attrValue.version.value).toEqual coding.version.value
+      DataCriteriaAsserts.assertCodeableConcept('Observation', 'value')
 
-    it 'should support Observation.component.value', ->
-      attribute = @observationAttrs.find (attr) -> attr.path is 'component.value'
-      expect(attribute.path).toEqual 'component.value'
-      expect(attribute.title).toEqual 'component.value'
-      expect(attribute.types).toEqual ['Quantity', 'CodeableConcept', 'String', 'Boolean', 'Integer',
-        'Range', 'Ratio', 'SampledData','Time', 'DateTime', 'Period']
+    it 'should support Observation.component', ->
+      fhirResource = new cqm.models.Observation()
+      attrDef = @observationAttrs.find (attr) -> attr.path is 'component'
+      expect(attrDef.path).toEqual 'component'
+      expect(attrDef.isArray).toEqual true
+      expect(attrDef.types.length).toBe 1
+      expect(attrDef.types[0]).toBe 'ObservationComponent'
+
+      # String
+      componentToSet = new cqm.models.ObservationComponent()
+      componentToSet.value = cqm.models.PrimitiveString.parsePrimitive('CA978112CA1BBDCAFAC231B39A23DC4DA786EFF8147C4E72B9807785AFEE48BB')
+      attrDef.setValue(fhirResource, [componentToSet])
+      attrValue = attrDef.getValue(fhirResource.clone())
+      expect(attrValue[0].value.value).toEqual 'CA978112CA1BBDCAFAC231B39A23DC4DA786EFF8147C4E72B9807785AFEE48BB'
 
       #set Boolean value
-      valueBoolean = cqm.models.PrimitiveBoolean.parsePrimitive(true)
-      fhirResource = new cqm.models.Observation()
-      attribute.setValue(fhirResource, valueBoolean)
-      attrValue = attribute.getValue(fhirResource)
-      expect(attrValue.value).toEqual valueBoolean.value
+      componentToSet = new cqm.models.ObservationComponent()
+      componentToSet.value = cqm.models.PrimitiveBoolean.parsePrimitive(true)
+      attrDef.setValue(fhirResource, [componentToSet])
+      attrValue = attrDef.getValue(fhirResource.clone())
+      expect(attrValue[0].value.value).toEqual true
 
       # set DateTime value
-      valueDateTime = cqm.models.PrimitiveDateTime.parsePrimitive('2012-02-02T08:45:00.000+00:00')
-      attribute.setValue(fhirResource, valueDateTime)
-      attrValue = attribute.getValue(fhirResource)
-      expect(attrValue.value).toEqual '2012-02-02T08:45:00.000+00:00'
+      componentToSet = new cqm.models.ObservationComponent()
+      componentToSet.value = cqm.models.PrimitiveDateTime.parsePrimitive('2012-02-02T08:45:00.000+00:00')
+      attrDef.setValue(fhirResource, [componentToSet])
+      attrValue = attrDef.getValue(fhirResource)
+      expect(attrValue[0].value.value).toEqual '2012-02-02T08:45:00.000+00:00'
 
       # set CodeableConcept value
-      coding = cqm.models.Coding.parse({system: 'SNOMEDCT', code:'123456', version: 'version'})
-      attribute.setValue(fhirResource, coding)
-      attrValue = attribute.getValue(fhirResource)
-      expect(attrValue.system.value).toEqual coding.system.value
-      expect(attrValue.code.value).toEqual coding.code.value
-      expect(attrValue.version.value).toEqual coding.version.value
+      componentToSet = new cqm.models.ObservationComponent()
+      componentToSet.value = DataTypeHelpers.createCodeableConcept('123456', 'SNOMEDCT')
+      attrDef.setValue(fhirResource, [componentToSet])
+      attrValue = attrDef.getValue(fhirResource.clone())
+      expect(attrValue[0].value.coding[0].system.value).toEqual 'SNOMEDCT'
+      expect(attrValue[0].value.coding[0].code.value).toEqual '123456'
 
       # set SampledData value
+      componentToSet = new cqm.models.ObservationComponent()
       valueSampledData = new cqm.models.SampledData()
       valueSampledData.origin = new cqm.models.SimpleQuantity()
       valueSampledData.origin.value = cqm.models.PrimitiveDecimal.parsePrimitive(2)
@@ -102,20 +94,28 @@ describe 'DataCriteriaHelpers', ->
       valueSampledData.data = new cqm.models.PrimitiveString()
       valueSampledData.data = cqm.models.PrimitiveString.parsePrimitive("E")
 
-      attribute.setValue(fhirResource, valueSampledData)
-      attrValue = attribute.getValue(fhirResource)
-      expect(attrValue.origin).toEqual valueSampledData.origin
-      expect(attrValue.period).toEqual valueSampledData.period
-      expect(attrValue.dimensions).toEqual valueSampledData.dimensions
-      expect(attrValue.lowerLimit).toEqual valueSampledData.lowerLimit
-      expect(attrValue.upperLimit).toEqual valueSampledData.upperLimit
-      expect(attrValue.data).toEqual valueSampledData.data
+      componentToSet.value = valueSampledData
+      attrDef.setValue(fhirResource, [componentToSet])
+      attrValue = attrDef.getValue(fhirResource.clone())
+      expect(attrValue[0].value.origin).toEqual valueSampledData.origin
+      expect(attrValue[0].value.period).toEqual valueSampledData.period
+      expect(attrValue[0].value.dimensions).toEqual valueSampledData.dimensions
+      expect(attrValue[0].value.lowerLimit).toEqual valueSampledData.lowerLimit
+      expect(attrValue[0].value.upperLimit).toEqual valueSampledData.upperLimit
+      expect(attrValue[0].value.data).toEqual valueSampledData.data
+
+      # Observation.component.code
+      componentToSet = new cqm.models.ObservationComponent()
+      componentToSet.code = DataTypeHelpers.createCodeableConcept('123456', 'SNOMEDCT')
+      attrDef.setValue(fhirResource, [componentToSet])
+      attrValue = attrDef.getValue(fhirResource.clone())
+      expect(attrValue[0].code.coding[0].system.value).toEqual 'SNOMEDCT'
+      expect(attrValue[0].code.coding[0].code.value).toEqual '123456'
 
     it 'should support Observation.encounter', ->
       encounterAttr = @observationAttrs.find (attr) -> attr.path is 'encounter'
       expect(encounterAttr).toBeDefined
       expect(encounterAttr.path).toBe 'encounter'
-      expect(encounterAttr.title).toBe 'encounter'
       expect(encounterAttr.types.length).toBe 1
       expect(encounterAttr.types[0]).toBe 'Reference'
       expect(encounterAttr.referenceTypes.length).toBe 1

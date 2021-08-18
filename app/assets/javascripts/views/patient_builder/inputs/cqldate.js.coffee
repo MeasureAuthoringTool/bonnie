@@ -1,9 +1,9 @@
-# Input view for Primitive Date type.
-class Thorax.Views.InputDateView extends Thorax.Views.BonnieView
+# Input view for Cql Date type.
+class Thorax.Views.InputCqlDateView extends Thorax.Views.BonnieView
   template: JST['patient_builder/inputs/date']
 
   # Expected options to be passed in using the constructor options hash:
-  #   initialValue - Primitive Date - Optional. Initial value of date.
+  #   initialValue - CQL Date - Optional. Initial value of date.
   #   showLabel - Boolean - Optional. To show the label for the attribute or not. Defaults to false.
   #                          If true, attributeName and attributeTitle should be specified.
   #   attributeName - String - Optional. The name/path of the attribue on the data element that this is editing.
@@ -12,12 +12,10 @@ class Thorax.Views.InputDateView extends Thorax.Views.BonnieView
   #                           This should be the measurement period. Defaults to 2020.
   #   allowNull - boolean - Optional. If a null Date is allowed to be null. Defaults to true.
   initialize: ->
-    if @initialValue? && @initialValue.value?
-      @value = @initialValue.clone()
-      @cqlDateValue = DataTypeHelpers.getCQLDateFromString(@value.value)
+    if @initialValue?
+      @value = @initialValue.copy()
     else
       @value = null
-      @cqlDateValue = null
 
     if !@defaultYear?
       @defaultYear = 2020
@@ -41,13 +39,13 @@ class Thorax.Views.InputDateView extends Thorax.Views.BonnieView
 
   context: ->
     _(super).extend
-      date_is_defined: @cqlDateValue?
-      date: moment.utc(@cqlDateValue.toJSDate()).format('L') if @cqlDateValue?
+      date_is_defined: @value?
+      date: moment.utc(@value.toJSDate()).format('L') if @value?
 
   # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
   # if the add button should be active or not
   hasValidValue: ->
-    @allowNull || @cqlDateValue?
+    @allowNull || @value?
 
   # handle the cases the null checkbox being changed
   handleCheckboxChange: (e) ->
@@ -79,17 +77,15 @@ class Thorax.Views.InputDateView extends Thorax.Views.BonnieView
 
     # only change and fire the change event if there actually was a change
     # if before and after are null, just return
-    return if !@cqlDateValue? && !newDate?
+    return if !@value? && !newDate?
 
     # if before and after are defined trigger change
-    if (@cqlDateValue? && newDate?)
-      if !@cqlDateValue.equals(newDate)
-        @cqlDateValue = newDate
-        @value = DataTypeHelpers.getPrimitiveDateForCqlDate(newDate)
+    if (@value? && newDate?)
+      if !@value.equals(newDate)
+        @value = newDate
         @trigger 'valueChanged', this
 
     # if either before xor after was null trigger change
     else
-      @cqlDateValue = newDate
-      @value = DataTypeHelpers.getPrimitiveDateForCqlDate(newDate)
+      @value = newDate
       @trigger 'valueChanged', this

@@ -7,7 +7,6 @@ describe 'DataCriteriaHelpers', ->
     it 'should support DeviceUseStatement.timing', ->
       attr = @attrs.find (attr) -> attr.path is 'timing'
       expect(attr.path).toEqual 'timing'
-      expect(attr.title).toEqual 'timing'
       expect(attr.types).toEqual ['DateTime', 'Period', 'Timing']
 
       # set DateTime

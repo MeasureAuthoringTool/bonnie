@@ -75,10 +75,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       }
     ]
 
-  deleteCriteriaById: (resourceId) ->
-    editCriteriaView = Object.values(@editCriteriaCollectionView.children).find((view) -> view.model.get('dataElement').fhir_resource.id == resourceId)
-    editCriteriaView.model.destroy()
-
   # Remove attributes from other resources/criteria that reference this resource
   removeReferenceAttributes: (referencedFhirId) ->
     updatedEditCriteriaViews = []
@@ -199,13 +195,13 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     for timingAttr in patientDataCriteria.getPrimaryTimingAttributes()
       if timingAttr.type == 'Period'
         interval = @createDefaultInterval()
-        fhirResource[timingAttr.name] = DataCriteriaHelpers.createPeriodFromInterval(interval)
+        fhirResource[timingAttr.name] = DataTypeHelpers.createPeriodFromInterval(interval)
       else if timingAttr.type == 'dateTime'
-        fhirResource[timingAttr.name] = DataCriteriaHelpers.getPrimitiveDateTimeForCqlDateTime(@createDefaultInterval().low)
+        fhirResource[timingAttr.name] = DataTypeHelpers.getPrimitiveDateTimeForCqlDateTime(@createDefaultInterval().low)
       else if timingAttr.type == 'instant'
-        fhirResource[timingAttr.name] = DataCriteriaHelpers.getPrimitiveInstantForCqlDateTime(@createDefaultInterval().low)
+        fhirResource[timingAttr.name] = DataTypeHelpers.getPrimitiveInstantForCqlDateTime(@createDefaultInterval().low)
       else if timingAttr.type == 'date'
-        fhirResource[timingAttr.name] = DataCriteriaHelpers.getPrimitiveDateForCqlDate(@createDefaultDate())
+        fhirResource[timingAttr.name] = DataTypeHelpers.getPrimitiveDateForCqlDate(@createDefaultDate())
     @addCriteria patientDataCriteria
     return false
 
