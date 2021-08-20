@@ -93,7 +93,7 @@ class MeasuresController < ApplicationController
                                  end
       if successful_patient_shift
         measure.measure_period['start'] = year + '-01-01T00:00:00' # Jan 1
-        measure.measure_period['end'] = year + '-12-31T23:59:59' # Dec 31
+        measure.measure_period['end'] = year + '-12-31T23:59:00' # Dec 31
         measure.save!
       end
 
