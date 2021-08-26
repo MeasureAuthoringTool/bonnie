@@ -17,7 +17,6 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
         types: attr.types?.sort()
         valueSets: attr.valueSets?()
         isArray: attr.isArray
-        isComposite: attr.isComposite
         referenceTypes: attr.referenceTypes?.sort()
         resourceType: resourceType
         fieldMetadata: cqm.models[resourceType]?.fieldInfo?.find (f) -> f.fieldName is attr.path
@@ -81,21 +80,6 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       disabledStatus = !@inputView.hasValidValue?()
     @$('.input-add > button').prop('disabled', disabledStatus)
 
-  asReferenceType: () ->
-    resourceType = @inputView.value?.type
-    valueSetId = @inputView.value?.vs
-    fhirid = ''
-    if @inputView.value?.isExistingResource
-      fhirid = valueSetId # for existing resources, fhirid is valueSetId
-    else
-    # Create new Resource for Reference target
-      objectId = cqm.ObjectID().toHexString()
-      fhirid = @parent.parent.parent.addChildCriteria(resourceType, objectId, valueSetId, @dataElement)
-    # set reference attribute using generated fhirId from new Resource
-    reference = new cqm.models.Reference()
-    reference.reference = cqm.models.PrimitiveString.parsePrimitive(resourceType + '/' + fhirid)
-    reference
-
   # Button click handler for adding the value to the attribute
   addValue: (e) ->
     e.preventDefault()
@@ -104,7 +88,9 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       attrDef = DataCriteriaHelpers.getAttribute(@dataElement, @currentAttribute.name)
       value = @inputView.value
       if @currentAttributeType is 'Reference'
-        value = @asReferenceType()
+        value = @inputView.asReferenceType()
+      if @_isCompositeType(@currentAttributeType)
+        value = @inputView.asComponentType()
       if attrDef.isArray
   # Initialize with an empty array if not defined
         array = attrDef.getValue(@dataElement.fhir_resource) || []
@@ -152,11 +138,12 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       when 'Boolean' then new Thorax.Views.InputBooleanView()
       when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
       when 'Reference' then new Thorax.Views.InputReferenceView({
-        allowNull: false,
-        referenceTypes: @currentAttribute.referenceTypes,
-        parentDataElement: @dataElement,
-        dataCriteria: @parent.model.collection.models,
-        cqmValueSets: @parent.measure.get('cqmValueSets') })
+        allowNull: false
+        referenceTypes: @currentAttribute.referenceTypes
+        parentDataElement: @dataElement
+        dataCriteria: @parent.model.collection.models
+        cqmValueSets: @parent.measure.get('cqmValueSets')
+        patientBuilder: @parent.parent.parent})
       when 'SampledData' then new Thorax.Views.InputSampledDataView()
       when 'Timing' then new Thorax.Views.InputTimingView({ codeSystemMap: @parent.measure.codeSystemMap(), defaultYear: @parent.measure.getMeasurePeriodYear() })
       when 'Dosage' then new Thorax.Views.InputDosageView({ cqmValueSets: @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap() })
@@ -171,7 +158,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     @inputView.remove() if @inputView?
 
     if @currentAttributeType
-      if @currentAttribute.isComposite
+      if @_isCompositeType(@currentAttributeType)
         @_createCompositeInputView(@currentAttributeType)
       else
         @_createInputViewForType(@currentAttributeType)
@@ -181,6 +168,15 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
 
   _createCompositeInputView: (typeName) ->
     @showInputViewPlaceholder = false
-    @inputView = new Thorax.Views.InputCompositeView({ typeName: typeName, cqmValueSets: @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap(), defaultYear: @parent.measure.getMeasurePeriodYear()  })
+    @inputView = new Thorax.Views.InputCompositeView({
+      typeName: typeName
+      cqmValueSets: @parent.measure.get('cqmValueSets')
+      codeSystemMap: @parent.measure.codeSystemMap()
+      dataCriteria: @parent.model.collection.models
+      parentDataElement: @dataElement
+      defaultYear: @parent.measure.getMeasurePeriodYear()
+      patientBuilder: @parent.parent.parent })
     @listenTo(@inputView, 'valueChanged', @updateAddButtonStatus) if @inputView?
 
+  _isCompositeType: (attributeType) ->
+    DataCriteriaHelpers.isCompositeType(attributeType)
