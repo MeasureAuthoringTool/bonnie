@@ -12,25 +12,18 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
 
     @componentViews = []
 
-    cqm.models[@typeName].fieldInfo.forEach (fieldInfo, index, array) =>
-      fieldName = fieldInfo.fieldName
-      additionalTypeInfo = DataCriteriaHelpers.COMPOSITE_TYPES[@typeName]
-      additionalFieldInfo = additionalTypeInfo?[fieldName]
-      skip = additionalFieldInfo?.skip
-      if skip || fieldName is 'id' || fieldInfo.isArray
-        # Don't support nested arrays, id attribute or attributes listed in the skip list
-        view = null
-      else
-        view = @_createInputViewForType(fieldInfo, additionalFieldInfo)
-
+    DataCriteriaHelpers.getCompositeAttributes(@typeName).forEach( (attrDef) =>
+      attributeName = attrDef.path
+      view = @_createInputViewForType(attrDef)
       if view?
         @listenTo(view, 'valueChanged', @handleComponentUpdate)
         @componentViews.push {
-          title: fieldName
-          name: fieldName
+          title: attributeName
+          name: attributeName
           view: view
           showPlaceholder: !view?
         }
+    )
 
     @componentViews.sort((a, b) -> (a.name.localeCompare(b.name)))
     @showLabels = true
@@ -41,54 +34,59 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
     rendered: ->
       @handleComponentUpdate()
 
-  _createInputViewForType: (fieldInfo, additionalFieldInfo) ->
-    fieldName = fieldInfo.fieldName
-    types = fieldInfo.fieldTypeNames.map((type) -> type.replace('Primitive', '')).sort()
-    isChoice = types.length > 1
+  _createInputViewForType: (attrDef) ->
+    attributeName = attrDef.path
+    isChoice = attrDef.types.length > 1
+    types = attrDef.types
     type = if isChoice then 'Any' else types[0]
+    referenceTypes = attrDef.referenceTypes || []
 
-    valueSets = (additionalFieldInfo?.valueSets?() || []).concat(@cqmValueSets)
+    valueSets = (attrDef?.valueSets?() || []).concat(@cqmValueSets)
 
     return switch type
-      when 'Boolean' then new Thorax.Views.InputBooleanView()
+      when 'Boolean' then new Thorax.Views.InputBooleanView({ typeName: @typeName, attributeName: attributeName })
+      # Pass typeName and attributeName to a suview for identification purposes
       # TODO: pass code subtype
-#      when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: valueSets, codeSystemMap: @codeSystemMap })
-      when 'Coding' then new Thorax.Views.InputCodingView({ cqmValueSets: valueSets, codeSystemMap: @codeSystemMap  })
-      when 'CodeableConcept' then new Thorax.Views.InputCodeableConceptView({ cqmValueSets: valueSets, codeSystemMap: @codeSystemMap  })
-      when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @defaultYear })
-      when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @defaultYear })
-      when 'Instant' then new Thorax.Views.InputInstantView({ allowNull: false, defaultYear: @defaultYear })
-      when 'Decimal' then new Thorax.Views.InputDecimalView({ placeholder: fieldName, allowNull: false })
-      when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ placeholder: fieldName, allowNull: false })
-      when 'Period' then new Thorax.Views.InputPeriodView({ defaultYear: @defaultYear })
-      when 'PositiveInt', 'PositiveInteger' then new Thorax.Views.InputPositiveIntegerView()
-      when 'UnsignedInt', 'UnsignedInteger' then new Thorax.Views.InputUnsignedIntegerView()
-      when 'Quantity', 'SimpleQuantity' then new Thorax.Views.InputQuantityView()
-      when 'Duration' then new Thorax.Views.InputDurationView()
-      when 'Age' then new Thorax.Views.InputAgeView()
-      when 'Range' then new Thorax.Views.InputRangeView()
-      when 'Ratio' then new Thorax.Views.InputRatioView()
-      when 'String' then new Thorax.Views.InputStringView({ placeholder: fieldName, allowNull: false })
-      when 'Canonical' then new Thorax.Views.InputCanonicalView({ allowNull: false })
-      when 'Boolean' then new Thorax.Views.InputBooleanView()
-      when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
-      when 'SampledData' then new Thorax.Views.InputSampledDataView()
+#      when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: valueSets, codeSystemMap: @codeSystemMap, typeName: @typeName, attributeName: attributeName })
+      when 'Coding' then new Thorax.Views.InputCodingView({ cqmValueSets: valueSets, codeSystemMap: @codeSystemMap, typeName: @typeName, attributeName: attributeName  })
+      when 'CodeableConcept' then new Thorax.Views.InputCodeableConceptView({ cqmValueSets: valueSets, codeSystemMap: @codeSystemMap, typeName: @typeName, attributeName: attributeName  })
+      when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @defaultYear, typeName: @typeName, attributeName: attributeName })
+      when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @defaultYear, typeName: @typeName, attributeName: attributeName })
+      when 'Instant' then new Thorax.Views.InputInstantView({ allowNull: false, defaultYear: @defaultYear, typeName: @typeName, attributeName: attributeName })
+      when 'Decimal' then new Thorax.Views.InputDecimalView({ placeholder: attributeName, allowNull: false, typeName: @typeName, attributeName: attributeName })
+      when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ placeholder: attributeName, allowNull: false, typeName: @typeName, attributeName: attributeName })
+      when 'Period' then new Thorax.Views.InputPeriodView({ defaultYear: @defaultYear, typeName: @typeName, attributeName: attributeName })
+      when 'PositiveInt', 'PositiveInteger' then new Thorax.Views.InputPositiveIntegerView({ typeName: @typeName, attributeName: attributeName })
+      when 'UnsignedInt', 'UnsignedInteger' then new Thorax.Views.InputUnsignedIntegerView({ typeName: @typeName, attributeName: attributeName })
+      when 'Quantity', 'SimpleQuantity' then new Thorax.Views.InputQuantityView({ typeName: @typeName, attributeName: attributeName })
+      when 'Duration' then new Thorax.Views.InputDurationView({ typeName: @typeName, attributeName: attributeName })
+      when 'Age' then new Thorax.Views.InputAgeView({ typeName: @typeName, attributeName: attributeName })
+      when 'Range' then new Thorax.Views.InputRangeView({ typeName: @typeName, attributeName: attributeName })
+      when 'Ratio' then new Thorax.Views.InputRatioView({ typeName: @typeName, attributeName: attributeName })
+      when 'String' then new Thorax.Views.InputStringView({ placeholder: attributeName, allowNull: false, typeName: @typeName, attributeName: attributeName })
+      when 'Canonical' then new Thorax.Views.InputCanonicalView({ allowNull: false, typeName: @typeName, attributeName: attributeName })
+      when 'Boolean' then new Thorax.Views.InputBooleanView({ typeName: @typeName, attributeName: attributeName })
+      when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false, typeName: @typeName, attributeName: attributeName })
+      when 'SampledData' then new Thorax.Views.InputSampledDataView({ typeName: @typeName, attributeName: attributeName })
       when 'Reference' then new Thorax.Views.InputReferenceView({
         allowNull: false
-        referenceTypes: additionalFieldInfo?.referenceTypes || []
+        referenceTypes: referenceTypes
         parentDataElement: @parentDataElement
         dataCriteria: @dataCriteria
         cqmValueSets: valueSets
         patientBuilder: @patientBuilder
         isReference: true
+        typeName: @typeName
+        attributeName: attributeName
       })
       when 'Any' then new Thorax.Views.InputAnyView({
-        attributeName: fieldName,
-        name: fieldName,
-        defaultYear: @defaultYear,
+        name: attributeName
+        defaultYear: @defaultYear
         types: types
-        cqmValueSets: @cqmValueSets,
+        cqmValueSets: @cqmValueSets
         codeSystemMap: @codeSystemMap
+        typeName: @typeName
+        attributeName: attributeName
       })
       else null
 

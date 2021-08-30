@@ -83,10 +83,47 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       attrs = DataCriteriaHelpers.getAttributes(view.model.get('dataElement'))
       for attr in attrs
         val = attr.getValue(resource)
-        if val? && cqm.models.Reference.isReference(val) && val.reference?.value?.includes(referencedFhirId)
+        continue unless val?
+        if Array.isArray(val)
+          update = @removeRefenceFromArray(val, referencedFhirId)
+          if update
+            attr.setValue(resource, val)
+            updatedEditCriteriaViews.push view
+        else if DataCriteriaHelpers.isCompositeType(val?.getTypeName())
+          update = @removeReferenceFromComposite(val, referencedFhirId)
+          if update
+            attr.setValue(resource, val)
+            updatedEditCriteriaViews.push view
+        else if @isReferenceToRemove(val, referencedFhirId)
           attr.setValue(resource, null)
           updatedEditCriteriaViews.push view
     updatedView.attributeDisplayView.render() for updatedView in updatedEditCriteriaViews
+
+  isReferenceToRemove: (val, referencedFhirId) ->
+    cqm.models.Reference.isReference(val) && val.reference?.value?.includes(referencedFhirId)
+
+  removeRefenceFromArray: (array, referencedFhirId) ->
+    update = false
+    i = array.length
+    while i--
+      arrayItem = array[i]
+      if @isReferenceToRemove(arrayItem, referencedFhirId)
+        val.splice(i, 1)
+        update = true
+      if DataCriteriaHelpers.isCompositeType(arrayItem?.getTypeName())
+        # Don't remove empty compsites for now. It makes it too complex
+        update |= @removeReferenceFromComposite(arrayItem, referencedFhirId)
+    update
+
+  removeReferenceFromComposite: (composite, referencedFhirId) ->
+    update = false
+    DataCriteriaHelpers.getCompositeAttributes(composite?.getTypeName()).forEach (compAttrDef) =>
+      compositeAttrVal = composite[compAttrDef.path]
+      # Arrays in composite are not supported
+      if @isReferenceToRemove(compositeAttrVal, referencedFhirId)
+        composite[compAttrDef.path] = undefined
+        update = true
+     update
 
   dataCriteriaCategories: ->
     categories = {}
