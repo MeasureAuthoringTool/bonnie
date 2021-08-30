@@ -1,11 +1,11 @@
-<div class="row composite-input">
+<div class="row composite-input" data-composite-type="{{typeName}}">
   {{#each componentViews}}
     {{#if ../showLabels}}
       <div class="col-md-12">
         <span class="composite-label control-label" title="{{name}}"><i class="fa fa-chevron-right" aria-hidden="true"></i> {{title}}</span>
       </div>
     {{/if}}
-    <div class="col-md-12">
+    <div class="col-md-12" data-composite-field="{{view.attributeName}}">
       {{#if showPlaceholder}}
         No InputView available for {{type}} found.
       {{else}}

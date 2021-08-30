@@ -7,6 +7,7 @@ class Thorax.Views.InputReferenceView extends Thorax.Views.BonnieView
   #   parentDataElement - The data element owning the reference being created
   #   referenceTypes - list of reference types (data elements to be created)
   #   cqmValueSets - value sets to display for the data elements to be created
+  #   patientBuilder - patient builder to add new patient history elements
   initialize: ->
     @valueSetOptions = @cqmValueSets
     @value = { 'type': null, 'vs': null, isExistingResource: false}
@@ -70,3 +71,18 @@ class Thorax.Views.InputReferenceView extends Thorax.Views.BonnieView
     else
       @value.vs = valueSetId
     @trigger 'valueChanged', @
+
+  asReferenceType: () ->
+    resourceType = @value?.type
+    valueSetId = @value?.vs
+    fhirid = ''
+    if @value?.isExistingResource
+      fhirid = valueSetId # for existing resources, fhirid is valueSetId
+    else
+    # Create new Resource for Reference target
+      objectId = cqm.ObjectID().toHexString()
+      fhirid = @patientBuilder.addChildCriteria(resourceType, objectId, valueSetId, @parentDataElement)
+    # set reference attribute using generated fhirId from new Resource
+    reference = new cqm.models.Reference()
+    reference.reference = cqm.models.PrimitiveString.parsePrimitive(resourceType + '/' + fhirid)
+    reference

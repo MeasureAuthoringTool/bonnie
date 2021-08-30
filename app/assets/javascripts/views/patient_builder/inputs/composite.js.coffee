@@ -12,23 +12,20 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
 
     @componentViews = []
 
-    cqm.models[@typeName].fieldInfo.forEach (fieldInfo, index, array) =>
-      name = fieldInfo.fieldName
-      if name is 'id' || fieldInfo.isArray
-        # Don't support nested arrays at the moment
-        view = null
-      else
-        view = @_createInputViewForType(fieldInfo)
-
+    DataCriteriaHelpers.getCompositeAttributes(@typeName).forEach( (attrDef) =>
+      attributeName = attrDef.path
+      view = @_createInputViewForType(attrDef)
       if view?
         @listenTo(view, 'valueChanged', @handleComponentUpdate)
         @componentViews.push {
-          title: name
-          name: name
+          title: attributeName
+          name: attributeName
           view: view
           showPlaceholder: !view?
         }
+    )
 
+    @componentViews.sort((a, b) -> (a.name.localeCompare(b.name)))
     @showLabels = true
     if !@hasOwnProperty('allowNull')
       @allowNull = false
@@ -37,49 +34,73 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
     rendered: ->
       @handleComponentUpdate()
 
-  _createInputViewForType: (fieldInfo) ->
-    name = fieldInfo.fieldName
-    types = fieldInfo.fieldTypeNames.map((type) -> type.replace('Primitive', ''))
-    isChoice = types.length > 1
+  _createInputViewForType: (attrDef) ->
+    attributeName = attrDef.path
+    isChoice = attrDef.types.length > 1
+    types = attrDef.types
     type = if isChoice then 'Any' else types[0]
+    referenceTypes = attrDef.referenceTypes || []
+
+    valueSets = (attrDef?.valueSets?() || []).concat(@cqmValueSets)
 
     return switch type
-      when 'Boolean' then new Thorax.Views.InputBooleanView()
-      # TODO: pass code sybtype
-#      when 'Code' then new Thorax.Views.InputCodeView({ name: name, cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap })
-      when 'Coding' then new Thorax.Views.InputCodingView({ name: name, cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap  })
-      when 'CodeableConcept' then new Thorax.Views.InputCodeableConceptView({ name: name, cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap  })
-      when 'Date' then new Thorax.Views.InputDateView({ name: name, allowNull: false, defaultYear: @defaultYear })
-      when 'DateTime' then new Thorax.Views.InputDateTimeView({ name: name, allowNull: false, defaultYear: @defaultYear })
-      when 'Instant' then new Thorax.Views.InputInstantView({ name: name, allowNull: false, defaultYear: @defaultYear })
-      when 'Decimal' then new Thorax.Views.InputDecimalView({ placeholder: attributeName, name: name, allowNull: false })
-      when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ placeholder: attributeName, name: name, allowNull: false })
-      when 'Quantity', 'SimpleQuantity' then new Thorax.Views.InputQuantityView({ name: name })
-      when 'Duration' then new Thorax.Views.InputDurationView({ name: name })
-      when 'Range' then new Thorax.Views.InputRangeView({ name: name })
-      when 'Period' then new Thorax.Views.InputPeriodView({ name: name, defaultYear: @defaultYear })
-      when 'Ratio' then new Thorax.Views.InputRatioView({ name: name })
-      when 'Time' then new Thorax.Views.InputTimeView({ name: name, allowNull: false })
-      when 'String' then new Thorax.Views.InputStringView({ placeholder: attributeName, name: name, allowNull: false })
-      when 'SampledData' then new Thorax.Views.InputSampledDataView({ name: name })
+      when 'Boolean' then new Thorax.Views.InputBooleanView({ typeName: @typeName, attributeName: attributeName })
+      # Pass typeName and attributeName to a suview for identification purposes
+      # TODO: pass code subtype
+#      when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: valueSets, codeSystemMap: @codeSystemMap, typeName: @typeName, attributeName: attributeName })
+      when 'Coding' then new Thorax.Views.InputCodingView({ cqmValueSets: valueSets, codeSystemMap: @codeSystemMap, typeName: @typeName, attributeName: attributeName  })
+      when 'CodeableConcept' then new Thorax.Views.InputCodeableConceptView({ cqmValueSets: valueSets, codeSystemMap: @codeSystemMap, typeName: @typeName, attributeName: attributeName  })
+      when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @defaultYear, typeName: @typeName, attributeName: attributeName })
+      when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @defaultYear, typeName: @typeName, attributeName: attributeName })
+      when 'Instant' then new Thorax.Views.InputInstantView({ allowNull: false, defaultYear: @defaultYear, typeName: @typeName, attributeName: attributeName })
+      when 'Decimal' then new Thorax.Views.InputDecimalView({ placeholder: attributeName, allowNull: false, typeName: @typeName, attributeName: attributeName })
+      when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ placeholder: attributeName, allowNull: false, typeName: @typeName, attributeName: attributeName })
+      when 'Period' then new Thorax.Views.InputPeriodView({ defaultYear: @defaultYear, typeName: @typeName, attributeName: attributeName })
+      when 'PositiveInt', 'PositiveInteger' then new Thorax.Views.InputPositiveIntegerView({ typeName: @typeName, attributeName: attributeName })
+      when 'UnsignedInt', 'UnsignedInteger' then new Thorax.Views.InputUnsignedIntegerView({ typeName: @typeName, attributeName: attributeName })
+      when 'Quantity', 'SimpleQuantity' then new Thorax.Views.InputQuantityView({ typeName: @typeName, attributeName: attributeName })
+      when 'Duration' then new Thorax.Views.InputDurationView({ typeName: @typeName, attributeName: attributeName })
+      when 'Age' then new Thorax.Views.InputAgeView({ typeName: @typeName, attributeName: attributeName })
+      when 'Range' then new Thorax.Views.InputRangeView({ typeName: @typeName, attributeName: attributeName })
+      when 'Ratio' then new Thorax.Views.InputRatioView({ typeName: @typeName, attributeName: attributeName })
+      when 'String' then new Thorax.Views.InputStringView({ placeholder: attributeName, allowNull: false, typeName: @typeName, attributeName: attributeName })
+      when 'Canonical' then new Thorax.Views.InputCanonicalView({ allowNull: false, typeName: @typeName, attributeName: attributeName })
+      when 'Boolean' then new Thorax.Views.InputBooleanView({ typeName: @typeName, attributeName: attributeName })
+      when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false, typeName: @typeName, attributeName: attributeName })
+      when 'SampledData' then new Thorax.Views.InputSampledDataView({ typeName: @typeName, attributeName: attributeName })
+      when 'Reference' then new Thorax.Views.InputReferenceView({
+        allowNull: false
+        referenceTypes: referenceTypes
+        parentDataElement: @parentDataElement
+        dataCriteria: @dataCriteria
+        cqmValueSets: valueSets
+        patientBuilder: @patientBuilder
+        isReference: true
+        typeName: @typeName
+        attributeName: attributeName
+      })
       when 'Any' then new Thorax.Views.InputAnyView({
-        attributeName: name,
-        name: name,
-        defaultYear: @defaultYear,
+        name: attributeName
+        defaultYear: @defaultYear
         types: types
-        cqmValueSets: @cqmValueSets,
+        cqmValueSets: @cqmValueSets
         codeSystemMap: @codeSystemMap
+        typeName: @typeName
+        attributeName: attributeName
       })
       else null
 
-  handleComponentUpdate: ->
+  asComponentType: () ->
     componentsValues = @_getAllComponentValuesIfValid()
-    if componentsValues?
+    component = DataTypeHelpers.createType(@typeName, componentsValues) if componentsValues?
+    component
+
+  handleComponentUpdate: ->
+    if @hasValidValue() && cqm.models[@typeName]
     # if everything is valid then make the type
-      if cqm.models[@typeName]
-        @value = DataTypeHelpers.createType(@typeName, componentsValues)
-      else
-        console.error("Could not find constructor cqm.models.#{@typeName}")
+      # Value is not actually used, we need to create a component by explicitly invoking asComponentType()
+      # This is to handle Reference type conversion and a new resource creation.
+      @value = {}
       @trigger 'valueChanged', this
     else
   # if invalid values exist, null value out if needed and trigger event
@@ -93,14 +114,17 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
     return null if @hasInvalidInput()
     for componentView in @componentViews
       if componentView.view.hasValidValue()
-        newAttrs[componentView.name] = componentView.view.value
+        if componentView.view.isReference
+          newAttrs[componentView.name] = componentView.view.asReferenceType()
+        else
+          newAttrs[componentView.name] = componentView.view.value
     return newAttrs
 
   # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
   # if the add button should be active or not
   hasValidValue: ->
     return @componentViews.map(
-      (view) -> view.view?.value?
+      (view) -> view.view?.hasValidValue?()
     ).reduce(
       (acc, curr) ->  acc = acc || curr
       false
