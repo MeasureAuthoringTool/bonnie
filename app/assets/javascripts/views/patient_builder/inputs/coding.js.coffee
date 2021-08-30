@@ -9,6 +9,7 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
   #   cqmValueSets - List of CQM Value sets. Optional (FHIR JSON).
   #   codeSystemMap - Map of all coding systems to system names in the measure.
   #   allowNull - boolean - Optional. If a null or empty integer is allowed. Defaults to false.
+  # displayName - boolean - Optional. If attribute name to be displayed as label.
   initialize: ->
     if @initialValue?
       @value = @initialValue

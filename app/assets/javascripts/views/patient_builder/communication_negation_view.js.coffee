@@ -8,7 +8,8 @@ class Thorax.Views.CommunicationNegationView extends Thorax.Views.BonnieView
       cqmValueSets: [FhirValueSets.EVENT_STATUS_VS]
       codeSystemMap: @codeSystemMap
       codeType: cqm.models.CommunicationStatus
-      name: 'status'})
+      name: 'status',
+      displayName: true})
     @statusReason = new Thorax.Views.InputCodingView({
       initialValue: @resource.statusReason?.coding?[0]
       cqmValueSets: [
@@ -16,7 +17,8 @@ class Thorax.Views.CommunicationNegationView extends Thorax.Views.BonnieView
         NegationReasonValueSet.PATIENT_REASON_NOT_DONE,
         NegationReasonValueSet.SYSTEM_REASONS].concat(@cqmValueSets),
       codeSystemMap: @codeSystemMap,
-      name: 'status reason'})
+      name: 'status reason',
+      displayName: true})
     @recordedDateTime = new Thorax.Views.InputDateTimeView({
       initialValue: NegationHelpers.getRecordedDate(@resource)
       defaultYear: 2012,
@@ -30,7 +32,8 @@ class Thorax.Views.CommunicationNegationView extends Thorax.Views.BonnieView
       initialValue: @resource.reasonCode?[0].coding?[0]
       cqmValueSets: @cqmValueSets
       codeSystemMap: @codeSystemMap
-      name: 'reason code'
+      name: 'reason code',
+      displayName: true
     })
     @listenTo(@status, 'valueChanged', () -> @performNegation(@status))
     @listenTo(@statusReason, 'valueChanged', () -> @performNegation(@statusReason))
