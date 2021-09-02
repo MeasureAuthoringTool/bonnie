@@ -8,6 +8,7 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
   #   initialValue - code value - Optional. Initial value of code.
   #   cqmValueSets - List of CQM Value sets. Optional (FHIR JSON).
   #   allowNull - boolean - Optional. If a null or empty integer is allowed. Defaults to false.
+  #   displayName - boolean - Optional. If attribute name to be displayed as label.
   #   codeSystemMap - Required coding systems map (url -> name)
   #   codeType - subtype of primitive code, cqm.models.PrimitiveCode is default
   #   isSystemFixed - boolean - Optional. Default to false. If true, then the Custom system is always the first system from the list of systems.
