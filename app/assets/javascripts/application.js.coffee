@@ -64,3 +64,11 @@ Backbone.sync = _.wrap Backbone.sync, (originalSync, method, model, options) ->
 
 window.bonnie = new BonnieRouter()
 # We call Backbone.history.start() after all the measures are loaded, in app/views/layouts/application.html.erb
+
+$(() ->
+    cqm.models.CQL.Date.prototype.getDateTime = () ->
+      if this.year != null && this.month != null && this.day != null
+        return new cqm.models.CQL.DateTime(this.year, this.month, this.day, 0, 0, 0, 0, 0)
+      else
+        return new cqm.models.CQL.DateTime(this.year, this.month, this.day)
+)
