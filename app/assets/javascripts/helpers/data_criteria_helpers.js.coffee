@@ -526,6 +526,10 @@
         types: ['CodeableConcept']
         valueSets: () -> [ProcedureReasonCodeValueSet.JSON]
       },
+      {
+        path: 'doNotPerform',
+        types: ['Boolean']
+      }
     ]
     Claim: []
     Communication: [
