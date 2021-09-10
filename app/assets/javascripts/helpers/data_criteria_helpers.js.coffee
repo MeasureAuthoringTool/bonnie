@@ -542,7 +542,7 @@
     CommunicationRequest: []
     DeviceRequest: [
       {
-        path: 'code',
+        path: 'code'
         types: ['CodeableConcept', 'Reference']
         referenceTypes: ['Device']
         valueSets: () -> [DeviceKindValueSet.JSON]

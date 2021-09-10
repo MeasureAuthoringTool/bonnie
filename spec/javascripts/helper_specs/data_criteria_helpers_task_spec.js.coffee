@@ -30,3 +30,6 @@ describe 'DataCriteriaHelpers', ->
     it 'should support Task.status', ->
       DataCriteriaAsserts.assertCode('Task', 'status', cqm.models.TaskStatus)
 
+    it 'should support Task.reasonCode', ->
+      DataCriteriaAsserts.assertCodeableConcept('Task', 'reasonCode')
+
