@@ -1,5 +1,6 @@
 @DataCriteriaHelpers = class DataCriteriaHelpers
 
+  # FIXME: can be generated based on the naming convetions and supported types
   @PRIMARY_TIMING_ATTRIBUTES:
     AdverseEvent: { date: 'dateTime', detected: 'dateTime', recordedDate: 'dateTime' },
     AllergyIntolerance: { recordedDate: 'dateTime', lastOccurrence: 'dateTime' },
