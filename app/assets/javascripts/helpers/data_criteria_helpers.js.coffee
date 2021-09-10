@@ -370,6 +370,7 @@
   @isCompositeType: (typeName) ->
     @COMPOSITE_TYPES.hasOwnProperty(typeName)
 
+  # FIXME: some primitive types are still not supporterd, like PrimitiveUri, Canonical, etc etc
   @isSupportedAttributeType: (attrTypeName) ->
     ['Code', 'Coding', 'CodeableConcept', 'Date', 'DateTime', 'Instant', 'Decimal', 'Integer', 'Period', 'PositiveInt', 'PositiveInteger', 'UnsignedInt', 'UnsignedInteger', 'ObservationComponent', 'Quantity', 'SimpleQuantity', 'Duration', 'Age', 'Range', 'Ratio', 'String', 'Canonical', 'id', 'Boolean', 'Time', 'Reference', 'SampledData', 'Timing', 'Dosage', 'Identifier'].includes(attrTypeName) || @isCompositeType(attrTypeName)
 
