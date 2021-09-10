@@ -315,6 +315,225 @@
       attrs.push("assigner: #{type.assigner.display.value}")
     return attrs.join(" | ")
 
+# FIXME: generate dynamically
+# Additional metadata for composite types, not captured in ModelInfo/ Models.
+# 1st level entries - list of supported types for CompositeView editor
+# 2nd level entries - are supported properties with custom metadata
+  @COMPOSITE_TYPES:
+    EncounterLocation:
+      location:
+        referenceTypes: ['Location']
+        types: ['Reference']
+      period:
+        types: ['Period']
+    EncounterDiagnosis:
+      condition:
+        referenceTypes: ['Condition', 'Procedure']
+        types: ['Reference']
+      rank:
+        types: ['PositiveInt']
+      use:
+        types: ['CodeableConcept']
+        valueSets: () -> [DiagnosisRoleValueSet.JSON]
+    # FIXME: added for PoC
+    EncounterHospitalization:
+      admitSource:
+        types: ['CodeableConcept']
+        valueSets: () -> [FhirValueSets.ENCOUNTER_ADMIT_SOURCE_VS]
+      dischargeDisposition:
+        types: ['CodeableConcept']
+        valueSets: () -> FhirValueSets.DISCHARGE_DISPOSITION_VS
+    MedicationAdministrationDosage:
+      route:
+        types: ['CodeableConcept']
+        valueSets: () -> [FhirValueSets.ROUTE_CODES_VS]
+      rate:
+        types: ['Ratio']
+
+  @getCompositeAttributes: (compositeTypeName) ->
+    attributes = []
+    compositeType = @COMPOSITE_TYPES[compositeTypeName]
+    for path in Object.keys(compositeType).sort()
+      attributes.push(@getCompositeAttribute(compositeTypeName, path))
+    attributes
+
+  @getCompositeAttribute: (compositeTypeName, path) ->
+    compositeType = @COMPOSITE_TYPES[compositeTypeName]
+    {
+      path: path
+      types: compositeType[path].types
+      valueSets: compositeType[path].valueSets
+      referenceTypes: compositeType[path].referenceTypes
+    }
+
+  @isCompositeType: (typeName) ->
+    @COMPOSITE_TYPES.hasOwnProperty(typeName)
+
+  @isSupportedAttributeType: (attrTypeName) ->
+    ['Code', 'Coding', 'CodeableConcept', 'Date', 'DateTime', 'Instant', 'Decimal', 'Integer', 'Period', 'PositiveInt', 'PositiveInteger', 'UnsignedInt', 'UnsignedInteger', 'ObservationComponent', 'Quantity', 'SimpleQuantity', 'Duration', 'Age', 'Range', 'Ratio', 'String', 'Canonical', 'id', 'Boolean', 'Time', 'Reference', 'SampledData', 'Timing', 'Dosage', 'Identifier'].includes(attrTypeName) || @isCompositeType(attrTypeName)
+
+  # id, extension and  modifierExtension are handled in a different way
+  @isNotDisplayedAttribute: (attrName) ->
+    ['id', 'extension', 'modifierExtension'].includes(attrName)
+
+  # TODO: 1. move to a separate file. 2. migreate to VS IDs, do VS lookup later 3. move to YAML configuratino file
+  @VALUE_SET_BINDINGS:
+    AllergyIntolerance:
+      clinicalStatus:
+        valueSets: () -> [FhirValueSets.ALLERGYINTOLERANCE_CLINICAL_VS]
+      verificationStatus:
+        valueSets: () -> [FhirValueSets.ALLERGYINTOLERANCE_VERIFICATION_VS]
+    Condition:
+      clinicalStatus:
+        valueSets: () -> [FhirValueSets.CONDITION_CLINICAL_VS]
+      verificationStatus:
+        valueSets: () -> [FhirValueSets.CONDITION_VER_STATUS_VS]
+      bodySite:
+        valueSets: () -> [BodySiteValueSet.JSON]
+      category:
+        valueSets: () -> [FhirValueSets.CONDITION_CATEGORY_VS]
+      severity:
+        valueSets: () -> [ConditionSeverityValueSet.JSON]
+    Procedure:
+      status:
+        valueSets: () -> [FhirValueSets.EVENT_STATUS_VS]
+      category:
+        valueSets: () -> [FhirValueSets.PROCEDURE_CATEGORY_VS]
+      statusReason:
+        valueSets: () -> [FhirValueSets.PROCEDURE_NOT_PERFORMED_REASON_VS]
+      reasonCode:
+        valueSets: () -> [ProcedureReasonValueSet.JSON]
+      usedCode:
+        valueSets: () -> [DeviceKindValueSet.JSON]
+    DiagnosticReport:
+      status:
+        valueSets: () -> [DiagnosticReportStatusValueSet.JSON]
+      category:
+        valueSets: () -> [DiagnosticServiceSectionCodesValueSet.JSON, USCoreDiagnosticReportCategoryValueSet.JSON]
+    Observation:
+      status:
+        valueSets: () -> [ObservationStatusValueSet.JSON]
+      category:
+        valueSets: () -> [ObservationCategoryCodesValueSet.JSON]
+    ServiceRequest:
+      intent:
+        valueSets: () -> [FhirValueSets.REQUEST_INTENT]
+      status:
+        valueSets: () -> [FhirValueSets.REQUEST_STATUS]
+      reasonCode:
+        valueSets: () -> [ProcedureReasonCodeValueSet.JSON]
+    Communication:
+      status:
+        valueSets: () -> [EventStatusValueSet.JSON]
+    DeviceRequest:
+      status:
+        valueSets: () -> [FhirValueSets.REQUEST_STATUS]
+      intent:
+        valueSets: () -> [FhirValueSets.REQUEST_INTENT]
+    Encounter:
+      "class":
+        valueSets: () -> [FhirValueSets.ACT_ENCOUNTER_CODE_VS]
+      status:
+        valueSets: () -> [FhirValueSets.ENCOUNTER_STATUS_VS]
+      "hospitalization.admitSource":
+        valueSets: () -> [FhirValueSets.ENCOUNTER_ADMIT_SOURCE_VS]
+      "hospitalization.dischargeDisposition":
+        valueSets: () -> [FhirValueSets.DISCHARGE_DISPOSITION_VS]
+      reasonCode:
+        valueSets: () -> [EncounterReasonCodeValueSet.JSON]
+    Immunization:
+      status:
+        valueSets: () -> [ImmunizationStatusValueSet.JSON]
+    MedicationAdministration:
+      "dosage.route":
+        valueSets: () -> [FhirValueSets.ROUTE_CODES_VS]
+      medication:
+        valueSets: () -> [USCoreMedicationCodesValueSet.JSON]
+      reasonCode:
+        valueSets: () -> [FhirValueSets.REASON_MEDICATION_GIVEN_VS]
+      status:
+        valueSets: () -> [FhirValueSets.MEDICATION_ADMIN_STATUS_VS]
+      statusReason:
+        valueSets: () -> [FhirValueSets.REASON_MEDICATION_NOT_GIVEN_VS]
+    MedicationDispense:
+      medication:
+        valueSets: () -> [USCoreMedicationCodesValueSet.JSON]
+      status:
+        valueSets: () -> [MedicationDispenseStatusValueSet.JSON]
+    MedicationRequest:
+      medication:
+        valueSets: () -> [USCoreMedicationCodesValueSet.JSON]
+      status:
+        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_STATUS_VS]
+      intent:
+        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_INTENT_VS]
+      category:
+        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_CATEGORY_VS]
+      reasonCode:
+        valueSets: () -> [ConditionCodesValueSet.JSON]
+      statusReason:
+        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_STATUS_REASON_VS]
+    MedicationStatement:
+      status:
+        valueSets: () -> [FhirValueSets.MEDICATION_STATEMENT_STATUS_VS]
+    Task:
+      status:
+        valueSets: () -> [TaskStatusValueSet.JSON]
+
+  @REFERENCE_BINDINGS:
+    Condition:
+      recorder:
+        referenceTypes: ['Practitioner', 'PractitionerRole', 'RelatedPerson']
+      asserter:
+        referenceTypes: ['Practitioner', 'PractitionerRole', 'RelatedPerson']
+    DiagnosticReport:
+      encounter:
+        referenceTypes: ['Encounter']
+    Observation:
+      encounter:
+        referenceTypes: ['Encounter']
+    MedicationAdministration:
+      medication:
+        referenceTypes: ['Medication']
+    MedicationDispense:
+      medication:
+        referenceTypes: ['Medication']
+    MedicationRequest:
+      medication:
+        referenceTypes: ['Medication']
+    Task:
+      basedOn:
+        referenceTypes: ['Placeholder']
+
+  @isPrimaryTimingAttribute: (resName, attrName) ->
+    @PRIMARY_TIMING_ATTRIBUTES[resName]?[attrName]?
+
+  @isSkipAttribute: (resName, attrName) ->
+    @isPrimaryTimingAttribute(resName, attrName) || @isNotDisplayedAttribute(attrName)
+
+  # DATA ELEMENTs are commented out. We can add a section for custom overrides for somple complex attributes beloow if needed
+  @DATA_ELEMENT_ATTRIBUTES: {}
+  @initDataElements: (dataElements) ->
+    Object.values(cqm.models).filter( (cl) -> cl.baseType is 'FHIR.DomainResource').forEach (res) ->
+      attrs = []
+      dataElements[res.typeName] = attrs
+      # FIXME: 1. Filter out supported primary path and unsupported types. 2. Filter out primary time attributes
+      res.fieldInfo.filter( (fieldInfo) -> !DataCriteriaHelpers.isSkipAttribute(res.typeName, fieldInfo.fieldName) ).forEach (fieldInfo) ->
+        types = fieldInfo.fieldTypeNames.map((t) -> t.replace('Primitive', '').replace('\.', '')).filter( (t) -> DataCriteriaHelpers.isSupportedAttributeType(t) )
+        if types.length
+          attrDef = {
+            path: fieldInfo.fieldName
+            types: types
+            isArray: fieldInfo.isArray
+            valueSets: DataCriteriaHelpers.VALUE_SET_BINDINGS[res.typeName]?[fieldInfo.fieldName]?.valueSets
+            referenceTypes: DataCriteriaHelpers.REFERENCE_BINDINGS[res.typeName]?[fieldInfo.fieldName]?.referenceTypes
+          }
+          attrs.push attrDef
+#          console.log(JSON.stringify(attrDef))
+
+  @initDataElements(@DATA_ELEMENT_ATTRIBUTES)
+
+
 # Data element attributes per resource type.
 # Each resource has an array of entries per attribute.
 # An attribute entry has necessary metadata to view/edit.
@@ -328,527 +547,527 @@
 #       The user will be shown a type name on the UI to choose and its used to create a right UI editor element.
 #       See DataCriteriaAttributeEditorView._createInputViewForType
 #   valueSets - optional value sets for bindings
-  @DATA_ELEMENT_ATTRIBUTES:
-    AdverseEvent: []
-    AllergyIntolerance: [
-      {
-        path: 'clinicalStatus'
-        types: [
-          'CodeableConcept'
-        ]
-        valueSets: () -> [FhirValueSets.ALLERGYINTOLERANCE_CLINICAL_VS]
-      },
-      {
-        path: 'onset'
-        types: ['DateTime', 'Age', 'Period', 'Range']
-      },
-      {
-        path: 'verificationStatus',
-        types: [
-          'CodeableConcept'
-        ],
-        valueSets: () -> [FhirValueSets.ALLERGYINTOLERANCE_VERIFICATION_VS]
-      }
-    ]
-    Condition: [
-      {
-        path: 'clinicalStatus'
-        types: [
-          'CodeableConcept'
-        ]
-        valueSets: () -> [FhirValueSets.CONDITION_CLINICAL_VS]
-      },
-      {
-        path: 'verificationStatus',
-        types: [
-          'CodeableConcept'
-        ],
-        valueSets: () -> [FhirValueSets.CONDITION_VER_STATUS_VS]
-      },
-      {
-        path: 'onset'
-        types: ['DateTime', 'Age', 'Period', 'Range']
-      },
-      {
-        path: 'abatement',
-        types: ['DateTime', 'Age', 'Period', 'Range']
-      },
-      {
-        path: 'bodySite',
-        types: [
-          'CodeableConcept'
-        ]
-        isArray: true
-        valueSets: () -> [BodySiteValueSet.JSON]
-      },
-      {
-        path: 'category',
-        types: [
-          'CodeableConcept'
-        ]
-        isArray: true
-        valueSets: () -> [FhirValueSets.CONDITION_CATEGORY_VS]
-      },
-      {
-        path: 'severity'
-        types: [
-          'CodeableConcept'
-        ]
-        valueSets: () -> [ConditionSeverityValueSet.JSON]
-      },
-      {
-        path: 'recorder'
-        types: ['Reference']
-        referenceTypes: ['Practitioner', 'PractitionerRole', 'RelatedPerson']
-      },
-      {
-        path: 'asserter'
-        types: ['Reference']
-        referenceTypes: ['Practitioner', 'PractitionerRole', 'RelatedPerson']
-      }
-    ]
-    FamilyMemberHistory: []
-    Procedure: [
-      {
-        path: 'status'
-        types: ['Code']
-        valueSets: () -> [FhirValueSets.EVENT_STATUS_VS]
-      },
-      {
-        path: 'performed'
-        types: ['DateTime', 'Period']
-      },
-      {
-        path: 'category'
-        types: ['CodeableConcept'],
-        valueSets: () -> [FhirValueSets.PROCEDURE_CATEGORY_VS]
-      },
-      {
-        path: 'statusReason'
-        types: ['CodeableConcept'],
-        valueSets: () -> [FhirValueSets.PROCEDURE_NOT_PERFORMED_REASON_VS]
-      },
-      {
-        path: 'reasonCode'
-        isArray: true
-        types: ['CodeableConcept']
-        valueSets: () -> [ProcedureReasonValueSet.JSON]
-      },
-      {
-        path: 'usedCode',
-        isArray: true
-        types: ['CodeableConcept'],
-        valueSets: () -> [DeviceKindValueSet.JSON]
-      }
-    ]
-    Coverage: []
-    BodyStructure: []
-    DiagnosticReport: [
-      {
-        path: 'status'
-        types: ['Code']
-        valueSets: () -> [DiagnosticReportStatusValueSet.JSON]
-      },
-      {
-        path: 'effective',
-        types: ['DateTime', 'Period']
-      },
-      {
-        path: 'encounter'
-        types: ['Reference']
-        referenceTypes: ['Encounter']
-      },
-      {
-        path: 'category',
-        types: ['CodeableConcept']
-        isArray: true
-# Value Set from FHIR and QI Core DiagnosticReport Lab  http://hl7.org/fhir/ValueSet/diagnostic-service-sections
-# Value Set from QI Core DiagnosticReport Note (http://hl7.org/fhir/us/qicore/StructureDefinition-qicore-diagnosticreport-note.html)
-#     http://hl7.org/fhir/us/core/ValueSet/us-core-diagnosticreport-category
-        valueSets: () -> [DiagnosticServiceSectionCodesValueSet.JSON, USCoreDiagnosticReportCategoryValueSet.JSON]
-      }
-    ]
-    ImagingStudy: []
-    Observation: [
-      {
-        path: 'status'
-        types: ['Code']
-        valueSets: () -> [ObservationStatusValueSet.JSON]
-      },
-      {
-        path: 'value'
-        types: ['Boolean', 'CodeableConcept', 'DateTime', 'Integer', 'Period',
-          'Quantity', 'Range', 'Ratio', 'SampledData', 'String', 'Time'],
-        valueSets: () -> []
-      },
-      {
-        path: 'category'
-        types: ['CodeableConcept']
-        valueSets: () -> [ObservationCategoryCodesValueSet.JSON]
-        isArray: true
-      },
-      {
-        path: 'effective'
-        types: ['DateTime', 'Period', 'Timing', 'Instant']
-      },
-      {
-        path: 'component'
-# TODO: Can be created with a composite view widget, autogenerated based in fields introspection.
-        types: ['ObservationComponent']
-        valueSets: () -> []
-        isArray: true
-      },
-      {
-        path: 'encounter'
-        types: ['Reference']
-        referenceTypes: ['Encounter']
-      },
-    ]
-    Specimen: []
-    CarePlan: []
-    CareTeam: []
-    Goal: []
-    NutritionOrder: []
-    ServiceRequest: [
-      {
-        path: 'intent'
-        types: ['Code']
-        valueSets: () -> [FhirValueSets.REQUEST_INTENT]
-      },
-      {
-        path: 'status'
-        types: ['Code']
-        valueSets: () -> [FhirValueSets.REQUEST_STATUS]
-      },
-      {
-        path: 'reasonCode'
-        isArray: true
-        types: ['CodeableConcept']
-        valueSets: () -> [ProcedureReasonCodeValueSet.JSON]
-      },
-    ]
-    Claim: []
-    Communication: [
-      {
-        path: 'status'
-        types: ['Code']
-        valueSets: () -> [EventStatusValueSet.JSON]
-      }
-    ]
-    CommunicationRequest: []
-    DeviceRequest: [
-      {
-        path: 'status'
-        types: ['Code']
-        valueSets: () -> [FhirValueSets.REQUEST_STATUS]
-      },
-      {
-        path: 'intent'
-        types: ['Code']
-        valueSets: () -> [FhirValueSets.REQUEST_INTENT]
-      }
-    ]
-    DeviceUseStatement: [
-      {
-        path: 'timing',
-        types: ['DateTime', 'Period', 'Timing']
-      }
-    ]
-    Location: []
-    Device: []
-    Substance: []
-    Encounter: [
-      {
-        path: 'identifier'
-        types: ['Identifier']
-        isArray: true
-      },
-      {
-        path: 'class'
-        types: ['Coding']
-        valueSets: () -> [FhirValueSets.ACT_ENCOUNTER_CODE_VS]
-      },
-      {
-        path: 'diagnosis'
-        types: ['EncounterDiagnosis']
-        isArray: true
-      },
-      {
-        path: 'length'
-        types: ['Duration']
-      },
-      {
-        path: 'location'
-        types: ['EncounterLocation']
-        isArray: true
-      },
-      {
-        path: 'status'
-        types: ['Code']
-        valueSets: () ->
-          FhirValueSets.ENCOUNTER_STATUS_VS
-      },
-      {
-        path: 'hospitalization.admitSource',
-        getValue: (fhirResource) -> fhirResource?.hospitalization?.admitSource
-        setValue: (fhirResource, codeableConcept) ->
-          if !fhirResource.hospitalization
-            hospitalization = new cqm.models.EncounterHospitalization()
-            fhirResource.hospitalization = hospitalization
-          fhirResource.hospitalization.admitSource = codeableConcept
-        types: ['CodeableConcept']
-        valueSets: () -> [FhirValueSets.ENCOUNTER_ADMIT_SOURCE_VS]
-      },
-      {
-        path: 'hospitalization.dischargeDisposition',
-        getValue: (fhirResource) ->
-          return fhirResource?.hospitalization?.dischargeDisposition
-        setValue: (fhirResource, codeableConcept) ->
-# EncounterHospitalization
-          if !fhirResource.hospitalization
-            hospitalization = new cqm.models.EncounterHospitalization()
-            fhirResource.hospitalization = hospitalization
-          fhirResource.hospitalization.dischargeDisposition = codeableConcept
-        types: [
-          'CodeableConcept'
-        ]
-        valueSets: () ->
-          FhirValueSets.DISCHARGE_DISPOSITION_VS
-      },
-      {
-        path: 'reasonCode'
-        isArray: true
-        types: ['CodeableConcept']
-        valueSets: () -> [EncounterReasonCodeValueSet.JSON]
-      },
-    ]
-    Flag: []
-    Immunization: [
-      {
-        path: 'status'
-        types: ['Code']
-        valueSets: () -> [ImmunizationStatusValueSet.JSON]
-      },
-      {
-        path: 'occurrence'
-        types: ['DateTime']
-      }
-    ]
-    ImmunizationEvaluation: []
-    ImmunizationRecommendation: []
-    Medication: []
-    MedicationAdministration: [
-      {
-        path: 'dosage.route',
-        getValue: (fhirResource) ->
-          return fhirResource?.dosage?.route
-        setValue: (fhirResource, codeableConcept) ->
-          if !fhirResource.MedicationAdministrationDosage
-            fhirResource.dosage = new cqm.models.MedicationAdministrationDosage()
-          fhirResource.dosage.route = codeableConcept
-        types: ['CodeableConcept']
-        valueSets: () -> [FhirValueSets.ROUTE_CODES_VS]
-      },
+#  @DATA_ELEMENT_ATTRIBUTES:
+#    AdverseEvent: []
+#    AllergyIntolerance: [
 #      {
-#        path: 'dosage.rate',
+#        path: 'clinicalStatus'
+#        types: [
+#          'CodeableConcept'
+#        ]
+#        valueSets: () -> [FhirValueSets.ALLERGYINTOLERANCE_CLINICAL_VS]
+#      },
+#      {
+#        path: 'onset'
+#        types: ['DateTime', 'Age', 'Period', 'Range']
+#      },
+#      {
+#        path: 'verificationStatus',
+#        types: [
+#          'CodeableConcept'
+#        ],
+#        valueSets: () -> [FhirValueSets.ALLERGYINTOLERANCE_VERIFICATION_VS]
+#      }
+#    ]
+#    Condition: [
+#      {
+#        path: 'clinicalStatus'
+#        types: [
+#          'CodeableConcept'
+#        ]
+#        valueSets: () -> [FhirValueSets.CONDITION_CLINICAL_VS]
+#      },
+#      {
+#        path: 'verificationStatus',
+#        types: [
+#          'CodeableConcept'
+#        ],
+#        valueSets: () -> [FhirValueSets.CONDITION_VER_STATUS_VS]
+#      },
+#      {
+#        path: 'onset'
+#        types: ['DateTime', 'Age', 'Period', 'Range']
+#      },
+#      {
+#        path: 'abatement',
+#        types: ['DateTime', 'Age', 'Period', 'Range']
+#      },
+#      {
+#        path: 'bodySite',
+#        types: [
+#          'CodeableConcept'
+#        ]
+#        isArray: true
+#        valueSets: () -> [BodySiteValueSet.JSON]
+#      },
+#      {
+#        path: 'category',
+#        types: [
+#          'CodeableConcept'
+#        ]
+#        isArray: true
+#        valueSets: () -> [FhirValueSets.CONDITION_CATEGORY_VS]
+#      },
+#      {
+#        path: 'severity'
+#        types: [
+#          'CodeableConcept'
+#        ]
+#        valueSets: () -> [ConditionSeverityValueSet.JSON]
+#      },
+#      {
+#        path: 'recorder'
+#        types: ['Reference']
+#        referenceTypes: ['Practitioner', 'PractitionerRole', 'RelatedPerson']
+#      },
+#      {
+#        path: 'asserter'
+#        types: ['Reference']
+#        referenceTypes: ['Practitioner', 'PractitionerRole', 'RelatedPerson']
+#      }
+#    ]
+#    FamilyMemberHistory: []
+#    Procedure: [
+#      {
+#        path: 'status'
+#        types: ['Code']
+#        valueSets: () -> [FhirValueSets.EVENT_STATUS_VS]
+#      },
+#      {
+#        path: 'performed'
+#        types: ['DateTime', 'Period']
+#      },
+#      {
+#        path: 'category'
+#        types: ['CodeableConcept'],
+#        valueSets: () -> [FhirValueSets.PROCEDURE_CATEGORY_VS]
+#      },
+#      {
+#        path: 'statusReason'
+#        types: ['CodeableConcept'],
+#        valueSets: () -> [FhirValueSets.PROCEDURE_NOT_PERFORMED_REASON_VS]
+#      },
+#      {
+#        path: 'reasonCode'
+#        isArray: true
+#        types: ['CodeableConcept']
+#        valueSets: () -> [ProcedureReasonValueSet.JSON]
+#      },
+#      {
+#        path: 'usedCode',
+#        isArray: true
+#        types: ['CodeableConcept'],
+#        valueSets: () -> [DeviceKindValueSet.JSON]
+#      }
+#    ]
+#    Coverage: []
+#    BodyStructure: []
+#    DiagnosticReport: [
+#      {
+#        path: 'status'
+#        types: ['Code']
+#        valueSets: () -> [DiagnosticReportStatusValueSet.JSON]
+#      },
+#      {
+#        path: 'effective',
+#        types: ['DateTime', 'Period']
+#      },
+#      {
+#        path: 'encounter'
+#        types: ['Reference']
+#        referenceTypes: ['Encounter']
+#      },
+#      {
+#        path: 'category',
+#        types: ['CodeableConcept']
+#        isArray: true
+## Value Set from FHIR and QI Core DiagnosticReport Lab  http://hl7.org/fhir/ValueSet/diagnostic-service-sections
+## Value Set from QI Core DiagnosticReport Note (http://hl7.org/fhir/us/qicore/StructureDefinition-qicore-diagnosticreport-note.html)
+##     http://hl7.org/fhir/us/core/ValueSet/us-core-diagnosticreport-category
+#        valueSets: () -> [DiagnosticServiceSectionCodesValueSet.JSON, USCoreDiagnosticReportCategoryValueSet.JSON]
+#      }
+#    ]
+#    ImagingStudy: []
+#    Observation: [
+#      {
+#        path: 'status'
+#        types: ['Code']
+#        valueSets: () -> [ObservationStatusValueSet.JSON]
+#      },
+#      {
+#        path: 'value'
+#        types: ['Boolean', 'CodeableConcept', 'DateTime', 'Integer', 'Period',
+#          'Quantity', 'Range', 'Ratio', 'SampledData', 'String', 'Time'],
+#        valueSets: () -> []
+#      },
+#      {
+#        path: 'category'
+#        types: ['CodeableConcept']
+#        valueSets: () -> [ObservationCategoryCodesValueSet.JSON]
+#        isArray: true
+#      },
+#      {
+#        path: 'effective'
+#        types: ['DateTime', 'Period', 'Timing', 'Instant']
+#      },
+#      {
+#        path: 'component'
+## TODO: Can be created with a composite view widget, autogenerated based in fields introspection.
+#        types: ['ObservationComponent']
+#        valueSets: () -> []
+#        isArray: true
+#      },
+#      {
+#        path: 'encounter'
+#        types: ['Reference']
+#        referenceTypes: ['Encounter']
+#      },
+#    ]
+#    Specimen: []
+#    CarePlan: []
+#    CareTeam: []
+#    Goal: []
+#    NutritionOrder: []
+#    ServiceRequest: [
+#      {
+#        path: 'intent'
+#        types: ['Code']
+#        valueSets: () -> [FhirValueSets.REQUEST_INTENT]
+#      },
+#      {
+#        path: 'status'
+#        types: ['Code']
+#        valueSets: () -> [FhirValueSets.REQUEST_STATUS]
+#      },
+#      {
+#        path: 'reasonCode'
+#        isArray: true
+#        types: ['CodeableConcept']
+#        valueSets: () -> [ProcedureReasonCodeValueSet.JSON]
+#      },
+#    ]
+#    Claim: []
+#    Communication: [
+#      {
+#        path: 'status'
+#        types: ['Code']
+#        valueSets: () -> [EventStatusValueSet.JSON]
+#      }
+#    ]
+#    CommunicationRequest: []
+#    DeviceRequest: [
+#      {
+#        path: 'status'
+#        types: ['Code']
+#        valueSets: () -> [FhirValueSets.REQUEST_STATUS]
+#      },
+#      {
+#        path: 'intent'
+#        types: ['Code']
+#        valueSets: () -> [FhirValueSets.REQUEST_INTENT]
+#      }
+#    ]
+#    DeviceUseStatement: [
+#      {
+#        path: 'timing',
+#        types: ['DateTime', 'Period', 'Timing']
+#      }
+#    ]
+#    Location: []
+#    Device: []
+#    Substance: []
+#    Encounter: [
+#      {
+#        path: 'identifier'
+#        types: ['Identifier']
+#        isArray: true
+#      },
+#      {
+#        path: 'class'
+#        types: ['Coding']
+#        valueSets: () -> [FhirValueSets.ACT_ENCOUNTER_CODE_VS]
+#      },
+#      {
+#        path: 'diagnosis'
+#        types: ['EncounterDiagnosis']
+#        isArray: true
+#      },
+#      {
+#        path: 'length'
+#        types: ['Duration']
+#      },
+#      {
+#        path: 'location'
+#        types: ['EncounterLocation']
+#        isArray: true
+#      },
+#      {
+#        path: 'status'
+#        types: ['Code']
+#        valueSets: () ->
+#          FhirValueSets.ENCOUNTER_STATUS_VS
+#      },
+#      {
+#        path: 'hospitalization.admitSource',
+#        getValue: (fhirResource) -> fhirResource?.hospitalization?.admitSource
+#        setValue: (fhirResource, codeableConcept) ->
+#          if !fhirResource.hospitalization
+#            hospitalization = new cqm.models.EncounterHospitalization()
+#            fhirResource.hospitalization = hospitalization
+#          fhirResource.hospitalization.admitSource = codeableConcept
+#        types: ['CodeableConcept']
+#        valueSets: () -> [FhirValueSets.ENCOUNTER_ADMIT_SOURCE_VS]
+#      },
+#      {
+#        path: 'hospitalization.dischargeDisposition',
 #        getValue: (fhirResource) ->
-#          return fhirResource?.dosage?.rate
-#        setValue: (fhirResource, value) ->
+#          return fhirResource?.hospitalization?.dischargeDisposition
+#        setValue: (fhirResource, codeableConcept) ->
+## EncounterHospitalization
+#          if !fhirResource.hospitalization
+#            hospitalization = new cqm.models.EncounterHospitalization()
+#            fhirResource.hospitalization = hospitalization
+#          fhirResource.hospitalization.dischargeDisposition = codeableConcept
+#        types: [
+#          'CodeableConcept'
+#        ]
+#        valueSets: () ->
+#          FhirValueSets.DISCHARGE_DISPOSITION_VS
+#      },
+#      {
+#        path: 'reasonCode'
+#        isArray: true
+#        types: ['CodeableConcept']
+#        valueSets: () -> [EncounterReasonCodeValueSet.JSON]
+#      },
+#    ]
+#    Flag: []
+#    Immunization: [
+#      {
+#        path: 'status'
+#        types: ['Code']
+#        valueSets: () -> [ImmunizationStatusValueSet.JSON]
+#      },
+#      {
+#        path: 'occurrence'
+#        types: ['DateTime']
+#      }
+#    ]
+#    ImmunizationEvaluation: []
+#    ImmunizationRecommendation: []
+#    Medication: []
+#    MedicationAdministration: [
+#      {
+#        path: 'dosage.route',
+#        getValue: (fhirResource) ->
+#          return fhirResource?.dosage?.route
+#        setValue: (fhirResource, codeableConcept) ->
 #          if !fhirResource.MedicationAdministrationDosage
 #            fhirResource.dosage = new cqm.models.MedicationAdministrationDosage()
-#          if !value?
-#            fhirResource.dosage.rate = null
-#          else
-#            fhirResource.dosage.rate = value
-#        types: ['Ratio']
+#          fhirResource.dosage.route = codeableConcept
+#        types: ['CodeableConcept']
+#        valueSets: () -> [FhirValueSets.ROUTE_CODES_VS]
 #      },
-      {
-        path: 'medication'
-        types: ['CodeableConcept', 'Reference']
-        referenceTypes: ['Medication']
-        valueSets: () -> [USCoreMedicationCodesValueSet.JSON]
-      },
-      {
-        path: 'reasonCode'
-        isArray: true
-        types: ['CodeableConcept']
-        valueSets: () -> [FhirValueSets.REASON_MEDICATION_GIVEN_VS]
-      },
-      {
-        path: 'status'
-        types: ['Code']
-        valueSets: () -> [FhirValueSets.MEDICATION_ADMIN_STATUS_VS]
-      },
-      {
-        path: 'statusReason'
-        isArray: true
-        types: ['CodeableConcept']
-        valueSets: () -> [FhirValueSets.REASON_MEDICATION_NOT_GIVEN_VS]
-      },
-      {
-        path: 'effective'
-        types: ['DateTime', 'Period']
-      }
-    ]
-    MedicationDispense: [
-      {
-        path: 'medication'
-        types: ['CodeableConcept', 'Reference']
-        referenceTypes: ['Medication']
-        valueSets: () -> [USCoreMedicationCodesValueSet.JSON]
-      },
-      {
-        path: 'dosageInstruction'
-        getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]
-        setValue: (fhirResource, value) -> fhirResource.dosageInstruction = if value? then [value] else null
-        types: ['Dosage']
-      },
-      {
-        path: 'dosageInstruction.timing'
-        getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]?.timing
-        setValue: (fhirResource, timing) ->
-          if !timing?
-            fhirResource?.dosageInstruction?[0]?.timing = null
-          else
-            fhirResource.dosageInstruction = [new cqm.models.Dosage()] unless fhirResource?.dosageInstruction
-            fhirResource.dosageInstruction[0].timing = timing
-        types: ['Timing']
-      },
-      {
-        path: 'daysSupply',
-        getValue: (fhirResource) -> fhirResource?.daysSupply
-        setValue: (fhirResource, daysSupply) ->
-          if !daysSupply?
-            fhirResource?.daysSupply = null
-          else
-            fhirResource?.daysSupply = daysSupply
-        types: ['SimpleQuantity']
-      },
-      {
-        path: 'status'
-        types: ['Code']
-        valueSets: () -> [MedicationDispenseStatusValueSet.JSON]
-      }
-    ]
-    MedicationRequest: [
-# Not ready for delivery.
+##      {
+##        path: 'dosage.rate',
+##        getValue: (fhirResource) ->
+##          return fhirResource?.dosage?.rate
+##        setValue: (fhirResource, value) ->
+##          if !fhirResource.MedicationAdministrationDosage
+##            fhirResource.dosage = new cqm.models.MedicationAdministrationDosage()
+##          if !value?
+##            fhirResource.dosage.rate = null
+##          else
+##            fhirResource.dosage.rate = value
+##        types: ['Ratio']
+##      },
 #      {
-#        path: 'doNotPerform'
-#        getValue: (fhirResource) -> fhirResource?.doNotPerform?.value
-#        setValue: (fhirResource, primitiveBoolean) ->
-#          if !primitiveBoolean?
-#            fhirResource?.doNotPerform = null
-#          else
-#            fhirResource?.doNotPerform = primitiveBoolean
-#        types: ['Boolean']
+#        path: 'medication'
+#        types: ['CodeableConcept', 'Reference']
+#        referenceTypes: ['Medication']
+#        valueSets: () -> [USCoreMedicationCodesValueSet.JSON]
 #      },
-      {
-        path: 'medication'
-        types: ['CodeableConcept', 'Reference']
-        referenceTypes: ['Medication']
-        valueSets: () -> [USCoreMedicationCodesValueSet.JSON]
-      },
-      {
-        path: 'status'
-        types: ['Code']
-        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_STATUS_VS]
-      },
-      {
-        path: 'intent'
-        types: ['Code']
-        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_INTENT_VS]
-      },
-      {
-        path: 'category'
-        isArray: true
-        types: ['CodeableConcept']
-        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_CATEGORY_VS]
-      },
-      {
-        path: 'dispenseRequest.validityPeriod'
-        getValue: (fhirResource) -> fhirResource?.dispenseRequest?.validityPeriod
-        setValue: (fhirResource, period) ->
-          if !period?
-            fhirResource?.dispenseRequest?.validityPeriod = null
-          else
-            fhirResource.dispenseRequest = new cqm.models.MedicationRequestDispenseRequest() unless fhirResource?.dispenseRequest
-            fhirResource.dispenseRequest.validityPeriod = period
-        types: ['Period']
-      },
-      {
-        path: 'dosageInstruction.timing'
-        title: 'dosageInstruction.timing'
-        getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]?.timing
-        setValue: (fhirResource, timing) ->
-          if !timing?
-            fhirResource?.dosageInstruction?[0]?.timing = null
-          else
-            fhirResource.dosageInstruction = [new cqm.models.Dosage()] unless fhirResource?.dosageInstruction
-            fhirResource.dosageInstruction[0].timing = timing
-        types: ['Timing']
-      },
-      {
-        path: 'dosageInstruction.doseAndRate.rate'
-        getValue: (fhirResource) ->
-          if  cqm.models.SimpleQuantity.isSimpleQuantity(fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate)
-# Widget supports only Quantity:  convert SimpleQuantity -> Quantity
-            return cqm.models.Quantity.parse(fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate.toJSON())
-          else
-            return fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate
-        setValue: (fhirResource, rate) ->
-          if !rate?
-            fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate = null
-          else
-            fhirResource.dosageInstruction = [new cqm.models.Dosage()] unless fhirResource?.dosageInstruction
-            fhirResource.dosageInstruction[0].doseAndRate = [new cqm.models.DosageDoseAndRate()] unless fhirResource?.dosageInstruction?[0]?.doseAndRate
-            if cqm.models.Quantity.isQuantity(rate)
-# Widget supports only Quantity: convert Quantity -> SimpleQuantity
-              fhirResource.dosageInstruction[0].doseAndRate[0].rate = cqm.models.SimpleQuantity.parse(rate.toJSON())
-            else
-              fhirResource.dosageInstruction[0].doseAndRate[0].rate = rate
-        types: ['Ratio', 'Range', 'SimpleQuantity']
-      },
-      {
-        path: 'reasonCode'
-        isArray: true
-        types: ['CodeableConcept']
-        valueSets: () -> [ConditionCodesValueSet.JSON]
-      },
-      {
-        path: 'statusReason'
-        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_STATUS_REASON_VS]
-        types: ['CodeableConcept']
-      }
-    ]
-    MedicationStatement: [
-      {
-        path: 'status'
-        types: ['Code']
-        valueSets: () -> [FhirValueSets.MEDICATION_STATEMENT_STATUS_VS]
-      }
-    ]
-    Patient: []
-    Practitioner: []
-    PractitionerRole: []
-    RelatedPerson: []
-    Task: [
-      {
-        path: 'basedOn'
-        types: ['Reference']
-        isArray: true
-# referenceTypes placeholder, will be updated
-        referenceTypes: ['Placeholder'],
-        postInit: (taskBasedOn, task, dataElements) ->
-          taskBasedOn.referenceTypes = Object.keys(dataElements)
-      },
-      {
-        path: 'status'
-        types: ['Code']
-        valueSets: () -> [TaskStatusValueSet.JSON]
-      }
-    ]
+#      {
+#        path: 'reasonCode'
+#        isArray: true
+#        types: ['CodeableConcept']
+#        valueSets: () -> [FhirValueSets.REASON_MEDICATION_GIVEN_VS]
+#      },
+#      {
+#        path: 'status'
+#        types: ['Code']
+#        valueSets: () -> [FhirValueSets.MEDICATION_ADMIN_STATUS_VS]
+#      },
+#      {
+#        path: 'statusReason'
+#        isArray: true
+#        types: ['CodeableConcept']
+#        valueSets: () -> [FhirValueSets.REASON_MEDICATION_NOT_GIVEN_VS]
+#      },
+#      {
+#        path: 'effective'
+#        types: ['DateTime', 'Period']
+#      }
+#    ]
+#    MedicationDispense: [
+#      {
+#        path: 'medication'
+#        types: ['CodeableConcept', 'Reference']
+#        referenceTypes: ['Medication']
+#        valueSets: () -> [USCoreMedicationCodesValueSet.JSON]
+#      },
+#      {
+#        path: 'dosageInstruction'
+#        getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]
+#        setValue: (fhirResource, value) -> fhirResource.dosageInstruction = if value? then [value] else null
+#        types: ['Dosage']
+#      },
+#      {
+#        path: 'dosageInstruction.timing'
+#        getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]?.timing
+#        setValue: (fhirResource, timing) ->
+#          if !timing?
+#            fhirResource?.dosageInstruction?[0]?.timing = null
+#          else
+#            fhirResource.dosageInstruction = [new cqm.models.Dosage()] unless fhirResource?.dosageInstruction
+#            fhirResource.dosageInstruction[0].timing = timing
+#        types: ['Timing']
+#      },
+#      {
+#        path: 'daysSupply',
+#        getValue: (fhirResource) -> fhirResource?.daysSupply
+#        setValue: (fhirResource, daysSupply) ->
+#          if !daysSupply?
+#            fhirResource?.daysSupply = null
+#          else
+#            fhirResource?.daysSupply = daysSupply
+#        types: ['SimpleQuantity']
+#      },
+#      {
+#        path: 'status'
+#        types: ['Code']
+#        valueSets: () -> [MedicationDispenseStatusValueSet.JSON]
+#      }
+#    ]
+#    MedicationRequest: [
+## Not ready for delivery.
+##      {
+##        path: 'doNotPerform'
+##        getValue: (fhirResource) -> fhirResource?.doNotPerform?.value
+##        setValue: (fhirResource, primitiveBoolean) ->
+##          if !primitiveBoolean?
+##            fhirResource?.doNotPerform = null
+##          else
+##            fhirResource?.doNotPerform = primitiveBoolean
+##        types: ['Boolean']
+##      },
+#      {
+#        path: 'medication'
+#        types: ['CodeableConcept', 'Reference']
+#        referenceTypes: ['Medication']
+#        valueSets: () -> [USCoreMedicationCodesValueSet.JSON]
+#      },
+#      {
+#        path: 'status'
+#        types: ['Code']
+#        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_STATUS_VS]
+#      },
+#      {
+#        path: 'intent'
+#        types: ['Code']
+#        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_INTENT_VS]
+#      },
+#      {
+#        path: 'category'
+#        isArray: true
+#        types: ['CodeableConcept']
+#        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_CATEGORY_VS]
+#      },
+#      {
+#        path: 'dispenseRequest.validityPeriod'
+#        getValue: (fhirResource) -> fhirResource?.dispenseRequest?.validityPeriod
+#        setValue: (fhirResource, period) ->
+#          if !period?
+#            fhirResource?.dispenseRequest?.validityPeriod = null
+#          else
+#            fhirResource.dispenseRequest = new cqm.models.MedicationRequestDispenseRequest() unless fhirResource?.dispenseRequest
+#            fhirResource.dispenseRequest.validityPeriod = period
+#        types: ['Period']
+#      },
+#      {
+#        path: 'dosageInstruction.timing'
+#        title: 'dosageInstruction.timing'
+#        getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]?.timing
+#        setValue: (fhirResource, timing) ->
+#          if !timing?
+#            fhirResource?.dosageInstruction?[0]?.timing = null
+#          else
+#            fhirResource.dosageInstruction = [new cqm.models.Dosage()] unless fhirResource?.dosageInstruction
+#            fhirResource.dosageInstruction[0].timing = timing
+#        types: ['Timing']
+#      },
+#      {
+#        path: 'dosageInstruction.doseAndRate.rate'
+#        getValue: (fhirResource) ->
+#          if  cqm.models.SimpleQuantity.isSimpleQuantity(fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate)
+## Widget supports only Quantity:  convert SimpleQuantity -> Quantity
+#            return cqm.models.Quantity.parse(fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate.toJSON())
+#          else
+#            return fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate
+#        setValue: (fhirResource, rate) ->
+#          if !rate?
+#            fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate = null
+#          else
+#            fhirResource.dosageInstruction = [new cqm.models.Dosage()] unless fhirResource?.dosageInstruction
+#            fhirResource.dosageInstruction[0].doseAndRate = [new cqm.models.DosageDoseAndRate()] unless fhirResource?.dosageInstruction?[0]?.doseAndRate
+#            if cqm.models.Quantity.isQuantity(rate)
+## Widget supports only Quantity: convert Quantity -> SimpleQuantity
+#              fhirResource.dosageInstruction[0].doseAndRate[0].rate = cqm.models.SimpleQuantity.parse(rate.toJSON())
+#            else
+#              fhirResource.dosageInstruction[0].doseAndRate[0].rate = rate
+#        types: ['Ratio', 'Range', 'SimpleQuantity']
+#      },
+#      {
+#        path: 'reasonCode'
+#        isArray: true
+#        types: ['CodeableConcept']
+#        valueSets: () -> [ConditionCodesValueSet.JSON]
+#      },
+#      {
+#        path: 'statusReason'
+#        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_STATUS_REASON_VS]
+#        types: ['CodeableConcept']
+#      }
+#    ]
+#    MedicationStatement: [
+#      {
+#        path: 'status'
+#        types: ['Code']
+#        valueSets: () -> [FhirValueSets.MEDICATION_STATEMENT_STATUS_VS]
+#      }
+#    ]
+#    Patient: []
+#    Practitioner: []
+#    PractitionerRole: []
+#    RelatedPerson: []
+#    Task: [
+#      {
+#        path: 'basedOn'
+#        types: ['Reference']
+#        isArray: true
+## referenceTypes placeholder, will be updated
+#        referenceTypes: ['Placeholder'],
+#        postInit: (taskBasedOn, task, dataElements) ->
+#          taskBasedOn.referenceTypes = Object.keys(dataElements)
+#      },
+#      {
+#        path: 'status'
+#        types: ['Code']
+#        valueSets: () -> [TaskStatusValueSet.JSON]
+#      }
+#    ]
 
-# Dynamic initialization
+# Dynamic post-initialization
   @postInitDataElements: (dataElements) ->
     for dataElement in Object.values(dataElements)
       for attrDef in Object.values(dataElement)
@@ -866,41 +1085,3 @@
 
   @postInitDataElements(@DATA_ELEMENT_ATTRIBUTES)
 
-  # Additional metadata for composite types, not captured in ModelInfo/ Models.
-  # 1st level entries - list of supported types for CompositeView editor
-  # 2nd level entries - are supported properties with custom metadata
-  @COMPOSITE_TYPES:
-    EncounterLocation:
-      location:
-        referenceTypes: ['Location']
-        types: ['Reference']
-      period:
-        types: ['Period']
-    EncounterDiagnosis:
-      condition:
-        referenceTypes: ['Condition', 'Procedure']
-        types: ['Reference']
-      rank:
-        types: ['PositiveInt']
-      use:
-        types: ['CodeableConcept']
-        valueSets: () -> [DiagnosisRoleValueSet.JSON]
-
-  @isCompositeType: (typeName) ->
-    @COMPOSITE_TYPES.hasOwnProperty(typeName)
-
-  @getCompositeAttributes: (compositeTypeName) ->
-    attributes = []
-    compositeType = @COMPOSITE_TYPES[compositeTypeName]
-    for path in Object.keys(compositeType).sort()
-      attributes.push(@getCompositeAttribute(compositeTypeName, path))
-    attributes
-
-  @getCompositeAttribute: (compositeTypeName, path) ->
-    compositeType = @COMPOSITE_TYPES[compositeTypeName]
-    {
-      path: path
-      types: compositeType[path].types
-      valueSets: compositeType[path].valueSets
-      referenceTypes: compositeType[path].referenceTypes
-    }
