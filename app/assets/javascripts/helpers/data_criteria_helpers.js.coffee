@@ -542,6 +542,12 @@
     CommunicationRequest: []
     DeviceRequest: [
       {
+        path: 'code',
+        types: ['CodeableConcept', 'Reference']
+        referenceTypes: ['Device']
+        valueSets: () -> [DeviceKindValueSet.JSON]
+      },
+      {
         path: 'status'
         types: ['Code']
         valueSets: () -> [FhirValueSets.REQUEST_STATUS]
@@ -849,6 +855,10 @@
         path: 'status'
         types: ['Code']
         valueSets: () -> [TaskStatusValueSet.JSON]
+      },
+      {
+        path: 'reasonCode'
+        types: ['CodeableConcept']
       }
     ]
 
