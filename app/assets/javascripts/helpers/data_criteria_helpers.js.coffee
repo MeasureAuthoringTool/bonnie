@@ -537,6 +537,12 @@
         path: 'status'
         types: ['Code']
         valueSets: () -> [EventStatusValueSet.JSON]
+      },
+      {
+        path: 'statusReason'
+        isArray: true
+        types: ['CodeableConcept']
+        valueSets: () -> [CommunicationNotDoneReason.JSON]
       }
     ]
     CommunicationRequest: []
