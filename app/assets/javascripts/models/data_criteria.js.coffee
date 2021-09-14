@@ -55,9 +55,6 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     element_category = DataCriteriaHelpers.DATA_ELEMENT_CATEGORIES[@get('fhir_resource').resourceType]
     icons[element_category] || 'question'
 
-  canHaveNegation: ->
-    NegationHelpers.canHaveNegation(@get('fhir_resource').resourceType)
-
   # determines if a data criteria has a time period associated with it: it potentially has both
   # a start and end date.
   isPeriodType: ->
