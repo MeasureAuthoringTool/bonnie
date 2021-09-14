@@ -540,9 +540,12 @@
       },
       {
         path: 'statusReason'
-        isArray: true
         types: ['CodeableConcept']
-        valueSets: () -> [CommunicationNotDoneReason.JSON]
+        valueSets: () -> [
+          NegationReasonValueSet.MEDICAL_REASON_NOT_DONE,
+          NegationReasonValueSet.PATIENT_REASON_NOT_DONE,
+          NegationReasonValueSet.SYSTEM_REASONS
+        ]
       }
     ]
     CommunicationRequest: []
