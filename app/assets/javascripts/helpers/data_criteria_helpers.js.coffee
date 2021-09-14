@@ -1,3 +1,160 @@
+@ReferenceBindings = class ReferenceBindings
+  @REFERENCE_BINDINGS:
+    # Resources
+    Condition:
+      recorder:
+        referenceTypes: ['Practitioner', 'PractitionerRole', 'RelatedPerson']
+      asserter:
+        referenceTypes: ['Practitioner', 'PractitionerRole', 'RelatedPerson']
+    DeviceRequest:
+      code:
+        referenceTypes: ['Device']
+    DiagnosticReport:
+      encounter:
+        referenceTypes: ['Encounter']
+    Observation:
+      encounter:
+        referenceTypes: ['Encounter']
+    MedicationAdministration:
+      medication:
+        referenceTypes: ['Medication']
+    MedicationDispense:
+      medication:
+        referenceTypes: ['Medication']
+    MedicationRequest:
+      medication:
+        referenceTypes: ['Medication']
+    Task:
+      basedOn:
+        referenceTypes: ['Placeholder']
+    # Elements for composite widgets
+    EncounterLocation:
+      location:
+        referenceTypes: ['Location']
+    EncounterDiagnosis:
+      condition:
+        referenceTypes: ['Condition', 'Procedure']
+
+@ValueSetBindings = class ValueSetBindings
+  # TODO: 1. migreate to VS IDs, do VS lookup later 2. generate from struc def
+  @VALUE_SET_BINDINGS:
+    # Resources
+    AllergyIntolerance:
+      clinicalStatus:
+        valueSets: () -> [FhirValueSets.ALLERGYINTOLERANCE_CLINICAL_VS]
+      verificationStatus:
+        valueSets: () -> [FhirValueSets.ALLERGYINTOLERANCE_VERIFICATION_VS]
+    Condition:
+      clinicalStatus:
+        valueSets: () -> [FhirValueSets.CONDITION_CLINICAL_VS]
+      verificationStatus:
+        valueSets: () -> [FhirValueSets.CONDITION_VER_STATUS_VS]
+      bodySite:
+        valueSets: () -> [BodySiteValueSet.JSON]
+      category:
+        valueSets: () -> [FhirValueSets.CONDITION_CATEGORY_VS]
+      severity:
+        valueSets: () -> [ConditionSeverityValueSet.JSON]
+    Procedure:
+      status:
+        valueSets: () -> [FhirValueSets.EVENT_STATUS_VS]
+      category:
+        valueSets: () -> [FhirValueSets.PROCEDURE_CATEGORY_VS]
+      statusReason:
+        valueSets: () -> [FhirValueSets.PROCEDURE_NOT_PERFORMED_REASON_VS]
+      reasonCode:
+        valueSets: () -> [ProcedureReasonValueSet.JSON]
+      usedCode:
+        valueSets: () -> [DeviceKindValueSet.JSON]
+    DiagnosticReport:
+      status:
+        valueSets: () -> [DiagnosticReportStatusValueSet.JSON]
+      category:
+        valueSets: () -> [DiagnosticServiceSectionCodesValueSet.JSON, USCoreDiagnosticReportCategoryValueSet.JSON]
+    Observation:
+      status:
+        valueSets: () -> [ObservationStatusValueSet.JSON]
+      category:
+        valueSets: () -> [ObservationCategoryCodesValueSet.JSON]
+    ServiceRequest:
+      intent:
+        valueSets: () -> [FhirValueSets.REQUEST_INTENT]
+      status:
+        valueSets: () -> [FhirValueSets.REQUEST_STATUS]
+      reasonCode:
+        valueSets: () -> [ProcedureReasonCodeValueSet.JSON]
+    Communication:
+      status:
+        valueSets: () -> [EventStatusValueSet.JSON]
+    DeviceRequest:
+      code:
+        valueSets: () -> [DeviceKindValueSet.JSON]
+      status:
+        valueSets: () -> [FhirValueSets.REQUEST_STATUS]
+      intent:
+        valueSets: () -> [FhirValueSets.REQUEST_INTENT]
+    Encounter:
+      "class":
+        valueSets: () -> [FhirValueSets.ACT_ENCOUNTER_CODE_VS]
+      status:
+        valueSets: () -> [FhirValueSets.ENCOUNTER_STATUS_VS]
+      "hospitalization.admitSource":
+        valueSets: () -> [FhirValueSets.ENCOUNTER_ADMIT_SOURCE_VS]
+      "hospitalization.dischargeDisposition":
+        valueSets: () -> [FhirValueSets.DISCHARGE_DISPOSITION_VS]
+      reasonCode:
+        valueSets: () -> [EncounterReasonCodeValueSet.JSON]
+    Immunization:
+      status:
+        valueSets: () -> [ImmunizationStatusValueSet.JSON]
+    MedicationAdministration:
+      "dosage.route":
+        valueSets: () -> [FhirValueSets.ROUTE_CODES_VS]
+      medication:
+        valueSets: () -> [USCoreMedicationCodesValueSet.JSON]
+      reasonCode:
+        valueSets: () -> [FhirValueSets.REASON_MEDICATION_GIVEN_VS]
+      status:
+        valueSets: () -> [FhirValueSets.MEDICATION_ADMIN_STATUS_VS]
+      statusReason:
+        valueSets: () -> [FhirValueSets.REASON_MEDICATION_NOT_GIVEN_VS]
+    MedicationDispense:
+      medication:
+        valueSets: () -> [USCoreMedicationCodesValueSet.JSON]
+      status:
+        valueSets: () -> [MedicationDispenseStatusValueSet.JSON]
+    MedicationRequest:
+      medication:
+        valueSets: () -> [USCoreMedicationCodesValueSet.JSON]
+      status:
+        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_STATUS_VS]
+      intent:
+        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_INTENT_VS]
+      category:
+        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_CATEGORY_VS]
+      reasonCode:
+        valueSets: () -> [ConditionCodesValueSet.JSON]
+      statusReason:
+        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_STATUS_REASON_VS]
+    MedicationStatement:
+      status:
+        valueSets: () -> [FhirValueSets.MEDICATION_STATEMENT_STATUS_VS]
+    Task:
+      status:
+        valueSets: () -> [TaskStatusValueSet.JSON]
+    # Elements
+    EncounterDiagnosis:
+      use:
+        valueSets: () -> [DiagnosisRoleValueSet.JSON]
+    EncounterHospitalization:
+      admitSource:
+        valueSets: () -> [FhirValueSets.ENCOUNTER_ADMIT_SOURCE_VS]
+      dischargeDisposition:
+        valueSets: () -> FhirValueSets.DISCHARGE_DISPOSITION_VS
+    MedicationAdministrationDosage:
+      route:
+        valueSets: () -> [FhirValueSets.ROUTE_CODES_VS]
+
 @DataCriteriaHelpers = class DataCriteriaHelpers
 
   # FIXME: can be generated based on the naming convetions and supported types
@@ -87,16 +244,23 @@
 
     Task: 'workflow'
 
-  @getPrimaryCodePath: (dataElement) ->
-    return cqm.models[dataElement.fhir_resource?.getTypeName()]?.primaryCodePath
+  @getPrimaryCodePathForType: (typeName) ->
+    cqm.models[typeName]?.primaryCodePath
 
-  @isPrimaryCodePathSupported: (dataElement) ->
+  @getPrimaryCodePath: (dataElement) ->
+    @getPrimaryCodePathForType(dataElement.fhir_resource?.getTypeName())
+
+  @isPrimaryCodePathSupportedForType: (typeName) ->
 # Bonnie doesn't support choice types in primary code path
-    type = cqm.models[dataElement.fhir_resource?.getTypeName()]
+    type = cqm.models[typeName]
     primaryCodePath = type?.primaryCodePath
     return false unless primaryCodePath?
     fieldInfo = type?.fieldInfo?.find((info) -> info.fieldName == primaryCodePath)
     return fieldInfo?.fieldTypeNames?.length == 1 && cqm.models.CodeableConcept.typeName == fieldInfo?.fieldTypeNames?[0]
+
+  @isPrimaryCodePathSupported: (dataElement) ->
+# Bonnie doesn't support choice types in primary code path
+    @isPrimaryCodePathSupportedForType(dataElement.fhir_resource?.getTypeName())
 
   @getPrimaryCodes: (dataElement) ->
     return dataElement?.fhir_resource?.primaryCode?.coding || []
@@ -316,40 +480,85 @@
       attrs.push("assigner: #{type.assigner.display.value}")
     return attrs.join(" | ")
 
-# FIXME: generate dynamically
+
+  @isCodeType: (attrTypeName) ->
+    cqm.models[attrTypeName]?.prototype instanceof cqm.models.PrimitiveCode
+
+# TODO: Move 'Timing', 'Dosage', 'Identifier' ?
+  @isSupportedAttributeTypeInWidget: (attrTypeName) ->
+    ['Code', 'Coding', 'CodeableConcept', 'Date', 'DateTime', 'Instant', 'Decimal', 'Integer', 'Period', 'PositiveInt', 'PositiveInteger', 'UnsignedInt', 'UnsignedInteger', 'ObservationComponent', 'Quantity', 'SimpleQuantity', 'Duration', 'Age', 'Range', 'Ratio', 'String', 'Canonical', 'id', 'Boolean', 'Time', 'Reference', 'SampledData', 'Timing', 'Dosage', 'Identifier'].includes(attrTypeName)
+
+# FIXME: some primitive types are still not supporterd, like PrimitiveUri, Canonical, etc etc
+  @isSupportedAttributeType: (attrTypeName) ->
+    @isSupportedAttributeTypeInWidget(attrTypeName) || @isCompositeType(attrTypeName)
+
+  @convertAttributeType: (attrTypeName) ->
+    return 'Code' if @isCodeType(attrTypeName)
+    return attrTypeName?.replace('Primitive', '').replace('\.', '')
+
+# id, extension and  modifierExtension are handled in a different way
+  @isNotDisplayedAttribute: (attrName) ->
+    ['id', 'extension', 'modifierExtension'].includes(attrName)
+
 # Additional metadata for composite types, not captured in ModelInfo/ Models.
 # 1st level entries - list of supported types for CompositeView editor
 # 2nd level entries - are supported properties with custom metadata
-  @COMPOSITE_TYPES:
-    EncounterLocation:
-      location:
-        referenceTypes: ['Location']
-        types: ['Reference']
-      period:
-        types: ['Period']
-    EncounterDiagnosis:
-      condition:
-        referenceTypes: ['Condition', 'Procedure']
-        types: ['Reference']
-      rank:
-        types: ['PositiveInt']
-      use:
-        types: ['CodeableConcept']
-        valueSets: () -> [DiagnosisRoleValueSet.JSON]
-    # FIXME: added for PoC
-    EncounterHospitalization:
-      admitSource:
-        types: ['CodeableConcept']
-        valueSets: () -> [FhirValueSets.ENCOUNTER_ADMIT_SOURCE_VS]
-      dischargeDisposition:
-        types: ['CodeableConcept']
-        valueSets: () -> FhirValueSets.DISCHARGE_DISPOSITION_VS
-    MedicationAdministrationDosage:
-      route:
-        types: ['CodeableConcept']
-        valueSets: () -> [FhirValueSets.ROUTE_CODES_VS]
-      rate:
-        types: ['Ratio']
+  @COMPOSITE_TYPES: {}
+
+  @initCompositeTypes: (compositeTypes) ->
+    Object.values(cqm.models).filter( (cl) -> cl.baseType is 'FHIR.BackboneElement').forEach (element) ->
+      typeName = element.typeName.replace('\.', '')
+      compositeTypeDef =  compositeTypes[typeName] || {}
+      return if compositeTypeDef.skipInBonnie
+      compositeTypes[typeName] = compositeTypeDef
+      if typeName is 'EncounterLocation'
+        debugger
+      console.log('Composite element: ' + typeName)
+      element.fieldInfo.filter( (fieldInfo) -> !DataCriteriaHelpers.isNotDisplayedAttribute(fieldInfo.fieldName) ).forEach (fieldInfo) ->
+        attrDef = compositeTypeDef[fieldInfo.fieldName] || {}
+        return if attrDef.skipInBonnie
+        compositeTypeDef[fieldInfo.fieldName] = attrDef
+        console.log('Composite element attr: ' + fieldInfo.fieldName)
+        types = fieldInfo.fieldTypeNames.map((t) -> DataCriteriaHelpers.convertAttributeType(t)).filter( (t) -> DataCriteriaHelpers.isSupportedAttributeTypeInWidget(t) )
+        if types.length
+          attrDef.path = fieldInfo.fieldName
+          attrDef.types = types
+          attrDef.isArray = fieldInfo.isArray
+          attrDef.valueSets = ValueSetBindings.VALUE_SET_BINDINGS[typeName]?[fieldInfo.fieldName]?.valueSets
+          attrDef.referenceTypes = ReferenceBindings.REFERENCE_BINDINGS[typeName]?[fieldInfo.fieldName]?.referenceTypes
+
+  @initCompositeTypes(@COMPOSITE_TYPES)
+
+# Example of the COMPOSITE_TYPES structure
+#    EncounterLocation:
+#      location:
+#        referenceTypes: ['Location']
+#        types: ['Reference']
+#      period:
+#        types: ['Period']
+#    EncounterDiagnosis:
+#      condition:
+#        referenceTypes: ['Condition', 'Procedure']
+#        types: ['Reference']
+#      rank:
+#        types: ['PositiveInt']
+#      use:
+#        types: ['CodeableConcept']
+#        valueSets: () -> [DiagnosisRoleValueSet.JSON]
+#    # FIXME: added for PoC
+#    EncounterHospitalization:
+#      admitSource:
+#        types: ['CodeableConcept']
+#        valueSets: () -> [FhirValueSets.ENCOUNTER_ADMIT_SOURCE_VS]
+#      dischargeDisposition:
+#        types: ['CodeableConcept']
+#        valueSets: () -> FhirValueSets.DISCHARGE_DISPOSITION_VS
+#    MedicationAdministrationDosage:
+#      route:
+#        types: ['CodeableConcept']
+#        valueSets: () -> [FhirValueSets.ROUTE_CODES_VS]
+#      rate:
+#        types: ['Ratio']
 
   @getCompositeAttributes: (compositeTypeName) ->
     attributes = []
@@ -368,144 +577,8 @@
     }
 
   @isCompositeType: (typeName) ->
-    @COMPOSITE_TYPES.hasOwnProperty(typeName)
+    @COMPOSITE_TYPES.hasOwnProperty(typeName) && !@COMPOSITE_TYPES[typeName]?.skipInBonnie
 
-  # FIXME: some primitive types are still not supporterd, like PrimitiveUri, Canonical, etc etc
-  @isSupportedAttributeType: (attrTypeName) ->
-    ['Code', 'Coding', 'CodeableConcept', 'Date', 'DateTime', 'Instant', 'Decimal', 'Integer', 'Period', 'PositiveInt', 'PositiveInteger', 'UnsignedInt', 'UnsignedInteger', 'ObservationComponent', 'Quantity', 'SimpleQuantity', 'Duration', 'Age', 'Range', 'Ratio', 'String', 'Canonical', 'id', 'Boolean', 'Time', 'Reference', 'SampledData', 'Timing', 'Dosage', 'Identifier'].includes(attrTypeName) || @isCompositeType(attrTypeName)
-
-  # id, extension and  modifierExtension are handled in a different way
-  @isNotDisplayedAttribute: (attrName) ->
-    ['id', 'extension', 'modifierExtension'].includes(attrName)
-
-  # TODO: 1. move to a separate file. 2. migreate to VS IDs, do VS lookup later 3. move to YAML configuratino file
-  @VALUE_SET_BINDINGS:
-    AllergyIntolerance:
-      clinicalStatus:
-        valueSets: () -> [FhirValueSets.ALLERGYINTOLERANCE_CLINICAL_VS]
-      verificationStatus:
-        valueSets: () -> [FhirValueSets.ALLERGYINTOLERANCE_VERIFICATION_VS]
-    Condition:
-      clinicalStatus:
-        valueSets: () -> [FhirValueSets.CONDITION_CLINICAL_VS]
-      verificationStatus:
-        valueSets: () -> [FhirValueSets.CONDITION_VER_STATUS_VS]
-      bodySite:
-        valueSets: () -> [BodySiteValueSet.JSON]
-      category:
-        valueSets: () -> [FhirValueSets.CONDITION_CATEGORY_VS]
-      severity:
-        valueSets: () -> [ConditionSeverityValueSet.JSON]
-    Procedure:
-      status:
-        valueSets: () -> [FhirValueSets.EVENT_STATUS_VS]
-      category:
-        valueSets: () -> [FhirValueSets.PROCEDURE_CATEGORY_VS]
-      statusReason:
-        valueSets: () -> [FhirValueSets.PROCEDURE_NOT_PERFORMED_REASON_VS]
-      reasonCode:
-        valueSets: () -> [ProcedureReasonValueSet.JSON]
-      usedCode:
-        valueSets: () -> [DeviceKindValueSet.JSON]
-    DiagnosticReport:
-      status:
-        valueSets: () -> [DiagnosticReportStatusValueSet.JSON]
-      category:
-        valueSets: () -> [DiagnosticServiceSectionCodesValueSet.JSON, USCoreDiagnosticReportCategoryValueSet.JSON]
-    Observation:
-      status:
-        valueSets: () -> [ObservationStatusValueSet.JSON]
-      category:
-        valueSets: () -> [ObservationCategoryCodesValueSet.JSON]
-    ServiceRequest:
-      intent:
-        valueSets: () -> [FhirValueSets.REQUEST_INTENT]
-      status:
-        valueSets: () -> [FhirValueSets.REQUEST_STATUS]
-      reasonCode:
-        valueSets: () -> [ProcedureReasonCodeValueSet.JSON]
-    Communication:
-      status:
-        valueSets: () -> [EventStatusValueSet.JSON]
-    DeviceRequest:
-      status:
-        valueSets: () -> [FhirValueSets.REQUEST_STATUS]
-      intent:
-        valueSets: () -> [FhirValueSets.REQUEST_INTENT]
-    Encounter:
-      "class":
-        valueSets: () -> [FhirValueSets.ACT_ENCOUNTER_CODE_VS]
-      status:
-        valueSets: () -> [FhirValueSets.ENCOUNTER_STATUS_VS]
-      "hospitalization.admitSource":
-        valueSets: () -> [FhirValueSets.ENCOUNTER_ADMIT_SOURCE_VS]
-      "hospitalization.dischargeDisposition":
-        valueSets: () -> [FhirValueSets.DISCHARGE_DISPOSITION_VS]
-      reasonCode:
-        valueSets: () -> [EncounterReasonCodeValueSet.JSON]
-    Immunization:
-      status:
-        valueSets: () -> [ImmunizationStatusValueSet.JSON]
-    MedicationAdministration:
-      "dosage.route":
-        valueSets: () -> [FhirValueSets.ROUTE_CODES_VS]
-      medication:
-        valueSets: () -> [USCoreMedicationCodesValueSet.JSON]
-      reasonCode:
-        valueSets: () -> [FhirValueSets.REASON_MEDICATION_GIVEN_VS]
-      status:
-        valueSets: () -> [FhirValueSets.MEDICATION_ADMIN_STATUS_VS]
-      statusReason:
-        valueSets: () -> [FhirValueSets.REASON_MEDICATION_NOT_GIVEN_VS]
-    MedicationDispense:
-      medication:
-        valueSets: () -> [USCoreMedicationCodesValueSet.JSON]
-      status:
-        valueSets: () -> [MedicationDispenseStatusValueSet.JSON]
-    MedicationRequest:
-      medication:
-        valueSets: () -> [USCoreMedicationCodesValueSet.JSON]
-      status:
-        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_STATUS_VS]
-      intent:
-        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_INTENT_VS]
-      category:
-        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_CATEGORY_VS]
-      reasonCode:
-        valueSets: () -> [ConditionCodesValueSet.JSON]
-      statusReason:
-        valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_STATUS_REASON_VS]
-    MedicationStatement:
-      status:
-        valueSets: () -> [FhirValueSets.MEDICATION_STATEMENT_STATUS_VS]
-    Task:
-      status:
-        valueSets: () -> [TaskStatusValueSet.JSON]
-
-  @REFERENCE_BINDINGS:
-    Condition:
-      recorder:
-        referenceTypes: ['Practitioner', 'PractitionerRole', 'RelatedPerson']
-      asserter:
-        referenceTypes: ['Practitioner', 'PractitionerRole', 'RelatedPerson']
-    DiagnosticReport:
-      encounter:
-        referenceTypes: ['Encounter']
-    Observation:
-      encounter:
-        referenceTypes: ['Encounter']
-    MedicationAdministration:
-      medication:
-        referenceTypes: ['Medication']
-    MedicationDispense:
-      medication:
-        referenceTypes: ['Medication']
-    MedicationRequest:
-      medication:
-        referenceTypes: ['Medication']
-    Task:
-      basedOn:
-        referenceTypes: ['Placeholder']
 
   @isPrimaryTimingAttribute: (resName, attrName) ->
     @PRIMARY_TIMING_ATTRIBUTES[resName]?[attrName]?
@@ -521,21 +594,21 @@
       dataElements[res.typeName] = attrs
       # FIXME: 1. Filter out supported primary path and unsupported types. 2. Filter out primary time attributes
       res.fieldInfo.filter( (fieldInfo) -> !DataCriteriaHelpers.isSkipAttribute(res.typeName, fieldInfo.fieldName) ).forEach (fieldInfo) ->
-        types = fieldInfo.fieldTypeNames.map((t) -> t.replace('Primitive', '').replace('\.', '')).filter( (t) -> DataCriteriaHelpers.isSupportedAttributeType(t) )
+        types = fieldInfo.fieldTypeNames.map((t) -> DataCriteriaHelpers.convertAttributeType(t)).filter( (t) -> DataCriteriaHelpers.isSupportedAttributeType(t) )
         if types.length
           attrDef = {
             path: fieldInfo.fieldName
             types: types
             isArray: fieldInfo.isArray
-            valueSets: DataCriteriaHelpers.VALUE_SET_BINDINGS[res.typeName]?[fieldInfo.fieldName]?.valueSets
-            referenceTypes: DataCriteriaHelpers.REFERENCE_BINDINGS[res.typeName]?[fieldInfo.fieldName]?.referenceTypes
+            valueSets: ValueSetBindings.VALUE_SET_BINDINGS[res.typeName]?[fieldInfo.fieldName]?.valueSets
+            referenceTypes: ReferenceBindings.REFERENCE_BINDINGS[res.typeName]?[fieldInfo.fieldName]?.referenceTypes
           }
           attrs.push attrDef
-#          console.log(JSON.stringify(attrDef))
 
   @initDataElements(@DATA_ELEMENT_ATTRIBUTES)
 
 
+# Example of the DATA_ELEMENT_ATTRIBUTES structure
 # Data element attributes per resource type.
 # Each resource has an array of entries per attribute.
 # An attribute entry has necessary metadata to view/edit.

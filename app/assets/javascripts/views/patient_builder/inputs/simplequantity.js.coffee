@@ -1,9 +1,9 @@
-# Input view for Quantity types.
-class Thorax.Views.InputQuantityView extends Thorax.Views.BonnieView
+# Input view for SimpleQuantity types.
+class Thorax.Views.InputSimpleQuantityView extends Thorax.Views.BonnieView
   template: JST['patient_builder/inputs/quantity']
 
   # Expected options to be passed in using the constructor options hash:
-  #   initialValue - Quantity - Optional. Initial value of datetime.
+  #   initialValue - SimpleQuantity - Optional. Initial value of datetime.
   initialize: ->
     if @initialValue?
       @value = @initialValue.clone()
@@ -22,7 +22,7 @@ class Thorax.Views.InputQuantityView extends Thorax.Views.BonnieView
   # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
   # if the add button should be active or not
   hasValidValue: ->
-    cqm.models.Quantity.isQuantity(@value)
+    cqm.models.SimpleQuantity.isSimpleQuantity(@value)
   disableFields: ->
     @$('input').prop('disabled', true)
 
@@ -37,7 +37,7 @@ class Thorax.Views.InputQuantityView extends Thorax.Views.BonnieView
       else
         # Validate with CQL.Quantity
         new cqm.models.CQL.Quantity(parseFloat(inputData.value_value), inputData.value_unit)
-        @value = new cqm.models.Quantity()
+        @value = new cqm.models.SimpleQuantity()
         @value.unit = cqm.models.PrimitiveString.parsePrimitive(inputData.value_unit)
         @value.value = cqm.models.PrimitiveDecimal.parsePrimitive(parseFloat(inputData.value_value))
       @$('.quantity-control-unit').removeClass('has-error')
