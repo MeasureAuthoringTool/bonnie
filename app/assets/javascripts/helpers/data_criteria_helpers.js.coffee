@@ -750,17 +750,10 @@
       }
     ]
     MedicationRequest: [
-# Not ready for delivery.
-#      {
-#        path: 'doNotPerform'
-#        getValue: (fhirResource) -> fhirResource?.doNotPerform?.value
-#        setValue: (fhirResource, primitiveBoolean) ->
-#          if !primitiveBoolean?
-#            fhirResource?.doNotPerform = null
-#          else
-#            fhirResource?.doNotPerform = primitiveBoolean
-#        types: ['Boolean']
-#      },
+      {
+        path: 'doNotPerform'
+        types: ['Boolean']
+      },
       {
         path: 'medication'
         types: ['CodeableConcept', 'Reference']
@@ -831,7 +824,12 @@
         path: 'reasonCode'
         isArray: true
         types: ['CodeableConcept']
-        valueSets: () -> [ConditionCodesValueSet.JSON]
+        valueSets: () -> [
+          ConditionCodesValueSet.JSON,
+          NegationReasonValueSet.MEDICAL_REASON_NOT_DONE,
+          NegationReasonValueSet.PATIENT_REASON_NOT_DONE,
+          NegationReasonValueSet.SYSTEM_REASONS
+        ]
       },
       {
         path: 'statusReason'
