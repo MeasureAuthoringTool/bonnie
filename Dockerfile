@@ -22,7 +22,6 @@ RUN rm -f /etc/service/nginx/down \
 RUN su - app -c "cd /home/app/bonnie \
                  && curl -O https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem \
                  && gem install bundler -v 2.1.4 \
-                 && bundle update \
                  && bundle install \
                  && npm install \
                  && RAILS_ENV=${PASSENGER_APP_ENV} bundle exec rake assets:precompile"
