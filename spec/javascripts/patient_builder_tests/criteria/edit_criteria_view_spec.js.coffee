@@ -70,9 +70,9 @@ describe 'EditCriteriaView', ->
     # uncheck datetime checkbox
     authoredOnDateTimeView.$el.find("input[name='date_is_defined']").prop('checked', false).change()
     # check that it changed on the data element
-    expect(@serviceRequestView.model.get('dataElement').fhir_resource['authoredOn'].value).toBe(undefined)
+    expect(@serviceRequestView.model.get('dataElement').fhir_resource['authoredOn']).toBe(null)
     # check that it was changed using route through patientBuilder.model
-    expect(@patientBuilder.model.get('cqmPatient').data_elements[0].fhir_resource['authoredOn'].value).toBe(undefined)
+    expect(@patientBuilder.model.get('cqmPatient').data_elements[0].fhir_resource['authoredOn']).toBe(null)
 
   it 'should update Encounter.period when both start and end date is updated', ->
     periodView = @encounterView.timingAttributeViews[0]
@@ -230,21 +230,22 @@ describe 'EditCriteriaView', ->
     attrEditorView = @encounterView.attributeEditorView
     attrDisplayView = @encounterView.attributeDisplayView
     # Check the fixture has the expected Condition Reference already applied
+    expect(attrDisplayView.dataElement.fhir_resource.diagnosis.length).toBe 1
     expect(attrDisplayView.dataElement.fhir_resource.diagnosis[0].condition.reference.value).toBe 'Condition/hemorrhagic-stroke-6c6b'
     # Select a Procedure Reference
-    attrEditorView.$el.find("select[name='attribute_name']").val('diagnosis.condition').change()
-    attrEditorView.$el.find("select[name='attribute_type']").val('Reference').change()
-    attrEditorView.$el.find("select[name='referenceType']").val('Procedure').change()
-    attrEditorView.$el.find("select[name='valueset']").val('custom').change()
+    attrEditorView.$el.find("select[name='attribute_name']").val('diagnosis').change()
+    attrEditorView.$el.find("[data-composite-field='condition'] select[name='referenceType']").val('Procedure').change()
+    attrEditorView.$el.find("[data-composite-field='condition'] select[name='valueset']").val('custom').change()
     # Check the select input
-    expect(attrEditorView.currentAttribute.name).toBe 'diagnosis.condition'
+    expect(attrEditorView.currentAttribute.name).toBe 'diagnosis'
     expect(attrEditorView.inputView.hasValidValue()).toBe true
     # Click the attribute add button
-    @encounterView.$el.find(".input-add button[data-call-method='addValue']").click()
+    @encounterView.$el.find("button[data-call-method='addValue']").click()
     # Check the Condition Reference attribute was replaced with the Procedure Reference
-    expect(attrDisplayView.dataElement.fhir_resource.diagnosis[0].condition.reference.value.includes('Procedure/custom')).toBe true
+    expect(attrDisplayView.dataElement.fhir_resource.diagnosis.length).toBe 2
+    expect(attrDisplayView.dataElement.fhir_resource.diagnosis[1].condition.reference.value.includes('Procedure/custom')).toBe true
 
-  it 'removes reference attributes when the referenced resource is removed', ->
+  it 'removes diagnosis attributes when the referenced resource is removed', ->
     # Encounter has a reference to the Condition resource
     conditionFhirId = @conditionView.model.get('dataElement').fhir_resource.id
     expect(@encounterView.model.get('dataElement').fhir_resource['diagnosis'][0].condition.reference.value.includes(conditionFhirId)).toBe true
@@ -252,4 +253,23 @@ describe 'EditCriteriaView', ->
     @conditionView.$el.find("button.criteria-delete-check").click()
     @conditionView.$el.find("button[data-call-method='removeCriteria']").click()
     # Check that the Encounter's diagnosis.condition was set to null
-    expect(@encounterView.model.get('dataElement').fhir_resource['diagnosis'][0].condition).toBe null
+    expect(@encounterView.model.get('dataElement').fhir_resource['diagnosis'][0].condition).toBeUndefined()
+
+  it 'adds existing resource as a reference attribute', ->
+# grab the second 4th criteria view which is an Encounter
+    encounterView = Object.values(@patientBuilder.editCriteriaCollectionView.children)[3]
+    attrEditorView = encounterView.attributeEditorView
+    attrDisplayView = encounterView.attributeDisplayView
+    # Fixture does not have Condition Reference already added
+    expect(attrDisplayView.dataElement.fhir_resource.diagnosis).toBeUndefined()
+    # select existing Condition resource
+    attrEditorView.$el.find("select[name='attribute_name']").val('diagnosis').change()
+    attrEditorView.$el.find("[data-composite-field='condition'] select[name='referenceType']").val('existing_resources').change()
+    attrEditorView.$el.find("[data-composite-field='condition'] select[name='valueset']").val('hemorrhagic-stroke-6c6b').change()
+
+    # Click the attribute add button
+    encounterView.$el.find("button[data-call-method='addValue']").click()
+
+    # Check the diagnosis.condition Reference attribute set to resource with fhir id 'hemorrhagic-stroke-6c6b'
+    expect(attrDisplayView.dataElement.fhir_resource.diagnosis.length).toBe 1
+    expect(attrDisplayView.dataElement.fhir_resource.diagnosis[0].condition.reference.value.includes('Condition/hemorrhagic-stroke-6c6b')).toBe true

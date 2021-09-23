@@ -18,6 +18,22 @@ Bonnie::Application.configure do
 
   Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 
+  # Enable stdout logger
+  config.logger = Logger.new(STDOUT)
+
+  # Set log level
+  config.log_level = :DEBUG
+
+  # Momgoid logger and level
+  Mongoid.logger = Logger.new(STDOUT).tap do |logger|
+    logger.level = Logger::DEBUG
+  end
+
+  # Mongoid change the Ruby driver log level
+  Mongo::Logger.logger = Logger.new(STDOUT).tap do |logger|
+    logger.level = Logger::DEBUG
+  end
+
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 

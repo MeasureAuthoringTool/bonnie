@@ -75,10 +75,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       }
     ]
 
-  deleteCriteriaById: (resourceId) ->
-    editCriteriaView = Object.values(@editCriteriaCollectionView.children).find((view) -> view.model.get('dataElement').fhir_resource.id == resourceId)
-    editCriteriaView.model.destroy()
-
   # Remove attributes from other resources/criteria that reference this resource
   removeReferenceAttributes: (referencedFhirId) ->
     updatedEditCriteriaViews = []
@@ -87,10 +83,47 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       attrs = DataCriteriaHelpers.getAttributes(view.model.get('dataElement'))
       for attr in attrs
         val = attr.getValue(resource)
-        if val? && cqm.models.Reference.isReference(val) && val.reference?.value?.includes(referencedFhirId)
+        continue unless val?
+        if Array.isArray(val)
+          update = @removeRefenceFromArray(val, referencedFhirId)
+          if update
+            attr.setValue(resource, val)
+            updatedEditCriteriaViews.push view
+        else if DataCriteriaHelpers.isCompositeType(val?.getTypeName())
+          update = @removeReferenceFromComposite(val, referencedFhirId)
+          if update
+            attr.setValue(resource, val)
+            updatedEditCriteriaViews.push view
+        else if @isReferenceToRemove(val, referencedFhirId)
           attr.setValue(resource, null)
           updatedEditCriteriaViews.push view
     updatedView.attributeDisplayView.render() for updatedView in updatedEditCriteriaViews
+
+  isReferenceToRemove: (val, referencedFhirId) ->
+    cqm.models.Reference.isReference(val) && val.reference?.value?.includes(referencedFhirId)
+
+  removeRefenceFromArray: (array, referencedFhirId) ->
+    update = false
+    i = array.length
+    while i--
+      arrayItem = array[i]
+      if @isReferenceToRemove(arrayItem, referencedFhirId)
+        val.splice(i, 1)
+        update = true
+      if DataCriteriaHelpers.isCompositeType(arrayItem?.getTypeName())
+        # Don't remove empty compsites for now. It makes it too complex
+        update |= @removeReferenceFromComposite(arrayItem, referencedFhirId)
+    update
+
+  removeReferenceFromComposite: (composite, referencedFhirId) ->
+    update = false
+    DataCriteriaHelpers.getCompositeAttributes(composite?.getTypeName()).forEach (compAttrDef) =>
+      compositeAttrVal = composite[compAttrDef.path]
+      # Arrays in composite are not supported
+      if @isReferenceToRemove(compositeAttrVal, referencedFhirId)
+        composite[compAttrDef.path] = undefined
+        update = true
+     update
 
   dataCriteriaCategories: ->
     categories = {}
@@ -199,13 +232,13 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     for timingAttr in patientDataCriteria.getPrimaryTimingAttributes()
       if timingAttr.type == 'Period'
         interval = @createDefaultInterval()
-        fhirResource[timingAttr.name] = DataCriteriaHelpers.createPeriodFromInterval(interval)
+        fhirResource[timingAttr.name] = DataTypeHelpers.createPeriodFromInterval(interval)
       else if timingAttr.type == 'dateTime'
-        fhirResource[timingAttr.name] = DataCriteriaHelpers.getPrimitiveDateTimeForCqlDateTime(@createDefaultInterval().low)
+        fhirResource[timingAttr.name] = DataTypeHelpers.getPrimitiveDateTimeForCqlDateTime(@createDefaultInterval().low)
       else if timingAttr.type == 'instant'
-        fhirResource[timingAttr.name] = DataCriteriaHelpers.getPrimitiveInstantForCqlDateTime(@createDefaultInterval().low)
+        fhirResource[timingAttr.name] = DataTypeHelpers.getPrimitiveInstantForCqlDateTime(@createDefaultInterval().low)
       else if timingAttr.type == 'date'
-        fhirResource[timingAttr.name] = DataCriteriaHelpers.getPrimitiveDateForCqlDate(@createDefaultDate())
+        fhirResource[timingAttr.name] = DataTypeHelpers.getPrimitiveDateForCqlDate(@createDefaultDate())
     @addCriteria patientDataCriteria
     return false
 

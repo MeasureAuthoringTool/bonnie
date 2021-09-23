@@ -1,5 +1,5 @@
 # Input view whichs stores its value state as Coding.
-# It can be used as an editor for Coding, CodeableConcept if accessors are adjusted accordingly.
+# It can be used as an editor for Coding.
 class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
   # Same template used by InputCodingView & InputCodeView
   template: JST['patient_builder/inputs/code']
@@ -9,6 +9,7 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
   #   cqmValueSets - List of CQM Value sets. Optional (FHIR JSON).
   #   codeSystemMap - Map of all coding systems to system names in the measure.
   #   allowNull - boolean - Optional. If a null or empty integer is allowed. Defaults to false.
+  #   displayName - boolean - Optional. If attribute name to be displayed as label.
   initialize: ->
     if @initialValue?
       @value = @initialValue

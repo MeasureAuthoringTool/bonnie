@@ -6,18 +6,22 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
   #   model - Thorax.Models.SourceDataCriteria - The source data criteria we are displaying attributes for
   initialize: ->
     @dataElement = @model.get('dataElement')
+    resourceType = @dataElement.fhir_resource?.resourceType
 
     # build a list of the possible attributes for this data element with the name and possible types for each
     @attributeList = []
     DataCriteriaHelpers.getAttributes(@dataElement).forEach (attr, index, array) =>
       @attributeList.push(
         name: attr.path
-        title: attr.title
+        title: attr.path
         types: attr.types?.sort()
         valueSets: attr.valueSets?()
+        isArray: attr.isArray
         referenceTypes: attr.referenceTypes?.sort()
+        resourceType: resourceType
+        fieldMetadata: cqm.models[resourceType]?.fieldInfo?.find (f) -> f.fieldName is attr.path
       )
-#    TODO FHIR attributes
+#    TODO dynamic FHIR attributes
 #    @dataElement.schema.eachPath (path, info) =>
 #      # go on to the next one if it is an attribute that should be skipped
 #      return if Thorax.Models.SourceDataCriteria.SKIP_ATTRIBUTES.includes(path)
@@ -39,11 +43,6 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     rendered: ->
       # make sure the correct type attribute is selected
       if @currentAttribute
-#        if @currentAttribute.isRelatedTo
-#          @$("select[name=\"attribute_type\"] > option[value=\"Data Element\"]").prop('selected', true)
-#        else
-#          @$("select[name=\"attribute_type\"] > option[value=\"#{@currentAttributeType}\"]").prop('selected', true)
-#        @updateAddButtonStatus()
         @$("select[name=\"attribute_type\"] > option[value=\"#{@currentAttributeType}\"]").prop('selected', true)
         @updateAddButtonStatus()
       else
@@ -78,7 +77,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
   updateAddButtonStatus: ->
     disabledStatus = true
     if @inputView?
-      disabledStatus = !@inputView.hasValidValue()
+      disabledStatus = !@inputView.hasValidValue?()
     @$('.input-add > button').prop('disabled', disabledStatus)
 
   # Button click handler for adding the value to the attribute
@@ -86,26 +85,19 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     e.preventDefault()
     # double check we have a currently selected attribute and a valid value
     if @currentAttribute? && @inputView?.hasValidValue()
-      attrMeta = DataCriteriaHelpers.getAttribute(@dataElement, @currentAttribute.name)
+      attrDef = DataCriteriaHelpers.getAttribute(@dataElement, @currentAttribute.name)
+      value = @inputView.value
       if @currentAttributeType is 'Reference'
-        prevVal = attrMeta?.getValue(@dataElement.fhir_resource)
-        if prevVal? && cqm.models.Reference.isReference(prevVal)
-          [prevResourceType, prevResourceId] = prevVal.reference?.value?.split('/')
-          if prevResourceType? && prevResourceId?
-            # delete existing resource data element
-            @parent.parent.parent.deleteCriteriaById(prevResourceId)
-        # Create new Resource for Reference target
-        resourceType = @inputView.value?.type
-        valueSetId = @inputView.value?.vs
-        newId = cqm.ObjectID().toHexString()
-        newFhirId = @parent.parent.parent.addChildCriteria(resourceType, newId, valueSetId, @dataElement)
-        # set reference attribute using generated fhirId from new Resource
-        reference = new cqm.models.Reference()
-        reference.reference = cqm.models.PrimitiveString.parsePrimitive(resourceType + '/' + newFhirId)
-        attrMeta?.setValue(@dataElement.fhir_resource, reference)
-
+        value = @inputView.asReferenceType()
+      if @_isCompositeType(@currentAttributeType)
+        value = @inputView.asComponentType()
+      if attrDef.isArray
+  # Initialize with an empty array if not defined
+        array = attrDef.getValue(@dataElement.fhir_resource) || []
+        array.push(value)
+        attrDef.setValue(@dataElement.fhir_resource, array)
       else
-        attrMeta?.setValue(@dataElement.fhir_resource, @inputView.value)
+        attrDef.setValue(@dataElement.fhir_resource, value)
 
       @trigger 'attributesModified', @
 
@@ -119,8 +111,9 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
 
   _createInputViewForType: (type) ->
     @inputView = switch type
-      when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @currentAttribute?.valueSets || @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap() })
-      when 'CodeableConcept', 'Coding' then new Thorax.Views.InputCodingView({ cqmValueSets: (@currentAttribute?.valueSets || []).concat(@parent.measure.get('cqmValueSets')), codeSystemMap: @parent.measure.codeSystemMap() })
+      when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @currentAttribute?.valueSets || @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap(), codeType: @currentAttribute?.fieldMetadata?.fieldTypeNames?.map((t) -> cqm.models[t]).find((t) -> t.isPrimitiveCode != null) })
+      when 'Coding' then new Thorax.Views.InputCodingView({ cqmValueSets: (@currentAttribute?.valueSets || []).concat(@parent.measure.get('cqmValueSets')), codeSystemMap: @parent.measure.codeSystemMap() })
+      when 'CodeableConcept' then new Thorax.Views.InputCodeableConceptView({ cqmValueSets: (@currentAttribute?.valueSets || []).concat(@parent.measure.get('cqmValueSets')), codeSystemMap: @parent.measure.codeSystemMap() })
       when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
       when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
       when 'Instant' then new Thorax.Views.InputInstantView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
@@ -130,6 +123,10 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       when 'PositiveInt', 'PositiveInteger' then new Thorax.Views.InputPositiveIntegerView()
       when 'UnsignedInt', 'UnsignedInteger' then new Thorax.Views.InputUnsignedIntegerView()
       when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView({ defaultYear: @parent.measure.getMeasurePeriodYear() })
+# TODO: ObservationComponent can be created with a composite view widget, autogenerated based on fields introspection.
+#  In that case it will lack custom value set bindings
+#  We can come up with a lookup for VS bindings
+      when 'ObservationComponent' then new Thorax.Views.InputObservationComponentView({ cqmValueSets: (@currentAttribute?.valueSets || []).concat(@parent.measure.get('cqmValueSets')), codeSystemMap: @parent.measure.codeSystemMap() })
       when 'Quantity', 'SimpleQuantity' then new Thorax.Views.InputQuantityView()
       when 'Duration' then new Thorax.Views.InputDurationView()
       when 'Age' then new Thorax.Views.InputAgeView()
@@ -140,7 +137,13 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       when 'id' then new Thorax.Views.InputIdView()
       when 'Boolean' then new Thorax.Views.InputBooleanView()
       when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
-      when 'Reference' then new Thorax.Views.InputReferenceView({ allowNull: false, referenceTypes: @currentAttribute.referenceTypes, parentDataElement: @dataElement, cqmValueSets: @parent.measure.get('cqmValueSets') })
+      when 'Reference' then new Thorax.Views.InputReferenceView({
+        allowNull: false
+        referenceTypes: @currentAttribute.referenceTypes
+        parentDataElement: @dataElement
+        dataCriteria: @parent.model.collection.models
+        cqmValueSets: @parent.measure.get('cqmValueSets')
+        patientBuilder: @parent.parent.parent})
       when 'SampledData' then new Thorax.Views.InputSampledDataView()
       when 'Timing' then new Thorax.Views.InputTimingView({ codeSystemMap: @parent.measure.codeSystemMap(), defaultYear: @parent.measure.getMeasurePeriodYear() })
       when 'Dosage' then new Thorax.Views.InputDosageView({ cqmValueSets: @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap() })
@@ -155,57 +158,25 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     @inputView.remove() if @inputView?
 
     if @currentAttributeType
-#      if @currentAttribute.isComposite
-#        schema = if @currentAttribute.isEntity # if it is entity, grab the correct schema
-#                   cqm.models["#{@currentAttributeType}Schema"]
-#                 else
-#                   @dataElement.schema.paths[@currentAttribute.name].schema
-#        @_createCompositeInputViewForSchema(schema, @currentAttributeType)
-#      else if @currentAttribute.isRelatedTo
-#        @_createInputViewForType('relatedTo') # Use custom view for relatedTo, not String
-#      else
-      @_createInputViewForType(@currentAttributeType)
+      if @_isCompositeType(@currentAttributeType)
+        @_createCompositeInputView(@currentAttributeType)
+      else
+        @_createInputViewForType(@currentAttributeType)
     else
       @inputView = null
       @showInputViewPlaceholder = false
 
-#  # Helper function that returns the list of acceptable types for a given attribute path and schema info.
-#  _determineAttributeTypeList: (path, info) ->
-#    # if is array type we need to find out what type it should be
-#    if info.instance == 'Array'
-#      if info.$isMongooseDocumentArray
-#        if info.schema.paths._type? # Use the default _type if exists to get info
-#          return [info.schema.paths._type.defaultValue.replace(/QDM::/, '')]
-#        else if info.schema.paths.namingSystem? # if this has namingSystem assume it is QDM::Id
-#          return ['Id']
-#        else
-#          return ['???'] # TODO: Handle situation of unknown type better.
-#      else if info.caster.instance # if this is a schema array we may be able to ask for the caster's instance type
-#        return [info.caster.instance]
-#      else
-#        return ['???'] # TODO: Handle situation of unknown type better.
-#
-#    # If this is an any type, there will be more options than one.
-#    else if info.instance == 'Any'
-#      # TODO: Filter these more if possible
-#      return ['Code', 'Quantity', 'Ratio', 'Integer', 'Decimal', 'Date', 'DateTime', 'Time']
-#
-#    # It this is an AnyEntity type
-#    else if info.instance == 'AnyEntity'
-#      return ['PatientEntity', 'CarePartner', 'Practitioner', 'Organization']
-#
-#    # If it is an interval, it may be one of DateTime or one of Quantity
-#    else if info.instance == 'Interval'
-#      if path == 'referenceRange'
-#        return ['Interval<Quantity>']
-#      else
-#        return ['Interval<DateTime>']
-#
-#    # If it is an embedded type, we have to make guesses about the type
-#    else if info.instance == 'Embedded'
-#      if info.schema.paths.namingSystem? # if this has namingSystem assume it is QDM::Identifier
-#        return ['Identifier']
-#      else
-#        return ['???'] # TODO: Handle situation of unknown type better.
-#    else
-#      return [info.instance]
+  _createCompositeInputView: (typeName) ->
+    @showInputViewPlaceholder = false
+    @inputView = new Thorax.Views.InputCompositeView({
+      typeName: typeName
+      cqmValueSets: @parent.measure.get('cqmValueSets')
+      codeSystemMap: @parent.measure.codeSystemMap()
+      dataCriteria: @parent.model.collection.models
+      parentDataElement: @dataElement
+      defaultYear: @parent.measure.getMeasurePeriodYear()
+      patientBuilder: @parent.parent.parent })
+    @listenTo(@inputView, 'valueChanged', @updateAddButtonStatus) if @inputView?
+
+  _isCompositeType: (attributeType) ->
+    DataCriteriaHelpers.isCompositeType(attributeType)

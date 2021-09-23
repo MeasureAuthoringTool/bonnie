@@ -1,13 +1,10 @@
 # Defines a list of assert methods for data attributes testing
 @DataCriteriaAsserts = class DataCriteriaAsserts
-  @assertCodingWithType: (resourceType, path, title, type) ->
+  @assertCodingWithType: (resourceType, path, type) ->
     attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]
     expect(attrs).toBeDefined
-    attr = attrs.find (attr) => attr.path is path
+    attr = attrs.find (attr) -> attr.path is path
     expect(attr.path).toBe path
-    expect(attr.title).toBe title
-    expect(attr.types.length).toBe 1
-    expect(attr.types[0]).toBe type
 
     fhirResource = new cqm.models[resourceType]()
     expect(attr.getValue(fhirResource)).toBeUndefined
@@ -15,50 +12,77 @@
     valueToSet = new cqm.models.Coding()
     valueToSet.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
     valueToSet.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
+    valueToSet = [valueToSet] if attr.isArray
 
     attr.setValue(fhirResource, valueToSet)
 
     # clone the resource to make sure setter/getter work with correct data type
     value = attr.getValue(fhirResource.clone())
     expect(value).toBeDefined
-    expect(value.code.value).toBe 'code1'
-    expect(value.system.value).toBe 'system1'
+    if attr.isArray
+      expect(Arrays.isArray(value)).toBe true
+      expect(value[0].code.value).toBe 'code1'
+      expect(value[0].system.value).toBe 'system1'
+    else
+      expect(value.code.value).toBe 'code1'
+      expect(value.system.value).toBe 'system1'
 
-  @assertCodeableConcept: (resourceType, path, title) ->
-    @assertCodingWithType(resourceType, path, title, 'CodeableConcept')
-
-  @assertCoding: (resourceType, path, title) ->
-    @assertCodingWithType(resourceType, path, title, 'Coding')
-
-  @assertCode: (resourceType, path, title, customAssert) ->
+  @assertCodeableConcept: (resourceType, path) ->
     attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]
     expect(attrs).toBeDefined
-    attr = attrs.find (attr) => attr.path is path
-    expect(attr).toBeDefined
+    attr = attrs.find (attr) -> attr.path is path
     expect(attr.path).toBe path
-    expect(attr.title).toBe title
-    expect(attr.types.length).toBe 1
-    expect(attr.types[0]).toBe 'Code'
 
     fhirResource = new cqm.models[resourceType]()
     expect(attr.getValue(fhirResource)).toBeUndefined
 
-    valueToSet = 'a code'
-    attr.setValue(fhirResource, valueToSet)
+    coding = new cqm.models.Coding()
+    coding.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
+    coding.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
 
-    if customAssert?
-      expect(customAssert(fhirResource)).toBe true
+    valueToSet = new cqm.models.CodeableConcept()
+    valueToSet.coding = [coding]
+    valueToSet = [valueToSet] if attr.isArray
+
+    attr.setValue(fhirResource, valueToSet)
 
     # clone the resource to make sure setter/getter work with correct data type
     value = attr.getValue(fhirResource.clone())
     expect(value).toBeDefined
-    expect(value).toBe 'a code'
+    if attr.isArray
+      expect(Array.isArray(value)).toBe true
+      expect(value[0].coding[0].code.value).toBe 'code1'
+      expect(value[0].coding[0].system.value).toBe 'system1'
+    else
+      expect(Array.isArray(value)).toBe false
+      expect(value.coding[0].code.value).toBe 'code1'
+      expect(value.coding[0].system.value).toBe 'system1'
 
-  @assertPeriod: (resourceType, path, title) ->
+  @assertCoding: (resourceType, path) ->
+    @assertCodingWithType(resourceType, path,'Coding')
+
+  @assertCode: (resourceType, path, codeClass) ->
     attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]
-    attr = attrs.find (attr) => attr.path is path
+    expect(attrs).toBeDefined
+    attr = attrs.find (attr) -> attr.path is path
+    expect(attr).toBeDefined
+    expect(attr.path).toBe path
+
+    fhirResource = new cqm.models[resourceType]()
+    expect(attr.getValue(fhirResource)).toBeUndefined
+
+    valueToSet = codeClass.parsePrimitive('a code')
+    attr.setValue(fhirResource, valueToSet)
+
+    # clone the resource to make sure setter/getter work with correct data type
+    value = attr.getValue(fhirResource.clone())
+    expect(value).toBeDefined
+    expect(value.value).toBe 'a code'
+
+  @assertPeriod: (resourceType, path) ->
+    attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]
+    attr = attrs.find (attr) -> attr.path is path
     expect(attr.path).toEqual path
-    expect(attr.title).toEqual title
     # Create fhir resource and Period
     fhirResource = new cqm.models[resourceType]()
     period = new cqm.models.Period()
@@ -72,11 +96,10 @@
     expect(value.start.value).toEqual period.start.value
     expect(value.end.value).toEqual period.end.value
 
-  @assertDateTime: (resourceType, path, title) ->
+  @assertDateTime: (resourceType, path) ->
     attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]
-    attr = attrs.find (attr) => attr.path is path
+    attr = attrs.find (attr) -> attr.path is path
     expect(attr.path).toEqual path
-    expect(attr.title).toEqual title
     # Create fhir resource and Period
     fhirResource = new cqm.models[resourceType]()
 
@@ -88,12 +111,10 @@
     # Verify after setting values
     expect(value.value).toEqual dateTime.value
 
-  @assertString: (resourceType, path, title) ->
+  @assertString: (resourceType, path) ->
     attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]
-    attr = attrs.find (attr) => attr.path is path
+    attr = attrs.find (attr) -> attr.path is path
     expect(attr.path).toEqual path
-    expect(attr.title).toEqual title
-    # Create fhir resource and Period
     fhirResource = new cqm.models[resourceType]()
 
     primitiveString = cqm.models.PrimitiveString.parsePrimitive('random string value')
@@ -104,11 +125,20 @@
     # Verify after setting values
     expect(value.value).toEqual primitiveString.value
 
-  @assertReference: (resourceType, path, title) ->
+  @assertBoolean: (resourceType, path) ->
     attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]
-    attr = attrs.find (attr) => attr.path is path
+    attr = attrs.find (attr) -> attr.path is path
     expect(attr.path).toEqual path
-    expect(attr.title).toEqual title
+    fhirResource = new cqm.models[resourceType]()
+    primitiveBoolean = cqm.models.PrimitiveBoolean.parsePrimitive(true)
+    attr.setValue(fhirResource, primitiveBoolean)
+    value = attr.getValue(fhirResource.clone())
+    expect(value.value).toEqual primitiveBoolean.value
+
+  @assertReference: (resourceType, path) ->
+    attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]
+    attr = attrs.find (attr) -> attr.path is path
+    expect(attr.path).toEqual path
 
     test_reference = new cqm.models.Reference()
     test_reference.reference = "http://someserver/some-path"

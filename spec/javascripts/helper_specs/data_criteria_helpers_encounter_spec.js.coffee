@@ -2,53 +2,36 @@ describe 'DataCriteriaHelpers', ->
 
   describe 'Encounter attributes', ->
     it 'should support Encounter.class', ->
-      DataCriteriaAsserts.assertCoding('Encounter', 'class', 'class')
+      DataCriteriaAsserts.assertCoding('Encounter', 'class')
 
-    it 'should support Encounter.diagnosis.condition', ->
+    it 'should support Encounter.diagnosis', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
       expect(attrs).toBeDefined
-      attr = attrs.find (attr) => attr.path is 'diagnosis.condition'
+      attr = attrs.find (attr) => attr.path is 'diagnosis'
       expect(attr).toBeDefined
-      expect(attr.path).toBe 'diagnosis.condition'
-      expect(attr.title).toBe 'diagnosis.condition'
+      expect(attr.path).toBe 'diagnosis'
       expect(attr.types.length).toBe 1
-      expect(attr.types[0]).toBe 'Reference'
-      expect(attr.referenceTypes.length).toBe 2
-      expect(attr.referenceTypes[0]).toBe 'Condition'
-      expect(attr.referenceTypes[1]).toBe 'Procedure'
+      expect(attr.types[0]).toBe 'EncounterDiagnosis'
 
       fhirResource = new cqm.models.Encounter()
       expect(attr.getValue(fhirResource)).toBeUndefined
 
-      valueToSet = new cqm.models.Reference()
-      valueToSet.reference = cqm.models.PrimitiveString.parsePrimitive('Condition/12345')
-      attr.setValue(fhirResource, valueToSet)
+      encounterDiagnosis = new cqm.models.EncounterDiagnosis()
+      encounterDiagnosis.condition = new cqm.models.Reference()
+      encounterDiagnosis.condition.reference = cqm.models.PrimitiveString.parsePrimitive('Condition/12345')
+
+      encounterDiagnosis.use = DataTypeHelpers.createCodeableConcept('code1', 'system1')
+      encounterDiagnosis.rank = cqm.models.PrimitivePositiveInt.parsePrimitive(5555)
+
+      attr.setValue(fhirResource, [ encounterDiagnosis ])
 
       # clone the resource to make sure setter/getter work with correct data type
-      value = attr.getValue(fhirResource.clone())
-      expect(value).toBeDefined
-      expect(value.reference.value).toBe 'Condition/12345'
-
-    it 'should support Encounter.diagnosis.use', ->
-      DataCriteriaAsserts.assertCodeableConcept('Encounter', 'diagnosis.use', 'diagnosis.use')
-
-    it 'should support Encounter.diagnosis.rank', ->
-      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
-      expect(attrs).toBeDefined
-      attr = attrs.find (attr) -> attr.path is 'diagnosis.rank'
-      expect(attr).toBeDefined
-      expect(attr.path).toBe 'diagnosis.rank'
-      expect(attr.title).toBe 'diagnosis.rank'
-      expect(attr.types.length).toBe 1
-      expect(attr.types[0]).toBe 'PositiveInt'
-
-      fhirResource = new cqm.models.Encounter()
-      expect(attr.getValue(fhirResource)).toBeUndefined
-
-      valueToSet = cqm.models.PrimitivePositiveInt.parsePrimitive(5555)
-      attr.setValue(fhirResource, valueToSet)
-
-      expect(attr.getValue(fhirResource.clone()).value).toBe 5555
+      actualValue = attr.getValue(fhirResource.clone())
+      expect(actualValue).toBeDefined
+      expect(actualValue[0].condition.reference.value).toBe 'Condition/12345'
+      expect(actualValue[0].rank.value).toBe 5555
+      expect(actualValue[0].use.coding[0].code.value).toBe 'code1'
+      expect(actualValue[0].use.coding[0].system.value).toBe 'system1'
 
     it 'should support Encounter.length', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
@@ -56,7 +39,6 @@ describe 'DataCriteriaHelpers', ->
       attr = attrs.find (attr) => attr.path is 'length'
       expect(attr).toBeDefined
       expect(attr.path).toBe 'length'
-      expect(attr.title).toBe 'length'
       expect(attr.types.length).toBe 1
       expect(attr.types[0]).toBe 'Duration'
 
@@ -77,71 +59,51 @@ describe 'DataCriteriaHelpers', ->
     it 'should support Encounter.status', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
       expect(attr).toBeDefined
-      attr = attrs.find (attr) => attr.path is 'status'
+      attr = attrs.find (attr) -> attr.path is 'status'
       expect(attr).toBeDefined
       expect(attr.path).toBe 'status'
-      expect(attr.title).toBe 'status'
       expect(attr.types.length).toBe 1
       expect(attr.types[0]).toBe 'Code'
 
       fhirResource = new cqm.models.Encounter()
       expect(attr.getValue(fhirResource)).toBeUndefined
 
-      valueToSet = 'a code'
+      valueToSet = cqm.models.EncounterStatus.parsePrimitive('a code')
       attr.setValue(fhirResource, valueToSet)
 
       # clone the resource to make sure setter/getter work with correct data type
       value = attr.getValue(fhirResource.clone())
       expect(value).toBeDefined
-      expect(value).toBe 'a code'
+      expect(value.value).toBe 'a code'
 
-    it 'should support Encounter.location.period', ->
+    it 'should support Encounter.location', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
       expect(attr).toBeDefined
-      attr = attrs.find (attr) => attr.path is 'location.period'
+      attr = attrs.find (attr) -> attr.path is 'location'
       expect(attr).toBeDefined
-      expect(attr.path).toBe 'location.period'
-      expect(attr.title).toBe 'location.period'
+      expect(attr.path).toBe 'location'
       expect(attr.types.length).toBe 1
-      expect(attr.types[0]).toBe 'Period'
+      expect(attr.types[0]).toBe 'EncounterLocation'
 
       fhirResource = new cqm.models.Encounter()
       expect(attr.getValue(fhirResource)).toBeUndefined
 
-      valueToSet = new cqm.models.Period()
-      valueToSet.start = cqm.models.PrimitiveDateTime.parsePrimitive('2020-09-02T13:54:57')
-      valueToSet.end = cqm.models.PrimitiveDateTime.parsePrimitive('2020-10-02T13:54:57')
-      attr.setValue(fhirResource, valueToSet)
+      encounterLocation = new cqm.models.EncounterLocation()
+      encounterLocation.period = new cqm.models.Period()
+      encounterLocation.period.start = cqm.models.PrimitiveDateTime.parsePrimitive('2020-09-02T13:54:57')
+      encounterLocation.period.end = cqm.models.PrimitiveDateTime.parsePrimitive('2020-10-02T13:54:57')
+
+      encounterLocation.location = new cqm.models.Reference()
+      encounterLocation.location.reference = cqm.models.PrimitiveString.parsePrimitive('Location/12345')
+
+      attr.setValue(fhirResource, [ encounterLocation ])
 
       # clone the resource to make sure setter/getter work with correct data type
-      value = attr.getValue(fhirResource.clone())
-      expect(value).toBeDefined
-      expect(value.start.value).toBe '2020-09-02T13:54:57'
-      expect(value.end.value).toBe '2020-10-02T13:54:57'
-
-    it 'should support Encounter.location.location', ->
-      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
-      expect(attrs).toBeDefined
-      attr = attrs.find (attr) -> attr.path is 'location.location'
-      expect(attr).toBeDefined
-      expect(attr.path).toBe 'location.location'
-      expect(attr.title).toBe 'location.location'
-      expect(attr.types.length).toBe 1
-      expect(attr.types[0]).toBe 'Reference'
-      expect(attr.referenceTypes.length).toBe 1
-      expect(attr.referenceTypes[0]).toBe 'Location'
-
-      fhirResource = new cqm.models.Encounter()
-      expect(attr.getValue(fhirResource)).toBeUndefined
-
-      valueToSet = new cqm.models.Reference()
-      valueToSet.reference = cqm.models.PrimitiveString.parsePrimitive('Location/12345')
-      attr.setValue(fhirResource, valueToSet)
-
-      # clone the resource to make sure setter/getter work with correct data type
-      value = attr.getValue(fhirResource.clone())
-      expect(value).toBeDefined
-      expect(value.reference.value).toBe 'Location/12345'
+      actualValue = attr.getValue(fhirResource.clone())
+      expect(actualValue).toBeDefined
+      expect(actualValue[0].period.start.value).toBe '2020-09-02T13:54:57'
+      expect(actualValue[0].period.end.value).toBe '2020-10-02T13:54:57'
+      expect(actualValue[0].location.reference.value).toBe 'Location/12345'
 
     it 'should support Encounter.identifier', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
@@ -149,7 +111,6 @@ describe 'DataCriteriaHelpers', ->
       attr = attrs.find (attr) -> attr.path is 'identifier'
       expect(attr).toBeDefined
       expect(attr.path).toBe 'identifier'
-      expect(attr.title).toBe 'identifier'
       expect(attr.types.length).toBe 1
       expect(attr.types[0]).toBe 'Identifier'
 
@@ -161,23 +122,23 @@ describe 'DataCriteriaHelpers', ->
       valueToSet.system = cqm.models.PrimitiveUri.parsePrimitive('someuri')
       valueToSet.value = cqm.models.PrimitiveString.parsePrimitive('abs53dr585tm')
       valueToSet.assigner = cqm.models.Reference.parse({display: 'SB'})
-      attr.setValue(fhirResource, valueToSet)
+      attr.setValue(fhirResource, [valueToSet])
 
       # clone the resource to make sure setter/getter work with correct data type
       value = attr.getValue(fhirResource.clone())
       expect(value).toBeDefined
-      expect(value.use.value).toBe 'xyz'
-      expect(value.system.value).toBe 'someuri'
-      expect(value.value.value).toBe 'abs53dr585tm'
-      expect(value.assigner.display.value).toBe 'SB'
+      expect(value[0].use.value).toBe 'xyz'
+      expect(value[0].system.value).toBe 'someuri'
+      expect(value[0].value.value).toBe 'abs53dr585tm'
+      expect(value[0].assigner.display.value).toBe 'SB'
 
-      # null value test
-      attr.setValue(fhirResource, null)
+      # remove value test
+      attr.setValue(fhirResource, undefined)
       value = attr.getValue(fhirResource)
       expect(value).toBeUndefined()
 
     it 'should support Encounter.hospitalization.dischargeDisposition', ->
-      DataCriteriaAsserts.assertCodeableConcept('Encounter', 'hospitalization.dischargeDisposition', 'hospitalization.dischargeDisposition')
+      DataCriteriaAsserts.assertCodeableConcept('Encounter', 'hospitalization.dischargeDisposition')
 
     it 'should support Encounter.hospitalization.admitSource', ->
-      DataCriteriaAsserts.assertCodeableConcept('Encounter', 'hospitalization.admitSource', 'hospitalization.admitSource')
+      DataCriteriaAsserts.assertCodeableConcept('Encounter', 'hospitalization.admitSource')

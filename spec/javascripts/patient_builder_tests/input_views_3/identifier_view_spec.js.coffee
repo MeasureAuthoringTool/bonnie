@@ -21,7 +21,7 @@ describe 'InputIdentifierView', ->
     # use
     @view.useView.$('select[name="valueset"] > option[value="identifier-use"]').prop('selected', true).change()
     expect(@view.useView.hasValidValue()).toBe true
-    expect(@view.useView.value).toBe 'official'
+    expect(@view.useView.value.value).toBe 'official'
     expect(@view.hasValidValue()).toBe true
 
     # type

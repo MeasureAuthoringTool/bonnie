@@ -151,6 +151,32 @@
         },
         "recordedDate": "2020-09-25T08:00:00.000+00:00"
       }
+    },
+    {
+      "codeListId": "2.16.840.1.113883.3.666.5.307",
+      "valueSetTitle": "Encounter Inpatient",
+      "description": "Encounter: Encounter Inpatient",
+      "fhir_resource": {
+        "id": "encounter-inpatient-encounter-ad76",
+        "resourceType": "Encounter",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "version": "2019-09",
+                "code": "183452005",
+                "display": "Emergency hospital admission (procedure)",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "period": {
+          "start": "2020-19-23T08:00:00.000+00:00",
+          "end": "2020-19-30T08:15:00.000+00:00"
+        }
+      }
     }
   ],
   "created_at": "2020-09-23T16:18:09.413Z",

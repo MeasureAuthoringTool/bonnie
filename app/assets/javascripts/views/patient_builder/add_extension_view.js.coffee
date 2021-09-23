@@ -48,7 +48,10 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
     # remove the existing view if there is one
     @selectedValueTypeView.remove() if @selectedValueTypeView?
     if @selectedValueType
-      @measurementYear = @parent.measure.getMeasurePeriodYear()
+      measure = @parent?.measure
+      @measurementYear = measure?.getMeasurePeriodYear()
+      cqmValueSets = measure?.get('cqmValueSets') || []
+      codeSystemMap = measure?.codeSystemMap() || {}
       @selectedValueTypeView = switch @selectedValueType
         when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @measurementYear })
         when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @measurementYear })
@@ -64,6 +67,7 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
         when 'Age' then new Thorax.Views.InputAgeView()
         when 'Range' then new Thorax.Views.InputRangeView()
         when 'Ratio' then new Thorax.Views.InputRatioView()
+        when 'CodeableConcept' then new Thorax.Views.InputCodeableConceptView({ cqmValueSets: [].concat(cqmValueSets), codeSystemMap: codeSystemMap })
         else null
       @showInputViewPlaceholder = !@selectedValueTypeView?
       @listenTo(@selectedValueTypeView, 'valueChanged', @validate) if @selectedValueTypeView?
@@ -96,14 +100,7 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
   _getExtensionValue: ->
     value = @selectedValueTypeView?.value
     if @selectedValueType
-      @selectedValue = switch @selectedValueType
-        when 'Date'
-          DataCriteriaHelpers.getPrimitiveDateForCqlDate(value)
-        when 'DateTime'
-          DataCriteriaHelpers.getPrimitiveDateTimeForCqlDateTime(value)
-        when 'Period', 'Boolean', 'Integer', 'PositiveInt', 'UnsignedInt', 'Decimal', 'Duration', 'String', 'Age', 'Range', 'Ratio', 'Quantity', 'Id', 'Canonical'
-          value
-        else null
+      @selectedValue = if @getValueTypes().includes(@selectedValueType) then value else null
     @selectedValue
 
   getValueTypes: ->
@@ -112,7 +109,7 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
       'Boolean',
 #      'Canonical',
 #      'Code',
-#      'CodeableConcept',
+      'CodeableConcept',
 #      'Coding',
 #      'DataRequirement',
       'Date',

@@ -2,10 +2,11 @@
   <div class="reference-type-select form-group col-md-6">
     <label for="referenceType_{{cid}}" class="sr-only">{{attributeName}} type selection</label>
     <select autocomplete="off" name="referenceType" id="referenceType_{{cid}}" class="form-control" data-cy="referenceType-select">
-        <option value="">--</option>
-        {{#each referenceTypes}}
+      <option value="">--</option>
+      {{#each referenceTypes}}
         <option value="{{this}}">{{this}}</option>
-        {{/each}}
+      {{/each}}
+      <option value="existing_resources">Existing Resources</option>
     </select>
   </div>
 
@@ -15,14 +16,18 @@
 </div>
 
 <div class="row">
-    <div class="reference-control-valueset form-group col-md-12">
-        <label for="valueset_{{cid}}" class="sr-only">value set</label>
-        <select autocomplete="off" name="valueset" id="valueset_{{cid}}" class="form-control" data-cy="valueset-select">
-            <option value="--" selected>Value Set / Direct Reference Code</option>
-            <option value="custom">Custom Code</option>
-            {{#each cqmValueSets}}
-                <option value="{{id}}">{{name}}</option>
-            {{/each}}
-        </select>
-    </div>
+  <div class="reference-control-valueset form-group col-md-12">
+    <label for="valueset_{{cid}}" class="sr-only">value set</label>
+    <select autocomplete="off" name="valueset" id="valueset_{{cid}}" class="form-control" data-cy="valueset-select">
+      {{#if showExistingResources}}
+        <option value="--" selected>Existing Resources</option>
+      {{else}}
+        <option value="--" selected>Value Set / Direct Reference Code</option>
+        <option value="custom">Custom Code</option>
+      {{/if}}
+      {{#each valueSetOptions}}
+        <option value="{{id}}">{{name}}</option>
+      {{/each}}
+    </select>
+  </div>
 </div>
