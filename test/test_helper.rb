@@ -1,4 +1,5 @@
 ENV["RAILS_ENV"] = "test"
+ENV['CALCULATION_SERVICE_URL'] = 'http://localhost:8081/calculate'
 ENV.delete("SAML_IDP_METADATA")
 require_relative "./simplecov_init"
 require_relative "./vcr_setup"
