@@ -76,6 +76,21 @@ describe 'DataCriteriaHelpers', ->
       expect(value).toBeDefined()
       expect(value.value).toBe 'a status  # 1'
 
+    it 'should support MedicationDispense.statusReason', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationDispense']
+      attr = attrs.find (attr) -> attr.path is 'statusReason'
+      expect(attr.path).toEqual 'statusReason'
+      expect(attr.types).toEqual [ 'CodeableConcept' ]
+
+      fhirResource = new cqm.models['MedicationDispense']()
+      # CodeableConcept
+      codeableConcept = DataTypeHelpers.createCodeableConcept('code1', 'system1')
+      attr.setValue(fhirResource, codeableConcept)
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined
+      expect(value.coding[0].code.value).toBe 'code1'
+      expect(value.coding[0].system.value).toBe 'system1'
+
     it 'should support MedicationDispense.daysSupply', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationDispense']
       attr = attrs.find (attr) -> attr.path is 'daysSupply'
