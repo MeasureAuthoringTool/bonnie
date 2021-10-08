@@ -53,9 +53,11 @@
       <span class="settings-container">
         <div class="patients-settings">
 
-         <a data-title="Not available for QDM 5.6" data-toggle="tooltip" data-placement="bottom">
-         {{#button "convertQdmPatients" class="btn btn-default export-patients" disabled="true"}}
-         <i class="fa fa-download" aria-hidden="true"></i> Convert to FHIR<span class="sr-only">Patient Conversion</span>{{/button}}</a>
+          <a data-title="Not available for QDM 5.6" data-toggle="tooltip" data-placement="bottom">
+          {{#button "convertQdmPatients" class="btn btn-default export-patients" disabled="true"}}
+          <i class="fa fa-download" aria-hidden="true"></i> Convert to FHIR<span class="sr-only">Patient Conversion</span>{{/button}}</a>
+
+          {{#button "exportJsonPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> EXPORT <span class="sr-only">Patient Export</span>{{/button}}
 
           {{#ifPortfolio}}
               <a data-title="Portfolio Export Unavailable" data-toggle="tooltip" data-placement="bottom">{{#button "exportQrdaPatients" class="btn btn-default export-patients" disabled="true"}}<i class="fa fa-download" aria-hidden="true"></i> QRDA<span class="sr-only">Patient Export</span>{{/button}}</a>
