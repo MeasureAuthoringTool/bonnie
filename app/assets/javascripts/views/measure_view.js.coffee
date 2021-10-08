@@ -120,14 +120,10 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       httpMethod: "POST"
       data: {authenticity_token: $("meta[name='csrf-token']").attr('content')}
 
-  exportQdmPatients: (e) ->
-    @convertPatientsView.converting()
-
-    $.fileDownload "patients/convert_patients?hqmf_set_id=#{@model.get('cqmMeasure').hqmf_set_id}",
-      successCallback: => @convertPatientsView.success()
-      failCallback: => @convertPatientsView.fail()
-      httpMethod: "POST"
-      data: {authenticity_token: $("meta[name='csrf-token']").attr('content')}
+  importJsonPatients: (e) ->
+    importPatients = new Thorax.Views.ImportPatients(model: @model, measures: new Thorax.Collections.Measures(@model.collection))
+    importPatients.appendTo(@$el)
+    importPatients.display()
 
   exportQrdaPatients: (e) ->
     @exportPatientsView.exporting()

@@ -52,10 +52,15 @@
       <h2 class="h1-style"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Test Patients</h2>
       <span class="settings-container">
         <div class="patients-settings">
+          <a data-title="Import Patients" data-toggle="tooltip" data-placement="bottom">
+            {{#button "importPatients" class="btn btn-default export-patients"}}
+              <i class="fa fa-download" aria-hidden="true"></i> IMPORT <span class="sr-only">Import Patients</span>
+            {{/button}}
+          </a>
 
-          <a data-title="Not available for QDM 5.6" data-toggle="tooltip" data-placement="bottom">
-          {{#button "convertQdmPatients" class="btn btn-default export-patients" disabled="true"}}
-          <i class="fa fa-download" aria-hidden="true"></i> Convert to FHIR<span class="sr-only">Patient Conversion</span>{{/button}}</a>
+         <a data-title="Not available for QDM 5.6" data-toggle="tooltip" data-placement="bottom">
+         {{#button "convertQdmPatients" class="btn btn-default export-patients" disabled="true"}}
+         <i class="fa fa-download" aria-hidden="true"></i> Convert to FHIR<span class="sr-only">Patient Conversion</span>{{/button}}</a>
 
           {{#button "exportJsonPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> EXPORT <span class="sr-only">Patient Export</span>{{/button}}
 
