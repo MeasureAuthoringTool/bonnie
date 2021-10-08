@@ -155,7 +155,7 @@ class PatientsController < ApplicationController
 
     bonnie_version = Bonnie::Version.current()
     patients_json = '[' + patient_json_array.join(',') + ']'
-    patients_signature = Digest::MD5.hexdigest("#{qdm_version} + #{patients_json}")
+    patients_signature = Digest::MD5.hexdigest("#{qdm_version}#{patients_json}")
 
     measure_populations_json = measure.population_criteria.keys.to_json()
 
@@ -176,9 +176,9 @@ class PatientsController < ApplicationController
 
     Zip::ZipOutputStream.open(temp_file.path) do |zos|
       zos.put_next_entry(base_file_name + ".json")
-      zos.puts patients_json
+      zos.print patients_json
       zos.put_next_entry("#{base_file_name}_meta.json")
-      zos.puts meta_json
+      zos.print meta_json
     end
 
     send_file temp_file.path, :type => 'application/zip', :disposition => 'attachment', :filename => base_file_name + ".zip"
