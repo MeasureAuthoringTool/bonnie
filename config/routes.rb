@@ -69,6 +69,7 @@ Bonnie::Application.routes.draw do
       post 'qrda_export'
       post 'excel_export'
       post 'share_patients'
+      post 'import_patients'
       post 'convert_patients'
       post 'json_export'
     end
