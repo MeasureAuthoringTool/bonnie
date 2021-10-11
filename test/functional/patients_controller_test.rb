@@ -176,7 +176,7 @@ class PatientsControllerTest < ActionController::TestCase
     assert_equal 1, CQM::Patient.first.givenNames.length
   end
 
-  test "export patients" do
+  test "export patients as QRDA" do
     skip('QRDA Export not supported for QDM5.6')
     records_set = File.join("cqm_patients", "CMS134v6")
     collection_fixtures(records_set)
