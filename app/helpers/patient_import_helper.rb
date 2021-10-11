@@ -18,17 +18,17 @@ module PatientImportHelper
     end
   end
 
-  class ZipEntryNotJson < MeasureHelper::SharedError
-    def initialize
-      message = "Import Patients file must contain only one json file."
+  class MissingZipEntry < MeasureHelper::SharedError
+    def initialize(missing_files = 'Patients JSON, Patients Meta JSON')
+      message = "Unable to Import Patients"
 
       front_end_version = {
         title: TITLE,
         summary: message,
-        body: "You have uploaded a file that does not contain an Import Patients json file."
+        body: "The file you are trying to be uploaded cannot be uploaded at this time. Please re-export your patients and try to import them again."
       }
       back_end_version = {
-        json: { status: "error", messages: message },
+        json: { status: "error", messages: "Patient Import zip missing #{missing_files}" },
         status: :not_found
       }
       super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
@@ -37,7 +37,7 @@ module PatientImportHelper
 
   class IncompatibleBonnieVersion < MeasureHelper::SharedError
     def initialize
-      message = "The file you are trying to be uploaded did not originate from Bonnie #{Bonnie::Version.current}."
+      message = "The uploaded file does not appear to have originated from Bonnie #{Bonnie::Version.current}."
 
       front_end_version = {
         title: TITLE,

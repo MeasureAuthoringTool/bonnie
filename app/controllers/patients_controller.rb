@@ -36,6 +36,7 @@ class PatientsController < ApplicationController
   def import_patients
     virus_scan params[:patient_import_file]
     is_zip_file params[:patient_import_file]
+    # TODO check qdm version in file name before unzipping
 
     # Verify target measure exists
     measure = CQM::Measure.where(id: params[:measure_id]).first
@@ -46,8 +47,7 @@ class PatientsController < ApplicationController
     #   patients - contains the CQM Patients array.
     json = unzip_patient_import_files(params[:patient_import_file])
     meta = JSON.parse(json[:meta])
-    raise ZipEntryNotJson if json[:patients].nil?
-    raise PatientsModified if meta.nil? || meta["patients_signature"].nil?
+    raise PatientsModified if meta["patients_signature"].nil?
     raise IncompatibleBonnieVersion unless meta["bonnie_version"].eql?(Bonnie::Version.current)
 
     # Verify Patients signature hash
@@ -77,6 +77,7 @@ class PatientsController < ApplicationController
       raise MeasureLoadingOther.new unless patient.validate
     end
 
+    # TODO Handle duplicate patient names
     cqm_patients.each(&:upsert)
     flash[:msg] = {
       title: "Success Loading Patients",
@@ -267,11 +268,12 @@ class PatientsController < ApplicationController
     Zip::File.open(zip_file.path) do |file|
       file.each do |entry|
         next if '__MACOSX'.in? Pathname(entry.name).each_filename  # ignore anything in a __MACOSX folder
-        raise ZipEntryNotJson.new unless entry.name.end_with?(".json")
         json[:patients] = entry.get_input_stream.read if entry.name.end_with?(".json") and not entry.name.end_with?("meta.json")
         json[:meta] = entry.get_input_stream.read if entry.name.end_with?("meta.json")
       end
-      raise ZipEntryNotJson.new if json.empty?
+      raise MissingZipEntry.new if json.empty?
+      raise MissingZipEntry.new("Patients JSON") if json[:patients].nil?
+      raise MissingZipEntry.new("Patients Meta JSON") if json[:meta].nil?
     end
     json
   end
