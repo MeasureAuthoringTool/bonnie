@@ -520,8 +520,7 @@ class PatientsControllerTest < ActionController::TestCase
     post :json_import, params: { patient_import_file: import_file, measure_id: measure.id, hqmf_set_id: measure.hqmf_set_id}
 
     assert_not_nil flash
-    assert_equal 'Success Loading Patients', flash[:msg][:title]
-    assert_equal 'Success Loading Patients', flash[:msg][:summary]
+    assert_equal 'QDM PATIENT IMPORT COMPLETED', flash[:msg][:title]
 
     assert_equal 123, CQM::Patient.all.count
   end
