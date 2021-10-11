@@ -33,64 +33,6 @@ class PatientsController < ApplicationController
     render :json => patient
   end
 
-  def import_patients
-    virus_scan params[:patient_import_file]
-    is_zip_file params[:patient_import_file]
-    # TODO check qdm version in file name before unzipping
-
-    # Verify target measure exists
-    measure = CQM::Measure.where(id: params[:measure_id]).first
-    raise MeasureUpdateMeasureNotFound.new if measure.nil?
-
-    # Get the JSON files from the zip:
-    #   meta - contains measure population, patient signature, and troubleshooting meta data.
-    #   patients - contains the CQM Patients array.
-    json = unzip_patient_import_files(params[:patient_import_file])
-    meta = JSON.parse(json[:meta])
-    raise PatientsModified if meta["patients_signature"].nil?
-    raise IncompatibleBonnieVersion unless meta["bonnie_version"].eql?(Bonnie::Version.current)
-
-    # Verify Patients signature hash
-    signature = Digest::MD5.hexdigest("#{meta['qdm_version']}#{json[:patients]}")
-    raise PatientsModified unless signature.eql?(meta["patients_signature"])
-
-    # Deserialize patients json array to CQM Patient model
-    cqm_patients = JSON.parse(json[:patients]).map { |p| CQM::Patient.new.from_json JSON.generate p }
-
-    # Check whether the provided measure populations match the populations in the target measure
-    matching_populations = meta["measure_populations"] != measure.population_criteria.keys.to_json
-
-    # Prepare patients for insert
-    cqm_patients.each do |patient|
-      patient[:id] = BSON::ObjectId.new
-      patient[:group_id] = current_user.current_group.id
-      patient['measure_ids'] = [measure.hqmf_set_id]
-      # If the provided populations match the populations in the target measure, include them in the import
-      if matching_populations
-        patient[:expectedValues].each do |ev|
-          ev["measure_id"] = measure.hqmf_set_id
-        end
-      else
-        patient[:expectedValues] = [] # The measure population docs will be inserted when the user saves the patient.
-      end
-      # Validate patient so we dont have partial inserts
-      raise MeasureLoadingOther.new unless patient.validate
-    end
-
-    # TODO Handle duplicate patient names
-    cqm_patients.each(&:upsert)
-    flash[:msg] = {
-      title: "Success Loading Patients",
-      summary: "Success Loading Patients",
-      body: "Your patients have been successfully added to the measure."
-    }
-  rescue StandardError => e
-    puts e.backtrace
-    flash[:error] = turn_exception_into_shared_error_if_needed(e).front_end_version
-  ensure
-    redirect_to "#{root_path}#measures/#{params[:hqmf_set_id]}"
-  end
-
   def destroy
     patient = CQM::Patient.by_user(current_user).find(params[:id])
     CQM::Patient.by_user(current_user).find(params[:id]).destroy
@@ -232,18 +174,78 @@ class PatientsController < ApplicationController
     "}"
 
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
+    begin
+      temp_file = Tempfile.new(base_file_name + "-#{request.remote_ip}.zip")
 
-    temp_file = Tempfile.new(base_file_name + "-#{request.remote_ip}.zip")
+      Zip::ZipOutputStream.open(temp_file.path) do |zos|
+        zos.put_next_entry(base_file_name + ".json")
+        zos.print patients_json
+        zos.put_next_entry("#{base_file_name}_meta.json")
+        zos.print meta_json
+      end
 
-    Zip::ZipOutputStream.open(temp_file.path) do |zos|
-      zos.put_next_entry(base_file_name + ".json")
-      zos.print patients_json
-      zos.put_next_entry("#{base_file_name}_meta.json")
-      zos.print meta_json
+      send_file temp_file.path, :type => 'application/zip', :disposition => 'attachment', :filename => base_file_name + ".zip"
+    ensure
+      temp_file.close # The temp file will be deleted some time...
+    end
+  end
+
+  def json_import
+    virus_scan params[:patient_import_file]
+    is_zip_file params[:patient_import_file]
+    # TODO check qdm version in file name before unzipping
+
+    # Verify target measure exists
+    measure = CQM::Measure.where(id: params[:measure_id]).first
+    raise MeasureUpdateMeasureNotFound.new if measure.nil?
+
+    # Get the JSON files from the zip:
+    #   meta - contains measure population, patient signature, and troubleshooting meta data.
+    #   patients - contains the CQM Patients array.
+    json = unzip_patient_import_files(params[:patient_import_file])
+    meta = JSON.parse(json[:meta])
+    raise PatientsModified if meta["patients_signature"].nil?
+    raise IncompatibleBonnieVersion unless meta["bonnie_version"].eql?(Bonnie::Version.current)
+
+    # Verify Patients signature hash
+    signature = Digest::MD5.hexdigest("#{meta['qdm_version']}#{json[:patients]}")
+    raise PatientsModified unless signature.eql?(meta["patients_signature"])
+
+    # Deserialize patients json array to CQM Patient model
+    cqm_patients = JSON.parse(json[:patients]).map { |p| CQM::Patient.new.from_json JSON.generate p }
+
+    # Check whether the provided measure populations match the populations in the target measure
+    matching_populations = meta["measure_populations"] != measure.population_criteria.keys.to_json
+
+    # Prepare patients for insert
+    cqm_patients.each do |patient|
+      patient[:id] = BSON::ObjectId.new
+      patient[:group_id] = current_user.current_group.id
+      patient['measure_ids'] = [measure.hqmf_set_id]
+      # If the provided populations match the populations in the target measure, include them in the import
+      if matching_populations
+        patient[:expectedValues].each do |ev|
+          ev["measure_id"] = measure.hqmf_set_id
+        end
+      else
+        patient[:expectedValues] = [] # The measure population docs will be inserted when the user saves the patient.
+      end
+      # Validate patient so we don't have partial inserts
+      raise MeasureLoadingOther.new unless patient.validate
     end
 
-    send_file temp_file.path, :type => 'application/zip', :disposition => 'attachment', :filename => base_file_name + ".zip"
-    temp_file.close # The temp file will be deleted some time...
+    # TODO Handle duplicate patient names
+    cqm_patients.each(&:upsert)
+    flash[:msg] = {
+      title: "QDM PATIENT IMPORT COMPLETED",
+      summary: "",
+      body: "Your patients have been successfully added to the measure."
+    }
+  rescue StandardError => e
+    puts e.backtrace
+    flash[:error] = turn_exception_into_shared_error_if_needed(e).front_end_version
+  ensure
+    redirect_to "#{root_path}#measures/#{params[:hqmf_set_id]}"
   end
 
   def share_patients

@@ -1,5 +1,5 @@
-class Thorax.Views.ImportPatients extends Thorax.Views.BonnieView
-  template: JST['patients/import_patients']
+class Thorax.Views.ImportJsonPatients extends Thorax.Views.BonnieView
+  template: JST['measure/import_json_patients']
 
   initialize: ->
     @measure = @model.get('cqmMeasure');
@@ -10,11 +10,11 @@ class Thorax.Views.ImportPatients extends Thorax.Views.BonnieView
       token: $('meta[name="csrf-token"]').attr('content')
 
   setup: ->
-    @importPatientsDialog = @$("#importPatientsDialog")
+    @importJsonPatientsDialog = @$("#importJsonPatientsDialog")
 
   events:
     rendered: ->
-      @$el.on 'hidden.bs.modal', -> @remove() unless $('#importPatientsDialog').is(':visible')
+      @$el.on 'hidden.bs.modal', -> @remove() unless $('#importJsonPatientsDialog').is(':visible')
     'click #importPatientsCancel': 'cancel'
     'click #importPatientsSubmit': 'submit'
     'change #patientFileInput': 'fileChanged'
@@ -22,19 +22,20 @@ class Thorax.Views.ImportPatients extends Thorax.Views.BonnieView
     
 
   display: ->
-    @importPatientsDialog.modal(
+    @importJsonPatientsDialog.modal(
       "backdrop" : "static",
       "keyboard" : true,
       "show" : true)
 
   cancel: ->
-    @importPatientsDialog.modal('hide')
+    @importJsonPatientsDialog.modal('hide')
 
   submit: (e) ->
     e.preventDefault()
     $(e.target).prop('disabled', true)
     @$('form').submit()
-    @importPatientsDialog.modal('hide')
+    @importJsonPatientsDialog.modal('hide')
+    @$("#importJsonPatientInProgressDialog").modal backdrop: 'static'
 
   fileChanged: (e) ->
     @$('#importPatientsSubmit').prop('disabled', !fileName = $(e.target).val())

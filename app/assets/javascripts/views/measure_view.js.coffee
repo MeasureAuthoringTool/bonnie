@@ -121,9 +121,9 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       data: {authenticity_token: $("meta[name='csrf-token']").attr('content')}
 
   importJsonPatients: (e) ->
-    importPatients = new Thorax.Views.ImportPatients(model: @model, measures: new Thorax.Collections.Measures(@model.collection))
-    importPatients.appendTo(@$el)
-    importPatients.display()
+    importJsonPatients = new Thorax.Views.ImportJsonPatients(model: @model, measures: new Thorax.Collections.Measures(@model.collection))
+    importJsonPatients.appendTo(@$el)
+    importJsonPatients.display()
 
   exportQrdaPatients: (e) ->
     @exportPatientsView.exporting()
