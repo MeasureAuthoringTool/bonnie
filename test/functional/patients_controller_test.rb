@@ -475,4 +475,54 @@ class PatientsControllerTest < ActionController::TestCase
     assert_equal response.content_type, 'application/zip'
     assert_not_nil response.body
   end
+
+  test 'import patients rejects non zip files' do
+    assert_equal 0, CQM::Patient.all.count
+
+    file = fixture_file_upload('test/fixtures/patient_import/patients_430FFC53-4122-4421-88CC-2EDD8117BB3C_QDM_56_1633717655_meta.json', 'application/json')
+    post :import_patients, params: { patient_import_file: file, measure_id: 'measure_123', hqmf_set_id: 'set_id_123'}
+
+    assert_equal flash[:error][:title], 'Error Importing Patients'
+    assert_equal flash[:error][:summary], 'Import Patients file must be in a zip file.'
+
+    assert_equal 0, CQM::Patient.all.count
+  end
+
+  test 'import patients rejects missing patients json' do
+    assert_equal 0, CQM::Patient.all.count
+
+    file = fixture_file_upload('test/fixtures/patient_import/patients_QDM_56_missing_patients.zip', 'application/zip')
+    post :import_patients, params: { patient_import_file: file, measure_id: @measure.id, hqmf_set_id: @measure.hqmf_set_id}
+
+    assert_equal 'Unable to Import Patients', flash[:error][:summary]
+
+    assert_equal 0, CQM::Patient.all.count
+  end
+
+  test 'import patients rejects missing meta json' do
+    assert_equal 0, CQM::Patient.all.count
+
+    file = fixture_file_upload('test/fixtures/patient_import/patients_QDM_56_missing_meta.zip','application/zip')
+
+    post :import_patients, params: { patient_import_file: file, measure_id: @measure.id, hqmf_set_id: @measure.hqmf_set_id}
+
+    assert_not_nil flash
+    assert_equal 'Unable to Import Patients', flash[:error][:summary]
+    assert_equal 0, CQM::Patient.all.count
+  end
+
+  test 'import patients success' do
+    assert_equal 0, CQM::Patient.all.count
+    load_measure_fixtures_from_folder(File.join("measures", "CMS135v10"), @user)
+    measure = CQM::Measure.where({"cms_id" => "CMS135v10"}).first
+    import_file = fixture_file_upload('test/fixtures/patient_import/patients_430FFC53-4122-4421-88CC-2EDD8117BB3C_QDM_56_1633717655.zip', 'application/zip')
+
+    post :import_patients, params: { patient_import_file: import_file, measure_id: measure.id, hqmf_set_id: measure.hqmf_set_id}
+
+    assert_not_nil flash
+    assert_equal 'Success Loading Patients', flash[:msg][:title]
+    assert_equal 'Success Loading Patients', flash[:msg][:summary]
+
+    assert_equal 123, CQM::Patient.all.count
+  end
 end
