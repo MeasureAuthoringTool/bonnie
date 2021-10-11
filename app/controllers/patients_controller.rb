@@ -204,7 +204,7 @@ class PatientsController < ApplicationController
     json = unzip_patient_import_files(params[:patient_import_file])
     meta = JSON.parse(json[:meta])
     raise PatientsModified if meta["patients_signature"].nil?
-    raise IncompatibleBonnieVersion unless meta["bonnie_version"].eql?(Bonnie::Version.current)
+    raise IncompatibleQdmVersion unless meta["qdm_version"].eql?(APP_CONFIG['support_qdm_version'].to_s)
 
     # Verify Patients signature hash
     signature = Digest::MD5.hexdigest("#{meta['qdm_version']}#{json[:patients]}")

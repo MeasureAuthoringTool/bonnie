@@ -35,14 +35,14 @@ module PatientImportHelper
     end
   end
 
-  class IncompatibleBonnieVersion < MeasureHelper::SharedError
+  class IncompatibleQdmVersion < MeasureHelper::SharedError
     def initialize
-      message = "The uploaded file does not appear to have originated from Bonnie #{Bonnie::Version.current}."
+      message = "The uploaded file does not contain QDM #{APP_CONFIG['support_qdm_version']} patients."
 
       front_end_version = {
         title: TITLE,
         summary: message,
-        body: "Only files exported from #{Bonnie::Version.current} can be uploaded at this time."
+        body: "Only exported files containing QDM #{APP_CONFIG['support_qdm_version']} patients may be uploaded at this time."
       }
       back_end_version = {
         json: { status: "error", messages: message },
