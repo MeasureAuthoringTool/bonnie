@@ -134,6 +134,9 @@ GEM
       rexml
     crass (1.0.6)
     daemons (1.4.0)
+    debase (0.2.4.1)
+      debase-ruby_core_source (>= 0.10.2)
+    debase-ruby_core_source (0.10.12)
     devise (4.8.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -313,6 +316,8 @@ GEM
       unicode-display_width (>= 1.4.0, < 2.0)
     rubocop-ast (0.3.0)
       parser (>= 2.7.1.4)
+    ruby-debug-ide (0.7.3)
+      rake (>= 0.8.1)
     ruby-progressbar (1.11.0)
     ruby-saml (1.12.2)
       nokogiri (>= 1.10.5)
@@ -399,6 +404,7 @@ DEPENDENCIES
   colorize
   cqm-models (~> 4.0.0)
   cqm-parsers!
+  debase
   devise
   devise_saml_authenticatable
   doorkeeper (~> 4.4.0)
@@ -426,6 +432,7 @@ DEPENDENCIES
   roo (~> 2.7)
   rubocop (~> 0.88.0)
   rubocop-ast (~> 0.3.0)
+  ruby-debug-ide (~> 0.7.3)
   rubyzip (>= 1.3.0)
   rvm1-capistrano3
   selenium-webdriver

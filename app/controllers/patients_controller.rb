@@ -82,7 +82,7 @@ class PatientsController < ApplicationController
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
     stringio.rewind
     measure = CQM::Measure.by_user(current_user).where({ :hqmf_set_id => params[:hqmf_set_id] }).first
-    filename = if params[:hqmf_set_id] then
+    filename = if params[:hqmf_set_id]
                  "#{measure.cms_id}_patient_export.zip"
                else
                  "bonnie_patient_export.zip"
@@ -127,6 +127,58 @@ class PatientsController < ApplicationController
       # Generate HTML Error Report
       zos.put_next_entry("#{base_file_name}_conversion_results.html")
       zos.puts patient_fhir_conversion_report(JSON.parse(fhir_json))
+    end
+
+    send_file temp_file.path, :type => 'application/zip', :disposition => 'attachment', :filename => base_file_name + ".zip"
+    temp_file.close # The temp file will be deleted some time...
+  end
+
+  def json_export
+    measure_set_id = params[:hqmf_set_id]
+    qdm_version = "#{APP_CONFIG['support_qdm_version']}"
+    qdm_version_file = qdm_version.gsub '.', ''
+    created_at = Time.now.to_i
+    base_file_name = "patients_#{measure_set_id}_QDM_#{qdm_version_file}_#{created_at}"
+
+    patients = CQM::Patient.by_user_and_hqmf_set_id(current_user, measure_set_id).all.entries
+
+    measure = CQM::Measure.by_user(current_user).where(hqmf_set_id: measure_set_id).first
+
+    patient_json_array = []
+
+    patient_count = patients.count
+
+    patients.each do |patient|
+      patient_json = patient.to_json(except: ['_id', 'measure_ids', 'measure_id', 'group_id', 'bundleId'])
+      patient_json_array.push(patient_json)
+    end
+
+    bonnie_version = Bonnie::Version.current()
+    patients_json = '[' + patient_json_array.join(',') + ']'
+    patients_signature = Digest::MD5.hexdigest("#{qdm_version}#{patients_json}")
+
+    measure_populations_json = measure.population_criteria.keys.to_json()
+
+    meta_json = "{" \
+              "\"bonnie_version\":\"#{bonnie_version}\"," \
+               "\"qdm_version\":\"#{qdm_version}\"," \
+               "\"measure_set_id\":\"#{measure_set_id}\"," \
+               "\"created_by\":\"#{current_user.email}\"," \
+               "\"created_at\":\"#{created_at}\"," \
+               "\"measure_populations\":#{measure_populations_json}," \
+               "\"patient_count\":\"#{patient_count}\"," \
+               "\"patients_signature\":\"#{patients_signature}\"" \
+    "}"
+
+    cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
+
+    temp_file = Tempfile.new(base_file_name + "-#{request.remote_ip}.zip")
+
+    Zip::ZipOutputStream.open(temp_file.path) do |zos|
+      zos.put_next_entry(base_file_name + ".json")
+      zos.print patients_json
+      zos.put_next_entry("#{base_file_name}_meta.json")
+      zos.print meta_json
     end
 
     send_file temp_file.path, :type => 'application/zip', :disposition => 'attachment', :filename => base_file_name + ".zip"
@@ -210,7 +262,7 @@ class PatientsController < ApplicationController
   # NOTICE tags are appended here, where as all WARNING/ERROR tags are sourced from the result json.
   def patient_fhir_conversion_report(fhir_json)
     conversion_error_report = []
-    fhir_json.each do | patient_result |
+    fhir_json.each do |patient_result|
       conversion_error_report << {
         :family_name => patient_result['fhir_patient']['name'][0]['family'],
         :given_name => patient_result['fhir_patient']['name'][0]['given'][0],
@@ -237,7 +289,7 @@ class PatientsController < ApplicationController
   # Creates an array of report ready messages from the result's conversion and validation messages.
   def parse_conversion_messages(conversion_messages, validation_messages)
     result = []
-    conversion_messages.each {|msg| result <<  "NOTICE: " + msg } unless conversion_messages.empty?
+    conversion_messages.each {|msg| result << "NOTICE: " + msg } unless conversion_messages.empty?
     validation_messages.each {|msg| result << "#{msg['severity']}: #{msg['locationString']}, #{msg['message']}" } unless validation_messages.empty?
     result
   end

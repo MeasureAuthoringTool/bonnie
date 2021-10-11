@@ -56,6 +56,8 @@ group :test, :development, :ci do
   gem 'selenium-webdriver'
   gem 'codecov', :require => false
   gem 'rails-controller-testing'
+  gem 'debase'
+  gem 'ruby-debug-ide', '~> 0.7.3'
 end
 
 group :test, :development do

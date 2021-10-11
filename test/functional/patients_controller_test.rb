@@ -1,8 +1,8 @@
 require 'test_helper'
 require 'vcr_setup'
 
-class PatientsControllerTest  < ActionController::TestCase
-include Devise::Test::ControllerHelpers
+class PatientsControllerTest < ActionController::TestCase
+  include Devise::Test::ControllerHelpers
 
   setup do
     dump_database
@@ -454,5 +454,25 @@ include Devise::Test::ControllerHelpers
         assert_equal e.message, 'Problem with the rest call to the conversion microservice: 400 Bad Request.'
       end
     end
+  end
+
+  test 'json_export success' do
+    measure = CQM::Measure.new
+    measure.hqmf_set_id = 'AA2A4BBC-864F-45EE-B17A-7EBCC62E6AAC'
+    measure.group = @user.current_group
+    measure.population_criteria = {}
+    measure.save!
+
+    patient_hash = JSON.parse File.read(File.join(Rails.root, 'test/fixtures/patient_conversion/qdm_test_patient_to_convert.json'))
+    patient = CQM::Patient.new(patient_hash[0])
+    patient.group = @user.current_group
+    patient.measure_ids = [ @measure.hqmf_set_id ]
+    patient.save!
+    assert_equal 1, CQM::Patient.count
+
+    post :json_export, params: {hqmf_set_id: 'AA2A4BBC-864F-45EE-B17A-7EBCC62E6AAC'}
+    assert_response :success
+    assert_equal response.content_type, 'application/zip'
+    assert_not_nil response.body
   end
 end
