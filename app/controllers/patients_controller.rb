@@ -193,7 +193,6 @@ class PatientsController < ApplicationController
   def json_import
     virus_scan params[:patient_import_file]
     is_zip_file params[:patient_import_file]
-    # TODO check qdm version in file name before unzipping
 
     # Verify target measure exists
     measure = CQM::Measure.where(id: params[:measure_id]).first
@@ -234,7 +233,6 @@ class PatientsController < ApplicationController
       raise MeasureLoadingOther.new unless patient.validate
     end
 
-    # TODO Handle duplicate patient names
     cqm_patients.each(&:upsert)
     flash[:msg] = {
       title: "QDM PATIENT IMPORT COMPLETED",
