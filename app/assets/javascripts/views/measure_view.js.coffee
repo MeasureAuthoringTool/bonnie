@@ -227,6 +227,11 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     $btn = $(e.currentTarget)
     $btn.toggleClass('btn-danger btn-danger-inverse').prev().toggleClass('hide')
 
+  deleteAllPatients: (e) ->
+    deleteDialog = new Thorax.Views.DeleteAllPatientsDialog(patientIds: (@model.get('patients').map (patient) -> patient.id), measureId: @model.get('cqmMeasure').get("hqmf_set_id"))
+    deleteDialog.appendTo($('#bonnie'))
+    deleteDialog.display()
+
 class Thorax.Views.MeasureMetadataView extends Thorax.Views.BonnieView
   template: JST['measure/measure_metadata']
 
