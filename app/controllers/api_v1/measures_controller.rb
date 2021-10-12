@@ -229,7 +229,7 @@ module ApiV1
     formats ["multipart/form-data"]
     error :code => 400, :desc => "Client sent bad parameters. Response contains explanation."
     error :code => 404, :desc => "Measure with this HQMF Set ID does not exist."
-    error :code => 500, :desc => "A server error occured."
+    error :code => 500, :desc => "A server error occurred."
     param_group :measure_upload
     def update
       measures, main_hqmf_set_id = update_measure(uploaded_file: params[:measure_file],

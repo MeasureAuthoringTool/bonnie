@@ -71,6 +71,7 @@ Bonnie::Application.routes.draw do
       post 'share_patients'
       post 'convert_patients'
       post 'json_export'
+      post 'json_import'
     end
   end
 

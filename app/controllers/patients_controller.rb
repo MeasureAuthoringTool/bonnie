@@ -1,4 +1,7 @@
 class PatientsController < ApplicationController
+  include MeasureHelper
+  include PatientImportHelper
+  include VirusScanHelper
   before_action :authenticate_user!
   prepend_view_path(Rails.root.join('lib/templates/'))
 
@@ -171,18 +174,77 @@ class PatientsController < ApplicationController
     "}"
 
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
+    begin
+      temp_file = Tempfile.new(base_file_name + "-#{request.remote_ip}.zip")
 
-    temp_file = Tempfile.new(base_file_name + "-#{request.remote_ip}.zip")
+      Zip::ZipOutputStream.open(temp_file.path) do |zos|
+        zos.put_next_entry(base_file_name + ".json")
+        zos.print patients_json
+        zos.put_next_entry("#{base_file_name}_meta.json")
+        zos.print meta_json
+      end
 
-    Zip::ZipOutputStream.open(temp_file.path) do |zos|
-      zos.put_next_entry(base_file_name + ".json")
-      zos.print patients_json
-      zos.put_next_entry("#{base_file_name}_meta.json")
-      zos.print meta_json
+      send_file temp_file.path, :type => 'application/zip', :disposition => 'attachment', :filename => base_file_name + ".zip"
+    ensure
+      temp_file.close # The temp file will be deleted some time...
+    end
+  end
+
+  def json_import
+    virus_scan params[:patient_import_file]
+    is_zip_file params[:patient_import_file]
+
+    # Verify target measure exists
+    measure = CQM::Measure.where(id: params[:measure_id]).first
+    raise MeasureUpdateMeasureNotFound.new if measure.nil?
+
+    # Get the JSON files from the zip:
+    #   meta - contains measure population, patient signature, and troubleshooting meta data.
+    #   patients - contains the CQM Patients array.
+    json = unzip_patient_import_files(params[:patient_import_file])
+    meta = JSON.parse(json[:meta])
+    raise PatientsModified if meta["patients_signature"].nil?
+    raise IncompatibleQdmVersion unless meta["qdm_version"].eql?(APP_CONFIG['support_qdm_version'].to_s)
+
+    # Verify Patients signature hash
+    signature = Digest::MD5.hexdigest("#{meta['qdm_version']}#{json[:patients]}")
+    raise PatientsModified unless signature.eql?(meta["patients_signature"])
+
+    # Deserialize patients json array to CQM Patient model
+    cqm_patients = JSON.parse(json[:patients]).map { |p| CQM::Patient.new.from_json JSON.generate p }
+
+    # Check whether the provided measure populations match the populations in the target measure
+    matching_populations = meta["measure_populations"] == measure.population_criteria.keys
+
+    # Prepare patients for insert
+    cqm_patients.each do |patient|
+      patient[:id] = BSON::ObjectId.new
+      patient[:group_id] = current_user.current_group.id
+      patient['measure_ids'] = [measure.hqmf_set_id]
+      # If the provided populations match the populations in the target measure, include them in the import
+      if matching_populations
+        patient[:expectedValues].each do |ev|
+          ev["measure_id"] = measure.hqmf_set_id
+        end
+      else
+        patient[:expectedValues] = [] # The measure population docs will be inserted when the user saves the patient.
+      end
+      # Validate patient so we don't have partial inserts
+      raise MeasureLoadingOther.new unless patient.validate
     end
 
-    send_file temp_file.path, :type => 'application/zip', :disposition => 'attachment', :filename => base_file_name + ".zip"
-    temp_file.close # The temp file will be deleted some time...
+    cqm_patients.each(&:upsert)
+    flash[:msg] = {
+      title: "QDM PATIENT IMPORT COMPLETED",
+      summary: "",
+      body: "Your patients have been successfully added to the measure.
+            #{'Due to mismatching populations, the Expected Values have been cleared from imported patients.' unless matching_populations}"
+    }
+  rescue StandardError => e
+    puts e.backtrace
+    flash[:error] = turn_exception_into_shared_error_if_needed(e).front_end_version
+  ensure
+    redirect_to "#{root_path}#measures/#{params[:hqmf_set_id]}"
   end
 
   def share_patients
@@ -202,8 +264,42 @@ class PatientsController < ApplicationController
 
   private
 
+  def unzip_patient_import_files(zip_file)
+    json = {}
+    Zip::File.open(zip_file.path) do |file|
+      file.each do |entry|
+        next if '__MACOSX'.in? Pathname(entry.name).each_filename  # ignore anything in a __MACOSX folder
+        json[:patients] = entry.get_input_stream.read if entry.name.end_with?(".json") and not entry.name.end_with?("meta.json")
+        json[:meta] = entry.get_input_stream.read if entry.name.end_with?("meta.json")
+      end
+      raise MissingZipEntry.new if json.empty?
+      raise MissingZipEntry.new("Patients JSON") if json[:patients].nil?
+      raise MissingZipEntry.new("Patients Meta JSON") if json[:meta].nil?
+    end
+    json
+  end
+
+  def is_zip_file(file)
+    if file.content_type != "application/zip" &&
+      file.content_type != "application/x-zip-compressed"
+      raise UploadedFileNotZip.new
+    end
+  end
+
+  def virus_scan(file)
+    begin
+      scan_for_viruses(file)
+    rescue VirusFoundError => e
+      logger.error "VIRSCAN: error message: #{e.message}"
+      raise PatientImportVirusFoundError.new
+    rescue VirusScannerError => e
+      logger.error "VIRSCAN: error message: #{e.message}"
+      raise PatientImportVirusScannerError.new
+    end
+  end
+
   def cqm_patient_params
-    # It would be better if we could explicitely check all nested params, but given the number and depth of
+    # It would be better if we could explicitly check all nested params, but given the number and depth of
     # them, it just isn't feasible.  We will instead rely on Mongoid::Errors::UnknownAttribute to be thrown
     # if any undeclared properties make it into the cqmPatient hash.  This is only possible because currently
     # no models being instantiated here include the Mongoid::Attributes::Dynamic module.
