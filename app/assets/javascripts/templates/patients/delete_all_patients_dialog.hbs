@@ -1,23 +1,21 @@
 <div class="modal fade delete-all-patients-dialog" id="delete_all_patients_dialog" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" role="dialog">
         <div class="modal-content">
-            <form role="form" method="post" action="/patients/delete_all_patients">
-                <div class="modal-header">
-                    <h1 class="modal-title">Delete All Patients</h1>
+            <div class="modal-header">
+                <h1 class="modal-title">Delete All Patients</h1>
+            </div>
+            <div class="modal-body">
+                <label>Would you like to delete all ({{patientCount}}) patients?</label>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="delete_confirm">
+                        Confirm Deletion of all Patients.
+                    </label>
                 </div>
-                <div class="modal-body">
-                    <label>Would you like to delete all ({{patientCount}}) patients?</label>
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" id="delete_confirm">
-                            Confirm Deletion of all Patients.
-                        </label>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button type="button" id="delete_all_button" class="btn btn-primary">Delete</button>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" id="delete_all_button" class="btn btn-primary">Delete</button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
