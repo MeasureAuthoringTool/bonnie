@@ -214,7 +214,7 @@ class PatientsController < ApplicationController
     cqm_patients = JSON.parse(json[:patients]).map { |p| CQM::Patient.new.from_json JSON.generate p }
 
     # Check whether the provided measure populations match the populations in the target measure
-    matching_populations = meta["measure_populations"] != measure.population_criteria.keys.to_json
+    matching_populations = meta["measure_populations"] == measure.population_criteria.keys
 
     # Prepare patients for insert
     cqm_patients.each do |patient|
