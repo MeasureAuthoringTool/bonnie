@@ -237,7 +237,8 @@ class PatientsController < ApplicationController
     flash[:msg] = {
       title: "QDM PATIENT IMPORT COMPLETED",
       summary: "",
-      body: "Your patients have been successfully added to the measure."
+      body: "Your patients have been successfully added to the measure.
+            #{'Due to mismatching populations, the Expected Values have been cleared from imported patients.' unless matching_populations}"
     }
   rescue StandardError => e
     puts e.backtrace
