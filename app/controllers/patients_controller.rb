@@ -39,6 +39,28 @@ class PatientsController < ApplicationController
     render :json => patient.as_document
   end
 
+  def delete_all_patients
+    patients = CQM::Patient.by_user(current_user).where({ :measure_ids.in => [params[:hqmf_set_id]] }).find(params[:patients])
+    count = patients.count
+    patients.each(&:destroy)
+    logger.info "delete_all_patients: User #{current_user.id} removed #{count} patients from #{params[:hqmf_set_id]} measure"
+    flash[:msg] = {
+      title: "Success",
+      summary: "",
+      body: "#{count} patients have been successfully deleted."
+    }
+    render json: { status: 'ok', redirect: 'true' }
+  rescue StandardError => e
+    logger.error "delete_all_patients: error message: #{e.message}"
+    puts e.backtrace
+    flash[:error] = {
+      title: "Error",
+      summary: '',
+      body: "Error occurred while deleting patients."
+    }
+    render json: { status: 'error', redirect: 'true' }, status: :internal_server_error
+  end
+
   def qrda_export
     if params[:patients]
       # if patients are given, they're from the patient bank; use those patients
@@ -138,7 +160,7 @@ class PatientsController < ApplicationController
 
   def json_export
     measure_set_id = params[:hqmf_set_id]
-    qdm_version = "#{APP_CONFIG['support_qdm_version']}"
+    qdm_version = (APP_CONFIG['support_qdm_version']).to_s
     qdm_version_file = qdm_version.gsub '.', ''
     created_at = Time.now.to_i
     base_file_name = "patients_#{measure_set_id}_QDM_#{qdm_version_file}_#{created_at}"
@@ -156,11 +178,11 @@ class PatientsController < ApplicationController
       patient_json_array.push(patient_json)
     end
 
-    bonnie_version = Bonnie::Version.current()
+    bonnie_version = Bonnie::Version.current
     patients_json = '[' + patient_json_array.join(',') + ']'
     patients_signature = Digest::MD5.hexdigest("#{qdm_version}#{patients_json}")
 
-    measure_populations_json = measure.population_criteria.keys.to_json()
+    measure_populations_json = measure.population_criteria.keys.to_json
 
     meta_json = "{" \
               "\"bonnie_version\":\"#{bonnie_version}\"," \
@@ -196,7 +218,7 @@ class PatientsController < ApplicationController
 
     # Verify target measure exists
     measure = CQM::Measure.where(id: params[:measure_id]).first
-    raise MeasureUpdateMeasureNotFound.new if measure.nil?
+    raise MeasureUpdateMeasureNotFound if measure.nil?
 
     # Get the JSON files from the zip:
     #   meta - contains measure population, patient signature, and troubleshooting meta data.
@@ -230,7 +252,7 @@ class PatientsController < ApplicationController
         patient[:expectedValues] = [] # The measure population docs will be inserted when the user saves the patient.
       end
       # Validate patient so we don't have partial inserts
-      raise MeasureLoadingOther.new unless patient.validate
+      raise MeasureLoadingOther unless patient.validate
     end
 
     cqm_patients.each(&:upsert)
@@ -268,34 +290,34 @@ class PatientsController < ApplicationController
     json = {}
     Zip::File.open(zip_file.path) do |file|
       file.each do |entry|
-        next if '__MACOSX'.in? Pathname(entry.name).each_filename  # ignore anything in a __MACOSX folder
-        json[:patients] = entry.get_input_stream.read if entry.name.end_with?(".json") and not entry.name.end_with?("meta.json")
+        next if '__MACOSX'.in? Pathname(entry.name).each_filename # ignore anything in a __MACOSX folder
+        json[:patients] = entry.get_input_stream.read if entry.name.end_with?(".json") && !entry.name.end_with?("meta.json")
         json[:meta] = entry.get_input_stream.read if entry.name.end_with?("meta.json")
       end
-      raise MissingZipEntry.new if json.empty?
-      raise MissingZipEntry.new("Patients JSON") if json[:patients].nil?
-      raise MissingZipEntry.new("Patients Meta JSON") if json[:meta].nil?
+      raise MissingZipEntry if json.empty?
+      raise MissingZipEntry, "Patients JSON" if json[:patients].nil?
+      raise MissingZipEntry, "Patients Meta JSON" if json[:meta].nil?
     end
     json
   end
 
   def is_zip_file(file)
     if file.content_type != "application/zip" &&
-      file.content_type != "application/x-zip-compressed"
-      raise UploadedFileNotZip.new
+       file.content_type != "application/x-zip-compressed"
+      raise UploadedFileNotZip
     end
   end
 
   def virus_scan(file)
-    begin
-      scan_for_viruses(file)
-    rescue VirusFoundError => e
-      logger.error "VIRSCAN: error message: #{e.message}"
-      raise PatientImportVirusFoundError.new
-    rescue VirusScannerError => e
-      logger.error "VIRSCAN: error message: #{e.message}"
-      raise PatientImportVirusScannerError.new
-    end
+    
+    scan_for_viruses(file)
+  rescue VirusFoundError => e
+    logger.error "VIRSCAN: error message: #{e.message}"
+    raise PatientImportVirusFoundError
+  rescue VirusScannerError => e
+    logger.error "VIRSCAN: error message: #{e.message}"
+    raise PatientImportVirusScannerError
+    
   end
 
   def cqm_patient_params

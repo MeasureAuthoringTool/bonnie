@@ -227,6 +227,17 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     $btn = $(e.currentTarget)
     $btn.toggleClass('btn-danger btn-danger-inverse').prev().toggleClass('hide')
 
+  deleteAllPatients: (e) ->
+    sharedPatients = @model.get('patients').filter( (p) -> p.get('cqmPatient').measure_ids.length > 1 )
+    if (sharedPatients?.length)
+      bonnie.showError(
+        title: 'Error',
+        body: 'Cannot delete Patients. Some of your Patients are shared with other measures.')
+    else
+      deleteDialog = new Thorax.Views.DeleteAllPatientsDialog(model: @model)
+      deleteDialog.appendTo($('#bonnie'))
+      deleteDialog.display()
+
 class Thorax.Views.MeasureMetadataView extends Thorax.Views.BonnieView
   template: JST['measure/measure_metadata']
 

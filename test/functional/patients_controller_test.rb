@@ -551,4 +551,41 @@ class PatientsControllerTest < ActionController::TestCase
     assert_equal 124, CQM::Patient.count
     assert_equal 123, CQM::Patient.where(:expectedValues => {"$size"=>0}).size # The 123 imported patients
   end
+
+  test 'delete all patients' do
+
+    assert_equal 0, CQM::Patient.count
+
+    measure = CQM::Measure.new
+    measure.hqmf_set_id = 'AA2A4BBC-864F-45EE-B17A-7EBCC62E6AAC'
+    measure.group = @user.current_group
+    measure.population_criteria = {}
+    measure.save!
+
+    patients = ['61699b94b7b4da7e338e2215', '6169a5663598f039f4a9c86e']
+
+    patient_hash = JSON.parse File.read(File.join(Rails.root, 'test/fixtures/patient_conversion/qdm_test_patient_to_convert.json'))
+    patient = CQM::Patient.new(patient_hash[0])
+    patient.id = BSON::ObjectId.from_string(patients[0])
+    patient.group = @user.current_group
+    patient.measure_ids = [ measure.hqmf_set_id ]
+    patient.save!
+    assert_equal 1, CQM::Patient.count
+
+    patient = CQM::Patient.new(patient_hash[0])
+    patient.id = BSON::ObjectId.from_string(patients[1])
+    patient.group = @user.current_group
+    patient.measure_ids = [ measure.hqmf_set_id ]
+    patient.save!
+    assert_equal 2, CQM::Patient.count
+
+    post :delete_all_patients, params: { patients: patients, hqmf_set_id: measure.hqmf_set_id}
+
+    assert_not_nil flash
+    assert_equal 'Success', flash[:msg][:title]
+    assert flash[:msg][:body].include?('2 patients have been successfully deleted.')
+
+    assert_equal 0, CQM::Patient.count
+  end
+
 end
