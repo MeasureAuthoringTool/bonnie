@@ -43,7 +43,7 @@ class PatientsController < ApplicationController
     patients = CQM::Patient.by_user(current_user).where({ :measure_ids.in => [params[:hqmf_set_id]] }).find(params[:patients])
     count = patients.count
     patients.each(&:destroy)
-    logger.info "delete_all_patients: User #{current_user.email} removed #{count} patients from #{params[:hqmf_set_id]} measure"
+    logger.info "delete_all_patients: User #{current_user.id} removed #{count} patients from #{params[:hqmf_set_id]} measure"
     flash[:msg] = {
       title: "Success",
       summary: "",
