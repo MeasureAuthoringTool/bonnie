@@ -133,7 +133,12 @@
       category:
         valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_CATEGORY_VS]
       reasonCode:
-        valueSets: () -> [ConditionCodesValueSet.JSON]
+        valueSets: () -> [
+          ConditionCodesValueSet.JSON,
+          NegationReasonValueSet.MEDICAL_REASON_NOT_DONE,
+          NegationReasonValueSet.PATIENT_REASON_NOT_DONE,
+          NegationReasonValueSet.SYSTEM_REASONS
+        ]
       statusReason:
         valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_STATUS_REASON_VS]
     MedicationStatement:
@@ -479,7 +484,6 @@
     if type.assigner?.display?
       attrs.push("assigner: #{type.assigner.display.value}")
     return attrs.join(" | ")
-
 
   @isCodeType: (attrTypeName) ->
     cqm.models[attrTypeName]?.prototype instanceof cqm.models.PrimitiveCode
@@ -1106,7 +1110,12 @@
 #        path: 'reasonCode'
 #        isArray: true
 #        types: ['CodeableConcept']
-#        valueSets: () -> [ConditionCodesValueSet.JSON]
+#        valueSets: () -> [
+#          ConditionCodesValueSet.JSON,
+#          NegationReasonValueSet.MEDICAL_REASON_NOT_DONE,
+#          NegationReasonValueSet.PATIENT_REASON_NOT_DONE,
+#          NegationReasonValueSet.SYSTEM_REASONS
+#        ]
 #      },
 #      {
 #        path: 'statusReason'
@@ -1159,4 +1168,3 @@
         attrDef.getValue = _.bind(getValue, attrDef)
 
   @postInitDataElements(@DATA_ELEMENT_ATTRIBUTES)
-

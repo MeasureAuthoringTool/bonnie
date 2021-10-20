@@ -9,6 +9,9 @@ describe 'DataCriteriaHelpers', ->
     it 'should support MedicationRequest.status', ->
       DataCriteriaAsserts.assertCode('MedicationRequest', 'status', cqm.models.MedicationRequestStatus)
 
+    it 'should support MedicationRequest.doNotPerform', ->
+      DataCriteriaAsserts.assertBoolean('MedicationRequest', 'doNotPerform', cqm.models.PrimitiveBoolean)
+
     it 'should support MedicationRequest.intent', ->
       DataCriteriaAsserts.assertCode('MedicationRequest', 'intent', cqm.models.MedicationRequestIntent)
 
