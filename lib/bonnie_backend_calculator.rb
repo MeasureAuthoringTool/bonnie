@@ -1,7 +1,7 @@
 # Do the measure calculation using the restful calculation microservice,
 # will convert patients to QDM model prior to calculation.
 module BonnieBackendCalculator
-  CALCULATION_SERVICE_URL = 'http://localhost:8081/calculate'.freeze
+  CALCULATION_SERVICE_URL = ENV['CALCULATION_SERVICE_URL'].freeze
 
   def self.calculate(measure, cqm_patients, options)
     # Extract the qdm_patient from the cqm_patient due to the calculator expecting the qdm_patient

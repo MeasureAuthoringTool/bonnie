@@ -1,8 +1,8 @@
 require 'test_helper'
 require 'vcr_setup'
 
-class PatientsControllerTest  < ActionController::TestCase
-include Devise::Test::ControllerHelpers
+class PatientsControllerTest < ActionController::TestCase
+  include Devise::Test::ControllerHelpers
 
   setup do
     dump_database
@@ -176,7 +176,7 @@ include Devise::Test::ControllerHelpers
     assert_equal 1, CQM::Patient.first.givenNames.length
   end
 
-  test "export patients" do
+  test "export patients as QRDA" do
     skip('QRDA Export not supported for QDM5.6')
     records_set = File.join("cqm_patients", "CMS134v6")
     collection_fixtures(records_set)
@@ -455,4 +455,137 @@ include Devise::Test::ControllerHelpers
       end
     end
   end
+
+  test 'json_export success' do
+    measure = CQM::Measure.new
+    measure.hqmf_set_id = 'AA2A4BBC-864F-45EE-B17A-7EBCC62E6AAC'
+    measure.group = @user.current_group
+    measure.population_criteria = {}
+    measure.save!
+
+    patient_hash = JSON.parse File.read(File.join(Rails.root, 'test/fixtures/patient_conversion/qdm_test_patient_to_convert.json'))
+    patient = CQM::Patient.new(patient_hash[0])
+    patient.group = @user.current_group
+    patient.measure_ids = [ @measure.hqmf_set_id ]
+    patient.save!
+    assert_equal 1, CQM::Patient.count
+
+    post :json_export, params: {hqmf_set_id: 'AA2A4BBC-864F-45EE-B17A-7EBCC62E6AAC'}
+    assert_response :success
+    assert_equal response.content_type, 'application/zip'
+    assert_not_nil response.body
+  end
+
+  test 'import json patients rejects non zip files' do
+    assert_equal 0, CQM::Patient.all.count
+
+    import_file = fixture_file_upload('test/fixtures/patient_import/patients_430FFC53-4122-4421-88CC-2EDD8117BB3C_QDM_56_1633717655_meta.json', 'application/json')
+    post :json_import, params: { patient_import_file: import_file, measure_id: 'measure_123', hqmf_set_id: 'set_id_123'}
+
+    assert_equal flash[:error][:title], 'Error Importing Patients'
+    assert_equal flash[:error][:summary], 'Import Patients file must be in a zip file.'
+
+    assert_equal 0, CQM::Patient.all.count
+  end
+
+  test 'import json patients rejects missing patients json' do
+    assert_equal 0, CQM::Patient.all.count
+
+    import_file = fixture_file_upload('test/fixtures/patient_import/patients_QDM_56_missing_patients.zip', 'application/zip')
+    post :json_import, params: { patient_import_file: import_file, measure_id: @measure.id, hqmf_set_id: @measure.hqmf_set_id}
+
+    assert_equal 'Unable to Import Patients', flash[:error][:summary]
+
+    assert_equal 0, CQM::Patient.all.count
+  end
+
+  test 'import json patients rejects missing meta json' do
+    assert_equal 0, CQM::Patient.all.count
+
+    import_file = fixture_file_upload('test/fixtures/patient_import/patients_QDM_56_missing_meta.zip','application/zip')
+
+    post :json_import, params: { patient_import_file: import_file, measure_id: @measure.id, hqmf_set_id: @measure.hqmf_set_id}
+
+    assert_not_nil flash
+    assert_equal 'Unable to Import Patients', flash[:error][:summary]
+    assert_equal 0, CQM::Patient.all.count
+  end
+
+  test 'import json patients success with matching populations' do
+    assert_equal 0, CQM::Patient.all.count
+    load_measure_fixtures_from_folder(File.join("measures", "CMS135v10"), @user)
+    measure = CQM::Measure.where({"cms_id" => "CMS135v10"}).first
+    import_file = fixture_file_upload('test/fixtures/patient_import/patients_430FFC53-4122-4421-88CC-2EDD8117BB3C_QDM_56_1633717655.zip', 'application/zip')
+
+    post :json_import, params: { patient_import_file: import_file, measure_id: measure.id, hqmf_set_id: measure.hqmf_set_id}
+
+    assert_not_nil flash
+    assert_equal 'QDM PATIENT IMPORT COMPLETED', flash[:msg][:title]
+
+    assert_equal 123, CQM::Patient.all.count
+    assert_equal 123, CQM::Patient.where(:expectedValues.not => {"$size"=>0}).size
+  end
+
+  test 'import json patients success with different populations' do
+    measure = CQM::Measure.new
+    measure.hqmf_set_id = 'AA2A4BBC-864F-45EE-B17A-7EBCC62E6AAC'
+    measure.group = @user.current_group
+    measure.population_criteria = {}
+    measure.save!
+
+    patient_hash = JSON.parse File.read(File.join(Rails.root, 'test/fixtures/patient_conversion/qdm_test_patient_to_convert.json'))
+    patient = CQM::Patient.new(patient_hash[0])
+    patient.group = @user.current_group
+    patient.measure_ids = [ @measure.hqmf_set_id ]
+    patient.save!
+    assert_equal 1, CQM::Patient.count
+
+    import_file = fixture_file_upload('test/fixtures/patient_import/patients_430FFC53-4122-4421-88CC-2EDD8117BB3C_QDM_56_1633717655.zip', 'application/zip')
+
+    post :json_import, params: { patient_import_file: import_file, measure_id: measure.id, hqmf_set_id: measure.hqmf_set_id}
+
+    assert_not_nil flash
+    assert_equal 'QDM PATIENT IMPORT COMPLETED', flash[:msg][:title]
+    assert flash[:msg][:body].include?('Due to mismatching populations, the Expected Values have been cleared from imported patients.')
+
+    assert_equal 124, CQM::Patient.count
+    assert_equal 123, CQM::Patient.where(:expectedValues => {"$size"=>0}).size # The 123 imported patients
+  end
+
+  test 'delete all patients' do
+
+    assert_equal 0, CQM::Patient.count
+
+    measure = CQM::Measure.new
+    measure.hqmf_set_id = 'AA2A4BBC-864F-45EE-B17A-7EBCC62E6AAC'
+    measure.group = @user.current_group
+    measure.population_criteria = {}
+    measure.save!
+
+    patients = ['61699b94b7b4da7e338e2215', '6169a5663598f039f4a9c86e']
+
+    patient_hash = JSON.parse File.read(File.join(Rails.root, 'test/fixtures/patient_conversion/qdm_test_patient_to_convert.json'))
+    patient = CQM::Patient.new(patient_hash[0])
+    patient.id = BSON::ObjectId.from_string(patients[0])
+    patient.group = @user.current_group
+    patient.measure_ids = [ measure.hqmf_set_id ]
+    patient.save!
+    assert_equal 1, CQM::Patient.count
+
+    patient = CQM::Patient.new(patient_hash[0])
+    patient.id = BSON::ObjectId.from_string(patients[1])
+    patient.group = @user.current_group
+    patient.measure_ids = [ measure.hqmf_set_id ]
+    patient.save!
+    assert_equal 2, CQM::Patient.count
+
+    post :delete_all_patients, params: { patients: patients, hqmf_set_id: measure.hqmf_set_id}
+
+    assert_not_nil flash
+    assert_equal 'Success', flash[:msg][:title]
+    assert flash[:msg][:body].include?('2 patients have been successfully deleted.')
+
+    assert_equal 0, CQM::Patient.count
+  end
+
 end

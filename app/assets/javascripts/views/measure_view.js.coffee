@@ -52,6 +52,9 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       @exportPatientsView = new Thorax.Views.ExportPatientsView() # Modal dialogs for exporting
       @exportPatientsView.appendTo(@$el)
 
+      @exportJsonPatientsView = new  Thorax.Views.ExportJsonPatientsView() # Modal dialogs for JSON exporting
+      @exportJsonPatientsView.appendTo(@$el)
+
       @$('.d3-measure-viz, .btn-viz-text').hide()
       @$('a[data-toggle="tooltip"]').tooltip()
 
@@ -107,6 +110,20 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       failCallback: => @convertPatientsView.fail()
       httpMethod: "POST"
       data: {authenticity_token: $("meta[name='csrf-token']").attr('content')}
+
+  exportJsonPatients: (e) ->
+    @exportJsonPatientsView.export()
+
+    $.fileDownload "patients/json_export?hqmf_set_id=#{@model.get('cqmMeasure').hqmf_set_id}",
+      successCallback: => @exportJsonPatientsView.success()
+      failCallback: => @exportJsonPatientsView.fail()
+      httpMethod: "POST"
+      data: {authenticity_token: $("meta[name='csrf-token']").attr('content')}
+
+  importJsonPatients: (e) ->
+    importJsonPatients = new Thorax.Views.ImportJsonPatients(model: @model, measures: new Thorax.Collections.Measures(@model.collection))
+    importJsonPatients.appendTo(@$el)
+    importJsonPatients.display()
 
   exportQrdaPatients: (e) ->
     @exportPatientsView.exporting()
@@ -209,6 +226,17 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     e.preventDefault()
     $btn = $(e.currentTarget)
     $btn.toggleClass('btn-danger btn-danger-inverse').prev().toggleClass('hide')
+
+  deleteAllPatients: (e) ->
+    sharedPatients = @model.get('patients').filter( (p) -> p.get('cqmPatient').measure_ids.length > 1 )
+    if (sharedPatients?.length)
+      bonnie.showError(
+        title: 'Error',
+        body: 'Cannot delete Patients. Some of your Patients are shared with other measures.')
+    else
+      deleteDialog = new Thorax.Views.DeleteAllPatientsDialog(model: @model)
+      deleteDialog.appendTo($('#bonnie'))
+      deleteDialog.display()
 
 class Thorax.Views.MeasureMetadataView extends Thorax.Views.BonnieView
   template: JST['measure/measure_metadata']

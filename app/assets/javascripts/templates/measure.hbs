@@ -52,10 +52,15 @@
       <h2 class="h1-style"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Test Patients</h2>
       <span class="settings-container">
         <div class="patients-settings">
+        {{#button "importJsonPatients" class="btn btn-default export-patients"}}
+          <i class="fa fa-upload" aria-hidden="true"></i> IMPORT <span class="sr-only">Import Patients</span>
+        {{/button}}
 
          <a data-title="Not available for QDM 5.6" data-toggle="tooltip" data-placement="bottom">
          {{#button "convertQdmPatients" class="btn btn-default export-patients" disabled="true"}}
          <i class="fa fa-download" aria-hidden="true"></i> Convert to FHIR<span class="sr-only">Patient Conversion</span>{{/button}}</a>
+
+          {{#button "exportJsonPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> EXPORT <span class="sr-only">Patient Export</span>{{/button}}
 
           {{#ifPortfolio}}
               <a data-title="Portfolio Export Unavailable" data-toggle="tooltip" data-placement="bottom">{{#button "exportQrdaPatients" class="btn btn-default export-patients" disabled="true"}}<i class="fa fa-download" aria-hidden="true"></i> QRDA<span class="sr-only">Patient Export</span>{{/button}}</a>
@@ -68,6 +73,14 @@
           {{#ifPortfolio}}
             {{#button "sharePatients" class="btn btn-default share-patients"}}<i class="fa fa-link" aria-hidden="true"></i> Share <span class="sr-only">Share</span>{{/button}}
           {{/ifPortfolio}}
+
+          {{#if patients.length}}
+            {{#button "deleteAllPatients" class="btn btn-default delete-patients"}}
+              <i class="fa fa-trash" aria-hidden="true"></i>
+              Delete All Patients <span class="sr-only">Delete All Patients</span>
+            {{/button}}
+          {{/if}}
+
         </div>
         {{#button "patientsSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog" aria-hidden="true"></i> <span class="sr-only">Patient Options</span>{{/button}}
       </span>
