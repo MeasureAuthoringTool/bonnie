@@ -252,19 +252,24 @@
   @getPrimaryCodePathForType: (typeName) ->
     cqm.models[typeName]?.primaryCodePath
 
+  @isPrimaryPathAttribute: (typeName, attrName) ->
+    primaryCodePath = @getPrimaryCodePathForType(typeName)
+    return primaryCodePath == attrName
+
   @getPrimaryCodePath: (dataElement) ->
     @getPrimaryCodePathForType(dataElement.fhir_resource?.getTypeName())
 
+  @isPrimaryTimingAttribute: (typeName, attrName) ->
+    @PRIMARY_TIMING_ATTRIBUTES[typeName]?[attrName]?
+
   @isPrimaryCodePathSupportedForType: (typeName) ->
-# Bonnie doesn't support choice types in primary code path
-    type = cqm.models[typeName]
-    primaryCodePath = type?.primaryCodePath
+# Bonnie doesn't support choice types in primary code path and supports only CodeableConcept
+    primaryCodePath = @getPrimaryCodePathForType(typeName)
     return false unless primaryCodePath?
-    fieldInfo = type?.fieldInfo?.find((info) -> info.fieldName == primaryCodePath)
+    fieldInfo = cqm.models[typeName]?.fieldInfo?.find((info) -> info.fieldName == primaryCodePath)
     return fieldInfo?.fieldTypeNames?.length == 1 && cqm.models.CodeableConcept.typeName == fieldInfo?.fieldTypeNames?[0]
 
   @isPrimaryCodePathSupported: (dataElement) ->
-# Bonnie doesn't support choice types in primary code path
     @isPrimaryCodePathSupportedForType(dataElement.fhir_resource?.getTypeName())
 
   @getPrimaryCodes: (dataElement) ->
@@ -507,7 +512,17 @@
 # Additional metadata for composite types, not captured in ModelInfo/ Models.
 # 1st level entries - list of supported types for CompositeView editor
 # 2nd level entries - are supported properties with custom metadata
-  @COMPOSITE_TYPES: {}
+  @COMPOSITE_TYPES: {
+    Dosage:
+      # Skip if not supported at all or supported in a different custom way
+      skipInBonnie: true
+    Timing:
+      # Skip if not supported at all or supported in a different custom way
+      skipInBonnie: true
+    Identifier:
+      # Skip if not supported at all or supported in a different custom way
+      skipInBonnie: true
+  }
 
   @initCompositeTypes: (compositeTypes) ->
     Object.values(cqm.models).filter( (cl) -> cl.baseType is 'FHIR.BackboneElement').forEach (element) ->
@@ -515,8 +530,6 @@
       compositeTypeDef =  compositeTypes[typeName] || {}
       return if compositeTypeDef.skipInBonnie
       compositeTypes[typeName] = compositeTypeDef
-      if typeName is 'EncounterLocation'
-        debugger
       console.log('Composite element: ' + typeName)
       element.fieldInfo.filter( (fieldInfo) -> !DataCriteriaHelpers.isNotDisplayedAttribute(fieldInfo.fieldName) ).forEach (fieldInfo) ->
         attrDef = compositeTypeDef[fieldInfo.fieldName] || {}
@@ -583,12 +596,8 @@
   @isCompositeType: (typeName) ->
     @COMPOSITE_TYPES.hasOwnProperty(typeName) && !@COMPOSITE_TYPES[typeName]?.skipInBonnie
 
-
-  @isPrimaryTimingAttribute: (resName, attrName) ->
-    @PRIMARY_TIMING_ATTRIBUTES[resName]?[attrName]?
-
-  @isSkipAttribute: (resName, attrName) ->
-    @isPrimaryTimingAttribute(resName, attrName) || @isNotDisplayedAttribute(attrName)
+  @isSkipAttribute: (typeName, attrName) ->
+    @isPrimaryTimingAttribute(typeName, attrName) || @isNotDisplayedAttribute(attrName) || @isPrimaryPathAttribute(typeName, attrName) && @isPrimaryCodePathSupportedForType(typeName)
 
   # DATA ELEMENTs are commented out. We can add a section for custom overrides for somple complex attributes beloow if needed
   @DATA_ELEMENT_ATTRIBUTES: {}
@@ -596,7 +605,6 @@
     Object.values(cqm.models).filter( (cl) -> cl.baseType is 'FHIR.DomainResource').forEach (res) ->
       attrs = []
       dataElements[res.typeName] = attrs
-      # FIXME: 1. Filter out supported primary path and unsupported types. 2. Filter out primary time attributes
       res.fieldInfo.filter( (fieldInfo) -> !DataCriteriaHelpers.isSkipAttribute(res.typeName, fieldInfo.fieldName) ).forEach (fieldInfo) ->
         types = fieldInfo.fieldTypeNames.map((t) -> DataCriteriaHelpers.convertAttributeType(t)).filter( (t) -> DataCriteriaHelpers.isSupportedAttributeType(t) )
         if types.length
