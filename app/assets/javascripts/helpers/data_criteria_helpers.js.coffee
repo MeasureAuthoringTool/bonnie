@@ -530,12 +530,12 @@
       compositeTypeDef =  compositeTypes[typeName] || {}
       return if compositeTypeDef.skipInBonnie
       compositeTypes[typeName] = compositeTypeDef
-      console.log('Composite element: ' + typeName)
+
       element.fieldInfo.filter( (fieldInfo) -> !DataCriteriaHelpers.isNotDisplayedAttribute(fieldInfo.fieldName) ).forEach (fieldInfo) ->
         attrDef = compositeTypeDef[fieldInfo.fieldName] || {}
         return if attrDef.skipInBonnie
         compositeTypeDef[fieldInfo.fieldName] = attrDef
-        console.log('Composite element attr: ' + fieldInfo.fieldName)
+
         types = fieldInfo.fieldTypeNames.map((t) -> DataCriteriaHelpers.convertAttributeType(t)).filter( (t) -> DataCriteriaHelpers.isSupportedAttributeTypeInWidget(t) )
         if types.length
           attrDef.path = fieldInfo.fieldName
@@ -618,7 +618,6 @@
           attrs.push attrDef
 
   @initDataElements(@DATA_ELEMENT_ATTRIBUTES)
-
 
 # Example of the DATA_ELEMENT_ATTRIBUTES structure
 # Data element attributes per resource type.
