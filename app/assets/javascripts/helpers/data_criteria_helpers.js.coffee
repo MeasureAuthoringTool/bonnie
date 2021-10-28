@@ -109,7 +109,6 @@
         valueSets: () -> [ImmunizationStatusValueSet.JSON]
       statusReason:
         valueSets: () -> [ImmunizationStatusReasonValueSet.JSON, NegationReasonValueSet.MEDICAL_REASON_NOT_DONE, NegationReasonValueSet.PATIENT_REASON_NOT_DONE, NegationReasonValueSet.SYSTEM_REASONS]
-
     MedicationAdministration:
       "dosage.route":
         valueSets: () -> [FhirValueSets.ROUTE_CODES_VS]
@@ -304,20 +303,20 @@
       return "#{codeSystemName}: #{type.code?.value}"
 
     if type instanceof cqm.models.PrimitiveCode                      ||
-      cqm.models.PrimitiveString.isPrimitiveString(type)           ||
-      cqm.models.PrimitiveBoolean.isPrimitiveBoolean(type)         ||
-      cqm.models.PrimitiveInteger.isPrimitiveInteger(type)         ||
-      cqm.models.PrimitivePositiveInt.isPrimitivePositiveInt(type) ||
-      cqm.models.PrimitiveUnsignedInt.isPrimitiveUnsignedInt(type) ||
-      cqm.models.PrimitiveDecimal.isPrimitiveDecimal(type)         ||
-      cqm.models.PrimitiveId.isPrimitiveId(type)                   ||
-      cqm.models.PrimitiveUri.isPrimitiveUri(type)
+        cqm.models.PrimitiveString.isPrimitiveString(type)           ||
+        cqm.models.PrimitiveBoolean.isPrimitiveBoolean(type)         ||
+        cqm.models.PrimitiveInteger.isPrimitiveInteger(type)         ||
+        cqm.models.PrimitivePositiveInt.isPrimitivePositiveInt(type) ||
+        cqm.models.PrimitiveUnsignedInt.isPrimitiveUnsignedInt(type) ||
+        cqm.models.PrimitiveDecimal.isPrimitiveDecimal(type)         ||
+        cqm.models.PrimitiveId.isPrimitiveId(type)                   ||
+        cqm.models.PrimitiveUri.isPrimitiveUri(type)
       return "#{type.value}"
 
     if cqm.models.Duration.isDuration(type)  ||
-      cqm.models.Age.isAge(type)           ||
-      cqm.models.Quantity.isQuantity(type) ||
-      cqm.models.SimpleQuantity.isSimpleQuantity(type)
+        cqm.models.Age.isAge(type)           ||
+        cqm.models.Quantity.isQuantity(type) ||
+        cqm.models.SimpleQuantity.isSimpleQuantity(type)
       if !!type.unit?.value
         return "#{type.value?.value} '#{type.unit?.value}'"
       else
