@@ -1,40 +1,3 @@
-@ReferenceBindings = class ReferenceBindings
-  @REFERENCE_BINDINGS:
-# Resources
-    Condition:
-      recorder:
-        referenceTypes: ['Practitioner', 'PractitionerRole', 'RelatedPerson']
-      asserter:
-        referenceTypes: ['Practitioner', 'PractitionerRole', 'RelatedPerson']
-    DeviceRequest:
-      code:
-        referenceTypes: ['Device']
-    DiagnosticReport:
-      encounter:
-        referenceTypes: ['Encounter']
-    Observation:
-      encounter:
-        referenceTypes: ['Encounter']
-    MedicationAdministration:
-      medication:
-        referenceTypes: ['Medication']
-    MedicationDispense:
-      medication:
-        referenceTypes: ['Medication']
-    MedicationRequest:
-      medication:
-        referenceTypes: ['Medication']
-    Task:
-      basedOn:
-        referenceTypes: ['Placeholder']
-# Elements for composite widgets
-    EncounterLocation:
-      location:
-        referenceTypes: ['Location']
-    EncounterDiagnosis:
-      condition:
-        referenceTypes: ['Condition', 'Procedure']
-
 @ValueSetBindings = class ValueSetBindings
   # TODO: 1. migreate to VS IDs, do VS lookup later 2. generate from struc def
   @VALUE_SET_BINDINGS:
@@ -199,57 +162,57 @@
     RelatedPerson: { period: 'Period', birthDate: 'date' },
     Task: { executionPeriod: 'Period', authoredOn: 'dateTime', lastModified: 'dateTime' }
 
-  @DATA_ELEMENT_CATEGORIES:
-    AdverseEvent: 'clinical summary'
-    AllergyIntolerance: 'clinical summary'
-    Condition: 'clinical summary'
-    FamilyMemberHistory: 'clinical summary'
-    Procedure: 'clinical summary'
-
-    Coverage: 'financial support'
-
-    BodyStructure: 'diagnostics'
-    DiagnosticReport: 'diagnostics'
-    ImagingStudy: 'diagnostics'
-    Observation: 'diagnostics'
-    Specimen: 'diagnostics'
-
-    CarePlan: 'care provision'
-    CareTeam: 'care provision'
-    Goal: 'care provision'
-    NutritionOrder: 'care provision'
-    ServiceRequest: 'care provision'
-
-    Claim: 'billing'
-
-    Communication: 'request response'
-    CommunicationRequest: 'request response'
-    DeviceRequest: 'request response'
-    DeviceUseStatement: 'request response'
-
-    Location: 'providers entities'
-
-    Device: 'material entities'
-    Substance: 'material entities'
-
-    Encounter: 'management'
-    Flag: 'management'
-
-    Immunization: 'medications'
-    ImmunizationEvaluation: 'medications'
-    ImmunizationRecommendation: 'medications'
-    Medication: 'medications'
-    MedicationAdministration: 'medications'
-    MedicationDispense: 'medications'
-    MedicationRequest: 'medications'
-    MedicationStatement: 'medications'
-
-    Patient: 'individuals'
-    Practitioner: 'individuals'
-    PractitionerRole: 'individuals'
-    RelatedPerson: 'individuals'
-
-    Task: 'workflow'
+#  @DATA_ELEMENT_CATEGORIES:
+#    AdverseEvent: 'clinical summary'
+#    AllergyIntolerance: 'clinical summary'
+#    Condition: 'clinical summary'
+#    FamilyMemberHistory: 'clinical summary'
+#    Procedure: 'clinical summary'
+#
+#    Coverage: 'financial support'
+#
+#    BodyStructure: 'diagnostics'
+#    DiagnosticReport: 'diagnostics'
+#    ImagingStudy: 'diagnostics'
+#    Observation: 'diagnostics'
+#    Specimen: 'diagnostics'
+#
+#    CarePlan: 'care provision'
+#    CareTeam: 'care provision'
+#    Goal: 'care provision'
+#    NutritionOrder: 'care provision'
+#    ServiceRequest: 'care provision'
+#
+#    Claim: 'billing'
+#
+#    Communication: 'request response'
+#    CommunicationRequest: 'request response'
+#    DeviceRequest: 'request response'
+#    DeviceUseStatement: 'request response'
+#
+#    Location: 'providers entities'
+#
+#    Device: 'material entities'
+#    Substance: 'material entities'
+#
+#    Encounter: 'management'
+#    Flag: 'management'
+#
+#    Immunization: 'medications'
+#    ImmunizationEvaluation: 'medications'
+#    ImmunizationRecommendation: 'medications'
+#    Medication: 'medications'
+#    MedicationAdministration: 'medications'
+#    MedicationDispense: 'medications'
+#    MedicationRequest: 'medications'
+#    MedicationStatement: 'medications'
+#
+#    Patient: 'individuals'
+#    Practitioner: 'individuals'
+#    PractitionerRole: 'individuals'
+#    RelatedPerson: 'individuals'
+#
+#    Task: 'workflow'
 
   @getPrimaryCodePathForType: (typeName) ->
     cqm.models[typeName]?.primaryCodePath
@@ -533,7 +496,8 @@
       return if compositeTypeDef.skipInBonnie
       compositeTypes[typeName] = compositeTypeDef
 
-      element.fieldInfo.filter( (fieldInfo) -> !DataCriteriaHelpers.isNotDisplayedAttribute(fieldInfo.fieldName) ).forEach (fieldInfo) ->
+      # TODO: arrays are not supported in nested elements
+      element.fieldInfo.filter( (fieldInfo) -> !DataCriteriaHelpers.isNotDisplayedAttribute(fieldInfo.fieldName) && !fieldInfo.isArray).forEach (fieldInfo) ->
         attrDef = compositeTypeDef[fieldInfo.fieldName] || {}
         return if attrDef.skipInBonnie
         compositeTypeDef[fieldInfo.fieldName] = attrDef

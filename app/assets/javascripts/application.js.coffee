@@ -43,6 +43,7 @@
 #= require_tree ./templates
 #= require_tree ./models
 #= require reference_bindings
+#= require categories
 #= require_tree ./helpers
 #= require_tree ./views
 #= require calculator

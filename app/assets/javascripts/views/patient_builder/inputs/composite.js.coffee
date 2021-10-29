@@ -35,12 +35,12 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
       @handleComponentUpdate()
 
   _createInputViewForType: (attrDef) ->
+#    TODO: add support for arrays
     attributeName = attrDef.path
     isChoice = attrDef.types.length > 1
     types = attrDef.types
     type = if isChoice then 'Any' else types[0]
     referenceTypes = attrDef.referenceTypes || []
-
     valueSets = (attrDef?.valueSets?() || []).concat(@cqmValueSets)
 
     return switch type

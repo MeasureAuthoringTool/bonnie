@@ -1,41 +1,51 @@
 @ReferenceBindings = class ReferenceBindings
   @REFERENCE_BINDINGS: {
     "Extension": {
-      "value": [
-        "EpisodeOfCare"
-      ]
+      "value": {
+        "referenceTypes": [
+          "EpisodeOfCare"
+        ]
+      }
     },
     "PlanDefinition": {
-      "subject": [
-        "Group"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Group"
+        ]
+      }
     },
     "PlanDefinitionGoal": {},
     "PlanDefinitionGoalTarget": {},
     "PlanDefinitionAction": {
-      "subject": [
-        "Group"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Group"
+        ]
+      }
     },
     "PlanDefinitionActionCondition": {},
     "PlanDefinitionActionRelatedAction": {},
     "PlanDefinitionActionParticipant": {},
     "PlanDefinitionActionDynamicValue": {},
     "ExtensionExtension": {
-      "value": [
-        "FamilyMemberHistory"
-      ]
+      "value": {
+        "referenceTypes": [
+          "FamilyMemberHistory"
+        ]
+      }
     },
     "Schedule": {
-      "actor": [
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson",
-        "Device",
-        "HealthcareService",
-        "Location"
-      ]
+      "actor": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson",
+          "Device",
+          "HealthcareService",
+          "Location"
+        ]
+      }
     },
     "ValueSet": {},
     "ValueSetCompose": {},
@@ -49,94 +59,128 @@
     "SubstanceAmount": {},
     "SubstanceAmountReferenceRange": {},
     "UsageContext": {
-      "value": [
-        "PlanDefinition",
-        "ResearchStudy",
-        "InsurancePlan",
-        "HealthcareService",
-        "Group",
-        "Location",
-        "Organization"
-      ]
+      "value": {
+        "referenceTypes": [
+          "PlanDefinition",
+          "ResearchStudy",
+          "InsurancePlan",
+          "HealthcareService",
+          "Group",
+          "Location",
+          "Organization"
+        ]
+      }
     },
     "Meta": {},
     "ActivityDefinition": {
-      "subject": [
-        "Group"
-      ],
-      "location": [
-        "Location"
-      ],
-      "product": [
-        "Medication",
-        "Substance"
-      ],
-      "specimenRequirement": [
-        "SpecimenDefinition"
-      ],
-      "observationRequirement": [
-        "ObservationDefinition"
-      ],
-      "observationResultRequirement": [
-        "ObservationDefinition"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Group"
+        ]
+      },
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "product": {
+        "referenceTypes": [
+          "Medication",
+          "Substance"
+        ]
+      },
+      "specimenRequirement": {
+        "referenceTypes": [
+          "SpecimenDefinition"
+        ]
+      },
+      "observationRequirement": {
+        "referenceTypes": [
+          "ObservationDefinition"
+        ]
+      },
+      "observationResultRequirement": {
+        "referenceTypes": [
+          "ObservationDefinition"
+        ]
+      }
     },
     "ActivityDefinitionParticipant": {},
     "ActivityDefinitionDynamicValue": {},
     "Observation": {
-      "basedOn": [
-        "CarePlan",
-        "DeviceRequest",
-        "ImmunizationRecommendation",
-        "MedicationRequest",
-        "NutritionOrder",
-        "ServiceRequest"
-      ],
-      "partOf": [
-        "MedicationAdministration",
-        "MedicationDispense",
-        "MedicationStatement",
-        "Procedure",
-        "Immunization",
-        "ImagingStudy"
-      ],
-      "subject": [
-        "Patient"
-      ],
-      "focus": [
-        "Resource"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "performer": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "CareTeam",
-        "Patient",
-        "RelatedPerson"
-      ],
-      "specimen": [
-        "Specimen"
-      ],
-      "device": [
-        "Device",
-        "DeviceMetric"
-      ],
-      "hasMember": [
-        "QuestionnaireResponse",
-        "MolecularSequence",
-        "vitalsigns"
-      ],
-      "derivedFrom": [
-        "DocumentReference",
-        "ImagingStudy",
-        "Media",
-        "QuestionnaireResponse",
-        "MolecularSequence",
-        "vitalsigns"
-      ]
+      "basedOn": {
+        "referenceTypes": [
+          "CarePlan",
+          "DeviceRequest",
+          "ImmunizationRecommendation",
+          "MedicationRequest",
+          "NutritionOrder",
+          "ServiceRequest"
+        ]
+      },
+      "partOf": {
+        "referenceTypes": [
+          "MedicationAdministration",
+          "MedicationDispense",
+          "MedicationStatement",
+          "Procedure",
+          "Immunization",
+          "ImagingStudy"
+        ]
+      },
+      "subject": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "focus": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "performer": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "CareTeam",
+          "Patient",
+          "RelatedPerson"
+        ]
+      },
+      "specimen": {
+        "referenceTypes": [
+          "Specimen"
+        ]
+      },
+      "device": {
+        "referenceTypes": [
+          "Device",
+          "DeviceMetric"
+        ]
+      },
+      "hasMember": {
+        "referenceTypes": [
+          "QuestionnaireResponse",
+          "MolecularSequence",
+          "vitalsigns"
+        ]
+      },
+      "derivedFrom": {
+        "referenceTypes": [
+          "DocumentReference",
+          "ImagingStudy",
+          "Media",
+          "QuestionnaireResponse",
+          "MolecularSequence",
+          "vitalsigns"
+        ]
+      }
     },
     "ObservationCategory": {},
     "ObservationCategoryCoding": {},
@@ -149,197 +193,275 @@
     "ObservationComponentValue": {},
     "ObservationValue": {},
     "PaymentReconciliation": {
-      "paymentIssuer": [
-        "Organization"
-      ],
-      "request": [
-        "Task"
-      ],
-      "requestor": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ]
+      "paymentIssuer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "request": {
+        "referenceTypes": [
+          "Task"
+        ]
+      },
+      "requestor": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      }
     },
     "PaymentReconciliationDetail": {
-      "request": [
-        "Resource"
-      ],
-      "submitter": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ],
-      "response": [
-        "Resource"
-      ],
-      "responsible": [
-        "PractitionerRole"
-      ],
-      "payee": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ]
+      "request": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "submitter": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      },
+      "response": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "responsible": {
+        "referenceTypes": [
+          "PractitionerRole"
+        ]
+      },
+      "payee": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      }
     },
     "PaymentReconciliationProcessNote": {},
     "AppointmentResponse": {
-      "appointment": [
-        "Appointment"
-      ],
-      "actor": [
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson",
-        "Device",
-        "HealthcareService",
-        "Location"
-      ]
+      "appointment": {
+        "referenceTypes": [
+          "Appointment"
+        ]
+      },
+      "actor": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson",
+          "Device",
+          "HealthcareService",
+          "Location"
+        ]
+      }
     },
     "EvidenceVariable": {},
     "EvidenceVariableCharacteristic": {
-      "definition": [
-        "Group"
-      ]
+      "definition": {
+        "referenceTypes": [
+          "Group"
+        ]
+      }
     },
     "Coding": {},
     "Claim": {
-      "patient": [
-        "Patient"
-      ],
-      "enterer": [
-        "Practitioner",
-        "PractitionerRole"
-      ],
-      "insurer": [
-        "Organization"
-      ],
-      "provider": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ],
-      "prescription": [
-        "DeviceRequest",
-        "MedicationRequest",
-        "VisionPrescription"
-      ],
-      "originalPrescription": [
-        "DeviceRequest",
-        "MedicationRequest",
-        "VisionPrescription"
-      ],
-      "referral": [
-        "ServiceRequest"
-      ],
-      "facility": [
-        "Location"
-      ]
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "enterer": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      },
+      "insurer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "provider": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      },
+      "prescription": {
+        "referenceTypes": [
+          "DeviceRequest",
+          "MedicationRequest",
+          "VisionPrescription"
+        ]
+      },
+      "originalPrescription": {
+        "referenceTypes": [
+          "DeviceRequest",
+          "MedicationRequest",
+          "VisionPrescription"
+        ]
+      },
+      "referral": {
+        "referenceTypes": [
+          "ServiceRequest"
+        ]
+      },
+      "facility": {
+        "referenceTypes": [
+          "Location"
+        ]
+      }
     },
     "ClaimRelated": {
-      "claim": [
-        "Claim"
-      ]
+      "claim": {
+        "referenceTypes": [
+          "Claim"
+        ]
+      }
     },
     "ClaimPayee": {
-      "party": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "Patient",
-        "RelatedPerson"
-      ]
+      "party": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "Patient",
+          "RelatedPerson"
+        ]
+      }
     },
     "ClaimCareTeam": {
-      "provider": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ]
+      "provider": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      }
     },
     "ClaimSupportingInfo": {
-      "value": [
-        "Resource"
-      ]
+      "value": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "ClaimDiagnosis": {
-      "diagnosis": [
-        "Condition"
-      ]
+      "diagnosis": {
+        "referenceTypes": [
+          "Condition"
+        ]
+      }
     },
     "ClaimProcedure": {
-      "procedure": [
-        "Procedure"
-      ],
-      "udi": [
-        "Device"
-      ]
+      "procedure": {
+        "referenceTypes": [
+          "Procedure"
+        ]
+      },
+      "udi": {
+        "referenceTypes": [
+          "Device"
+        ]
+      }
     },
     "ClaimInsurance": {
-      "coverage": [
-        "Coverage"
-      ],
-      "claimResponse": [
-        "ClaimResponse"
-      ]
+      "coverage": {
+        "referenceTypes": [
+          "Coverage"
+        ]
+      },
+      "claimResponse": {
+        "referenceTypes": [
+          "ClaimResponse"
+        ]
+      }
     },
     "ClaimAccident": {
-      "location": [
-        "Location"
-      ]
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      }
     },
     "ClaimItem": {
-      "location": [
-        "Location"
-      ],
-      "udi": [
-        "Device"
-      ],
-      "encounter": [
-        "Encounter"
-      ]
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "udi": {
+        "referenceTypes": [
+          "Device"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      }
     },
     "ClaimItemDetail": {
-      "udi": [
-        "Device"
-      ]
+      "udi": {
+        "referenceTypes": [
+          "Device"
+        ]
+      }
     },
     "ClaimItemDetailSubDetail": {
-      "udi": [
-        "Device"
-      ]
+      "udi": {
+        "referenceTypes": [
+          "Device"
+        ]
+      }
     },
     "DocumentManifest": {
-      "subject": [
-        "Patient",
-        "Practitioner",
-        "Group",
-        "Device"
-      ],
-      "author": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "Device",
-        "Patient",
-        "RelatedPerson"
-      ],
-      "recipient": [
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson",
-        "Organization"
-      ],
-      "content": [
-        "Resource"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "Group",
+          "Device"
+        ]
+      },
+      "author": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "Device",
+          "Patient",
+          "RelatedPerson"
+        ]
+      },
+      "recipient": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson",
+          "Organization"
+        ]
+      },
+      "content": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "DocumentManifestRelated": {
-      "ref": [
-        "Resource"
-      ]
+      "ref": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "StructureDefinition": {},
     "StructureDefinitionMapping": {},
@@ -347,25 +469,35 @@
     "StructureDefinitionSnapshot": {},
     "StructureDefinitionDifferential": {},
     "ObservationDefinition": {
-      "validCodedValueSet": [
-        "ValueSet"
-      ],
-      "normalCodedValueSet": [
-        "ValueSet"
-      ],
-      "abnormalCodedValueSet": [
-        "ValueSet"
-      ],
-      "criticalCodedValueSet": [
-        "ValueSet"
-      ]
+      "validCodedValueSet": {
+        "referenceTypes": [
+          "ValueSet"
+        ]
+      },
+      "normalCodedValueSet": {
+        "referenceTypes": [
+          "ValueSet"
+        ]
+      },
+      "abnormalCodedValueSet": {
+        "referenceTypes": [
+          "ValueSet"
+        ]
+      },
+      "criticalCodedValueSet": {
+        "referenceTypes": [
+          "ValueSet"
+        ]
+      }
     },
     "ObservationDefinitionQuantitativeDetails": {},
     "ObservationDefinitionQualifiedInterval": {},
     "RelatedPerson": {
-      "patient": [
-        "Patient"
-      ]
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      }
     },
     "RelatedPersonCommunication": {},
     "CodeSystem": {},
@@ -377,79 +509,109 @@
     "Timing": {},
     "TimingRepeat": {},
     "Medication": {
-      "manufacturer": [
-        "Organization"
-      ]
+      "manufacturer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "MedicationIngredient": {
-      "item": [
-        "Substance",
-        "Medication"
-      ]
+      "item": {
+        "referenceTypes": [
+          "Substance",
+          "Medication"
+        ]
+      }
     },
     "MedicationBatch": {},
     "Contributor": {},
     "SupplyRequest": {
-      "item": [
-        "Medication",
-        "Substance",
-        "Device"
-      ],
-      "requester": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "Patient",
-        "RelatedPerson",
-        "Device"
-      ],
-      "supplier": [
-        "Organization",
-        "HealthcareService"
-      ],
-      "reasonReference": [
-        "Condition",
-        "Observation",
-        "DiagnosticReport",
-        "DocumentReference"
-      ],
-      "deliverFrom": [
-        "Organization",
-        "Location"
-      ],
-      "deliverTo": [
-        "Organization",
-        "Location",
-        "Patient"
-      ]
+      "item": {
+        "referenceTypes": [
+          "Medication",
+          "Substance",
+          "Device"
+        ]
+      },
+      "requester": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "Patient",
+          "RelatedPerson",
+          "Device"
+        ]
+      },
+      "supplier": {
+        "referenceTypes": [
+          "Organization",
+          "HealthcareService"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "DiagnosticReport",
+          "DocumentReference"
+        ]
+      },
+      "deliverFrom": {
+        "referenceTypes": [
+          "Organization",
+          "Location"
+        ]
+      },
+      "deliverTo": {
+        "referenceTypes": [
+          "Organization",
+          "Location",
+          "Patient"
+        ]
+      }
     },
     "SupplyRequestParameter": {},
     "MolecularSequence": {
-      "patient": [
-        "Patient"
-      ],
-      "specimen": [
-        "Specimen"
-      ],
-      "device": [
-        "Device"
-      ],
-      "performer": [
-        "Organization"
-      ],
-      "pointer": [
-        "MolecularSequence"
-      ]
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "specimen": {
+        "referenceTypes": [
+          "Specimen"
+        ]
+      },
+      "device": {
+        "referenceTypes": [
+          "Device"
+        ]
+      },
+      "performer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "pointer": {
+        "referenceTypes": [
+          "MolecularSequence"
+        ]
+      }
     },
     "MolecularSequenceReferenceSeq": {
-      "referenceSeqPointer": [
-        "MolecularSequence"
-      ]
+      "referenceSeqPointer": {
+        "referenceTypes": [
+          "MolecularSequence"
+        ]
+      }
     },
     "MolecularSequenceVariant": {
-      "variantPointer": [
-        "Observation"
-      ]
+      "variantPointer": {
+        "referenceTypes": [
+          "Observation"
+        ]
+      }
     },
     "MolecularSequenceQuality": {},
     "MolecularSequenceQualityRoc": {},
@@ -458,308 +620,424 @@
     "MolecularSequenceStructureVariantOuter": {},
     "MolecularSequenceStructureVariantInner": {},
     "Condition": {
-      "subject": [
-        "Patient",
-        "Group"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "recorder": [
-        "Practitioner",
-        "PractitionerRole",
-        "Patient",
-        "RelatedPerson"
-      ],
-      "asserter": [
-        "Practitioner",
-        "PractitionerRole",
-        "Patient",
-        "RelatedPerson"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "recorder": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Patient",
+          "RelatedPerson"
+        ]
+      },
+      "asserter": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Patient",
+          "RelatedPerson"
+        ]
+      }
     },
     "ConditionStage": {
-      "assessment": [
-        "ClinicalImpression",
-        "DiagnosticReport",
-        "Observation"
-      ]
+      "assessment": {
+        "referenceTypes": [
+          "ClinicalImpression",
+          "DiagnosticReport",
+          "Observation"
+        ]
+      }
     },
     "ConditionEvidence": {
-      "detail": [
-        "Resource"
-      ]
+      "detail": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "DomainResource": {},
     "Composition": {
-      "subject": [
-        "Resource"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "author": [
-        "Practitioner",
-        "PractitionerRole",
-        "Device",
-        "Patient",
-        "RelatedPerson",
-        "Organization"
-      ],
-      "custodian": [
-        "Organization"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "author": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Device",
+          "Patient",
+          "RelatedPerson",
+          "Organization"
+        ]
+      },
+      "custodian": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "CompositionAttester": {
-      "party": [
-        "Patient",
-        "RelatedPerson",
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ]
+      "party": {
+        "referenceTypes": [
+          "Patient",
+          "RelatedPerson",
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      }
     },
     "CompositionRelatesTo": {
-      "target": [
-        "Composition"
-      ]
+      "target": {
+        "referenceTypes": [
+          "Composition"
+        ]
+      }
     },
     "CompositionEvent": {
-      "detail": [
-        "Resource"
-      ]
+      "detail": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "CompositionSection": {
-      "author": [
-        "Practitioner",
-        "PractitionerRole",
-        "Device",
-        "Patient",
-        "RelatedPerson",
-        "Organization"
-      ],
-      "focus": [
-        "Resource"
-      ],
-      "entry": [
-        "CatalogEntry"
-      ]
+      "author": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Device",
+          "Patient",
+          "RelatedPerson",
+          "Organization"
+        ]
+      },
+      "focus": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "entry": {
+        "referenceTypes": [
+          "CatalogEntry"
+        ]
+      }
     },
     "ChargeItemDefinition": {
-      "instance": [
-        "Medication",
-        "Substance",
-        "Device"
-      ]
+      "instance": {
+        "referenceTypes": [
+          "Medication",
+          "Substance",
+          "Device"
+        ]
+      }
     },
     "ChargeItemDefinitionApplicability": {},
     "ChargeItemDefinitionPropertyGroup": {},
     "ChargeItemDefinitionPropertyGroupPriceComponent": {},
     "DiagnosticReport": {
-      "basedOn": [
-        "CarePlan",
-        "ImmunizationRecommendation",
-        "MedicationRequest",
-        "NutritionOrder",
-        "ServiceRequest"
-      ],
-      "subject": [
-        "Patient",
-        "Group",
-        "Device",
-        "Location"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "performer": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "CareTeam"
-      ],
-      "resultsInterpreter": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "CareTeam"
-      ],
-      "specimen": [
-        "Specimen"
-      ],
-      "result": [
-        "Observation"
-      ],
-      "imagingStudy": [
-        "ImagingStudy"
-      ]
+      "basedOn": {
+        "referenceTypes": [
+          "CarePlan",
+          "ImmunizationRecommendation",
+          "MedicationRequest",
+          "NutritionOrder",
+          "ServiceRequest"
+        ]
+      },
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group",
+          "Device",
+          "Location"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "performer": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "CareTeam"
+        ]
+      },
+      "resultsInterpreter": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "CareTeam"
+        ]
+      },
+      "specimen": {
+        "referenceTypes": [
+          "Specimen"
+        ]
+      },
+      "result": {
+        "referenceTypes": [
+          "Observation"
+        ]
+      },
+      "imagingStudy": {
+        "referenceTypes": [
+          "ImagingStudy"
+        ]
+      }
     },
     "DiagnosticReportMedia": {
-      "link": [
-        "Media"
-      ]
+      "link": {
+        "referenceTypes": [
+          "Media"
+        ]
+      }
     },
     "Annotation": {
-      "author": [
-        "Practitioner",
-        "Patient",
-        "RelatedPerson",
-        "Organization"
-      ]
+      "author": {
+        "referenceTypes": [
+          "Practitioner",
+          "Patient",
+          "RelatedPerson",
+          "Organization"
+        ]
+      }
     },
     "DeviceMetric": {
-      "source": [
-        "Device"
-      ],
-      "parent": [
-        "Device"
-      ]
+      "source": {
+        "referenceTypes": [
+          "Device"
+        ]
+      },
+      "parent": {
+        "referenceTypes": [
+          "Device"
+        ]
+      }
     },
     "DeviceMetricCalibration": {},
     "OperationOutcome": {},
     "OperationOutcomeIssue": {},
     "DocumentReference": {
-      "subject": [
-        "Patient",
-        "Practitioner",
-        "Group",
-        "Device"
-      ],
-      "author": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "Device",
-        "Patient",
-        "RelatedPerson"
-      ],
-      "authenticator": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ],
-      "custodian": [
-        "Organization"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "Group",
+          "Device"
+        ]
+      },
+      "author": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "Device",
+          "Patient",
+          "RelatedPerson"
+        ]
+      },
+      "authenticator": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      },
+      "custodian": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "DocumentReferenceRelatesTo": {
-      "target": [
-        "DocumentReference"
-      ]
+      "target": {
+        "referenceTypes": [
+          "DocumentReference"
+        ]
+      }
     },
     "DocumentReferenceContent": {},
     "DocumentReferenceContext": {
-      "encounter": [
-        "Encounter",
-        "EpisodeOfCare"
-      ],
-      "sourcePatientInfo": [
-        "Patient"
-      ],
-      "related": [
-        "Resource"
-      ]
+      "encounter": {
+        "referenceTypes": [
+          "Encounter",
+          "EpisodeOfCare"
+        ]
+      },
+      "sourcePatientInfo": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "related": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "ClinicalImpression": {
-      "subject": [
-        "Patient",
-        "Group"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "assessor": [
-        "Practitioner",
-        "PractitionerRole"
-      ],
-      "previous": [
-        "ClinicalImpression"
-      ],
-      "problem": [
-        "Condition",
-        "AllergyIntolerance"
-      ],
-      "prognosisReference": [
-        "RiskAssessment"
-      ],
-      "supportingInfo": [
-        "Resource"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "assessor": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      },
+      "previous": {
+        "referenceTypes": [
+          "ClinicalImpression"
+        ]
+      },
+      "problem": {
+        "referenceTypes": [
+          "Condition",
+          "AllergyIntolerance"
+        ]
+      },
+      "prognosisReference": {
+        "referenceTypes": [
+          "RiskAssessment"
+        ]
+      },
+      "supportingInfo": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "ClinicalImpressionInvestigation": {
-      "item": [
-        "Observation",
-        "QuestionnaireResponse",
-        "FamilyMemberHistory",
-        "DiagnosticReport",
-        "RiskAssessment",
-        "ImagingStudy",
-        "Media"
-      ]
+      "item": {
+        "referenceTypes": [
+          "Observation",
+          "QuestionnaireResponse",
+          "FamilyMemberHistory",
+          "DiagnosticReport",
+          "RiskAssessment",
+          "ImagingStudy",
+          "Media"
+        ]
+      }
     },
     "ClinicalImpressionFinding": {
-      "itemReference": [
-        "Condition",
-        "Observation",
-        "Media"
-      ]
+      "itemReference": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "Media"
+        ]
+      }
     },
     "EffectEvidenceSynthesis": {
-      "population": [
-        "EvidenceVariable"
-      ],
-      "exposure": [
-        "EvidenceVariable"
-      ],
-      "exposureAlternative": [
-        "EvidenceVariable"
-      ],
-      "outcome": [
-        "EvidenceVariable"
-      ]
+      "population": {
+        "referenceTypes": [
+          "EvidenceVariable"
+        ]
+      },
+      "exposure": {
+        "referenceTypes": [
+          "EvidenceVariable"
+        ]
+      },
+      "exposureAlternative": {
+        "referenceTypes": [
+          "EvidenceVariable"
+        ]
+      },
+      "outcome": {
+        "referenceTypes": [
+          "EvidenceVariable"
+        ]
+      }
     },
     "EffectEvidenceSynthesisSampleSize": {},
     "EffectEvidenceSynthesisResultsByExposure": {
-      "riskEvidenceSynthesis": [
-        "RiskEvidenceSynthesis"
-      ]
+      "riskEvidenceSynthesis": {
+        "referenceTypes": [
+          "RiskEvidenceSynthesis"
+        ]
+      }
     },
     "EffectEvidenceSynthesisEffectEstimate": {},
     "EffectEvidenceSynthesisEffectEstimatePrecisionEstimate": {},
     "EffectEvidenceSynthesisCertainty": {},
     "EffectEvidenceSynthesisCertaintyCertaintySubcomponent": {},
     "ClaimResponse": {
-      "patient": [
-        "Patient"
-      ],
-      "insurer": [
-        "Organization"
-      ],
-      "requestor": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ],
-      "request": [
-        "Claim"
-      ],
-      "communicationRequest": [
-        "CommunicationRequest"
-      ]
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "insurer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "requestor": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      },
+      "request": {
+        "referenceTypes": [
+          "Claim"
+        ]
+      },
+      "communicationRequest": {
+        "referenceTypes": [
+          "CommunicationRequest"
+        ]
+      }
     },
     "ClaimResponseItem": {},
     "ClaimResponseItemAdjudication": {},
     "ClaimResponseItemDetail": {},
     "ClaimResponseItemDetailSubDetail": {},
     "ClaimResponseAddItem": {
-      "provider": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ],
-      "location": [
-        "Location"
-      ]
+      "provider": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      },
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      }
     },
     "ClaimResponseAddItemDetail": {},
     "ClaimResponseAddItemDetailSubDetail": {},
@@ -767,103 +1045,143 @@
     "ClaimResponsePayment": {},
     "ClaimResponseProcessNote": {},
     "ClaimResponseInsurance": {
-      "coverage": [
-        "Coverage"
-      ],
-      "claimResponse": [
-        "ClaimResponse"
-      ]
+      "coverage": {
+        "referenceTypes": [
+          "Coverage"
+        ]
+      },
+      "claimResponse": {
+        "referenceTypes": [
+          "ClaimResponse"
+        ]
+      }
     },
     "ClaimResponseError": {},
     "MedicationRequest": {
-      "reported": [
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson",
-        "Organization"
-      ],
-      "medication": [
-        "Medication"
-      ],
-      "subject": [
-        "Patient",
-        "Group"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "supportingInformation": [
-        "Resource"
-      ],
-      "requester": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "Patient",
-        "RelatedPerson",
-        "Device"
-      ],
-      "performer": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "Patient",
-        "Device",
-        "RelatedPerson",
-        "CareTeam"
-      ],
-      "recorder": [
-        "Practitioner",
-        "PractitionerRole"
-      ],
-      "reasonReference": [
-        "Condition",
-        "Observation"
-      ],
-      "basedOn": [
-        "CarePlan",
-        "MedicationRequest",
-        "ServiceRequest",
-        "ImmunizationRecommendation"
-      ],
-      "insurance": [
-        "Coverage",
-        "ClaimResponse"
-      ],
-      "priorPrescription": [
-        "MedicationRequest"
-      ],
-      "detectedIssue": [
-        "DetectedIssue"
-      ],
-      "eventHistory": [
-        "Provenance"
-      ]
+      "reported": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson",
+          "Organization"
+        ]
+      },
+      "medication": {
+        "referenceTypes": [
+          "Medication"
+        ]
+      },
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "supportingInformation": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "requester": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "Patient",
+          "RelatedPerson",
+          "Device"
+        ]
+      },
+      "performer": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "Patient",
+          "Device",
+          "RelatedPerson",
+          "CareTeam"
+        ]
+      },
+      "recorder": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Observation"
+        ]
+      },
+      "basedOn": {
+        "referenceTypes": [
+          "CarePlan",
+          "MedicationRequest",
+          "ServiceRequest",
+          "ImmunizationRecommendation"
+        ]
+      },
+      "insurance": {
+        "referenceTypes": [
+          "Coverage",
+          "ClaimResponse"
+        ]
+      },
+      "priorPrescription": {
+        "referenceTypes": [
+          "MedicationRequest"
+        ]
+      },
+      "detectedIssue": {
+        "referenceTypes": [
+          "DetectedIssue"
+        ]
+      },
+      "eventHistory": {
+        "referenceTypes": [
+          "Provenance"
+        ]
+      }
     },
     "MedicationRequestDispenseRequest": {
-      "performer": [
-        "Organization"
-      ]
+      "performer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "MedicationRequestDispenseRequestInitialFill": {},
     "MedicationRequestSubstitution": {},
     "MedicinalProductIndication": {
-      "subject": [
-        "MedicinalProduct",
-        "Medication"
-      ],
-      "undesirableEffect": [
-        "MedicinalProductUndesirableEffect"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "MedicinalProduct",
+          "Medication"
+        ]
+      },
+      "undesirableEffect": {
+        "referenceTypes": [
+          "MedicinalProductUndesirableEffect"
+        ]
+      }
     },
     "MedicinalProductIndicationOtherTherapy": {
-      "medication": [
-        "MedicinalProduct",
-        "Medication",
-        "Substance",
-        "SubstanceSpecification"
-      ]
+      "medication": {
+        "referenceTypes": [
+          "MedicinalProduct",
+          "Medication",
+          "Substance",
+          "SubstanceSpecification"
+        ]
+      }
     },
     "TerminologyCapabilities": {},
     "TerminologyCapabilitiesSoftware": {},
@@ -877,38 +1195,52 @@
     "TerminologyCapabilitiesTranslation": {},
     "TerminologyCapabilitiesClosure": {},
     "MedicationKnowledge": {
-      "manufacturer": [
-        "Organization"
-      ],
-      "associatedMedication": [
-        "Medication"
-      ],
-      "contraindication": [
-        "DetectedIssue"
-      ]
+      "manufacturer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "associatedMedication": {
+        "referenceTypes": [
+          "Medication"
+        ]
+      },
+      "contraindication": {
+        "referenceTypes": [
+          "DetectedIssue"
+        ]
+      }
     },
     "MedicationKnowledgeRelatedMedicationKnowledge": {
-      "reference": [
-        "MedicationKnowledge"
-      ]
+      "reference": {
+        "referenceTypes": [
+          "MedicationKnowledge"
+        ]
+      }
     },
     "MedicationKnowledgeMonograph": {
-      "source": [
-        "DocumentReference",
-        "Media"
-      ]
+      "source": {
+        "referenceTypes": [
+          "DocumentReference",
+          "Media"
+        ]
+      }
     },
     "MedicationKnowledgeIngredient": {
-      "item": [
-        "Substance"
-      ]
+      "item": {
+        "referenceTypes": [
+          "Substance"
+        ]
+      }
     },
     "MedicationKnowledgeCost": {},
     "MedicationKnowledgeMonitoringProgram": {},
     "MedicationKnowledgeAdministrationGuidelines": {
-      "indication": [
-        "ObservationDefinition"
-      ]
+      "indication": {
+        "referenceTypes": [
+          "ObservationDefinition"
+        ]
+      }
     },
     "MedicationKnowledgeAdministrationGuidelinesDosage": {},
     "MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics": {},
@@ -916,9 +1248,11 @@
     "MedicationKnowledgePackaging": {},
     "MedicationKnowledgeDrugCharacteristic": {},
     "MedicationKnowledgeRegulatory": {
-      "regulatoryAuthority": [
-        "Organization"
-      ]
+      "regulatoryAuthority": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "MedicationKnowledgeRegulatorySubstitution": {},
     "MedicationKnowledgeRegulatorySchedule": {},
@@ -927,134 +1261,184 @@
     "ProductShelfLife": {},
     "Period": {},
     "DataRequirement": {
-      "subject": [
-        "Group"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Group"
+        ]
+      }
     },
     "DataRequirementCodeFilter": {},
     "DataRequirementDateFilter": {},
     "DataRequirementSort": {},
     "Linkage": {
-      "author": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ]
+      "author": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      }
     },
     "LinkageItem": {
-      "resource": [
-        "Resource"
-      ]
+      "resource": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "Address": {},
     "Location": {
-      "managingOrganization": [
-        "Organization"
-      ],
-      "partOf": [
-        "Location"
-      ],
-      "endpoint": [
-        "Endpoint"
-      ]
+      "managingOrganization": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "partOf": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "endpoint": {
+        "referenceTypes": [
+          "Endpoint"
+        ]
+      }
     },
     "LocationPosition": {},
     "LocationHoursOfOperation": {},
     "GuidanceResponse": {
-      "subject": [
-        "Patient",
-        "Group"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "performer": [
-        "Device"
-      ],
-      "reasonReference": [
-        "Condition",
-        "Observation",
-        "DiagnosticReport",
-        "DocumentReference"
-      ],
-      "evaluationMessage": [
-        "OperationOutcome"
-      ],
-      "outputParameters": [
-        "Parameters"
-      ],
-      "result": [
-        "CarePlan",
-        "RequestGroup"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "performer": {
+        "referenceTypes": [
+          "Device"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "DiagnosticReport",
+          "DocumentReference"
+        ]
+      },
+      "evaluationMessage": {
+        "referenceTypes": [
+          "OperationOutcome"
+        ]
+      },
+      "outputParameters": {
+        "referenceTypes": [
+          "Parameters"
+        ]
+      },
+      "result": {
+        "referenceTypes": [
+          "CarePlan",
+          "RequestGroup"
+        ]
+      }
     },
     "Library": {
-      "subject": [
-        "Group"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Group"
+        ]
+      }
     },
     "ResearchElementDefinition": {
-      "subject": [
-        "Group"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Group"
+        ]
+      }
     },
     "ResearchElementDefinitionCharacteristic": {},
     "Signature": {
-      "who": [
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson",
-        "Patient",
-        "Device",
-        "Organization"
-      ],
-      "onBehalfOf": [
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson",
-        "Patient",
-        "Device",
-        "Organization"
-      ]
+      "who": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson",
+          "Patient",
+          "Device",
+          "Organization"
+        ]
+      },
+      "onBehalfOf": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson",
+          "Patient",
+          "Device",
+          "Organization"
+        ]
+      }
     },
     "Quantity": {},
     "HealthcareService": {
-      "providedBy": [
-        "Organization"
-      ],
-      "location": [
-        "Location"
-      ],
-      "coverageArea": [
-        "Location"
-      ],
-      "endpoint": [
-        "Endpoint"
-      ]
+      "providedBy": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "coverageArea": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "endpoint": {
+        "referenceTypes": [
+          "Endpoint"
+        ]
+      }
     },
     "HealthcareServiceEligibility": {},
     "HealthcareServiceAvailableTime": {},
     "HealthcareServiceNotAvailable": {},
     "SubstanceReferenceInformation": {},
     "SubstanceReferenceInformationGene": {
-      "source": [
-        "DocumentReference"
-      ]
+      "source": {
+        "referenceTypes": [
+          "DocumentReference"
+        ]
+      }
     },
     "SubstanceReferenceInformationGeneElement": {
-      "source": [
-        "DocumentReference"
-      ]
+      "source": {
+        "referenceTypes": [
+          "DocumentReference"
+        ]
+      }
     },
     "SubstanceReferenceInformationClassification": {
-      "source": [
-        "DocumentReference"
-      ]
+      "source": {
+        "referenceTypes": [
+          "DocumentReference"
+        ]
+      }
     },
     "SubstanceReferenceInformationTarget": {
-      "source": [
-        "DocumentReference"
-      ]
+      "source": {
+        "referenceTypes": [
+          "DocumentReference"
+        ]
+      }
     },
     "ConceptMap": {},
     "ConceptMapGroup": {},
@@ -1065,37 +1449,53 @@
     "BackboneElement": {},
     "Attachment": {},
     "InsurancePlan": {
-      "ownedBy": [
-        "Organization"
-      ],
-      "administeredBy": [
-        "Organization"
-      ],
-      "coverageArea": [
-        "Location"
-      ],
-      "endpoint": [
-        "Endpoint"
-      ],
-      "network": [
-        "Organization"
-      ]
+      "ownedBy": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "administeredBy": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "coverageArea": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "endpoint": {
+        "referenceTypes": [
+          "Endpoint"
+        ]
+      },
+      "network": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "InsurancePlanContact": {},
     "InsurancePlanCoverage": {
-      "network": [
-        "Organization"
-      ]
+      "network": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "InsurancePlanCoverageBenefit": {},
     "InsurancePlanCoverageBenefitLimit": {},
     "InsurancePlanPlan": {
-      "coverageArea": [
-        "Location"
-      ],
-      "network": [
-        "Organization"
-      ]
+      "coverageArea": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "network": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "InsurancePlanPlanGeneralCost": {},
     "InsurancePlanPlanSpecificCost": {},
@@ -1111,9 +1511,11 @@
     "ElementDefinitionBinding": {},
     "ElementDefinitionMapping": {},
     "Measure": {
-      "subject": [
-        "Group"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Group"
+        ]
+      }
     },
     "MeasureGroup": {},
     "MeasureGroupPopulation": {},
@@ -1124,216 +1526,298 @@
     "Substance": {},
     "SubstanceInstance": {},
     "SubstanceIngredient": {
-      "substance": [
-        "Substance"
-      ]
+      "substance": {
+        "referenceTypes": [
+          "Substance"
+        ]
+      }
     },
     "Distance": {},
     "BodyStructure": {
-      "patient": [
-        "Patient"
-      ]
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      }
     },
     "Invoice": {
-      "subject": [
-        "Patient",
-        "Group"
-      ],
-      "recipient": [
-        "Organization",
-        "Patient",
-        "RelatedPerson"
-      ],
-      "issuer": [
-        "Organization"
-      ],
-      "account": [
-        "Account"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group"
+        ]
+      },
+      "recipient": {
+        "referenceTypes": [
+          "Organization",
+          "Patient",
+          "RelatedPerson"
+        ]
+      },
+      "issuer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "account": {
+        "referenceTypes": [
+          "Account"
+        ]
+      }
     },
     "InvoiceParticipant": {
-      "actor": [
-        "Practitioner",
-        "Organization",
-        "Patient",
-        "PractitionerRole",
-        "Device",
-        "RelatedPerson"
-      ]
+      "actor": {
+        "referenceTypes": [
+          "Practitioner",
+          "Organization",
+          "Patient",
+          "PractitionerRole",
+          "Device",
+          "RelatedPerson"
+        ]
+      }
     },
     "InvoiceLineItem": {
-      "chargeItem": [
-        "ChargeItem"
-      ]
+      "chargeItem": {
+        "referenceTypes": [
+          "ChargeItem"
+        ]
+      }
     },
     "InvoiceLineItemPriceComponent": {},
     "VerificationResult": {
-      "target": [
-        "Resource"
-      ]
+      "target": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "VerificationResultPrimarySource": {
-      "who": [
-        "Organization",
-        "Practitioner",
-        "PractitionerRole"
-      ]
+      "who": {
+        "referenceTypes": [
+          "Organization",
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      }
     },
     "VerificationResultAttestation": {
-      "who": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ],
-      "onBehalfOf": [
-        "Organization",
-        "Practitioner",
-        "PractitionerRole"
-      ]
+      "who": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      },
+      "onBehalfOf": {
+        "referenceTypes": [
+          "Organization",
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      }
     },
     "VerificationResultValidator": {
-      "organization": [
-        "Organization"
-      ]
+      "organization": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "Ratio": {},
     "Encounter": {
-      "subject": [
-        "Patient",
-        "Group"
-      ],
-      "episodeOfCare": [
-        "EpisodeOfCare"
-      ],
-      "basedOn": [
-        "ServiceRequest"
-      ],
-      "appointment": [
-        "Appointment"
-      ],
-      "reasonReference": [
-        "Condition",
-        "Procedure",
-        "Observation",
-        "ImmunizationRecommendation"
-      ],
-      "account": [
-        "Account"
-      ],
-      "serviceProvider": [
-        "Organization"
-      ],
-      "partOf": [
-        "Encounter"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group"
+        ]
+      },
+      "episodeOfCare": {
+        "referenceTypes": [
+          "EpisodeOfCare"
+        ]
+      },
+      "basedOn": {
+        "referenceTypes": [
+          "ServiceRequest"
+        ]
+      },
+      "appointment": {
+        "referenceTypes": [
+          "Appointment"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Procedure",
+          "Observation",
+          "ImmunizationRecommendation"
+        ]
+      },
+      "account": {
+        "referenceTypes": [
+          "Account"
+        ]
+      },
+      "serviceProvider": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "partOf": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      }
     },
     "EncounterStatusHistory": {},
     "EncounterClassHistory": {},
     "EncounterParticipant": {
-      "individual": [
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson"
-      ]
+      "individual": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson"
+        ]
+      }
     },
     "EncounterDiagnosis": {
-      "condition": [
-        "Condition",
-        "Procedure"
-      ]
+      "condition": {
+        "referenceTypes": [
+          "Condition",
+          "Procedure"
+        ]
+      }
     },
     "EncounterHospitalization": {
-      "origin": [
-        "Location",
-        "Organization"
-      ],
-      "destination": [
-        "Location",
-        "Organization"
-      ]
+      "origin": {
+        "referenceTypes": [
+          "Location",
+          "Organization"
+        ]
+      },
+      "destination": {
+        "referenceTypes": [
+          "Location",
+          "Organization"
+        ]
+      }
     },
     "EncounterLocation": {
-      "location": [
-        "Location"
-      ]
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      }
     },
     "Account": {
-      "subject": [
-        "Patient",
-        "Device",
-        "Practitioner",
-        "PractitionerRole",
-        "Location",
-        "HealthcareService",
-        "Organization"
-      ],
-      "owner": [
-        "Organization"
-      ],
-      "partOf": [
-        "Account"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Device",
+          "Practitioner",
+          "PractitionerRole",
+          "Location",
+          "HealthcareService",
+          "Organization"
+        ]
+      },
+      "owner": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "partOf": {
+        "referenceTypes": [
+          "Account"
+        ]
+      }
     },
     "AccountCoverage": {
-      "coverage": [
-        "Coverage"
-      ]
+      "coverage": {
+        "referenceTypes": [
+          "Coverage"
+        ]
+      }
     },
     "AccountGuarantor": {
-      "party": [
-        "Patient",
-        "RelatedPerson",
-        "Organization"
-      ]
+      "party": {
+        "referenceTypes": [
+          "Patient",
+          "RelatedPerson",
+          "Organization"
+        ]
+      }
     },
     "Flag": {
-      "subject": [
-        "Patient",
-        "Location",
-        "Group",
-        "Organization",
-        "Practitioner",
-        "PlanDefinition",
-        "Medication",
-        "Procedure"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "author": [
-        "Device",
-        "Organization",
-        "Patient",
-        "Practitioner",
-        "PractitionerRole"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Location",
+          "Group",
+          "Organization",
+          "Practitioner",
+          "PlanDefinition",
+          "Medication",
+          "Procedure"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "author": {
+        "referenceTypes": [
+          "Device",
+          "Organization",
+          "Patient",
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      }
     },
     "EpisodeOfCare": {
-      "patient": [
-        "Patient"
-      ],
-      "managingOrganization": [
-        "Organization"
-      ],
-      "referralRequest": [
-        "ServiceRequest"
-      ],
-      "careManager": [
-        "Practitioner",
-        "PractitionerRole"
-      ],
-      "team": [
-        "CareTeam"
-      ],
-      "account": [
-        "Account"
-      ]
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "managingOrganization": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "referralRequest": {
+        "referenceTypes": [
+          "ServiceRequest"
+        ]
+      },
+      "careManager": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      },
+      "team": {
+        "referenceTypes": [
+          "CareTeam"
+        ]
+      },
+      "account": {
+        "referenceTypes": [
+          "Account"
+        ]
+      }
     },
     "EpisodeOfCareStatusHistory": {},
     "EpisodeOfCareDiagnosis": {
-      "condition": [
-        "Condition"
-      ]
+      "condition": {
+        "referenceTypes": [
+          "Condition"
+        ]
+      }
     },
     "MessageDefinition": {},
     "MessageDefinitionFocus": {},
@@ -1341,9 +1825,11 @@
     "CapabilityStatement": {},
     "CapabilityStatementSoftware": {},
     "CapabilityStatementImplementation": {
-      "custodian": [
-        "Organization"
-      ]
+      "custodian": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "CapabilityStatementRest": {},
     "CapabilityStatementRestSecurity": {},
@@ -1369,245 +1855,329 @@
     "ExampleScenarioProcessStepAlternative": {},
     "ContactDetail": {},
     "Contract": {
-      "instantiatesCanonical": [
-        "Contract"
-      ],
-      "subject": [
-        "Resource"
-      ],
-      "authority": [
-        "Organization"
-      ],
-      "domain": [
-        "Location"
-      ],
-      "site": [
-        "Location"
-      ],
-      "author": [
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ],
-      "topic": [
-        "Resource"
-      ],
-      "supportingInfo": [
-        "Resource"
-      ],
-      "relevantHistory": [
-        "Provenance"
-      ],
-      "legallyBinding": [
-        "Composition",
-        "DocumentReference",
-        "QuestionnaireResponse",
-        "Contract"
-      ]
+      "instantiatesCanonical": {
+        "referenceTypes": [
+          "Contract"
+        ]
+      },
+      "subject": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "authority": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "domain": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "site": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "author": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      },
+      "topic": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "supportingInfo": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "relevantHistory": {
+        "referenceTypes": [
+          "Provenance"
+        ]
+      },
+      "legallyBinding": {
+        "referenceTypes": [
+          "Composition",
+          "DocumentReference",
+          "QuestionnaireResponse",
+          "Contract"
+        ]
+      }
     },
     "ContractContentDefinition": {
-      "publisher": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ]
+      "publisher": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      }
     },
     "ContractTerm": {
-      "topic": [
-        "Resource"
-      ]
+      "topic": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "ContractTermSecurityLabel": {},
     "ContractTermOffer": {
-      "topic": [
-        "Resource"
-      ]
+      "topic": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "ContractTermOfferParty": {
-      "reference": [
-        "Patient",
-        "RelatedPerson",
-        "Practitioner",
-        "PractitionerRole",
-        "Device",
-        "Group",
-        "Organization"
-      ]
+      "reference": {
+        "referenceTypes": [
+          "Patient",
+          "RelatedPerson",
+          "Practitioner",
+          "PractitionerRole",
+          "Device",
+          "Group",
+          "Organization"
+        ]
+      }
     },
     "ContractTermOfferAnswer": {
-      "value": [
-        "Resource"
-      ]
+      "value": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "ContractTermAsset": {
-      "typeReference": [
-        "Resource"
-      ]
+      "typeReference": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "ContractTermAssetContext": {
-      "reference": [
-        "Resource"
-      ]
+      "reference": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "ContractTermAssetValuedItem": {
-      "entity": [
-        "Resource"
-      ],
-      "responsible": [
-        "Organization",
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson"
-      ],
-      "recipient": [
-        "Organization",
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson"
-      ]
+      "entity": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "responsible": {
+        "referenceTypes": [
+          "Organization",
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson"
+        ]
+      },
+      "recipient": {
+        "referenceTypes": [
+          "Organization",
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson"
+        ]
+      }
     },
     "ContractTermAction": {
-      "context": [
-        "Encounter",
-        "EpisodeOfCare"
-      ],
-      "requester": [
-        "Patient",
-        "RelatedPerson",
-        "Practitioner",
-        "PractitionerRole",
-        "Device",
-        "Group",
-        "Organization"
-      ],
-      "performer": [
-        "RelatedPerson",
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "CareTeam",
-        "Device",
-        "Substance",
-        "Organization",
-        "Location"
-      ],
-      "reasonReference": [
-        "Condition",
-        "Observation",
-        "DiagnosticReport",
-        "DocumentReference",
-        "Questionnaire",
-        "QuestionnaireResponse"
-      ]
+      "context": {
+        "referenceTypes": [
+          "Encounter",
+          "EpisodeOfCare"
+        ]
+      },
+      "requester": {
+        "referenceTypes": [
+          "Patient",
+          "RelatedPerson",
+          "Practitioner",
+          "PractitionerRole",
+          "Device",
+          "Group",
+          "Organization"
+        ]
+      },
+      "performer": {
+        "referenceTypes": [
+          "RelatedPerson",
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "CareTeam",
+          "Device",
+          "Substance",
+          "Organization",
+          "Location"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "DiagnosticReport",
+          "DocumentReference",
+          "Questionnaire",
+          "QuestionnaireResponse"
+        ]
+      }
     },
     "ContractTermActionSubject": {
-      "reference": [
-        "Patient",
-        "RelatedPerson",
-        "Practitioner",
-        "PractitionerRole",
-        "Device",
-        "Group",
-        "Organization"
-      ]
+      "reference": {
+        "referenceTypes": [
+          "Patient",
+          "RelatedPerson",
+          "Practitioner",
+          "PractitionerRole",
+          "Device",
+          "Group",
+          "Organization"
+        ]
+      }
     },
     "ContractSigner": {
-      "party": [
-        "Organization",
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson"
-      ]
+      "party": {
+        "referenceTypes": [
+          "Organization",
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson"
+        ]
+      }
     },
     "ContractFriendly": {
-      "content": [
-        "Composition",
-        "DocumentReference",
-        "QuestionnaireResponse"
-      ]
+      "content": {
+        "referenceTypes": [
+          "Composition",
+          "DocumentReference",
+          "QuestionnaireResponse"
+        ]
+      }
     },
     "ContractLegal": {
-      "content": [
-        "Composition",
-        "DocumentReference",
-        "QuestionnaireResponse"
-      ]
+      "content": {
+        "referenceTypes": [
+          "Composition",
+          "DocumentReference",
+          "QuestionnaireResponse"
+        ]
+      }
     },
     "ContractRule": {
-      "content": [
-        "DocumentReference"
-      ]
+      "content": {
+        "referenceTypes": [
+          "DocumentReference"
+        ]
+      }
     },
     "ChargeItem": {
-      "partOf": [
-        "ChargeItem"
-      ],
-      "subject": [
-        "Patient",
-        "Group"
-      ],
-      "context": [
-        "Encounter",
-        "EpisodeOfCare"
-      ],
-      "performingOrganization": [
-        "Organization"
-      ],
-      "requestingOrganization": [
-        "Organization"
-      ],
-      "costCenter": [
-        "Organization"
-      ],
-      "enterer": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "Patient",
-        "Device",
-        "RelatedPerson"
-      ],
-      "service": [
-        "DiagnosticReport",
-        "ImagingStudy",
-        "Immunization",
-        "MedicationAdministration",
-        "MedicationDispense",
-        "Observation",
-        "Procedure",
-        "SupplyDelivery"
-      ],
-      "product": [
-        "Device",
-        "Medication",
-        "Substance"
-      ],
-      "account": [
-        "Account"
-      ],
-      "supportingInformation": [
-        "Resource"
-      ]
+      "partOf": {
+        "referenceTypes": [
+          "ChargeItem"
+        ]
+      },
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group"
+        ]
+      },
+      "context": {
+        "referenceTypes": [
+          "Encounter",
+          "EpisodeOfCare"
+        ]
+      },
+      "performingOrganization": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "requestingOrganization": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "costCenter": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "enterer": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "Patient",
+          "Device",
+          "RelatedPerson"
+        ]
+      },
+      "service": {
+        "referenceTypes": [
+          "DiagnosticReport",
+          "ImagingStudy",
+          "Immunization",
+          "MedicationAdministration",
+          "MedicationDispense",
+          "Observation",
+          "Procedure",
+          "SupplyDelivery"
+        ]
+      },
+      "product": {
+        "referenceTypes": [
+          "Device",
+          "Medication",
+          "Substance"
+        ]
+      },
+      "account": {
+        "referenceTypes": [
+          "Account"
+        ]
+      },
+      "supportingInformation": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "ChargeItemPerformer": {
-      "actor": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "CareTeam",
-        "Patient",
-        "Device",
-        "RelatedPerson"
-      ]
+      "actor": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "CareTeam",
+          "Patient",
+          "Device",
+          "RelatedPerson"
+        ]
+      }
     },
     "TestScript": {
-      "profile": [
-        "Resource"
-      ]
+      "profile": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "TestScriptOrigin": {},
     "TestScriptDestination": {},
@@ -1615,9 +2185,11 @@
     "TestScriptMetadataLink": {},
     "TestScriptMetadataCapability": {},
     "TestScriptFixture": {
-      "resource": [
-        "Resource"
-      ]
+      "resource": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "TestScriptVariable": {},
     "TestScriptSetup": {},
@@ -1630,324 +2202,454 @@
     "TestScriptTeardown": {},
     "TestScriptTeardownAction": {},
     "Task": {
-      "basedOn": [
-        "Resource"
-      ],
-      "partOf": [
-        "Task"
-      ],
-      "focus": [
-        "Resource"
-      ],
-      "for": [
-        "Resource"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "requester": [
-        "Device",
-        "Organization",
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson"
-      ],
-      "owner": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "CareTeam",
-        "HealthcareService",
-        "Patient",
-        "Device",
-        "RelatedPerson"
-      ],
-      "location": [
-        "Location"
-      ],
-      "reasonReference": [
-        "Resource"
-      ],
-      "insurance": [
-        "Coverage",
-        "ClaimResponse"
-      ],
-      "relevantHistory": [
-        "Provenance"
-      ]
+      "basedOn": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "partOf": {
+        "referenceTypes": [
+          "Task"
+        ]
+      },
+      "focus": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "for": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "requester": {
+        "referenceTypes": [
+          "Device",
+          "Organization",
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson"
+        ]
+      },
+      "owner": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "CareTeam",
+          "HealthcareService",
+          "Patient",
+          "Device",
+          "RelatedPerson"
+        ]
+      },
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "insurance": {
+        "referenceTypes": [
+          "Coverage",
+          "ClaimResponse"
+        ]
+      },
+      "relevantHistory": {
+        "referenceTypes": [
+          "Provenance"
+        ]
+      }
     },
     "TaskRestriction": {
-      "recipient": [
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson",
-        "Group",
-        "Organization"
-      ]
+      "recipient": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson",
+          "Group",
+          "Organization"
+        ]
+      }
     },
     "TaskInput": {},
     "TaskOutput": {},
     "Appointment": {
-      "reasonReference": [
-        "Condition",
-        "Procedure",
-        "Observation",
-        "ImmunizationRecommendation"
-      ],
-      "supportingInformation": [
-        "Resource"
-      ],
-      "slot": [
-        "Slot"
-      ],
-      "basedOn": [
-        "ServiceRequest"
-      ]
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Procedure",
+          "Observation",
+          "ImmunizationRecommendation"
+        ]
+      },
+      "supportingInformation": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "slot": {
+        "referenceTypes": [
+          "Slot"
+        ]
+      },
+      "basedOn": {
+        "referenceTypes": [
+          "ServiceRequest"
+        ]
+      }
     },
     "AppointmentParticipant": {
-      "actor": [
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson",
-        "Device",
-        "HealthcareService",
-        "Location"
-      ]
+      "actor": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson",
+          "Device",
+          "HealthcareService",
+          "Location"
+        ]
+      }
     },
     "Coverage": {
-      "policyHolder": [
-        "Patient",
-        "RelatedPerson",
-        "Organization"
-      ],
-      "subscriber": [
-        "Patient",
-        "RelatedPerson"
-      ],
-      "beneficiary": [
-        "Patient"
-      ],
-      "payor": [
-        "Organization",
-        "Patient",
-        "RelatedPerson"
-      ],
-      "contract": [
-        "Contract"
-      ]
+      "policyHolder": {
+        "referenceTypes": [
+          "Patient",
+          "RelatedPerson",
+          "Organization"
+        ]
+      },
+      "subscriber": {
+        "referenceTypes": [
+          "Patient",
+          "RelatedPerson"
+        ]
+      },
+      "beneficiary": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "payor": {
+        "referenceTypes": [
+          "Organization",
+          "Patient",
+          "RelatedPerson"
+        ]
+      },
+      "contract": {
+        "referenceTypes": [
+          "Contract"
+        ]
+      }
     },
     "CoverageClass": {},
     "CoverageCostToBeneficiary": {},
     "CoverageCostToBeneficiaryException": {},
     "SupplyDelivery": {
-      "basedOn": [
-        "SupplyRequest"
-      ],
-      "partOf": [
-        "SupplyDelivery",
-        "Contract"
-      ],
-      "patient": [
-        "Patient"
-      ],
-      "supplier": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ],
-      "destination": [
-        "Location"
-      ],
-      "receiver": [
-        "Practitioner",
-        "PractitionerRole"
-      ]
+      "basedOn": {
+        "referenceTypes": [
+          "SupplyRequest"
+        ]
+      },
+      "partOf": {
+        "referenceTypes": [
+          "SupplyDelivery",
+          "Contract"
+        ]
+      },
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "supplier": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      },
+      "destination": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "receiver": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      }
     },
     "SupplyDeliverySuppliedItem": {
-      "item": [
-        "Medication",
-        "Substance",
-        "Device"
-      ]
+      "item": {
+        "referenceTypes": [
+          "Medication",
+          "Substance",
+          "Device"
+        ]
+      }
     },
     "ImmunizationRecommendation": {
-      "patient": [
-        "Patient"
-      ],
-      "authority": [
-        "Organization"
-      ]
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "authority": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "ImmunizationRecommendationRecommendation": {
-      "supportingImmunization": [
-        "Immunization",
-        "ImmunizationEvaluation"
-      ],
-      "supportingPatientInformation": [
-        "Resource"
-      ]
+      "supportingImmunization": {
+        "referenceTypes": [
+          "Immunization",
+          "ImmunizationEvaluation"
+        ]
+      },
+      "supportingPatientInformation": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "ImmunizationRecommendationRecommendationDateCriterion": {},
     "Evidence": {
-      "exposureBackground": [
-        "EvidenceVariable"
-      ],
-      "exposureVariant": [
-        "EvidenceVariable"
-      ],
-      "outcome": [
-        "EvidenceVariable"
-      ]
+      "exposureBackground": {
+        "referenceTypes": [
+          "EvidenceVariable"
+        ]
+      },
+      "exposureVariant": {
+        "referenceTypes": [
+          "EvidenceVariable"
+        ]
+      },
+      "outcome": {
+        "referenceTypes": [
+          "EvidenceVariable"
+        ]
+      }
     },
     "RiskAssessment": {
-      "basedOn": [
-        "Resource"
-      ],
-      "parent": [
-        "Resource"
-      ],
-      "subject": [
-        "Patient",
-        "Group"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "condition": [
-        "Condition"
-      ],
-      "performer": [
-        "Practitioner",
-        "PractitionerRole",
-        "Device"
-      ],
-      "reasonReference": [
-        "Condition",
-        "Observation",
-        "DiagnosticReport",
-        "DocumentReference"
-      ],
-      "basis": [
-        "Resource"
-      ]
+      "basedOn": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "parent": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "condition": {
+        "referenceTypes": [
+          "Condition"
+        ]
+      },
+      "performer": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Device"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "DiagnosticReport",
+          "DocumentReference"
+        ]
+      },
+      "basis": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "RiskAssessmentPrediction": {},
     "Identifier": {
-      "assigner": [
-        "Organization"
-      ]
+      "assigner": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "Organization": {
-      "partOf": [
-        "Organization"
-      ],
-      "endpoint": [
-        "Endpoint"
-      ]
+      "partOf": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "endpoint": {
+        "referenceTypes": [
+          "Endpoint"
+        ]
+      }
     },
     "OrganizationContact": {},
     "ImagingStudy": {
-      "subject": [
-        "Patient",
-        "Device",
-        "Group"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "basedOn": [
-        "CarePlan",
-        "ServiceRequest",
-        "Appointment",
-        "AppointmentResponse",
-        "Task"
-      ],
-      "referrer": [
-        "Practitioner",
-        "PractitionerRole"
-      ],
-      "interpreter": [
-        "Practitioner",
-        "PractitionerRole"
-      ],
-      "endpoint": [
-        "Endpoint"
-      ],
-      "procedureReference": [
-        "Procedure"
-      ],
-      "location": [
-        "Location"
-      ],
-      "reasonReference": [
-        "Condition",
-        "Observation",
-        "Media",
-        "DiagnosticReport",
-        "DocumentReference"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Device",
+          "Group"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "basedOn": {
+        "referenceTypes": [
+          "CarePlan",
+          "ServiceRequest",
+          "Appointment",
+          "AppointmentResponse",
+          "Task"
+        ]
+      },
+      "referrer": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      },
+      "interpreter": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      },
+      "endpoint": {
+        "referenceTypes": [
+          "Endpoint"
+        ]
+      },
+      "procedureReference": {
+        "referenceTypes": [
+          "Procedure"
+        ]
+      },
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "Media",
+          "DiagnosticReport",
+          "DocumentReference"
+        ]
+      }
     },
     "ImagingStudySeries": {
-      "endpoint": [
-        "Endpoint"
-      ],
-      "specimen": [
-        "Specimen"
-      ]
+      "endpoint": {
+        "referenceTypes": [
+          "Endpoint"
+        ]
+      },
+      "specimen": {
+        "referenceTypes": [
+          "Specimen"
+        ]
+      }
     },
     "ImagingStudySeriesPerformer": {
-      "actor": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "CareTeam",
-        "Patient",
-        "Device",
-        "RelatedPerson"
-      ]
+      "actor": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "CareTeam",
+          "Patient",
+          "Device",
+          "RelatedPerson"
+        ]
+      }
     },
     "ImagingStudySeriesInstance": {},
     "AuditEvent": {},
     "AuditEventAgent": {
-      "who": [
-        "PractitionerRole",
-        "Practitioner",
-        "Organization",
-        "Device",
-        "Patient",
-        "RelatedPerson"
-      ],
-      "location": [
-        "Location"
-      ]
+      "who": {
+        "referenceTypes": [
+          "PractitionerRole",
+          "Practitioner",
+          "Organization",
+          "Device",
+          "Patient",
+          "RelatedPerson"
+        ]
+      },
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      }
     },
     "AuditEventAgentNetwork": {},
     "AuditEventSource": {
-      "observer": [
-        "PractitionerRole",
-        "Practitioner",
-        "Organization",
-        "Device",
-        "Patient",
-        "RelatedPerson"
-      ]
+      "observer": {
+        "referenceTypes": [
+          "PractitionerRole",
+          "Practitioner",
+          "Organization",
+          "Device",
+          "Patient",
+          "RelatedPerson"
+        ]
+      }
     },
     "AuditEventEntity": {
-      "what": [
-        "Resource"
-      ]
+      "what": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "AuditEventEntityDetail": {},
     "MedicinalProductPharmaceutical": {
-      "ingredient": [
-        "MedicinalProductIngredient"
-      ],
-      "device": [
-        "DeviceDefinition"
-      ]
+      "ingredient": {
+        "referenceTypes": [
+          "MedicinalProductIngredient"
+        ]
+      },
+      "device": {
+        "referenceTypes": [
+          "DeviceDefinition"
+        ]
+      }
     },
     "MedicinalProductPharmaceuticalCharacteristics": {},
     "MedicinalProductPharmaceuticalRouteOfAdministration": {},
@@ -1963,48 +2665,62 @@
     "SubstanceSourceMaterialOrganismOrganismGeneral": {},
     "SubstanceSourceMaterialPartDescription": {},
     "Person": {
-      "managingOrganization": [
-        "Organization"
-      ]
+      "managingOrganization": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "PersonLink": {
-      "target": [
-        "Patient",
-        "Practitioner",
-        "RelatedPerson",
-        "Person"
-      ]
+      "target": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "RelatedPerson",
+          "Person"
+        ]
+      }
     },
     "Provenance": {
-      "target": [
-        "Resource"
-      ],
-      "location": [
-        "Location"
-      ]
+      "target": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      }
     },
     "ProvenanceAgent": {
-      "who": [
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson",
-        "Patient",
-        "Device",
-        "Organization"
-      ],
-      "onBehalfOf": [
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson",
-        "Patient",
-        "Device",
-        "Organization"
-      ]
+      "who": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson",
+          "Patient",
+          "Device",
+          "Organization"
+        ]
+      },
+      "onBehalfOf": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson",
+          "Patient",
+          "Device",
+          "Organization"
+        ]
+      }
     },
     "ProvenanceEntity": {
-      "what": [
-        "Resource"
-      ]
+      "what": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "GraphDefinition": {},
     "GraphDefinitionLink": {},
@@ -2015,218 +2731,304 @@
     "Count": {},
     "ContactPoint": {},
     "ResearchDefinition": {
-      "subject": [
-        "Group"
-      ],
-      "population": [
-        "ResearchElementDefinition"
-      ],
-      "exposure": [
-        "ResearchElementDefinition"
-      ],
-      "exposureAlternative": [
-        "ResearchElementDefinition"
-      ],
-      "outcome": [
-        "ResearchElementDefinition"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Group"
+        ]
+      },
+      "population": {
+        "referenceTypes": [
+          "ResearchElementDefinition"
+        ]
+      },
+      "exposure": {
+        "referenceTypes": [
+          "ResearchElementDefinition"
+        ]
+      },
+      "exposureAlternative": {
+        "referenceTypes": [
+          "ResearchElementDefinition"
+        ]
+      },
+      "outcome": {
+        "referenceTypes": [
+          "ResearchElementDefinition"
+        ]
+      }
     },
     "ServiceRequest": {
-      "basedOn": [
-        "CarePlan",
-        "ServiceRequest",
-        "MedicationRequest"
-      ],
-      "replaces": [
-        "ServiceRequest"
-      ],
-      "subject": [
-        "Patient",
-        "Group",
-        "Location",
-        "Device"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "requester": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "Patient",
-        "RelatedPerson",
-        "Device"
-      ],
-      "performer": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "CareTeam",
-        "HealthcareService",
-        "Patient",
-        "Device",
-        "RelatedPerson"
-      ],
-      "locationReference": [
-        "Location"
-      ],
-      "reasonReference": [
-        "Condition",
-        "Observation",
-        "DiagnosticReport",
-        "DocumentReference"
-      ],
-      "insurance": [
-        "Coverage",
-        "ClaimResponse"
-      ],
-      "supportingInfo": [
-        "Resource"
-      ],
-      "specimen": [
-        "Specimen"
-      ],
-      "relevantHistory": [
-        "Provenance"
-      ]
+      "basedOn": {
+        "referenceTypes": [
+          "CarePlan",
+          "ServiceRequest",
+          "MedicationRequest"
+        ]
+      },
+      "replaces": {
+        "referenceTypes": [
+          "ServiceRequest"
+        ]
+      },
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group",
+          "Location",
+          "Device"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "requester": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "Patient",
+          "RelatedPerson",
+          "Device"
+        ]
+      },
+      "performer": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "CareTeam",
+          "HealthcareService",
+          "Patient",
+          "Device",
+          "RelatedPerson"
+        ]
+      },
+      "locationReference": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "DiagnosticReport",
+          "DocumentReference"
+        ]
+      },
+      "insurance": {
+        "referenceTypes": [
+          "Coverage",
+          "ClaimResponse"
+        ]
+      },
+      "supportingInfo": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "specimen": {
+        "referenceTypes": [
+          "Specimen"
+        ]
+      },
+      "relevantHistory": {
+        "referenceTypes": [
+          "Provenance"
+        ]
+      }
     },
     "CommunicationRequest": {
-      "basedOn": [
-        "Resource"
-      ],
-      "replaces": [
-        "CommunicationRequest"
-      ],
-      "subject": [
-        "Patient",
-        "Group"
-      ],
-      "about": [
-        "Resource"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "requester": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "Patient",
-        "RelatedPerson",
-        "Device"
-      ],
-      "recipient": [
-        "Device",
-        "Organization",
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson",
-        "Group",
-        "CareTeam",
-        "HealthcareService"
-      ],
-      "sender": [
-        "Device",
-        "Organization",
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson",
-        "HealthcareService"
-      ],
-      "reasonReference": [
-        "Condition",
-        "Observation",
-        "DiagnosticReport",
-        "DocumentReference"
-      ]
+      "basedOn": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "replaces": {
+        "referenceTypes": [
+          "CommunicationRequest"
+        ]
+      },
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group"
+        ]
+      },
+      "about": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "requester": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "Patient",
+          "RelatedPerson",
+          "Device"
+        ]
+      },
+      "recipient": {
+        "referenceTypes": [
+          "Device",
+          "Organization",
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson",
+          "Group",
+          "CareTeam",
+          "HealthcareService"
+        ]
+      },
+      "sender": {
+        "referenceTypes": [
+          "Device",
+          "Organization",
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson",
+          "HealthcareService"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "DiagnosticReport",
+          "DocumentReference"
+        ]
+      }
     },
     "CommunicationRequestPayload": {
-      "content": [
-        "Resource"
-      ]
+      "content": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "MedicinalProductContraindication": {
-      "subject": [
-        "MedicinalProduct",
-        "Medication"
-      ],
-      "therapeuticIndication": [
-        "MedicinalProductIndication"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "MedicinalProduct",
+          "Medication"
+        ]
+      },
+      "therapeuticIndication": {
+        "referenceTypes": [
+          "MedicinalProductIndication"
+        ]
+      }
     },
     "MedicinalProductContraindicationOtherTherapy": {
-      "medication": [
-        "MedicinalProduct",
-        "Medication",
-        "Substance",
-        "SubstanceSpecification"
-      ]
+      "medication": {
+        "referenceTypes": [
+          "MedicinalProduct",
+          "Medication",
+          "Substance",
+          "SubstanceSpecification"
+        ]
+      }
     },
     "EnrollmentRequest": {
-      "insurer": [
-        "Organization"
-      ],
-      "provider": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ],
-      "candidate": [
-        "Patient"
-      ],
-      "coverage": [
-        "Coverage"
-      ]
+      "insurer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "provider": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      },
+      "candidate": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "coverage": {
+        "referenceTypes": [
+          "Coverage"
+        ]
+      }
     },
     "ElementDefinitionExtension": {},
     "VisionPrescription": {
-      "patient": [
-        "Patient"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "prescriber": [
-        "Practitioner",
-        "PractitionerRole"
-      ]
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "prescriber": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      }
     },
     "VisionPrescriptionLensSpecification": {},
     "VisionPrescriptionLensSpecificationPrism": {},
     "ProdCharacteristic": {},
     "FamilyMemberHistory": {
-      "patient": [
-        "Patient"
-      ],
-      "reasonReference": [
-        "Condition",
-        "Observation",
-        "AllergyIntolerance",
-        "QuestionnaireResponse",
-        "DiagnosticReport",
-        "DocumentReference"
-      ]
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "AllergyIntolerance",
+          "QuestionnaireResponse",
+          "DiagnosticReport",
+          "DocumentReference"
+        ]
+      }
     },
     "FamilyMemberHistoryCondition": {},
     "Element": {},
     "MedicinalProductUndesirableEffect": {
-      "subject": [
-        "MedicinalProduct",
-        "Medication"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "MedicinalProduct",
+          "Medication"
+        ]
+      }
     },
     "RiskEvidenceSynthesis": {
-      "population": [
-        "EvidenceVariable"
-      ],
-      "exposure": [
-        "EvidenceVariable"
-      ],
-      "outcome": [
-        "EvidenceVariable"
-      ]
+      "population": {
+        "referenceTypes": [
+          "EvidenceVariable"
+        ]
+      },
+      "exposure": {
+        "referenceTypes": [
+          "EvidenceVariable"
+        ]
+      },
+      "outcome": {
+        "referenceTypes": [
+          "EvidenceVariable"
+        ]
+      }
     },
     "RiskEvidenceSynthesisSampleSize": {},
     "RiskEvidenceSynthesisRiskEstimate": {},
@@ -2236,214 +3038,302 @@
     "CompartmentDefinition": {},
     "CompartmentDefinitionResource": {},
     "Binary": {
-      "securityContext": [
-        "Resource"
-      ]
+      "securityContext": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "Questionnaire": {},
     "QuestionnaireItem": {},
     "QuestionnaireItemEnableWhen": {
-      "answer": [
-        "Resource"
-      ]
+      "answer": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "QuestionnaireItemAnswerOption": {
-      "value": [
-        "Resource"
-      ]
+      "value": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "QuestionnaireItemInitial": {
-      "value": [
-        "Resource"
-      ]
+      "value": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "Specimen": {
-      "subject": [
-        "Patient",
-        "Group",
-        "Device",
-        "Substance",
-        "Location"
-      ],
-      "parent": [
-        "Specimen"
-      ],
-      "request": [
-        "ServiceRequest"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group",
+          "Device",
+          "Substance",
+          "Location"
+        ]
+      },
+      "parent": {
+        "referenceTypes": [
+          "Specimen"
+        ]
+      },
+      "request": {
+        "referenceTypes": [
+          "ServiceRequest"
+        ]
+      }
     },
     "SpecimenCollection": {
-      "collector": [
-        "Practitioner",
-        "PractitionerRole"
-      ]
+      "collector": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      }
     },
     "SpecimenProcessing": {
-      "additive": [
-        "Substance"
-      ]
+      "additive": {
+        "referenceTypes": [
+          "Substance"
+        ]
+      }
     },
     "SpecimenContainer": {
-      "additive": [
-        "Substance"
-      ]
+      "additive": {
+        "referenceTypes": [
+          "Substance"
+        ]
+      }
     },
     "RequestGroup": {
-      "basedOn": [
-        "Resource"
-      ],
-      "replaces": [
-        "Resource"
-      ],
-      "subject": [
-        "Patient",
-        "Group"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "author": [
-        "Device",
-        "Practitioner",
-        "PractitionerRole"
-      ],
-      "reasonReference": [
-        "Condition",
-        "Observation",
-        "DiagnosticReport",
-        "DocumentReference"
-      ]
+      "basedOn": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "replaces": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "author": {
+        "referenceTypes": [
+          "Device",
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "DiagnosticReport",
+          "DocumentReference"
+        ]
+      }
     },
     "RequestGroupAction": {
-      "participant": [
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson",
-        "Device"
-      ],
-      "resource": [
-        "Resource"
-      ]
+      "participant": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson",
+          "Device"
+        ]
+      },
+      "resource": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "RequestGroupActionCondition": {},
     "RequestGroupActionRelatedAction": {},
     "ExplanationOfBenefit": {
-      "patient": [
-        "Patient"
-      ],
-      "enterer": [
-        "Practitioner",
-        "PractitionerRole"
-      ],
-      "insurer": [
-        "Organization"
-      ],
-      "provider": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ],
-      "prescription": [
-        "MedicationRequest",
-        "VisionPrescription"
-      ],
-      "originalPrescription": [
-        "MedicationRequest"
-      ],
-      "referral": [
-        "ServiceRequest"
-      ],
-      "facility": [
-        "Location"
-      ],
-      "claim": [
-        "Claim"
-      ],
-      "claimResponse": [
-        "ClaimResponse"
-      ]
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "enterer": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      },
+      "insurer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "provider": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      },
+      "prescription": {
+        "referenceTypes": [
+          "MedicationRequest",
+          "VisionPrescription"
+        ]
+      },
+      "originalPrescription": {
+        "referenceTypes": [
+          "MedicationRequest"
+        ]
+      },
+      "referral": {
+        "referenceTypes": [
+          "ServiceRequest"
+        ]
+      },
+      "facility": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "claim": {
+        "referenceTypes": [
+          "Claim"
+        ]
+      },
+      "claimResponse": {
+        "referenceTypes": [
+          "ClaimResponse"
+        ]
+      }
     },
     "ExplanationOfBenefitRelated": {
-      "claim": [
-        "Claim"
-      ]
+      "claim": {
+        "referenceTypes": [
+          "Claim"
+        ]
+      }
     },
     "ExplanationOfBenefitPayee": {
-      "party": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "Patient",
-        "RelatedPerson"
-      ]
+      "party": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "Patient",
+          "RelatedPerson"
+        ]
+      }
     },
     "ExplanationOfBenefitCareTeam": {
-      "provider": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ]
+      "provider": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      }
     },
     "ExplanationOfBenefitSupportingInfo": {
-      "value": [
-        "Resource"
-      ]
+      "value": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "ExplanationOfBenefitDiagnosis": {
-      "diagnosis": [
-        "Condition"
-      ]
+      "diagnosis": {
+        "referenceTypes": [
+          "Condition"
+        ]
+      }
     },
     "ExplanationOfBenefitProcedure": {
-      "procedure": [
-        "Procedure"
-      ],
-      "udi": [
-        "Device"
-      ]
+      "procedure": {
+        "referenceTypes": [
+          "Procedure"
+        ]
+      },
+      "udi": {
+        "referenceTypes": [
+          "Device"
+        ]
+      }
     },
     "ExplanationOfBenefitInsurance": {
-      "coverage": [
-        "Coverage"
-      ]
+      "coverage": {
+        "referenceTypes": [
+          "Coverage"
+        ]
+      }
     },
     "ExplanationOfBenefitAccident": {
-      "location": [
-        "Location"
-      ]
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      }
     },
     "ExplanationOfBenefitItem": {
-      "location": [
-        "Location"
-      ],
-      "udi": [
-        "Device"
-      ],
-      "encounter": [
-        "Encounter"
-      ]
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "udi": {
+        "referenceTypes": [
+          "Device"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      }
     },
     "ExplanationOfBenefitItemAdjudication": {},
     "ExplanationOfBenefitItemDetail": {
-      "udi": [
-        "Device"
-      ]
+      "udi": {
+        "referenceTypes": [
+          "Device"
+        ]
+      }
     },
     "ExplanationOfBenefitItemDetailSubDetail": {
-      "udi": [
-        "Device"
-      ]
+      "udi": {
+        "referenceTypes": [
+          "Device"
+        ]
+      }
     },
     "ExplanationOfBenefitAddItem": {
-      "provider": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ],
-      "location": [
-        "Location"
-      ]
+      "provider": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      },
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      }
     },
     "ExplanationOfBenefitAddItemDetail": {},
     "ExplanationOfBenefitAddItemDetailSubDetail": {},
@@ -2453,110 +3343,154 @@
     "ExplanationOfBenefitBenefitBalance": {},
     "ExplanationOfBenefitBenefitBalanceFinancial": {},
     "Consent": {
-      "patient": [
-        "Patient"
-      ],
-      "performer": [
-        "Organization",
-        "Patient",
-        "Practitioner",
-        "RelatedPerson",
-        "PractitionerRole"
-      ],
-      "organization": [
-        "Organization"
-      ],
-      "source": [
-        "Consent",
-        "DocumentReference",
-        "Contract",
-        "QuestionnaireResponse"
-      ]
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "performer": {
+        "referenceTypes": [
+          "Organization",
+          "Patient",
+          "Practitioner",
+          "RelatedPerson",
+          "PractitionerRole"
+        ]
+      },
+      "organization": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "source": {
+        "referenceTypes": [
+          "Consent",
+          "DocumentReference",
+          "Contract",
+          "QuestionnaireResponse"
+        ]
+      }
     },
     "ConsentPolicy": {},
     "ConsentVerification": {
-      "verifiedWith": [
-        "Patient",
-        "RelatedPerson"
-      ]
+      "verifiedWith": {
+        "referenceTypes": [
+          "Patient",
+          "RelatedPerson"
+        ]
+      }
     },
     "ConsentProvision": {},
     "ConsentProvisionActor": {
-      "reference": [
-        "Device",
-        "Group",
-        "CareTeam",
-        "Organization",
-        "Patient",
-        "Practitioner",
-        "RelatedPerson",
-        "PractitionerRole"
-      ]
+      "reference": {
+        "referenceTypes": [
+          "Device",
+          "Group",
+          "CareTeam",
+          "Organization",
+          "Patient",
+          "Practitioner",
+          "RelatedPerson",
+          "PractitionerRole"
+        ]
+      }
     },
     "ConsentProvisionData": {
-      "reference": [
-        "Resource"
-      ]
+      "reference": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "MedicinalProduct": {
-      "pharmaceuticalProduct": [
-        "MedicinalProductPharmaceutical"
-      ],
-      "packagedMedicinalProduct": [
-        "MedicinalProductPackaged"
-      ],
-      "attachedDocument": [
-        "DocumentReference"
-      ],
-      "masterFile": [
-        "DocumentReference"
-      ],
-      "contact": [
-        "Organization",
-        "PractitionerRole"
-      ],
-      "clinicalTrial": [
-        "ResearchStudy"
-      ]
+      "pharmaceuticalProduct": {
+        "referenceTypes": [
+          "MedicinalProductPharmaceutical"
+        ]
+      },
+      "packagedMedicinalProduct": {
+        "referenceTypes": [
+          "MedicinalProductPackaged"
+        ]
+      },
+      "attachedDocument": {
+        "referenceTypes": [
+          "DocumentReference"
+        ]
+      },
+      "masterFile": {
+        "referenceTypes": [
+          "DocumentReference"
+        ]
+      },
+      "contact": {
+        "referenceTypes": [
+          "Organization",
+          "PractitionerRole"
+        ]
+      },
+      "clinicalTrial": {
+        "referenceTypes": [
+          "ResearchStudy"
+        ]
+      }
     },
     "MedicinalProductName": {},
     "MedicinalProductNameNamePart": {},
     "MedicinalProductNameCountryLanguage": {},
     "MedicinalProductManufacturingBusinessOperation": {
-      "manufacturer": [
-        "Organization"
-      ],
-      "regulator": [
-        "Organization"
-      ]
+      "manufacturer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "regulator": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "MedicinalProductSpecialDesignation": {
-      "indication": [
-        "MedicinalProductIndication"
-      ]
+      "indication": {
+        "referenceTypes": [
+          "MedicinalProductIndication"
+        ]
+      }
     },
     "NamingSystem": {},
     "NamingSystemUniqueId": {},
     "ResearchStudy": {
-      "protocol": [
-        "PlanDefinition"
-      ],
-      "partOf": [
-        "ResearchStudy"
-      ],
-      "enrollment": [
-        "Group"
-      ],
-      "sponsor": [
-        "Organization"
-      ],
-      "principalInvestigator": [
-        "Practitioner",
-        "PractitionerRole"
-      ],
-      "site": [
-        "Location"
-      ]
+      "protocol": {
+        "referenceTypes": [
+          "PlanDefinition"
+        ]
+      },
+      "partOf": {
+        "referenceTypes": [
+          "ResearchStudy"
+        ]
+      },
+      "enrollment": {
+        "referenceTypes": [
+          "Group"
+        ]
+      },
+      "sponsor": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "principalInvestigator": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      },
+      "site": {
+        "referenceTypes": [
+          "Location"
+        ]
+      }
     },
     "ResearchStudyArm": {},
     "ResearchStudyObjective": {},
@@ -2572,100 +3506,140 @@
     "StructureMapGroupRuleTargetParameter": {},
     "StructureMapGroupRuleDependent": {},
     "PractitionerRole": {
-      "practitioner": [
-        "Practitioner"
-      ],
-      "organization": [
-        "Organization"
-      ],
-      "location": [
-        "Location"
-      ],
-      "healthcareService": [
-        "HealthcareService"
-      ],
-      "endpoint": [
-        "Endpoint"
-      ]
+      "practitioner": {
+        "referenceTypes": [
+          "Practitioner"
+        ]
+      },
+      "organization": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "healthcareService": {
+        "referenceTypes": [
+          "HealthcareService"
+        ]
+      },
+      "endpoint": {
+        "referenceTypes": [
+          "Endpoint"
+        ]
+      }
     },
     "PractitionerRoleAvailableTime": {},
     "PractitionerRoleNotAvailable": {},
     "AdverseEvent": {
-      "subject": [
-        "Patient",
-        "Group",
-        "Practitioner",
-        "RelatedPerson"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "resultingCondition": [
-        "Condition"
-      ],
-      "location": [
-        "Location"
-      ],
-      "recorder": [
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson"
-      ],
-      "contributor": [
-        "Practitioner",
-        "PractitionerRole",
-        "Device"
-      ],
-      "subjectMedicalHistory": [
-        "Condition",
-        "Observation",
-        "AllergyIntolerance",
-        "FamilyMemberHistory",
-        "Immunization",
-        "Procedure",
-        "Media",
-        "DocumentReference"
-      ],
-      "referenceDocument": [
-        "DocumentReference"
-      ],
-      "study": [
-        "ResearchStudy"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group",
+          "Practitioner",
+          "RelatedPerson"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "resultingCondition": {
+        "referenceTypes": [
+          "Condition"
+        ]
+      },
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "recorder": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson"
+        ]
+      },
+      "contributor": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Device"
+        ]
+      },
+      "subjectMedicalHistory": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "AllergyIntolerance",
+          "FamilyMemberHistory",
+          "Immunization",
+          "Procedure",
+          "Media",
+          "DocumentReference"
+        ]
+      },
+      "referenceDocument": {
+        "referenceTypes": [
+          "DocumentReference"
+        ]
+      },
+      "study": {
+        "referenceTypes": [
+          "ResearchStudy"
+        ]
+      }
     },
     "AdverseEventSuspectEntity": {
-      "instance": [
-        "Immunization",
-        "Procedure",
-        "Substance",
-        "Medication",
-        "MedicationAdministration",
-        "MedicationStatement",
-        "Device"
-      ]
+      "instance": {
+        "referenceTypes": [
+          "Immunization",
+          "Procedure",
+          "Substance",
+          "Medication",
+          "MedicationAdministration",
+          "MedicationStatement",
+          "Device"
+        ]
+      }
     },
     "AdverseEventSuspectEntityCausality": {
-      "author": [
-        "Practitioner",
-        "PractitionerRole"
-      ]
+      "author": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      }
     },
     "TriggerDefinition": {
-      "timing": [
-        "Schedule"
-      ]
+      "timing": {
+        "referenceTypes": [
+          "Schedule"
+        ]
+      }
     },
     "ResearchSubject": {
-      "study": [
-        "ResearchStudy"
-      ],
-      "individual": [
-        "Patient"
-      ],
-      "consent": [
-        "Consent"
-      ]
+      "study": {
+        "referenceTypes": [
+          "ResearchStudy"
+        ]
+      },
+      "individual": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "consent": {
+        "referenceTypes": [
+          "Consent"
+        ]
+      }
     },
     "Money": {},
     "Resource": {},
@@ -2675,191 +3649,257 @@
     "ImplementationGuideDefinition": {},
     "ImplementationGuideDefinitionGrouping": {},
     "ImplementationGuideDefinitionResource": {
-      "reference": [
-        "Resource"
-      ]
+      "reference": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "ImplementationGuideDefinitionPage": {
-      "name": [
-        "Binary"
-      ]
+      "name": {
+        "referenceTypes": [
+          "Binary"
+        ]
+      }
     },
     "ImplementationGuideDefinitionParameter": {},
     "ImplementationGuideDefinitionTemplate": {},
     "ImplementationGuideManifest": {},
     "ImplementationGuideManifestResource": {
-      "reference": [
-        "Resource"
-      ]
+      "reference": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "ImplementationGuideManifestPage": {},
     "MedicinalProductIngredient": {
-      "manufacturer": [
-        "Organization"
-      ]
+      "manufacturer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "MedicinalProductIngredientSpecifiedSubstance": {},
     "MedicinalProductIngredientSpecifiedSubstanceStrength": {},
     "MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength": {},
     "MedicinalProductIngredientSubstance": {},
     "Group": {
-      "managingEntity": [
-        "Organization",
-        "RelatedPerson",
-        "Practitioner",
-        "PractitionerRole"
-      ]
+      "managingEntity": {
+        "referenceTypes": [
+          "Organization",
+          "RelatedPerson",
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      }
     },
     "GroupCharacteristic": {},
     "GroupMember": {
-      "entity": [
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "Device",
-        "Medication",
-        "Substance",
-        "Group"
-      ]
+      "entity": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "Device",
+          "Medication",
+          "Substance",
+          "Group"
+        ]
+      }
     },
     "MedicinalProductAuthorization": {
-      "subject": [
-        "MedicinalProduct",
-        "MedicinalProductPackaged"
-      ],
-      "holder": [
-        "Organization"
-      ],
-      "regulator": [
-        "Organization"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "MedicinalProduct",
+          "MedicinalProductPackaged"
+        ]
+      },
+      "holder": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "regulator": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "MedicinalProductAuthorizationJurisdictionalAuthorization": {},
     "MedicinalProductAuthorizationProcedure": {},
     "Patient": {
-      "generalPractitioner": [
-        "Organization",
-        "Practitioner",
-        "PractitionerRole"
-      ],
-      "managingOrganization": [
-        "Organization"
-      ]
+      "generalPractitioner": {
+        "referenceTypes": [
+          "Organization",
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      },
+      "managingOrganization": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "PatientContact": {
-      "organization": [
-        "Organization"
-      ]
+      "organization": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "PatientCommunication": {},
     "PatientLink": {
-      "other": [
-        "Patient",
-        "RelatedPerson"
-      ]
+      "other": {
+        "referenceTypes": [
+          "Patient",
+          "RelatedPerson"
+        ]
+      }
     },
     "HumanName": {},
     "EventDefinition": {
-      "subject": [
-        "Group"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Group"
+        ]
+      }
     },
     "DeviceUseStatement": {
-      "basedOn": [
-        "ServiceRequest"
-      ],
-      "subject": [
-        "Patient",
-        "Group"
-      ],
-      "derivedFrom": [
-        "ServiceRequest",
-        "Procedure",
-        "Claim",
-        "Observation",
-        "QuestionnaireResponse",
-        "DocumentReference"
-      ],
-      "source": [
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson"
-      ],
-      "device": [
-        "Device"
-      ],
-      "reasonReference": [
-        "Condition",
-        "Observation",
-        "DiagnosticReport",
-        "DocumentReference",
-        "Media"
-      ]
+      "basedOn": {
+        "referenceTypes": [
+          "ServiceRequest"
+        ]
+      },
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group"
+        ]
+      },
+      "derivedFrom": {
+        "referenceTypes": [
+          "ServiceRequest",
+          "Procedure",
+          "Claim",
+          "Observation",
+          "QuestionnaireResponse",
+          "DocumentReference"
+        ]
+      },
+      "source": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson"
+        ]
+      },
+      "device": {
+        "referenceTypes": [
+          "Device"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "DiagnosticReport",
+          "DocumentReference",
+          "Media"
+        ]
+      }
     },
     "BiologicallyDerivedProduct": {
-      "request": [
-        "ServiceRequest"
-      ],
-      "parent": [
-        "BiologicallyDerivedProduct"
-      ]
+      "request": {
+        "referenceTypes": [
+          "ServiceRequest"
+        ]
+      },
+      "parent": {
+        "referenceTypes": [
+          "BiologicallyDerivedProduct"
+        ]
+      }
     },
     "BiologicallyDerivedProductCollection": {
-      "collector": [
-        "Practitioner",
-        "PractitionerRole"
-      ],
-      "source": [
-        "Patient",
-        "Organization"
-      ]
+      "collector": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      },
+      "source": {
+        "referenceTypes": [
+          "Patient",
+          "Organization"
+        ]
+      }
     },
     "BiologicallyDerivedProductProcessing": {
-      "additive": [
-        "Substance"
-      ]
+      "additive": {
+        "referenceTypes": [
+          "Substance"
+        ]
+      }
     },
     "BiologicallyDerivedProductManipulation": {},
     "BiologicallyDerivedProductStorage": {},
     "MessageHeader": {
-      "sender": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ],
-      "enterer": [
-        "Practitioner",
-        "PractitionerRole"
-      ],
-      "author": [
-        "Practitioner",
-        "PractitionerRole"
-      ],
-      "responsible": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ],
-      "focus": [
-        "Resource"
-      ]
+      "sender": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      },
+      "enterer": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      },
+      "author": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      },
+      "responsible": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      },
+      "focus": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "MessageHeaderDestination": {
-      "target": [
-        "Device"
-      ],
-      "receiver": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ]
+      "target": {
+        "referenceTypes": [
+          "Device"
+        ]
+      },
+      "receiver": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      }
     },
     "MessageHeaderSource": {},
     "MessageHeaderResponse": {
-      "details": [
-        "OperationOutcome"
-      ]
+      "details": {
+        "referenceTypes": [
+          "OperationOutcome"
+        ]
+      }
     },
     "SubstancePolymer": {},
     "SubstancePolymerMonomerSet": {},
@@ -2869,36 +3909,52 @@
     "SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation": {},
     "SubstancePolymerRepeatRepeatUnitStructuralRepresentation": {},
     "MedicinalProductPackaged": {
-      "subject": [
-        "MedicinalProduct"
-      ],
-      "marketingAuthorization": [
-        "MedicinalProductAuthorization"
-      ],
-      "manufacturer": [
-        "Organization"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "MedicinalProduct"
+        ]
+      },
+      "marketingAuthorization": {
+        "referenceTypes": [
+          "MedicinalProductAuthorization"
+        ]
+      },
+      "manufacturer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "MedicinalProductPackagedBatchIdentifier": {},
     "MedicinalProductPackagedPackageItem": {
-      "device": [
-        "DeviceDefinition"
-      ],
-      "manufacturedItem": [
-        "MedicinalProductManufactured"
-      ],
-      "manufacturer": [
-        "Organization"
-      ]
+      "device": {
+        "referenceTypes": [
+          "DeviceDefinition"
+        ]
+      },
+      "manufacturedItem": {
+        "referenceTypes": [
+          "MedicinalProductManufactured"
+        ]
+      },
+      "manufacturer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "RelatedArtifact": {},
     "MedicinalProductManufactured": {
-      "manufacturer": [
-        "Organization"
-      ],
-      "ingredient": [
-        "MedicinalProductIngredient"
-      ]
+      "manufacturer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "ingredient": {
+        "referenceTypes": [
+          "MedicinalProductIngredient"
+        ]
+      }
     },
     "SubstanceNucleicAcid": {},
     "SubstanceNucleicAcidSubunit": {},
@@ -2906,56 +3962,76 @@
     "SubstanceNucleicAcidSubunitSugar": {},
     "Population": {},
     "Communication": {
-      "basedOn": [
-        "Resource"
-      ],
-      "partOf": [
-        "Resource"
-      ],
-      "inResponseTo": [
-        "Communication"
-      ],
-      "subject": [
-        "Patient",
-        "Group"
-      ],
-      "about": [
-        "Resource"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "recipient": [
-        "Device",
-        "Organization",
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson",
-        "Group",
-        "CareTeam",
-        "HealthcareService"
-      ],
-      "sender": [
-        "Device",
-        "Organization",
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson",
-        "HealthcareService"
-      ],
-      "reasonReference": [
-        "Condition",
-        "Observation",
-        "DiagnosticReport",
-        "DocumentReference"
-      ]
+      "basedOn": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "partOf": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "inResponseTo": {
+        "referenceTypes": [
+          "Communication"
+        ]
+      },
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group"
+        ]
+      },
+      "about": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "recipient": {
+        "referenceTypes": [
+          "Device",
+          "Organization",
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson",
+          "Group",
+          "CareTeam",
+          "HealthcareService"
+        ]
+      },
+      "sender": {
+        "referenceTypes": [
+          "Device",
+          "Organization",
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson",
+          "HealthcareService"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "DiagnosticReport",
+          "DocumentReference"
+        ]
+      }
     },
     "CommunicationPayload": {
-      "content": [
-        "Resource"
-      ]
+      "content": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "OperationDefinition": {},
     "OperationDefinitionParameter": {},
@@ -2963,204 +4039,286 @@
     "OperationDefinitionParameterReferencedFrom": {},
     "OperationDefinitionOverload": {},
     "DetectedIssue": {
-      "patient": [
-        "Patient"
-      ],
-      "author": [
-        "Practitioner",
-        "PractitionerRole",
-        "Device"
-      ],
-      "implicated": [
-        "Resource"
-      ]
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "author": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Device"
+        ]
+      },
+      "implicated": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "DetectedIssueEvidence": {
-      "detail": [
-        "Resource"
-      ]
+      "detail": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "DetectedIssueMitigation": {
-      "author": [
-        "Practitioner",
-        "PractitionerRole"
-      ]
+      "author": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      }
     },
     "Procedure": {
-      "basedOn": [
-        "CarePlan",
-        "ServiceRequest"
-      ],
-      "partOf": [
-        "Procedure",
-        "Observation",
-        "MedicationAdministration"
-      ],
-      "subject": [
-        "Patient",
-        "Group"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "recorder": [
-        "Patient",
-        "RelatedPerson",
-        "Practitioner",
-        "PractitionerRole"
-      ],
-      "asserter": [
-        "Patient",
-        "RelatedPerson",
-        "Practitioner",
-        "PractitionerRole"
-      ],
-      "location": [
-        "Location"
-      ],
-      "reasonReference": [
-        "Condition",
-        "Observation",
-        "Procedure",
-        "DiagnosticReport",
-        "DocumentReference"
-      ],
-      "report": [
-        "DiagnosticReport",
-        "DocumentReference",
-        "Composition"
-      ],
-      "complicationDetail": [
-        "Condition"
-      ],
-      "usedReference": [
-        "Device",
-        "Medication",
-        "Substance"
-      ]
+      "basedOn": {
+        "referenceTypes": [
+          "CarePlan",
+          "ServiceRequest"
+        ]
+      },
+      "partOf": {
+        "referenceTypes": [
+          "Procedure",
+          "Observation",
+          "MedicationAdministration"
+        ]
+      },
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "recorder": {
+        "referenceTypes": [
+          "Patient",
+          "RelatedPerson",
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      },
+      "asserter": {
+        "referenceTypes": [
+          "Patient",
+          "RelatedPerson",
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      },
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "Procedure",
+          "DiagnosticReport",
+          "DocumentReference"
+        ]
+      },
+      "report": {
+        "referenceTypes": [
+          "DiagnosticReport",
+          "DocumentReference",
+          "Composition"
+        ]
+      },
+      "complicationDetail": {
+        "referenceTypes": [
+          "Condition"
+        ]
+      },
+      "usedReference": {
+        "referenceTypes": [
+          "Device",
+          "Medication",
+          "Substance"
+        ]
+      }
     },
     "ProcedurePerformer": {
-      "actor": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "Patient",
-        "RelatedPerson",
-        "Device"
-      ],
-      "onBehalfOf": [
-        "Organization"
-      ]
+      "actor": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "Patient",
+          "RelatedPerson",
+          "Device"
+        ]
+      },
+      "onBehalfOf": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "ProcedureFocalDevice": {
-      "manipulated": [
-        "Device"
-      ]
+      "manipulated": {
+        "referenceTypes": [
+          "Device"
+        ]
+      }
     },
     "OrganizationAffiliation": {
-      "organization": [
-        "Organization"
-      ],
-      "participatingOrganization": [
-        "Organization"
-      ],
-      "network": [
-        "Organization"
-      ],
-      "location": [
-        "Location"
-      ],
-      "healthcareService": [
-        "HealthcareService"
-      ],
-      "endpoint": [
-        "Endpoint"
-      ]
+      "organization": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "participatingOrganization": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "network": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "healthcareService": {
+        "referenceTypes": [
+          "HealthcareService"
+        ]
+      },
+      "endpoint": {
+        "referenceTypes": [
+          "Endpoint"
+        ]
+      }
     },
     "MeasureReport": {
-      "subject": [
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "Location",
-        "Device",
-        "RelatedPerson",
-        "Group"
-      ],
-      "reporter": [
-        "Practitioner",
-        "PractitionerRole",
-        "Location",
-        "Organization"
-      ],
-      "evaluatedResource": [
-        "Resource"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "Location",
+          "Device",
+          "RelatedPerson",
+          "Group"
+        ]
+      },
+      "reporter": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Location",
+          "Organization"
+        ]
+      },
+      "evaluatedResource": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "MeasureReportGroup": {},
     "MeasureReportGroupPopulation": {
-      "subjectResults": [
-        "List"
-      ]
+      "subjectResults": {
+        "referenceTypes": [
+          "List"
+        ]
+      }
     },
     "MeasureReportGroupStratifier": {},
     "MeasureReportGroupStratifierStratum": {},
     "MeasureReportGroupStratifierStratumComponent": {},
     "MeasureReportGroupStratifierStratumPopulation": {
-      "subjectResults": [
-        "List"
-      ]
+      "subjectResults": {
+        "referenceTypes": [
+          "List"
+        ]
+      }
     },
     "MedicationStatement": {
-      "basedOn": [
-        "MedicationRequest",
-        "CarePlan",
-        "ServiceRequest"
-      ],
-      "partOf": [
-        "MedicationAdministration",
-        "MedicationDispense",
-        "MedicationStatement",
-        "Procedure",
-        "Observation"
-      ],
-      "medication": [
-        "Medication"
-      ],
-      "subject": [
-        "Patient",
-        "Group"
-      ],
-      "context": [
-        "Encounter",
-        "EpisodeOfCare"
-      ],
-      "informationSource": [
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson",
-        "Organization"
-      ],
-      "derivedFrom": [
-        "Resource"
-      ],
-      "reasonReference": [
-        "Condition",
-        "Observation",
-        "DiagnosticReport"
-      ]
+      "basedOn": {
+        "referenceTypes": [
+          "MedicationRequest",
+          "CarePlan",
+          "ServiceRequest"
+        ]
+      },
+      "partOf": {
+        "referenceTypes": [
+          "MedicationAdministration",
+          "MedicationDispense",
+          "MedicationStatement",
+          "Procedure",
+          "Observation"
+        ]
+      },
+      "medication": {
+        "referenceTypes": [
+          "Medication"
+        ]
+      },
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group"
+        ]
+      },
+      "context": {
+        "referenceTypes": [
+          "Encounter",
+          "EpisodeOfCare"
+        ]
+      },
+      "informationSource": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson",
+          "Organization"
+        ]
+      },
+      "derivedFrom": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "DiagnosticReport"
+        ]
+      }
     },
     "DeviceDefinition": {
-      "manufacturer": [
-        "Organization"
-      ],
-      "owner": [
-        "Organization"
-      ],
-      "parentDevice": [
-        "DeviceDefinition"
-      ]
+      "manufacturer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "owner": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "parentDevice": {
+        "referenceTypes": [
+          "DeviceDefinition"
+        ]
+      }
     },
     "DeviceDefinitionUdiDeviceIdentifier": {},
     "DeviceDefinitionDeviceName": {},
@@ -3169,114 +4327,154 @@
     "DeviceDefinitionProperty": {},
     "DeviceDefinitionMaterial": {},
     "CatalogEntry": {
-      "referencedItem": [
-        "Medication",
-        "Device",
-        "Organization",
-        "Practitioner",
-        "PractitionerRole",
-        "HealthcareService",
-        "ActivityDefinition",
-        "PlanDefinition",
-        "SpecimenDefinition",
-        "ObservationDefinition",
-        "Binary"
-      ]
+      "referencedItem": {
+        "referenceTypes": [
+          "Medication",
+          "Device",
+          "Organization",
+          "Practitioner",
+          "PractitionerRole",
+          "HealthcareService",
+          "ActivityDefinition",
+          "PlanDefinition",
+          "SpecimenDefinition",
+          "ObservationDefinition",
+          "Binary"
+        ]
+      }
     },
     "CatalogEntryRelatedEntry": {
-      "item": [
-        "CatalogEntry"
-      ]
+      "item": {
+        "referenceTypes": [
+          "CatalogEntry"
+        ]
+      }
     },
     "Slot": {
-      "schedule": [
-        "Schedule"
-      ]
+      "schedule": {
+        "referenceTypes": [
+          "Schedule"
+        ]
+      }
     },
     "CoverageEligibilityRequest": {
-      "patient": [
-        "Patient"
-      ],
-      "enterer": [
-        "Practitioner",
-        "PractitionerRole"
-      ],
-      "provider": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ],
-      "insurer": [
-        "Organization"
-      ],
-      "facility": [
-        "Location"
-      ]
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "enterer": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      },
+      "provider": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      },
+      "insurer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "facility": {
+        "referenceTypes": [
+          "Location"
+        ]
+      }
     },
     "CoverageEligibilityRequestSupportingInfo": {
-      "information": [
-        "Resource"
-      ]
+      "information": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "CoverageEligibilityRequestInsurance": {
-      "coverage": [
-        "Coverage"
-      ]
+      "coverage": {
+        "referenceTypes": [
+          "Coverage"
+        ]
+      }
     },
     "CoverageEligibilityRequestItem": {
-      "provider": [
-        "Practitioner",
-        "PractitionerRole"
-      ],
-      "facility": [
-        "Location",
-        "Organization"
-      ],
-      "detail": [
-        "Resource"
-      ]
+      "provider": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      },
+      "facility": {
+        "referenceTypes": [
+          "Location",
+          "Organization"
+        ]
+      },
+      "detail": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "CoverageEligibilityRequestItemDiagnosis": {
-      "diagnosis": [
-        "Condition"
-      ]
+      "diagnosis": {
+        "referenceTypes": [
+          "Condition"
+        ]
+      }
     },
     "MedicinalProductInteraction": {
-      "subject": [
-        "MedicinalProduct",
-        "Medication",
-        "Substance"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "MedicinalProduct",
+          "Medication",
+          "Substance"
+        ]
+      }
     },
     "MedicinalProductInteractionInteractant": {
-      "item": [
-        "MedicinalProduct",
-        "Medication",
-        "Substance",
-        "ObservationDefinition"
-      ]
+      "item": {
+        "referenceTypes": [
+          "MedicinalProduct",
+          "Medication",
+          "Substance",
+          "ObservationDefinition"
+        ]
+      }
     },
     "List": {
-      "subject": [
-        "Patient",
-        "Group",
-        "Device",
-        "Location"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "source": [
-        "Practitioner",
-        "PractitionerRole",
-        "Patient",
-        "Device"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group",
+          "Device",
+          "Location"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "source": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Patient",
+          "Device"
+        ]
+      }
     },
     "ListEntry": {
-      "item": [
-        "Resource"
-      ]
+      "item": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "Subscription": {},
     "SubscriptionChannel": {},
@@ -3285,28 +4483,38 @@
     "Age": {},
     "SampledData": {},
     "EnrollmentResponse": {
-      "request": [
-        "EnrollmentRequest"
-      ],
-      "organization": [
-        "Organization"
-      ],
-      "requestProvider": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ]
+      "request": {
+        "referenceTypes": [
+          "EnrollmentRequest"
+        ]
+      },
+      "organization": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "requestProvider": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      }
     },
     "Practitioner": {},
     "PractitionerQualification": {
-      "issuer": [
-        "Organization"
-      ]
+      "issuer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "TestReport": {
-      "testScript": [
-        "TestScript"
-      ]
+      "testScript": {
+        "referenceTypes": [
+          "TestScript"
+        ]
+      }
     },
     "TestReportParticipant": {},
     "TestReportSetup": {},
@@ -3318,21 +4526,31 @@
     "TestReportTeardown": {},
     "TestReportTeardownAction": {},
     "Device": {
-      "definition": [
-        "DeviceDefinition"
-      ],
-      "patient": [
-        "Patient"
-      ],
-      "owner": [
-        "Organization"
-      ],
-      "location": [
-        "Location"
-      ],
-      "parent": [
-        "Device"
-      ]
+      "definition": {
+        "referenceTypes": [
+          "DeviceDefinition"
+        ]
+      },
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "owner": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "parent": {
+        "referenceTypes": [
+          "Device"
+        ]
+      }
     },
     "DeviceUdiCarrier": {},
     "DeviceDeviceName": {},
@@ -3346,64 +4564,92 @@
     "BundleEntryRequest": {},
     "BundleEntryResponse": {},
     "MedicationAdministration": {
-      "partOf": [
-        "MedicationAdministration",
-        "Procedure"
-      ],
-      "medication": [
-        "Medication"
-      ],
-      "subject": [
-        "Patient",
-        "Group"
-      ],
-      "context": [
-        "Encounter",
-        "EpisodeOfCare"
-      ],
-      "supportingInformation": [
-        "Resource"
-      ],
-      "reasonReference": [
-        "Condition",
-        "Observation",
-        "DiagnosticReport"
-      ],
-      "request": [
-        "MedicationRequest"
-      ],
-      "device": [
-        "Device"
-      ],
-      "eventHistory": [
-        "Provenance"
-      ]
+      "partOf": {
+        "referenceTypes": [
+          "MedicationAdministration",
+          "Procedure"
+        ]
+      },
+      "medication": {
+        "referenceTypes": [
+          "Medication"
+        ]
+      },
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group"
+        ]
+      },
+      "context": {
+        "referenceTypes": [
+          "Encounter",
+          "EpisodeOfCare"
+        ]
+      },
+      "supportingInformation": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "DiagnosticReport"
+        ]
+      },
+      "request": {
+        "referenceTypes": [
+          "MedicationRequest"
+        ]
+      },
+      "device": {
+        "referenceTypes": [
+          "Device"
+        ]
+      },
+      "eventHistory": {
+        "referenceTypes": [
+          "Provenance"
+        ]
+      }
     },
     "MedicationAdministrationPerformer": {
-      "actor": [
-        "Practitioner",
-        "PractitionerRole",
-        "Patient",
-        "RelatedPerson",
-        "Device"
-      ]
+      "actor": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Patient",
+          "RelatedPerson",
+          "Device"
+        ]
+      }
     },
     "MedicationAdministrationDosage": {},
     "Reference": {},
     "NutritionOrder": {
-      "patient": [
-        "Patient"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "orderer": [
-        "Practitioner",
-        "PractitionerRole"
-      ],
-      "allergyIntolerance": [
-        "AllergyIntolerance"
-      ]
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "orderer": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      },
+      "allergyIntolerance": {
+        "referenceTypes": [
+          "AllergyIntolerance"
+        ]
+      }
     },
     "NutritionOrderOralDiet": {},
     "NutritionOrderOralDietNutrient": {},
@@ -3413,535 +4659,753 @@
     "NutritionOrderEnteralFormulaAdministration": {},
     "Range": {},
     "Immunization": {
-      "patient": [
-        "Patient"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "location": [
-        "Location"
-      ],
-      "manufacturer": [
-        "Organization"
-      ],
-      "reasonReference": [
-        "Condition",
-        "Observation",
-        "DiagnosticReport"
-      ]
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "manufacturer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "DiagnosticReport"
+        ]
+      }
     },
     "ImmunizationPerformer": {
-      "actor": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ]
+      "actor": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      }
     },
     "ImmunizationEducation": {},
     "ImmunizationReaction": {
-      "detail": [
-        "Observation"
-      ]
+      "detail": {
+        "referenceTypes": [
+          "Observation"
+        ]
+      }
     },
     "ImmunizationProtocolApplied": {
-      "authority": [
-        "Organization"
-      ]
+      "authority": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "SpecimenDefinition": {},
     "SpecimenDefinitionTypeTested": {},
     "SpecimenDefinitionTypeTestedContainer": {},
     "SpecimenDefinitionTypeTestedContainerAdditive": {
-      "additive": [
-        "Substance"
-      ]
+      "additive": {
+        "referenceTypes": [
+          "Substance"
+        ]
+      }
     },
     "SpecimenDefinitionTypeTestedHandling": {},
     "Narrative": {},
     "Endpoint": {
-      "managingOrganization": [
-        "Organization"
-      ]
+      "managingOrganization": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "Goal": {
-      "subject": [
-        "Patient",
-        "Group",
-        "Organization"
-      ],
-      "expressedBy": [
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson"
-      ],
-      "addresses": [
-        "Condition",
-        "Observation",
-        "MedicationStatement",
-        "NutritionOrder",
-        "ServiceRequest",
-        "RiskAssessment"
-      ],
-      "outcomeReference": [
-        "Observation"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group",
+          "Organization"
+        ]
+      },
+      "expressedBy": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson"
+        ]
+      },
+      "addresses": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "MedicationStatement",
+          "NutritionOrder",
+          "ServiceRequest",
+          "RiskAssessment"
+        ]
+      },
+      "outcomeReference": {
+        "referenceTypes": [
+          "Observation"
+        ]
+      }
     },
     "GoalTarget": {},
     "Expression": {},
     "AllergyIntolerance": {
-      "patient": [
-        "Patient"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "recorder": [
-        "Practitioner",
-        "PractitionerRole",
-        "Patient",
-        "RelatedPerson"
-      ],
-      "asserter": [
-        "Patient",
-        "RelatedPerson",
-        "Practitioner",
-        "PractitionerRole"
-      ]
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "recorder": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Patient",
+          "RelatedPerson"
+        ]
+      },
+      "asserter": {
+        "referenceTypes": [
+          "Patient",
+          "RelatedPerson",
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      }
     },
     "AllergyIntoleranceReaction": {},
     "ParameterDefinition": {},
     "ImmunizationEvaluation": {
-      "patient": [
-        "Patient"
-      ],
-      "authority": [
-        "Organization"
-      ],
-      "immunizationEvent": [
-        "Immunization"
-      ]
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "authority": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      },
+      "immunizationEvent": {
+        "referenceTypes": [
+          "Immunization"
+        ]
+      }
     },
     "DeviceRequest": {
-      "basedOn": [
-        "Resource"
-      ],
-      "priorRequest": [
-        "Resource"
-      ],
-      "code": [
-        "Device"
-      ],
-      "subject": [
-        "Patient",
-        "Group",
-        "Location",
-        "Device"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "requester": [
-        "Device",
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ],
-      "performer": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "CareTeam",
-        "HealthcareService",
-        "Patient",
-        "Device",
-        "RelatedPerson"
-      ],
-      "reasonReference": [
-        "Condition",
-        "Observation",
-        "DiagnosticReport",
-        "DocumentReference"
-      ],
-      "insurance": [
-        "Coverage",
-        "ClaimResponse"
-      ],
-      "supportingInfo": [
-        "Resource"
-      ],
-      "relevantHistory": [
-        "Provenance"
-      ]
+      "basedOn": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "priorRequest": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "code": {
+        "referenceTypes": [
+          "Device"
+        ]
+      },
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group",
+          "Location",
+          "Device"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "requester": {
+        "referenceTypes": [
+          "Device",
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      },
+      "performer": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "CareTeam",
+          "HealthcareService",
+          "Patient",
+          "Device",
+          "RelatedPerson"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "DiagnosticReport",
+          "DocumentReference"
+        ]
+      },
+      "insurance": {
+        "referenceTypes": [
+          "Coverage",
+          "ClaimResponse"
+        ]
+      },
+      "supportingInfo": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "relevantHistory": {
+        "referenceTypes": [
+          "Provenance"
+        ]
+      }
     },
     "DeviceRequestParameter": {},
     "CoverageEligibilityResponse": {
-      "patient": [
-        "Patient"
-      ],
-      "requestor": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ],
-      "request": [
-        "CoverageEligibilityRequest"
-      ],
-      "insurer": [
-        "Organization"
-      ]
+      "patient": {
+        "referenceTypes": [
+          "Patient"
+        ]
+      },
+      "requestor": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      },
+      "request": {
+        "referenceTypes": [
+          "CoverageEligibilityRequest"
+        ]
+      },
+      "insurer": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "CoverageEligibilityResponseInsurance": {
-      "coverage": [
-        "Coverage"
-      ]
+      "coverage": {
+        "referenceTypes": [
+          "Coverage"
+        ]
+      }
     },
     "CoverageEligibilityResponseInsuranceItem": {
-      "provider": [
-        "Practitioner",
-        "PractitionerRole"
-      ]
+      "provider": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      }
     },
     "CoverageEligibilityResponseInsuranceItemBenefit": {},
     "CoverageEligibilityResponseError": {},
     "Media": {
-      "basedOn": [
-        "ServiceRequest",
-        "CarePlan"
-      ],
-      "partOf": [
-        "Resource"
-      ],
-      "subject": [
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "Group",
-        "Device",
-        "Specimen",
-        "Location"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "operator": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "CareTeam",
-        "Patient",
-        "Device",
-        "RelatedPerson"
-      ],
-      "device": [
-        "Device",
-        "DeviceMetric",
-        "Device"
-      ]
+      "basedOn": {
+        "referenceTypes": [
+          "ServiceRequest",
+          "CarePlan"
+        ]
+      },
+      "partOf": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "Group",
+          "Device",
+          "Specimen",
+          "Location"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "operator": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "CareTeam",
+          "Patient",
+          "Device",
+          "RelatedPerson"
+        ]
+      },
+      "device": {
+        "referenceTypes": [
+          "Device",
+          "DeviceMetric",
+          "Device"
+        ]
+      }
     },
     "MarketingStatus": {},
     "PaymentNotice": {
-      "request": [
-        "Resource"
-      ],
-      "response": [
-        "Resource"
-      ],
-      "provider": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ],
-      "payment": [
-        "PaymentReconciliation"
-      ],
-      "payee": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization"
-      ],
-      "recipient": [
-        "Organization"
-      ]
+      "request": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "response": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "provider": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      },
+      "payment": {
+        "referenceTypes": [
+          "PaymentReconciliation"
+        ]
+      },
+      "payee": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization"
+        ]
+      },
+      "recipient": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "SubstanceSpecification": {
-      "source": [
-        "DocumentReference"
-      ],
-      "referenceInformation": [
-        "SubstanceReferenceInformation"
-      ],
-      "nucleicAcid": [
-        "SubstanceNucleicAcid"
-      ],
-      "polymer": [
-        "SubstancePolymer"
-      ],
-      "protein": [
-        "SubstanceProtein"
-      ],
-      "sourceMaterial": [
-        "SubstanceSourceMaterial"
-      ]
+      "source": {
+        "referenceTypes": [
+          "DocumentReference"
+        ]
+      },
+      "referenceInformation": {
+        "referenceTypes": [
+          "SubstanceReferenceInformation"
+        ]
+      },
+      "nucleicAcid": {
+        "referenceTypes": [
+          "SubstanceNucleicAcid"
+        ]
+      },
+      "polymer": {
+        "referenceTypes": [
+          "SubstancePolymer"
+        ]
+      },
+      "protein": {
+        "referenceTypes": [
+          "SubstanceProtein"
+        ]
+      },
+      "sourceMaterial": {
+        "referenceTypes": [
+          "SubstanceSourceMaterial"
+        ]
+      }
     },
     "SubstanceSpecificationMoiety": {},
     "SubstanceSpecificationProperty": {
-      "definingSubstance": [
-        "SubstanceSpecification",
-        "Substance"
-      ]
+      "definingSubstance": {
+        "referenceTypes": [
+          "SubstanceSpecification",
+          "Substance"
+        ]
+      }
     },
     "SubstanceSpecificationStructure": {
-      "source": [
-        "DocumentReference"
-      ]
+      "source": {
+        "referenceTypes": [
+          "DocumentReference"
+        ]
+      }
     },
     "SubstanceSpecificationStructureIsotope": {},
     "SubstanceSpecificationStructureIsotopeMolecularWeight": {},
     "SubstanceSpecificationStructureRepresentation": {},
     "SubstanceSpecificationCode": {
-      "source": [
-        "DocumentReference"
-      ]
+      "source": {
+        "referenceTypes": [
+          "DocumentReference"
+        ]
+      }
     },
     "SubstanceSpecificationName": {
-      "source": [
-        "DocumentReference"
-      ]
+      "source": {
+        "referenceTypes": [
+          "DocumentReference"
+        ]
+      }
     },
     "SubstanceSpecificationNameOfficial": {},
     "SubstanceSpecificationRelationship": {
-      "substance": [
-        "SubstanceSpecification"
-      ],
-      "source": [
-        "DocumentReference"
-      ]
+      "substance": {
+        "referenceTypes": [
+          "SubstanceSpecification"
+        ]
+      },
+      "source": {
+        "referenceTypes": [
+          "DocumentReference"
+        ]
+      }
     },
     "Basic": {
-      "subject": [
-        "Resource"
-      ],
-      "author": [
-        "Practitioner",
-        "PractitionerRole",
-        "Patient",
-        "RelatedPerson",
-        "Organization"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "author": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Patient",
+          "RelatedPerson",
+          "Organization"
+        ]
+      }
     },
     "MedicationDispense": {
-      "partOf": [
-        "Procedure"
-      ],
-      "statusReason": [
-        "DetectedIssue"
-      ],
-      "medication": [
-        "Medication"
-      ],
-      "subject": [
-        "Patient",
-        "Group"
-      ],
-      "context": [
-        "Encounter",
-        "EpisodeOfCare"
-      ],
-      "supportingInformation": [
-        "Resource"
-      ],
-      "location": [
-        "Location"
-      ],
-      "authorizingPrescription": [
-        "MedicationRequest"
-      ],
-      "destination": [
-        "Location"
-      ],
-      "receiver": [
-        "Patient",
-        "Practitioner"
-      ],
-      "detectedIssue": [
-        "DetectedIssue"
-      ],
-      "eventHistory": [
-        "Provenance"
-      ]
+      "partOf": {
+        "referenceTypes": [
+          "Procedure"
+        ]
+      },
+      "statusReason": {
+        "referenceTypes": [
+          "DetectedIssue"
+        ]
+      },
+      "medication": {
+        "referenceTypes": [
+          "Medication"
+        ]
+      },
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group"
+        ]
+      },
+      "context": {
+        "referenceTypes": [
+          "Encounter",
+          "EpisodeOfCare"
+        ]
+      },
+      "supportingInformation": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "authorizingPrescription": {
+        "referenceTypes": [
+          "MedicationRequest"
+        ]
+      },
+      "destination": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "receiver": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner"
+        ]
+      },
+      "detectedIssue": {
+        "referenceTypes": [
+          "DetectedIssue"
+        ]
+      },
+      "eventHistory": {
+        "referenceTypes": [
+          "Provenance"
+        ]
+      }
     },
     "MedicationDispensePerformer": {
-      "actor": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "Patient",
-        "Device",
-        "RelatedPerson"
-      ]
+      "actor": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "Patient",
+          "Device",
+          "RelatedPerson"
+        ]
+      }
     },
     "MedicationDispenseSubstitution": {
-      "responsibleParty": [
-        "Practitioner",
-        "PractitionerRole"
-      ]
+      "responsibleParty": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole"
+        ]
+      }
     },
     "QuestionnaireResponse": {
-      "basedOn": [
-        "CarePlan",
-        "ServiceRequest"
-      ],
-      "partOf": [
-        "Observation",
-        "Procedure"
-      ],
-      "subject": [
-        "Resource"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "author": [
-        "Device",
-        "Practitioner",
-        "PractitionerRole",
-        "Patient",
-        "RelatedPerson",
-        "Organization"
-      ],
-      "source": [
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson"
-      ]
+      "basedOn": {
+        "referenceTypes": [
+          "CarePlan",
+          "ServiceRequest"
+        ]
+      },
+      "partOf": {
+        "referenceTypes": [
+          "Observation",
+          "Procedure"
+        ]
+      },
+      "subject": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "author": {
+        "referenceTypes": [
+          "Device",
+          "Practitioner",
+          "PractitionerRole",
+          "Patient",
+          "RelatedPerson",
+          "Organization"
+        ]
+      },
+      "source": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson"
+        ]
+      }
     },
     "QuestionnaireResponseItem": {},
     "QuestionnaireResponseItemAnswer": {
-      "value": [
-        "Resource"
-      ]
+      "value": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      }
     },
     "CareTeam": {
-      "subject": [
-        "Patient",
-        "Group"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "reasonReference": [
-        "Condition"
-      ],
-      "managingOrganization": [
-        "Organization"
-      ]
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition"
+        ]
+      },
+      "managingOrganization": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "CareTeamParticipant": {
-      "member": [
-        "Practitioner",
-        "PractitionerRole",
-        "RelatedPerson",
-        "Patient",
-        "Organization",
-        "CareTeam"
-      ],
-      "onBehalfOf": [
-        "Organization"
-      ]
+      "member": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "RelatedPerson",
+          "Patient",
+          "Organization",
+          "CareTeam"
+        ]
+      },
+      "onBehalfOf": {
+        "referenceTypes": [
+          "Organization"
+        ]
+      }
     },
     "CarePlan": {
-      "basedOn": [
-        "CarePlan"
-      ],
-      "replaces": [
-        "CarePlan"
-      ],
-      "partOf": [
-        "CarePlan"
-      ],
-      "subject": [
-        "Patient",
-        "Group"
-      ],
-      "encounter": [
-        "Encounter"
-      ],
-      "author": [
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "Device",
-        "RelatedPerson",
-        "Organization",
-        "CareTeam"
-      ],
-      "contributor": [
-        "Patient",
-        "Practitioner",
-        "PractitionerRole",
-        "Device",
-        "RelatedPerson",
-        "Organization",
-        "CareTeam"
-      ],
-      "careTeam": [
-        "CareTeam"
-      ],
-      "addresses": [
-        "Condition"
-      ],
-      "supportingInfo": [
-        "Resource"
-      ],
-      "goal": [
-        "Goal"
-      ]
+      "basedOn": {
+        "referenceTypes": [
+          "CarePlan"
+        ]
+      },
+      "replaces": {
+        "referenceTypes": [
+          "CarePlan"
+        ]
+      },
+      "partOf": {
+        "referenceTypes": [
+          "CarePlan"
+        ]
+      },
+      "subject": {
+        "referenceTypes": [
+          "Patient",
+          "Group"
+        ]
+      },
+      "encounter": {
+        "referenceTypes": [
+          "Encounter"
+        ]
+      },
+      "author": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "Device",
+          "RelatedPerson",
+          "Organization",
+          "CareTeam"
+        ]
+      },
+      "contributor": {
+        "referenceTypes": [
+          "Patient",
+          "Practitioner",
+          "PractitionerRole",
+          "Device",
+          "RelatedPerson",
+          "Organization",
+          "CareTeam"
+        ]
+      },
+      "careTeam": {
+        "referenceTypes": [
+          "CareTeam"
+        ]
+      },
+      "addresses": {
+        "referenceTypes": [
+          "Condition"
+        ]
+      },
+      "supportingInfo": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "goal": {
+        "referenceTypes": [
+          "Goal"
+        ]
+      }
     },
     "CarePlanActivity": {
-      "outcomeReference": [
-        "Resource"
-      ],
-      "reference": [
-        "Appointment",
-        "CommunicationRequest",
-        "DeviceRequest",
-        "MedicationRequest",
-        "NutritionOrder",
-        "Task",
-        "ServiceRequest",
-        "VisionPrescription",
-        "RequestGroup"
-      ]
+      "outcomeReference": {
+        "referenceTypes": [
+          "Resource"
+        ]
+      },
+      "reference": {
+        "referenceTypes": [
+          "Appointment",
+          "CommunicationRequest",
+          "DeviceRequest",
+          "MedicationRequest",
+          "NutritionOrder",
+          "Task",
+          "ServiceRequest",
+          "VisionPrescription",
+          "RequestGroup"
+        ]
+      }
     },
     "CarePlanActivityDetail": {
-      "reasonReference": [
-        "Condition",
-        "Observation",
-        "DiagnosticReport",
-        "DocumentReference"
-      ],
-      "goal": [
-        "Goal"
-      ],
-      "location": [
-        "Location"
-      ],
-      "performer": [
-        "Practitioner",
-        "PractitionerRole",
-        "Organization",
-        "RelatedPerson",
-        "Patient",
-        "CareTeam",
-        "HealthcareService",
-        "Device"
-      ],
-      "product": [
-        "Medication",
-        "Substance"
-      ]
+      "reasonReference": {
+        "referenceTypes": [
+          "Condition",
+          "Observation",
+          "DiagnosticReport",
+          "DocumentReference"
+        ]
+      },
+      "goal": {
+        "referenceTypes": [
+          "Goal"
+        ]
+      },
+      "location": {
+        "referenceTypes": [
+          "Location"
+        ]
+      },
+      "performer": {
+        "referenceTypes": [
+          "Practitioner",
+          "PractitionerRole",
+          "Organization",
+          "RelatedPerson",
+          "Patient",
+          "CareTeam",
+          "HealthcareService",
+          "Device"
+        ]
+      },
+      "product": {
+        "referenceTypes": [
+          "Medication",
+          "Substance"
+        ]
+      }
     }
   }

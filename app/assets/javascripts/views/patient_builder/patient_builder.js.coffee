@@ -129,7 +129,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     categories = {}
     @measure?.get('source_data_criteria').each (criteria) ->
       resourceType = criteria.get('fhir_resource').resourceType
-      type = DataCriteriaHelpers.DATA_ELEMENT_CATEGORIES[resourceType] || 'unsupported'
+      type = DataElementCategories.CATEGORIES[resourceType] || 'unsupported'
       # Filter out elements with no oids(this happens if element doesn't have codeFilter associated with it)
       filter_criteria = criteria.get('codeListId') is undefined || criteria.get('valueSetTitle') is undefined
       unless filter_criteria
@@ -292,7 +292,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
   addCriteria: (criteria) ->
     resourceType = criteria.get('dataElement')?.fhir_resource?.resourceType;
-    category = DataCriteriaHelpers.DATA_ELEMENT_CATEGORIES[resourceType]
+    category = DataElementCategories.CATEGORIES[resourceType]
     unless (category)
       console.error('Unsupported data element of ' + resourceType)
       return
