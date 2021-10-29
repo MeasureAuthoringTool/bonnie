@@ -52,7 +52,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
       'individuals': 'individuals'
       'workflow': 'workflow'
 
-    element_category = DataCriteriaHelpers.DATA_ELEMENT_CATEGORIES[@get('fhir_resource').resourceType]
+    element_category = DataElementCategories.CATEGORIES[@get('fhir_resource').resourceType]
     icons[element_category] || 'question'
 
   # determines if a data criteria has a time period associated with it: it potentially has both

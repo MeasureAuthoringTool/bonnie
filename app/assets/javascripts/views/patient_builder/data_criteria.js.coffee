@@ -141,7 +141,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   context: ->
     desc = @parseDataElementDescription(@model.get('description'))
     resourceType = @model.get('fhir_resource').resourceType
-    category = DataCriteriaHelpers.DATA_ELEMENT_CATEGORIES[resourceType] || 'unsupported'
+    category = DataElementCategories.CATEGORIES[resourceType] || 'unsupported'
     definition_title = category.replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
       desc = desc.substring(desc.indexOf(':') + 2)

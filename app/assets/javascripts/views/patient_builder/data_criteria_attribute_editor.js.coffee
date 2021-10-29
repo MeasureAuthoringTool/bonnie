@@ -127,7 +127,8 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
 #  In that case it will lack custom value set bindings
 #  We can come up with a lookup for VS bindings
       when 'ObservationComponent' then new Thorax.Views.InputObservationComponentView({ cqmValueSets: (@currentAttribute?.valueSets || []).concat(@parent.measure.get('cqmValueSets')), codeSystemMap: @parent.measure.codeSystemMap() })
-      when 'Quantity', 'SimpleQuantity' then new Thorax.Views.InputQuantityView()
+      when 'Quantity' then new Thorax.Views.InputQuantityView()
+      when 'SimpleQuantity' then new Thorax.Views.InputSimpleQuantityView()
       when 'Duration' then new Thorax.Views.InputDurationView()
       when 'Age' then new Thorax.Views.InputAgeView()
       when 'Range' then new Thorax.Views.InputRangeView()

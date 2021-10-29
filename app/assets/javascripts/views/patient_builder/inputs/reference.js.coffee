@@ -15,7 +15,7 @@ class Thorax.Views.InputReferenceView extends Thorax.Views.BonnieView
     for dataCriterion in @dataCriteria
       fhirid = dataCriterion.get('dataElement').fhir_resource.id
       resourceType = dataCriterion.get('dataElement').fhir_resource.resourceType
-      if fhirid != @parentDataElement.fhir_resource.id && @referenceTypes.includes(resourceType)
+      if fhirid != @parentDataElement.fhir_resource.id && (@referenceTypes?.includes(resourceType) || !@referenceTypes)
         @existingResources.push({
           id: fhirid,
           name: "#{dataCriterion.get('dataElement').description}(...#{fhirid.slice(-6)})",
