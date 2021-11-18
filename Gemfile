@@ -12,7 +12,7 @@ gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
-gem 'cqm-models', '~>4.0.0'
+gem 'cqm-models', '~>4.0.2'
 # gem 'cqm-reports', '~> 3.1.2'
 
 gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers.git', :branch => 'bonnie_version'
