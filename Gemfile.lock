@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers.git
-  revision: d702ce13d1138dff2d71c1691b618bf6b0cf1a8f
+  revision: 847019101f1a122f44e3cda0b7313d40cb71e6bb
   branch: bonnie_version
   specs:
     cqm-parsers (0.2.1.1)
@@ -129,7 +129,7 @@ GEM
     colorize (0.8.1)
     commonjs (0.2.7)
     concurrent-ruby (1.1.8)
-    cqm-models (4.0.0)
+    cqm-models (4.0.2)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -155,7 +155,7 @@ GEM
       doorkeeper (>= 4.0.0, < 5.0)
     erubi (1.10.0)
     erubis (2.7.0)
-    ethon (0.14.0)
+    ethon (0.15.0)
       ffi (>= 1.15.0)
     eventmachine (1.2.7)
     execjs (2.8.1)
@@ -402,7 +402,7 @@ DEPENDENCIES
   codecov
   coffee-rails
   colorize
-  cqm-models (~> 4.0.0)
+  cqm-models (~> 4.0.2)
   cqm-parsers!
   debase
   devise
