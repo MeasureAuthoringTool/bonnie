@@ -1,6 +1,6 @@
 {
   "name": "bonnie",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "description": "A tool for testing electronic clinical quality measures",
   "main": "index.js",
   "repository": "git@github.com:MeasureAuthoringTool/bonnie.git",
@@ -108,7 +108,7 @@
   "scripts": {},
   "dependencies": {
     "browserify": "^17.0.0",
-    "cqm-execution": "^4.0.0",
+    "cqm-execution": "4.0.2",
     "rxjs": "^7.1.0"
   }
 }

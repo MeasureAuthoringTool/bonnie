@@ -28,7 +28,6 @@ If JIRA tests were used to supplement or replace automated tests:
 Name:
 - [ ] Code is maintainable and reusable, reuses existing code and infrastructure where appropriate, and accomplishes the task’s purpose
 - [ ] The tests appropriately test the new code, including edge cases
-- [ ] You have tried to break the code
 
 If JIRA tests were used to supplement or replace automated tests:
 - [ ] JIRA tests have been run and pass
