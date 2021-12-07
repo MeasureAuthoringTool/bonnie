@@ -64,3 +64,17 @@ Backbone.sync = _.wrap Backbone.sync, (originalSync, method, model, options) ->
 
 window.bonnie = new BonnieRouter()
 # We call Backbone.history.start() after all the measures are loaded, in app/views/layouts/application.html.erb
+
+$(() ->
+  # Monkey patch
+  cqm.models.CQL.Date.prototype.getDateTime = () ->
+    if this.year != null && this.month != null && this.day != null
+    # As per CQL specificaiton a user request TZ should be used for Date to DateTime conversion.
+    # But this is inconsistent with Bonnie's architecture decisions.
+    # Bonnie keeps all DateTime values (in MongoDB and passes to cql-execution) as if they were in Z timezone.
+    # Thus let's override Date#getDateTime and pass 0 timezone.
+    # See the last parameter of the constructor is 0, it was originally missed.
+      return new cqm.models.CQL.DateTime(this.year, this.month, this.day, 0, 0, 0, 0, 0)
+    else
+      return new cqm.models.CQL.DateTime(this.year, this.month, this.day)
+)
