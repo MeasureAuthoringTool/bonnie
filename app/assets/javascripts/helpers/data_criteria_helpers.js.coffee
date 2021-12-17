@@ -651,6 +651,16 @@
       {
         path: 'occurrence'
         types: ['DateTime']
+      },
+      {
+        path: 'statusReason'
+        types: ['CodeableConcept'],
+        valueSets: () -> [
+          ImmunizationStatusReasonValueSet.JSON
+          NegationReasonValueSet.MEDICAL_REASON_NOT_DONE,
+          NegationReasonValueSet.PATIENT_REASON_NOT_DONE,
+          NegationReasonValueSet.SYSTEM_REASONS
+        ]
       }
     ]
     ImmunizationEvaluation: []
@@ -747,6 +757,13 @@
         path: 'status'
         types: ['Code']
         valueSets: () -> [MedicationDispenseStatusValueSet.JSON]
+      },
+      {
+        path: 'statusReason'
+        types: ['CodeableConcept']
+        valueSets: () -> [NegationReasonValueSet.MEDICAL_REASON_NOT_DONE, 
+                          NegationReasonValueSet.PATIENT_REASON_NOT_DONE, 
+                          NegationReasonValueSet.SYSTEM_REASONS]
       }
     ]
     MedicationRequest: [

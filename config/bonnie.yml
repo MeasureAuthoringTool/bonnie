@@ -1,5 +1,5 @@
 defaults: &defaults
-  version: 6.2.1
+  version: 6.2.2
   enable_logging: true
   enable_rationale: true
   check_crosswalk: false
@@ -25,10 +25,10 @@ defaults: &defaults
   bonnie_from_email: dont-reply-sb-bonnie-help@hcqis.org # For email sender
   bonnie_error_email: bonnie@example.com # For frontend/backend exceptions
   ## --- Session auto-logout ---
-  # Show inactive session warning MS, default is 600000 (10 min)
-  show_warning_inactive_ms: 600000
-  # Logout inactive session MS, default is 900000 (15 min)
-  logout_inactive_ms: 900000
+  # Show inactive session warning MS, default is 1500000 (25 min)
+  show_warning_inactive_ms: 1500000
+  # Logout inactive session MS, default is 1800000 (30 min)
+  logout_inactive_ms: 1800000
 
   virus_scan:
     enabled: false

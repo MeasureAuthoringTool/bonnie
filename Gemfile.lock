@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers.git
-  revision: 9ba40a74118012268e58255f20360c4e525a7959
+  revision: 7fcb3c10ae648b137c668bffbf148088baee4cc4
   branch: bonnie-on-fhir
   specs:
     cqm-parsers (0.2.1.1)
@@ -13,7 +13,7 @@ GIT
       mongoid (~> 7.1.2)
       mongoid-tree (~> 2.1.0)
       mustache
-      nokogiri (>= 1.11.5, < 1.11.7)
+      nokogiri (~> 1.12)
       rubyzip (~> 1.3)
       typhoeus
       uuid (~> 2.3.7)
@@ -150,11 +150,11 @@ GEM
       doorkeeper (>= 4.4, < 5.0)
     erubi (1.10.0)
     erubis (2.7.0)
-    ethon (0.14.0)
+    ethon (0.15.0)
       ffi (>= 1.15.0)
     eventmachine (1.2.7)
     execjs (2.8.1)
-    ffi (1.15.3)
+    ffi (1.15.4)
     fhir-mongoid-models (0.0.4)
     foreman (0.87.2)
     globalid (0.4.2)
@@ -170,7 +170,7 @@ GEM
     http-accept (1.7.0)
     http-cookie (1.0.4)
       domain_name (~> 0.5)
-    i18n (1.8.10)
+    i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     iniparse (1.5.0)
     jquery-rails (4.4.0)
@@ -205,7 +205,7 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.1.0)
-    mini_portile2 (2.5.3)
+    mini_portile2 (2.6.1)
     minitest (5.14.4)
     mongo (2.14.0)
       bson (>= 4.8.2, < 5.0.0)
@@ -222,8 +222,8 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (7.1.0)
     nio4r (2.5.7)
-    nokogiri (1.11.6)
-      mini_portile2 (~> 2.5.0)
+    nokogiri (1.12.5)
+      mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     non-stupid-digest-assets (1.0.9)
       sprockets (>= 2.0)
@@ -243,7 +243,7 @@ GEM
       byebug (~> 11.0)
       pry (~> 0.13.0)
     public_suffix (4.0.6)
-    racc (1.5.2)
+    racc (1.6.0)
     rack (2.2.3)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -443,4 +443,4 @@ DEPENDENCIES
   zip-zip
 
 BUNDLED WITH
-   2.2.20
+   2.2.30
