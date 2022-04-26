@@ -286,7 +286,7 @@ class Thorax.Models.Patient extends Thorax.Model
     MSRPOPLEX:
       code: "measure-population-exclusion"
       display:  "Measure Population Exclusion"
-    MSRPOPLEX:
+    OBSERV:
       code: "measure-observation"
       display:  "Measure Observation"
 

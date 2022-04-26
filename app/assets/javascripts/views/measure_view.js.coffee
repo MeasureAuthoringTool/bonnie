@@ -96,11 +96,10 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     file_name = @model.get('cqmMeasure').cms_id
     patients = @model.get('patients').models;
     console.log("patients:  ", patients );
-
     bundles = patients.map((p) => p.toBundle());
 
     runSuccess = () =>
-        @exportPatientsView.excelSuccess()
+      @exportPatientsView.excelSuccess()
     blob = new Blob([JSON.stringify(bundles, null, 2)], {
       type: 'application/json',
       name: file_name,
