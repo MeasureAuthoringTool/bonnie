@@ -299,14 +299,11 @@ class Thorax.Models.Patient extends Thorax.Model
       for k,v of expected_value
         population = {}
         continue if !populationMappings[k]
-        coding = cqm.models.Coding.parse(populationMappings[k]);
         population.code = cqm.models.CodeableConcept.parse({coding: [populationMappings[k]]})
         population.count = v
-        mPop = cqm.models.MeasureReportGroupPopulation.parse(population);
         populations.push(population)
       group.id = "group-#{expected_value.population_index}"
       group.population = populations
-      measureReportGroup = cqm.models.MeasureReportGroup.parse(group);
       group
     measureReport = cqm.models.MeasureReport.parse({
       type: "individual", date: new Date(),
