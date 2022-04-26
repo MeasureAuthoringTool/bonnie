@@ -91,6 +91,23 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     importMeasureView.appendTo(@$el)
     importMeasureView.display()
 
+  exportPatients: (e) ->
+    @exportPatientsView.exporting()
+    file_name = @model.get('cqmMeasure').cms_id
+    patients = @model.get('patients').models;
+    console.log("patients:  ", patients );
+
+    bundles = patients.map((p) => p.toBundle());
+
+    runSuccess = () =>
+        @exportPatientsView.excelSuccess()
+    blob = new Blob([JSON.stringify(bundles, null, 2)], {
+      type: 'application/json',
+      name: file_name,
+    })
+    saveAs(blob, file_name)
+    setTimeout(runSuccess, 500)
+
   sharePatients: (e) ->
     sharePatientsView = new Thorax.Views.SharePatients(model: @model, measures: new Thorax.Collections.Measures(@model.collection))
     sharePatientsView.appendTo(@$el)

@@ -41,7 +41,7 @@
          data-placement="bottom">{{#button  "importPatients" class="btn btn-default export-patients"}}
          <i class="fa fa-download" aria-hidden="true"></i> Import<span class="sr-only">Patient Import</span>{{/button}}
          </a>
-          <a data-title="Excel patient export is disabled for FHIR R4." data-toggle="tooltip" data-placement="bottom">{{#button "exportExcelPatients" class="btn btn-default export-patients" disabled="true"}}<i class="fa fa-download" aria-hidden="true"></i> Excel <span class="sr-only">Patient Export</span>{{/button}}</a>
+          {{#button "exportPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> Export <span class="sr-only">Patient Export</span>{{/button}}
           {{#ifPortfolio}}
             {{#button "sharePatients" class="btn btn-default share-patients"}}<i class="fa fa-link" aria-hidden="true"></i> Share <span class="sr-only">Share</span>{{/button}}
           {{/ifPortfolio}}
