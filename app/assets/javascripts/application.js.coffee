@@ -35,6 +35,7 @@
 #= require MutationObserver-shim/dist/mutationobserver.min
 #= require tinymce
 #= require rxjs/dist/bundles/rxjs.umd.js
+#= require file-saver/dist/FileSaver
 #
 #= require costanza/js/costanza
 #= require costanza/thorax
