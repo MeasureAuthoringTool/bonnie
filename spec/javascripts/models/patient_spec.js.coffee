@@ -55,6 +55,18 @@ describe 'Patient', ->
     expect(measureReportGroup.population[3].count).toBe(0)
     expect(measureReportGroup.population[3].code.coding[0].code.value).toBe("numerator")
 
+  it 'skips STRAT groups when exporting to bundle', ->
+    cqmPatient = new Thorax.Models.Patient getJSONFixture('fhir_patients/CMS111/strat-patient.json'), parse: true
+    bundle = cqmPatient.toBundle()
+    expect(bundle).toBeDefined()
+    expect(bundle).not.toBeNull()
+    expect(bundle.id).toBe(cqmPatient.get("id"))
+    expect(bundle.entry).toBeDefined()
+    expect(bundle.entry).not.toBeNull()
+    measureReport = bundle.entry[4]
+    expect(measureReport.group.length).toBe(2)
+    expect(measureReport.group[0].population.length).toBe(3)
+    expect(measureReport.group[1].population.length).toBe(3)
 
   it 'updates patient race', ->
     race = {code: '2106-3', display: 'White'}
