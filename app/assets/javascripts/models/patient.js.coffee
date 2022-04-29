@@ -286,9 +286,6 @@ class Thorax.Models.Patient extends Thorax.Model
     MSRPOPLEX:
       code: "measure-population-exclusion"
       display:  "Measure Population Exclusion"
-    OBSERV:
-      code: "measure-observation"
-      display:  "Measure Observation"
 
   toBundle: () ->
     cqmPatient = @get('cqmPatient')
@@ -298,6 +295,7 @@ class Thorax.Models.Patient extends Thorax.Model
       populations = []
       for k,v of expected_value
         population = {}
+        return null if k == "STRAT"
         continue if !populationMappings[k]
         population.code = cqm.models.CodeableConcept.parse({coding: [populationMappings[k]]})
         population.count = v
@@ -310,7 +308,7 @@ class Thorax.Models.Patient extends Thorax.Model
       text: {status: "additional", div: cqmPatient.notes},
     })
     measureReportJson = measureReport.toJSON()
-    measureReportJson.group = groups;
+    measureReportJson.group = groups.filter((g) -> !!g)
     bundleJson = bundle.toJSON();
     bundleJson.entry.push(measureReportJson);
     bundleJson
