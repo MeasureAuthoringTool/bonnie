@@ -35,8 +35,8 @@ gem 'roo', '~> 2.7'
 gem 'oj' # Faster JSON
 gem 'apipie-rails'
 gem 'maruku' # enable Markup for API documentation
-gem 'doorkeeper', '~> 4.4.0'
-gem "doorkeeper-mongodb", '~> 4.2.0'
+gem 'doorkeeper', '~> 4.4.3'
+gem "doorkeeper-mongodb", "~> 4.2.0"
 
 group :test, :development, :ci do
   gem 'pry'
@@ -60,7 +60,7 @@ end
 
 group :test, :development do
   gem 'pry-byebug'
-  gem 'thin', '~> 1.8.0'
+  gem 'thin', '~> 1.8.1'
   gem 'capistrano-rails'
   gem 'capistrano-npm'
   gem 'rvm1-capistrano3', require: false
