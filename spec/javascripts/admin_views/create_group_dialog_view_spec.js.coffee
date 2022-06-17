@@ -4,6 +4,9 @@ describe 'GroupEditDialog', ->
     @editDialog.appendTo($(document.body))
     @editDialog.display()
 
+     afterEach ->
+    @editDialog?.remove()
+
   it 'add new group', ->
     group_name = "MyGroup"
     group_to_add = {_id: 3, name: group_name}
@@ -50,4 +53,3 @@ describe 'GroupEditDialog', ->
     @editDialog.$('button#save_new_group').click()
 
     expect($.ajax).not.toHaveBeenCalled();
-
