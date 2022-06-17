@@ -10,7 +10,7 @@ describe 'GroupEditDialog', ->
     @editDialog.appendTo($(document.body))
     @editDialog.display()
 
-     afterEach ->
+  afterEach ->
     @editDialog?.remove()
 
   it 'displays initial state of the Group', ->
