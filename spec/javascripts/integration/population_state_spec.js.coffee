@@ -1,5 +1,5 @@
 describe "Population state between routes", ->
-  beforeAll ->
+  beforeAll (done)->
     jasmine.getJSONFixtures().clearCache()
     @measureToTest = loadMeasureWithValueSets 'cqm_measure_data/CMS160v6/CMS160v6.json', 'cqm_measure_data/CMS160v6/value_sets.json'
     bonnie.measures = new Thorax.Collections.Measures()
@@ -12,6 +12,14 @@ describe "Population state between routes", ->
     @measureView = @measureView.showMeasure()
     @measureView.appendTo 'body'
 
+    # Give the measure time to render
+    setTimeout(() ->
+      done()
+    , 1)
+
+  afterAll ->
+    @measureView.remove()
+    
     populationNavs = @measureView.$('[data-toggle="tab"]')
     # ensure 2 populations exists
     expect(populationNavs.length).toBe(3)
