@@ -182,7 +182,7 @@ Teaspoon.configure do |config|
   # Specify the timeout for the driver. Specs are expected to complete within
   # this time frame or the run will be considered a failure. This is to avoid
   # issues that can arise where tests stall.
-  config.driver_timeout = 800
+  config.driver_timeout = 1000
 
   # Specify a server to use with Rack (e.g. thin, mongrel). If nil is provided
   # Rack::Server is used.
