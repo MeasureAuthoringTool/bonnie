@@ -56,8 +56,8 @@ jobs:
       - name: NPM install
         run: npm ci
 
-      - name: Setup Istanbul
-        run: sudo npm install -g istanbul
+      - name: Setup Nyc
+        run: sudo npm install -g nyc
 
 # ------- Teaspoon tests for "admin_views" directory ----------
       - name: Run teaspoon tests
@@ -147,5 +147,5 @@ jobs:
           file: coverage/.resultset.json
           fail_ci_if_error: true
 
-      - name: Setup Istanbul
-        run: sudo npm install -g istanbul
+      - name: Setup Nyc
+        run: sudo npm install -g nyc
