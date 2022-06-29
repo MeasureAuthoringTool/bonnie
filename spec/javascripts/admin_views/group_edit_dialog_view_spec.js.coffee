@@ -10,9 +10,6 @@ describe 'GroupEditDialog', ->
     @editDialog.appendTo($(document.body))
     @editDialog.display()
 
-  afterEach ->
-    @editDialog?.remove()
-
   it 'displays initial state of the Group', ->
     existing_users = @editDialog.$('td').toArray().map (e) ->
       e.innerText
@@ -27,7 +24,7 @@ describe 'GroupEditDialog', ->
       e.success(user_to_add);
     @editDialog.$("input#email").val('e.f@ef.com').keyup()
     # click add user button
-    @editDialog.$('button[data-call-method="addUser"]').click()
+    @editDialog.$('button#addUser').click()
     expect($.ajax).toHaveBeenCalled()
     # verify if user added to the list
     expect(@editDialog.displayUsersModel.get('usersToAdd').length).toEqual(1)
@@ -47,7 +44,7 @@ describe 'GroupEditDialog', ->
   it 'cancel user removal action upon canceling confirm action', ->
     # before removal
     expect(@editDialog.displayGroupUsersView.model.get('users').length).toEqual(2)
-    @editDialog.$('button[data-call-method="confirmRemoveUser"]').first().click()
+    @editDialog.$('button.confirmRemoveUser').first().click()
     expect(@editDialog.displayGroupUsersView
       .confirmationDialog.$('div#confirmation_dialog p')
       .text())
