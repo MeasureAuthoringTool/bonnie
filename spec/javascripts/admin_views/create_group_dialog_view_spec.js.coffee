@@ -1,4 +1,4 @@
-describe 'GroupEditDialog', ->
+describe 'NewGroupDialog', ->
   beforeEach ->
     @editDialog = new Thorax.Views.NewGroupDialog()
     @editDialog.appendTo($(document.body))
