@@ -163,7 +163,7 @@ describe 'UserEditDialog', ->
       @userEditDialog.appendTo($(document.body))
       @userEditDialog.display()
 
-      @userEditDialog.$('button#addGroup').click()
+      @userEditDialog.$('button[data-call-method="addGroup"]').click()
       expect(@userEditDialog.$('#error-message').html()).toBe("Group name is required")
 
     it 'should not add an existing group', ->
@@ -176,7 +176,7 @@ describe 'UserEditDialog', ->
       @userEditDialog.display()
 
       @userEditDialog.$('input#groupName').val('Group1').keyup()
-      @userEditDialog.$('button#addGroup').click()
+      @userEditDialog.$('button[data-call-method="addGroup"]').click()
       expect(@userEditDialog.$('#error-message').html()).toBe("Group name already exists")
 
     it 'should add public group to the list', ->
@@ -192,7 +192,7 @@ describe 'UserEditDialog', ->
       @userEditDialog.display()
 
       @userEditDialog.$('input#groupName').val('Group3').keyup()
-      @userEditDialog.$('button#addGroup').click()
+      @userEditDialog.$('button[data-call-method="addGroup"]').click()
       expect(ajax_spy).toHaveBeenCalled()
 
       expect(@userEditDialog.displayUserGroupsView.model.get('groups').length).toEqual(3)
@@ -211,7 +211,7 @@ describe 'UserEditDialog', ->
       @userEditDialog.display()
 
       @userEditDialog.$('input#groupName').val('Group3').keyup()
-      @userEditDialog.$('button#addGroup').click()
+      @userEditDialog.$('button[data-call-method="addGroup"]').click()
 
       expect(ajax_spy).toHaveBeenCalled()
 
