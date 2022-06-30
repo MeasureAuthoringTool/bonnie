@@ -32,8 +32,10 @@ class Thorax.Views.GroupEditDialog extends Thorax.Views.BonnieView
     index = view.displayUsersModel.get('users').findIndex((user) -> user.email == email)
     # return if users already exists in group
     return if index != -1
-    $.ajax("admin/users/user_by_email?email=#{email}")
-      .done (data) ->
+    $.ajax
+      url: "admin/users/user_by_email?email=#{email}"
+      type: 'GET'
+      success: (data) ->
         if(data)
           view.displayUsersModel.get('users').push(data)
           view.displayUsersModel.get('usersToAdd').push(data._id)
