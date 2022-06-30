@@ -20,8 +20,10 @@ describe 'GroupEditDialog', ->
 
   it 'adds new user', ->
     user_to_add = {_id: 3,  first_name: 'E', last_name: 'F', email: 'e.f@ef.com'}
-    spyOn($, "ajax").and.callFake (e) ->
-      e.success(user_to_add);
+    d = $.Deferred();
+    d.resolve(user_to_add);
+    spyOn($, 'ajax').and.returnValue(d.promise());
+
     @editDialog.$("input#email").val('e.f@ef.com').keyup()
     # click add user button
     @editDialog.$('button[data-call-method="addUser"]').click()
