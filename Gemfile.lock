@@ -135,9 +135,9 @@ GEM
       rexml
     crass (1.0.6)
     daemons (1.4.1)
-    debase (2.3.2)
-      debase-ruby_core_source (~> 0.10.11)
-    debase-ruby_core_source (0.10.16)
+    debase (0.2.4.1)
+      debase-ruby_core_source (>= 0.10.2)
+    debase-ruby_core_source (0.10.12)
     devise (4.8.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
