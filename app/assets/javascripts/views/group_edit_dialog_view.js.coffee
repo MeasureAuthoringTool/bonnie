@@ -12,6 +12,7 @@ class Thorax.Views.GroupEditDialog extends Thorax.Views.BonnieView
     'click button#save_group': 'submit',
     'keyup input#email': 'validateEmail',
     'keyup input#name': 'validateGroupName',
+    'click button#addUser': 'addUser',
     'ready': 'setup'
 
   setup: ->
