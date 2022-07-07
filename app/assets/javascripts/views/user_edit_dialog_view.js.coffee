@@ -21,6 +21,8 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
     'click #saveUserDialogOK': 'submit'
     'click #saveUserDialogCancel': 'cancel'
     'ready': 'setup'
+    'click button#addGroup': 'addGroup'
+
     serialize: (attr) ->
       attr.admin ?= false
       attr.portfolio ?= false

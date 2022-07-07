@@ -1,6 +1,7 @@
 describe 'PatientBuilderView', ->
 
-  beforeEach ->
+  beforeEach (done) ->
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
     jasmine.getJSONFixtures().clearCache()
     @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS134v6/CMS134v6.json', 'cqm_measure_data/CMS134v6/value_sets.json'
     @patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMS134v6/Elements_Test.json'), getJSONFixture('patients/CMS134v6/Fail_Hospice_Not_Performed_Denex.json')], parse: true
@@ -13,6 +14,12 @@ describe 'PatientBuilderView', ->
     spyOn(@patientBuilder.model, 'materialize')
     spyOn(@patientBuilder.originalModel, 'save').and.returnValue(true)
     @$el = @patientBuilder.$el
+    setTimeout(() ->
+      try
+        done()
+      catch err
+        done.fail(err)
+    , 1)
 
   afterEach ->
     bonnie.measures = @bonnie_measures_old
@@ -672,4 +679,3 @@ describe 'Allergy', ->
     spyOn(patientDataCriteria, 'trigger')
     cqlLogicView.highlightPatientData(dataCriteriaIds)
     expect(patientDataCriteria.trigger).toHaveBeenCalled()
-
