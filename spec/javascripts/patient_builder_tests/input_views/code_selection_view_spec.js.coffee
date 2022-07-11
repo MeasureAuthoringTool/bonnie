@@ -36,7 +36,7 @@ describe 'EditCodeDisplayView/EditCodeSelectionView', ->
     expect(editCodeSelectionView.codeSystems.includes("ICD-10-CM")).toBe true
 
   it "selects default code after deletion", ->
-    # delete the 2 codes on the first sdc
+# delete the 2 codes on the first sdc
     $('button[data-call-method="removeCode"]')[0].click()
     $('button[data-call-method="removeCode"]')[0].click()
 
