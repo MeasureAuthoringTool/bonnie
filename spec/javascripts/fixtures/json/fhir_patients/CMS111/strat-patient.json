@@ -1,0 +1,170 @@
+{
+  "id": "6267f0b9b532d25099750cc2",
+  "expected_values": [
+    {
+      "measure_id": "CABB66B0-5A83-45D9-9651-CEBCE118393C",
+      "population_index": 0,
+      "IPP": 0,
+      "MSRPOPL": 0,
+      "MSRPOPLEX": 0,
+      "OBSERV_UNIT": ""
+    },
+    {
+      "measure_id": "CABB66B0-5A83-45D9-9651-CEBCE118393C",
+      "population_index": 1,
+      "IPP": 0,
+      "MSRPOPL": 0,
+      "MSRPOPLEX": 0,
+      "OBSERV_UNIT": ""
+    },
+    {
+      "measure_id": "CABB66B0-5A83-45D9-9651-CEBCE118393C",
+      "population_index": 2,
+      "STRAT": 0,
+      "IPP": 0,
+      "MSRPOPL": 0,
+      "MSRPOPLEX": 0,
+      "OBSERV_UNIT": ""
+    },
+    {
+      "measure_id": "CABB66B0-5A83-45D9-9651-CEBCE118393C",
+      "population_index": 3,
+      "STRAT": 0,
+      "IPP": 0,
+      "MSRPOPL": 0,
+      "MSRPOPLEX": 0,
+      "OBSERV_UNIT": ""
+    }
+  ],
+  "measure_ids": [
+    "CABB66B0-5A83-45D9-9651-CEBCE118393C"
+  ],
+  "fhir_patient": {
+    "id": "6267f0b9b532d25099750cc2",
+    "resourceType": "Patient",
+    "extension": [
+      {
+        "extension": [
+          {
+            "url": "ombCategory",
+            "valueCoding": {
+              "system": "urn:oid:2.16.840.1.113883.6.238",
+              "code": "1002-5",
+              "display": "American Indian or Alaska Native",
+              "userSelected": true
+            }
+          },
+          {
+            "url": "text",
+            "valueString": "American Indian or Alaska Native"
+          }
+        ],
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
+      },
+      {
+        "extension": [
+          {
+            "url": "ombCategory",
+            "valueCoding": {
+              "system": "urn:oid:2.16.840.1.113883.6.238",
+              "code": "2135-2",
+              "display": "Hispanic or Latino",
+              "userSelected": true
+            }
+          },
+          {
+            "url": "text",
+            "valueString": "Hispanic or Latino"
+          }
+        ],
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
+      }
+    ],
+    "name": [
+      {
+        "family": "Stratification ",
+        "given": [
+          "Test"
+        ]
+      }
+    ],
+    "gender": "male",
+    "birthDate": "1965-01-01"
+  },
+  "data_elements": [
+    {
+      "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
+      "valueSetTitle": "Emergency Department Visit",
+      "description": "Encounter: Emergency Department Visit",
+      "fhir_resource": {
+        "id": "emergency-department-visit-0cc3",
+        "resourceType": "Encounter",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "version": "2021-09",
+                "code": "4525004",
+                "display": "Emergency department patient visit (procedure)",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "period": {
+          "start": "2019-04-26T08:00:00.000+00:00",
+          "end": "2019-04-26T08:15:00.000+00:00"
+        }
+      }
+    },
+    {
+      "codeListId": "2.16.840.1.113883.3.666.5.307",
+      "valueSetTitle": "Encounter Inpatient",
+      "description": "Encounter: Encounter Inpatient",
+      "fhir_resource": {
+        "id": "encounter-inpatient-0cc4",
+        "resourceType": "Encounter",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "version": "2021-09",
+                "code": "183452005",
+                "display": "Emergency hospital admission (procedure)",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "period": {
+          "start": "2019-04-26T08:00:00.000+00:00",
+          "end": "2019-04-26T08:15:00.000+00:00"
+        }
+      }
+    },
+    {
+      "codeListId": "2.16.840.1.113762.1.4.1111.163",
+      "valueSetTitle": "Emergency Department Evaluation",
+      "description": "Observation: Emergency Department Evaluation",
+      "fhir_resource": {
+        "id": "emergency-department-evaluation-0cc5",
+        "resourceType": "Observation",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "version": "2.71",
+              "code": "28568-4",
+              "display": "Physician Emergency department Note",
+              "userSelected": true
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "created_at": "2022-04-26T13:17:05.309Z",
+  "updated_at": "2022-04-26T13:17:05.309Z"
+}

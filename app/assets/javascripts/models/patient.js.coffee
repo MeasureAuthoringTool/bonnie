@@ -261,6 +261,58 @@ class Thorax.Models.Patient extends Thorax.Model
 
     return errors if errors.length > 0
 
+  populationMappings =
+    IPP:
+      code: "initial-population"
+      display:  "Initial Population"
+    NUMER:
+      code: "numerator"
+      display:  "numerator"
+    NUMEX:
+      code: "numerator-exclusion"
+      display:  "Numerator Exclusion"
+    DENOM:
+      code: "denominator"
+      display:  "Denominator"
+    DENEX:
+      code: "denominator-exclusion"
+      display:  "Denominator Exclusion"
+    DENEXCEP:
+      code: "denominator-exception"
+      display:  "Denominator Exception"
+    MSRPOPL:
+      code: "measure-population"
+      display:  "Measure Population"
+    MSRPOPLEX:
+      code: "measure-population-exclusion"
+      display:  "Measure Population Exclusion"
+
+  toBundle: () ->
+    cqmPatient = @get('cqmPatient')
+    bundle = cqm.execution.Calculator.convertPatientToBundle(cqmPatient)
+    groups = cqmPatient.expected_values?.map (expected_value) ->
+      group = {};
+      populations = []
+      for k,v of expected_value
+        population = {}
+        return null if k == "STRAT"
+        continue if !populationMappings[k]
+        population.code = cqm.models.CodeableConcept.parse({coding: [populationMappings[k]]})
+        population.count = v
+        populations.push(population)
+      group.id = "group-#{expected_value.population_index}"
+      group.population = populations
+      group
+    measureReport = cqm.models.MeasureReport.parse({
+      type: "individual", date: new Date(),
+      text: {status: "additional", div: cqmPatient.notes},
+    })
+    measureReportJson = measureReport.toJSON()
+    measureReportJson.group = groups.filter((g) -> !!g)
+    bundleJson = bundle.toJSON();
+    bundleJson.entry.push(measureReportJson);
+    bundleJson
+
 class Thorax.Collections.Patients extends Thorax.Collection
   url: '/patients'
   model: Thorax.Models.Patient
