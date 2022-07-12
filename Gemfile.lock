@@ -404,8 +404,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  actionpack (~> 5.2.7)
-  actionview (~> 5.2.7)
   apipie-rails
   axlsx!
   brakeman
@@ -433,7 +431,6 @@ DEPENDENCIES
   mongoid (~> 6.4.2)
   multi_json
   newrelic_rpm
-  nokogiri (>= 1.13.4)
   non-stupid-digest-assets
   oj
   overcommit
