@@ -186,7 +186,7 @@ GEM
       sprockets (~> 3.0)
     libv8 (3.16.14.19)
     log4r (1.1.10)
-    loofah (2.16.0)
+    loofah (2.18.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     macaddr (1.7.2)
@@ -266,7 +266,7 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.4.2)
+    rails-html-sanitizer (1.4.3)
       loofah (~> 2.3)
     rails_best_practices (1.21.0)
       activesupport
@@ -419,6 +419,7 @@ DEPENDENCIES
   pry-byebug
   rails (= 5.2.7.1)
   rails-controller-testing
+  rails-html-sanitizer (>= 1.4.3)
   rails_best_practices
   rest-client
   reverse_markdown (~> 2.0)
