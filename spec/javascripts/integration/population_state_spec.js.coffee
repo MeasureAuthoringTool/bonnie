@@ -1,5 +1,6 @@
 describe "Population state between routes", ->
-  beforeAll ->
+  beforeAll (done)->
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
     jasmine.getJSONFixtures().clearCache()
     @measureToTest = loadMeasureWithValueSets 'cqm_measure_data/CMS160v6/CMS160v6.json', 'cqm_measure_data/CMS160v6/value_sets.json'
     bonnie.measures = new Thorax.Collections.Measures()
@@ -7,11 +8,19 @@ describe "Population state between routes", ->
     @patient = new Thorax.Models.Patient getJSONFixture('patients/CMS160v6/Expired_DENEX.json'), parse: true
     @measureToTest.get('patients').add @patient
 
-  it "starts with the first population", ->
     @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
     @measureView = @measureView.showMeasure()
     @measureView.appendTo 'body'
 
+    # Give the measure time to render
+    setTimeout(() ->
+      done()
+    , 1)
+
+  afterAll ->
+    @measureView.remove()
+
+    it "starts with the first population", ->
     populationNavs = @measureView.$('[data-toggle="tab"]')
     # ensure 2 populations exists
     expect(populationNavs.length).toBe(3)

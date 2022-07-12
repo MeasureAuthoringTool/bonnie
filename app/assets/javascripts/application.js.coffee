@@ -15,7 +15,7 @@
 #= require bootstrap/dist/js/bootstrap.min
 #= require bootstrap-datepicker/js/bootstrap-datepicker
 #= require bootstrap-timepicker/js/bootstrap-timepicker
-#= require jquery-ui-1.11.1.custom
+#= require jquery-ui-1.11.4.custom
 #= require twbs-pagination/jquery.twbsPagination.min
 #= require handlebars/handlebars
 #= require underscore/underscore-min

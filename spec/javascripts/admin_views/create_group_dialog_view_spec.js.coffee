@@ -1,8 +1,11 @@
-describe 'GroupEditDialog', ->
+describe 'NewGroupDialog', ->
   beforeEach ->
     @editDialog = new Thorax.Views.NewGroupDialog()
     @editDialog.appendTo($(document.body))
     @editDialog.display()
+
+  afterEach ->
+    @editDialog?.remove()
 
   it 'add new group', ->
     group_name = "MyGroup"
@@ -50,4 +53,3 @@ describe 'GroupEditDialog', ->
     @editDialog.$('button#save_new_group').click()
 
     expect($.ajax).not.toHaveBeenCalled();
-
