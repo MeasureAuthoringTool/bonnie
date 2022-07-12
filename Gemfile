@@ -56,6 +56,7 @@ group :test, :development, :ci do
   gem 'selenium-webdriver'
   gem 'codecov', :require => false
   gem 'rails-controller-testing'
+  gem 'rails-html-sanitizer', '>=1.4.3'
 end
 
 group :test, :development do
