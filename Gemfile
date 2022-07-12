@@ -36,7 +36,6 @@ gem 'apipie-rails'
 gem 'maruku' # enable Markup for API documentation
 gem 'doorkeeper', '~> 4.4.0'
 gem "doorkeeper-mongodb", '~> 4.1.0'
-gem 'rails-html-sanitizer', '>=1.4.3'
 
 group :test, :development, :ci do
   gem 'pry'
