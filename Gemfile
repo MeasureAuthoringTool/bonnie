@@ -22,7 +22,7 @@ gem 'rubyzip', '>= 1.3.0'
 gem 'zip-zip'
 
 gem 'axlsx', git: 'https://github.com/randym/axlsx', branch: 'master'
-gem 'mongoid', '~> 6.4.2'
+gem 'mongoid', '~> 6.4.8'
 gem 'devise'
 gem 'systemu'
 gem 'multi_json'
@@ -34,8 +34,8 @@ gem 'roo', '~> 2.7'
 gem 'oj' # Faster JSON
 gem 'apipie-rails'
 gem 'maruku' # enable Markup for API documentation
-gem 'doorkeeper', '~> 4.4.0'
-gem "doorkeeper-mongodb", '~> 4.1.0'
+gem 'doorkeeper', '~> 4.4.3'
+gem "doorkeeper-mongodb", "~> 4.1.0"
 
 group :test, :development, :ci do
   gem 'pry'
