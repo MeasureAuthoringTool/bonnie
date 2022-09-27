@@ -93,18 +93,24 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
 
   exportPatients: (e) ->
     @exportPatientsView.exporting()
-    file_name = @model.get('cqmMeasure').cms_id
-    patients = @model.get('patients').models;
-    console.log("patients:  ", patients );
-    bundles = patients.map((p) => p.toBundle());
+    fileName = @model.get('cqmMeasure').cms_id
+    patients = @model.get('patients').models
+    bundles = patients.map (p) -> p.toBundle()
 
     runSuccess = () =>
       @exportPatientsView.excelSuccess()
-    blob = new Blob([JSON.stringify(bundles, null, 2)], {
-      type: 'application/json',
-      name: file_name,
-    })
-    saveAs(blob, file_name)
+    zip = new JSZip()
+    bundles.forEach (bundle) ->
+      patient = patients.find (p) -> p.id == bundle.id
+      name = patient.get("cqmPatient").fhir_patient.name[0]
+      lastName = name.family.value
+      firstName = name.given[0].value
+      zip.file "#{lastName}_#{firstName}.json", JSON.stringify(bundle, null, 2)
+
+    zip.file fileName + ".json", JSON.stringify(bundles, null, 2)
+    zip.generateAsync {type:"blob"}
+    .then (content) ->
+      saveAs(content, "#{fileName}_#{moment().format("MM-DD-YYYY")}.zip")
     setTimeout(runSuccess, 500)
 
   sharePatients: (e) ->
