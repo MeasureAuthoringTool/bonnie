@@ -100,6 +100,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     runSuccess = () =>
       @exportPatientsView.excelSuccess()
     zip = new JSZip()
+    # add a file for each patient into the archive
     bundles.forEach (bundle) ->
       patient = patients.find (p) -> p.id == bundle.id
       name = patient.get("cqmPatient").fhir_patient.name[0]
@@ -107,6 +108,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       firstName = name.given[0].value
       zip.file "#{lastName}_#{firstName}.json", JSON.stringify(bundle, null, 2)
 
+    # add a common file for all patients into the archive
     zip.file fileName + ".json", JSON.stringify(bundles, null, 2)
     zip.generateAsync {type:"blob"}
     .then (content) ->
