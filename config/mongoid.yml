@@ -1,7 +1,7 @@
 development:
   clients:
     default:
-      database: bonnie_fhir_development
+      database: bonnie_fhir_prod
       hosts:
         - localhost:27017
   options:

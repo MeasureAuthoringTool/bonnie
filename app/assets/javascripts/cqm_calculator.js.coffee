@@ -33,7 +33,7 @@
     try
       cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, [cqmPatient], cqmMeasure.value_sets, { doPretty: options.doPretty, includeClauseResults: true, requestDocument: false })
       patientResults = cqmResults[patient.get('cqmPatient').id]
-
+      debugger
       measure.get('populations').forEach((measure_population) =>
         populationSetId = measure_population.get('population_set_id')
         populationSetResults = patientResults[populationSetId]
@@ -65,6 +65,7 @@
         summary: "There was an error calculating measure #{measure.get('cqmMeasure').cms_id}.",
         body: "One of the data elements associated with the measure is causing an issue. Please review the elements associated with the measure to verify that they are all constructed properly.<br>Error message: <b>#{error.message}</b>"
       })
+    console.log result
     return result
 
   calculateAll: (measure, patients, options = {}) ->
@@ -149,4 +150,5 @@
         body: "One of the data elements associated with the measure is causing an issue. Please review the elements associated with the measure to verify that they are all constructed properly.<br>Error message: <b>#{error.message}</b>"
       })
 
+    #    console.log results
     return results
