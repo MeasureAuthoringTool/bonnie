@@ -18,7 +18,7 @@ print("--------------------------------------------------------");
 
 // Get the source group id
 let sourceGroup = db.getCollection('groups').find({name:sourceGroupName});
-if (sourceGroup.count() == 0) {
+if (sourceGroup.count() === 0) {
   print("Source group not found...existing the script");
   quit(1);
 }
@@ -26,13 +26,13 @@ print("Source group id: ", sourceGroup[0]._id);
 
 // Get the target group id
 const targetGroup = db.getCollection('groups').find({name:targetGroupName});
-if (targetGroup.count() == 0) {
+if (targetGroup.count() === 0) {
   print("Target group not found...existing the script");
   quit(1);
 }
 print("Target group id: ", targetGroup[0]._id);
 
-// move patients from one source group, to target group
+// move patients from source group, to target group
 db.getCollection('cqm_patients').update(
   {
     $and: [
