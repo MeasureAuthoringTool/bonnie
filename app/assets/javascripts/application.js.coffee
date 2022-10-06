@@ -36,6 +36,7 @@
 #= require tinymce
 #= require rxjs/dist/bundles/rxjs.umd.js
 #= require file-saver/dist/FileSaver
+#= require jszip/dist/jszip.min
 #
 #= require costanza/js/costanza
 #= require costanza/thorax
