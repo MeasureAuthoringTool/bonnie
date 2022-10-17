@@ -1,49 +1,24 @@
 
   describe 'MeasureView', ->
     beforeAll ->
+      bonnie.measures = new Thorax.Collections.Measures()
       jasmine.getJSONFixtures().clearCache()
-      @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS160v6/CMS160v6.json', 'cqm_measure_data/CMS160v6/value_sets.json'
-      # Add some overlapping codes to the value sets to exercise the overlapping value sets feature
-      # We add the overlapping codes after 10 non-overlapping codes to provide regression for a bug
-      @vs1 = _.find(@measure.valueSets(), (val_set) -> val_set.display_name is 'Bipolar Disorder')
-      @vs2 = _.find(@measure.valueSets(), (val_set) -> val_set.display_name is 'Dysthymia')
-      for n in [1..10]
-        @vs1.concepts.push { code: "ABC#{n}", display_name: "ABC", code_system_name: "ABC" }
-        @vs2.concepts.push { code: "XYZ#{n}", display_name: "XYZ", code_system_name: "XYZ" }
-      @vs1.concepts.push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
-      @vs2.concepts.push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
-      patientsJSON = [getJSONFixture('patients/CMS160v6/Expired_DENEX.json'), getJSONFixture('patients/CMS160v6/Pass_NUM2.json')]
-      @patients = new Thorax.Collections.Patients patientsJSON, parse: true
-      @measure.set('patients', @patients)
-      @patient = @patients.at(0)
+      @measure = loadFhirMeasure('fhir_measures/CMS124/CMS124.json')
+      bonnie.measures.add @measure
+      testDenexcepPass = getJSONFixture('fhir_patients/CMS124/patient-DenExclPass-HospiceOrderDuringMP.json')
+      testDenomPass = getJSONFixture('fhir_patients/CMS124/patient-denom-EXM124.json')
+      @patient1 = new Thorax.Models.Patient testDenexcepPass, parse: true
+      @patient2 = new Thorax.Models.Patient testDenomPass, parse: true
+      @measure.get('patients').add @patient1
+      @measure.get('patients').add @patient2
       @measureLayoutView = new Thorax.Views.MeasureLayout(measure: @measure, patients: @measure.get('patients'))
       @measureView = @measureLayoutView.showMeasure()
-      @measureView.appendTo 'body'
-      @cqlMeasureValueSetsView = new Thorax.Views.MeasureValueSets(model: @measure, measure: @measure, patients: @patients)
-      @cqlMeasureValueSetsView.appendTo 'body'
 
-    afterAll ->
-      # Remove the 11 extra codes that were added for value set overlap testing
-      @vs1.concepts.splice(-11, 11)
-      @vs2.concepts.splice(-11, 11)
-      @measureView.remove()
-      @cqlMeasureValueSetsView.remove()
-
-    # makes sure the calculation percentage hasn't changed.
-    # should be 33% for CMS160v6 with given test patients as of 2018-03-29
-    describe '...', ->
-      beforeEach (done) ->
-        result = @measure.get('populations').at(0).calculate(@patient)
-        waitsForAndRuns( -> result.isPopulated()
-          ,
-          ->
-            done()
-        )
-      xit 'computes coverage', ->
-        expect(@measureView.$('.dial')[1]).toHaveAttr('value', '33')
-
-    xit 'shows measurement period indicator', ->
-      expect(@measureLayoutView.$('[data-call-method="changeMeasurementPeriod"]')).toExist()
+    it 'export test patient bundles', ->
+      expect(@measureView.$('[data-call-method="measureSettings"]')).toExist()
+      @measureView.$('[data-call-method="measureSettings"]').click()
+      expect(@measureView.$('[data-call-method="exportPatients"]')).toExist()
+      @measureView.$('[data-call-method="exportPatients"]').click()
 
     xit 'shows measurement period year', ->
       expect(@measureLayoutView.$('[data-call-method="changeMeasurementPeriod"]')).toContainText('2012')
