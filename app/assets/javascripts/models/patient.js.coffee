@@ -303,14 +303,14 @@ class Thorax.Models.Patient extends Thorax.Model
       group.id = "group-#{expected_value.population_index}"
       group.population = populations
       group
-    measureReport = cqm.models.MeasureReport.parse({
-      type: "individual", date: new Date(),
-      text: {status: "additional", div: cqmPatient.notes},
-    })
-    measureReportJson = measureReport.toJSON()
-    measureReportJson.group = groups.filter((g) -> !!g)
+    # measureReport = cqm.models.MeasureReport.parse({
+    #   type: "individual", date: new Date(),
+    #   text: {status: "additional", div: cqmPatient.notes},
+    # })
+    # measureReportJson = measureReport.toJSON()
+    # measureReportJson.group = groups.filter((g) -> !!g)
     bundleJson = bundle.toJSON();
-    bundleJson.entry.push(measureReportJson);
+    # bundleJson.entry.push(measureReportJson);
     bundleJson
 
 class Thorax.Collections.Patients extends Thorax.Collection
