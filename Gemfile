@@ -29,14 +29,14 @@ gem 'systemu'
 gem 'multi_json'
 gem 'rest-client'
 # needed for parsing value sets (we need to use roo rather than rubyxl because the value sets are in xls rather than xlsx)
-gem 'roo', '~> 2.7'
+gem 'roo', '~> 2.8', '>= 2.8.3'
 
 
 gem 'oj' # Faster JSON
 gem 'apipie-rails'
 gem 'maruku' # enable Markup for API documentation
-gem 'doorkeeper', '~> 4.4.0'
-gem "doorkeeper-mongodb", '~> 4.2.0'
+gem 'doorkeeper', '~> 4.4.3'
+gem "doorkeeper-mongodb", "~> 4.2.0"
 
 group :test, :development, :ci do
   gem 'pry'
@@ -56,7 +56,7 @@ group :test, :development, :ci do
   gem 'selenium-webdriver'
   gem 'codecov', :require => false
   gem 'rails-controller-testing'
-  gem 'rails-html-sanitizer', '>=1.4.3'
+  gem 'rails-html-sanitizer', '>= 1.4.3'
 end
 
 group :test, :development do
@@ -91,7 +91,7 @@ gem 'jquery-rails'
 # Browser Detection
 gem 'browser'
 
-gem "reverse_markdown", "~> 2.0"
+gem "reverse_markdown", "~> 2.0", ">= 2.0.0"
 gem "tinymce-rails"
 
 gem "devise_saml_authenticatable"
