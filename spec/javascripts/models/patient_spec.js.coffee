@@ -36,6 +36,11 @@ describe 'Patient', ->
     expect(bundle.entry.length).toBe(6)
 
     expect(bundle.entry[0].resource.resourceType).toBe('Patient')
+    expect(bundle.entry[0].resource.identifier[0].type.coding[0].system).toBe("http://terminology.hl7.org/CodeSystem/v2-0203");
+    expect(bundle.entry[0].resource.identifier[0].type.coding[0].code).toBe("MR");
+    expect(bundle.entry[0].resource.identifier[0].value).toBe(cqmPatient.get("id"));
+    expect(bundle.entry[0].resource.meta.profile[0]).toBe("http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient");
+
     expect(bundle.entry[1].resource.resourceType).toBe('Encounter')
     expect(bundle.entry[2].resource.resourceType).toBe('Encounter')
     expect(bundle.entry[3].resource.resourceType).toBe('Encounter')
