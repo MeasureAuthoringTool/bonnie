@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.2.8.1'
+gem 'rails', '6.1.7.3'
 
 gem 'sprockets'
 
@@ -23,7 +23,7 @@ gem 'zip-zip'
 
 
 gem 'axlsx', git: 'https://github.com/randym/axlsx', branch: 'master'
-gem 'mongoid', '~> 7.1'
+gem 'mongoid', '~> 7.1', '>= 7.1.8'
 gem 'devise'
 gem 'systemu'
 gem 'multi_json'
@@ -35,13 +35,13 @@ gem 'roo', '~> 2.7'
 gem 'oj' # Faster JSON
 gem 'apipie-rails'
 gem 'maruku' # enable Markup for API documentation
-gem 'doorkeeper', '~> 4.4.0'
-gem "doorkeeper-mongodb", '~> 4.2.0'
+gem 'doorkeeper', '~> 4.4.3'
+gem "doorkeeper-mongodb", "~> 4.2.0"
 
 group :test, :development, :ci do
   gem 'pry'
   # Pinning teaspoon to 1.1.5 because of sprockets-rails 2.3.3
-  gem 'teaspoon', '1.1.5'
+  gem 'teaspoon', '1.2.0'
   gem "overcommit"
   gem 'rubocop'
   gem 'teaspoon-jasmine'
@@ -61,7 +61,7 @@ end
 
 group :test, :development do
   gem 'pry-byebug'
-  gem 'thin', '~> 1.8.0'
+  gem 'thin', '~> 1.8.1'
   gem 'capistrano-rails'
   gem 'capistrano-npm'
   gem 'rvm1-capistrano3', require: false
