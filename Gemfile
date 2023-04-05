@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.2.8.1'
+gem 'rails', '6.1.7.3'
 
-gem 'sprockets'
+gem 'sprockets', '>= 4.2.0'
 
 # Need to require sprockets-rails expicitly to get asset pipeline, at least untill we move to SASS
 # Pinning sprockets-rails to 2.3.3 so that everything doesn't blow up. It might be time to start thinking about webpack.
-gem 'sprockets-rails', '2.3.3'
+gem 'sprockets-rails', '3.0.0'
 # We need less-rails outside of the assets group so that assets will build in production
 gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
@@ -23,7 +23,7 @@ gem 'zip-zip'
 
 
 gem 'axlsx', git: 'https://github.com/randym/axlsx', branch: 'master'
-gem 'mongoid', '~> 7.1'
+gem 'mongoid', '~> 7.1', '>= 7.1.8'
 gem 'devise'
 gem 'systemu'
 gem 'multi_json'
@@ -35,13 +35,13 @@ gem 'roo', '~> 2.7'
 gem 'oj' # Faster JSON
 gem 'apipie-rails'
 gem 'maruku' # enable Markup for API documentation
-gem 'doorkeeper', '~> 4.4.0'
-gem "doorkeeper-mongodb", '~> 4.2.0'
+gem 'doorkeeper', '~> 4.4.3'
+gem "doorkeeper-mongodb", "~> 4.2.0"
 
 group :test, :development, :ci do
   gem 'pry'
   # Pinning teaspoon to 1.1.5 because of sprockets-rails 2.3.3
-  gem 'teaspoon', '1.1.5'
+  gem 'teaspoon', '1.2.0'
   gem "overcommit"
   gem 'rubocop'
   gem 'teaspoon-jasmine'
@@ -56,12 +56,12 @@ group :test, :development, :ci do
   gem 'selenium-webdriver'
   gem 'codecov', :require => false
   gem 'rails-controller-testing'
-  gem 'rails-html-sanitizer', '>=1.4.3'
+  gem 'rails-html-sanitizer', '>= 1.4.4'
 end
 
 group :test, :development do
   gem 'pry-byebug'
-  gem 'thin', '~> 1.8.0'
+  gem 'thin', '~> 1.8.1'
   gem 'capistrano-rails'
   gem 'capistrano-npm'
   gem 'rvm1-capistrano3', require: false
