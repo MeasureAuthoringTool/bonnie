@@ -6,6 +6,7 @@ class PatientsController < ApplicationController
   prepend_view_path(Rails.root.join('lib/templates/'))
 
   def update
+    logger.info "Updating test patient #{cqm_patient_params[:id]}"
     old_patient = CQM::Patient.by_user(current_user).find(cqm_patient_params[:id])
     begin
       updated_patient = CQM::Patient.transform_json(cqm_patient_params)
@@ -21,6 +22,7 @@ class PatientsController < ApplicationController
   end
 
   def create
+    logger.info "creating new test patient"
     begin
       patient = CQM::Patient.transform_json(cqm_patient_params)
       patient[:group_id] = current_user.current_group&.id

@@ -318,8 +318,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @model.sortCriteriaBy 'start_date', 'end_date'
     @measure?.get('cqmMeasure').patients = [] unless @measure?.get('cqmMeasure').patients
     @model.get('cqmPatient').expected_values = @model.get('expected_values')
-    status = @originalModel.save {cqmPatient: @model.get('cqmPatient'), expired: @model.get('expired')},
+    status = @originalModel.save {cqmPatient: @model.get('abc'), expired: @model.get('expired')},
       success: (model) =>
+        console.log("patient saved successfully")
         @patients.add model # make sure that the patient exist in the global patient collection
         @measure?.get('cqmMeasure').patients.push model.get('cqmPatient') # and the measure's patient collection
         # If this patient was newly created, and it's in a component measure, the backend will populate the measure_ids
@@ -333,6 +334,10 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
           route = if @measure then "measures/#{@measure.get('cqmMeasure').set_id}" else "patients"
         bonnie.navigate route, trigger: true
         callback.success(model) if callback?.success
+      error: (model, error) =>
+        console.log(model?.toJSON())
+        console.log(error)
+        console.log(error?.responseText)
     unless status
       $(e.target).button('reset').prop('disabled', false)
       messages = []
