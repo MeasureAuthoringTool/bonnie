@@ -346,6 +346,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         @$(":input[name=#{field}]").closest('.form-group').addClass('has-error')
         messages.push message
       @$('.alert').text(_(messages).uniq().join('; ')).removeClass('hidden')
+    console.log(status)
 
   cancel: (e) ->
     # Go back to wherever the user came from, if possible
