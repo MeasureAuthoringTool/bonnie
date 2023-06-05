@@ -334,10 +334,11 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
           route = if @measure then "measures/#{@measure.get('cqmMeasure').set_id}" else "patients"
         bonnie.navigate route, trigger: true
         callback.success(model) if callback?.success
-      error: (model, error) =>
+      error: (model) =>
         console.log(model?.toJSON())
-        console.log(error)
-        console.log(error?.responseText)
+        callback.then ((something) ->
+          console.log(something)
+        ), (err) -> console.log(err)
     unless status
       $(e.target).button('reset').prop('disabled', false)
       messages = []
