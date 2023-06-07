@@ -14,7 +14,7 @@ gem "non-stupid-digest-assets"
 
 gem 'cqm-models', '~>4.0.2'
 # gem 'cqm-reports', '~> 3.1.2'
-
+# gem 'cqm-parsers', :path => '../cqm-parsers'
 gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers.git', :branch => 'bonnie_version'
 
 # needed for HDS
