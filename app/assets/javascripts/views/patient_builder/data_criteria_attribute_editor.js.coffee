@@ -188,6 +188,8 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     else if info.instance == 'Embedded'
       if info.schema.paths.namingSystem? # if this has namingSystem assume it is QDM::Identifier
         return ['Identifier']
+      else if info.path == 'facilityLocation'
+        return ['FacilityLocation']
       else
         return ['???'] # TODO: Handle situation of unknown type better.
     else
