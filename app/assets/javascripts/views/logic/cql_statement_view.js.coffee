@@ -100,7 +100,7 @@ class Thorax.Views.CqlResultStatement extends Thorax.Views.CqlStatement
   showRationale: (clauseResults, statementResult) ->
     _(super)
     @latestResult = statementResult
-    if @latestResult && @latestResult.raw
+    if @latestResult && (@latestResult.raw || @latestResult.raw == 0)
       @latestResultString = @latestResult.pretty
     else
       @latestResultString = "No Result Calculated"
