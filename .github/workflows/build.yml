@@ -10,7 +10,6 @@ jobs:
 #----main job for teaspoon tests-------
   build:
     name: Build-and-Test
-
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
