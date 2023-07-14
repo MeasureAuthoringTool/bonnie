@@ -25,7 +25,7 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
 
   populationCriteria: ->
     defaults = _(@pick(Thorax.Models.Measure.allPopulationCodes)).keys()
-    defaults = _(defaults).without('OBSERV') unless @has('MSRPOPL')
+    defaults = _(defaults).without('OBSERV')
     # create OBSERV_index keys for multiple OBSERV values
     if @has('OBSERV') and @get('OBSERV')?.length
       for val, index in @get('OBSERV')
@@ -77,7 +77,8 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
 
   # for ratio measures, cqm-execution is updated to have observations for all episodes even if it is excluded.
   # not the best way but observation array maintains the order- Denom observation first and then numer observations
-  # e.g. for 2 episodes, and OBSERV = [1, 2, 0, 5] then groupping produced by this method will be [{1, 2}, {0, 5}]
+  # e.g. for 2 episodes, and OBSERV = [1, 2, 0, 5]
+  # then groupping produced by this method will be [{denomObs: 1, numerObs: 2}, {denomObs: 0, numerObs: 5}]
   groupObsByEpisodes: (observations) ->
     i = 0
     episodes = []

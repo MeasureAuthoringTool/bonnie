@@ -67,4 +67,4 @@ Handlebars.registerHelper 'subtract', (a, b) ->
   return a - b
 
 Handlebars.registerHelper 'sum', (a, b) ->
-  a+b
+  a + b
