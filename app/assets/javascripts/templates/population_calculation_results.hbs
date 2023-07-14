@@ -14,9 +14,8 @@
         {{else}}
           {{#ifCond expected "==" undefined}}
             <span class="sr-only">no expectation set</span>
-          {{else}}
-            <i class="fa fa-times fail" aria-hidden="true"></i><span class="sr-only">failed</span>
           {{/ifCond}}
+          <i class="fa fa-times fail" aria-hidden="true"></i><span class="sr-only">failed</span>
         {{/if}}
       </td>
       <td>{{name}}</td>

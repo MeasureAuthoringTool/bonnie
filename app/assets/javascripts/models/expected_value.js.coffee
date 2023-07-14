@@ -4,9 +4,6 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
     # make 'OBSERV' be an empty list if CV measure and 'OBSERV' not set
     if @has('MSRPOPL') && !@has('OBSERV')
       @set 'OBSERV', []
-    # sort OBSERV when it is set to make comparison w actuals easier
-    if @has 'OBSERV' and Array.isArray(@get('OBSERV'))
-      @set 'OBSERV', @get('OBSERV').sort()
     @on 'change', @changeExpectedValue, this
 
   changeExpectedValue: (expectedValue) ->
@@ -28,10 +25,9 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
 
   populationCriteria: ->
     defaults = _(@pick(Thorax.Models.Measure.allPopulationCodes)).keys()
-
+    defaults = _(defaults).without('OBSERV') unless @has('MSRPOPL')
     # create OBSERV_index keys for multiple OBSERV values
     if @has('OBSERV') and @get('OBSERV')?.length
-      defaults = _(defaults).without('OBSERV')
       for val, index in @get('OBSERV')
         defaults.push "OBSERV_#{index+1}"
     defaults
@@ -52,7 +48,7 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
     return true
 
   comparison: (result) ->
-
+    results = []
     for popCrit in @populationCriteria()
       if popCrit.indexOf('OBSERV') != -1
         expected = ExpectedValue.prepareObserv(if popCrit == 'OBSERV' then @get('OBSERV')?[0] else @get('OBSERV')?[@observIndex(popCrit)])
@@ -63,19 +59,43 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
         expected = @get(popCrit)
         actual = result.get(popCrit)
         key = popCrit
-      # Here's the hash we return:
-      name: popCrit
-      key: key
-      expected: expected
-      actual: actual
-      match: @compareObservs(expected, actual)
-      unit: unit
+      results.push
+        name: popCrit
+        key: key
+        expected: expected
+        actual: actual
+        match: @compareObservs(expected, actual)
+        unit: unit
+    @updateObservationNames(results) if result.measure.get('cqmMeasure').measure_scoring == 'RATIO'
+    results
 
   observIndex: (observKey) ->
     observKey.split('_')[1] - 1
 
   compareObservs: (val1, val2) ->
     return ExpectedValue.prepareObserv(val1) == ExpectedValue.prepareObserv(val2)
+
+  # for ratio measures, cqm-execution is updated to have observations for all episodes even if it is excluded.
+  # not the best way but observation array maintains the order- Denom observation first and then numer observations
+  # e.g. for 2 episodes, and OBSERV = [1, 2, 0, 5] then groupping produced by this method will be [{1, 2}, {0, 5}]
+  groupObsByEpisodes: (observations) ->
+    i = 0
+    episodes = []
+    while i < observations?.length
+      episode = observations.slice(i, i + 2)
+      episodes.push({
+        denomObs: episode[0],
+        numerObs: episode[1]
+      })
+      i += 2
+    episodes
+
+  updateObservationNames: (results) ->
+    observations = results.filter((r) -> r.key == "OBSERV")
+    byEpisodes = @groupObsByEpisodes(observations)
+    for observation, index in byEpisodes
+      observation.denomObs.name = "EPISODE #{index + 1}- DENOM OBSERV" if observation.denomObs
+      observation.numerObs.name = "EPISODE #{index + 1}- NUMER OBSERV" if observation.numerObs
 
   @floorToCQLPrecision: (num) ->
     Number(Math.floor(num + 'e' + 8) + 'e-' + 8);

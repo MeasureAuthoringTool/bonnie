@@ -59,9 +59,9 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
       for pc in @measure.populationCriteria() when population.has(pc) or pc == 'OBSERV' and population.has('observations')
         if @isNumbers || (@isMultipleObserv && (pc == 'OBSERV'))
           # Only parse existing values
-          if attr[pc]
+          if attr[pc] || attr['OBSRV']
             if pc == 'OBSERV'
-              attr[pc] = [].concat(attr[pc])
+              attr[pc] = [].concat(attr['OBSRV'])
               attr[pc] = (Thorax.Models.ExpectedValue.prepareObserv(parseFloat(o)) for o in attr[pc])
             else
               attr[pc] = parseFloat(attr[pc])
@@ -79,6 +79,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     for pc in @measure.populationCriteria()
       unless @isNumbers || (@isMultipleObserv && (pc == 'OBSERV'))
         context[pc] = (context[pc] == 1)
+    context["ratioObserv"] = @model.groupObsByEpisodes(context['OBSERV']) if @isRatio and context['OBSERV']
     context
 
   initialize: ->
@@ -86,6 +87,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     # get population criteria from the measure to include OBSERV
     population = @measure.get('populations').at @model.get('population_index')
     @isNumbers = @measure.get('cqmMeasure').calculation_method == 'EPISODE_OF_CARE'
+    @isRatio = @measure.get('cqmMeasure').measure_scoring == 'RATIO'
     @isMultipleObserv = population.get('observations')?.length > 0
     @isCheckboxes = not @isNumbers and not @isMultipleObserv
     for pc in @measure.populationCriteria() when population.has(pc) or pc == 'OBSERV' and population.has('observations')
@@ -93,6 +95,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         key: pc
         displayName: pc
         isEoC: @isNumbers
+        isRatio: @isRatio
     unless @model.has('OBSERV_UNIT') or not @isMultipleObserv then @model.set 'OBSERV_UNIT', '', {silent:true}
 
   updateObserv: ->
