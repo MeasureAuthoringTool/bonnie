@@ -34,18 +34,23 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       events:
         collection:
           close: -> @collection.sort()
-    @expectedValuesView = new Thorax.Views.ExpectedValuesView
-      collection: @model.getExpectedValues(@measure)
-      measure: @measure
+
     @populationLogicView = new Thorax.Views.BuilderPopulationLogic
     @populationLogicView.setPopulation @measure.get('displayedPopulation')
     @populationLogicView.showRationale @model
+    @expectedValuesView = new Thorax.Views.ExpectedValuesView
+      collection: @model.getExpectedValues(@measure)
+      measure: @measure
+      calculationResults: @populationLogicView.calculationResults
     @expectedValuesView.on 'population:select', (population_index) =>
       @populationLogicView.setPopulation @measure.get('populations').at(population_index)
       @populationLogicView.showRationale @model
       @populationLogicView.$('.panel').animate(backgroundColor: '#fcf8e3').animate(backgroundColor: 'inherit')
     @model.on 'materialize', =>
       @populationLogicView.showRationale @model
+      @expectedValuesView.calculationResults = @populationLogicView.calculationResults
+      @expectedValuesView.refresh(@populationLogicView.model, @model.getExpectedValues(@measure)) if @cqmMeasure.measure_scoring == 'RATIO'
+
     @model.on 'clearHighlight', =>
       @$('.criteria-data').removeClass("#{Thorax.Views.EditCriteriaView.highlight.valid} #{Thorax.Views.EditCriteriaView.highlight.partial}")
       @$('.highlight-indicator').removeAttr('tabindex').empty()
@@ -297,7 +302,9 @@ class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
     @setView new Thorax.Views.CqlPatientBuilderLogic(model: population.measure(), population: population)
 
   showRationale: (patient) ->
-    @getView().showRationale(@model.calculate(patient))
+    @calculationResults = @model.calculate(patient)
+    @getView().showRationale(@calculationResults)
+
   context: ->
     _(super).extend
       title: if @model.collection.parent.get('populations').length > 1 then (@model.get('title') || @model.get('sub_id')) else ''

@@ -190,6 +190,7 @@ class Thorax.Models.Patient extends Thorax.Model
     if !_(@get('cqmPatient')['measure_ids']).contains measure.get('cqmMeasure').hqmf_set_id # if patient wasn't made for this measure
       expectedValue.set _.object(_.keys(expectedValue.attributes), []) # make expectations undefined instead of 0/fail
 
+    expectedValue.set("scoring", measure.get('cqmMeasure').measure_scoring)
     expectedValue
 
   getExpectedValues: (measure) ->

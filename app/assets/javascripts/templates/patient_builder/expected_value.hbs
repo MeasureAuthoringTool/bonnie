@@ -4,26 +4,11 @@
     {{#each currentCriteria}}
       {{#ifCond key "==" "OBSERV"}}
         {{#if isRatio}}
-          <br/>
-          {{#each ../../../ratioObserv}}
-            <div class="form-group">
-              <label for="DENOM_{{@index}}" class="checkbox-inline">
-                  Episode {{sum @index 1}}- denom observ
-              </label>
-              <input type="number" id="DENOM_{{@index}}" name="OBSRV" min="0" value="{{this.denomObs}}">
-            </div>
-            <div class="form-group">
-              <label for="NUMER_{{@index}}" class="checkbox-inline">
-                  Episode {{sum @index 1}}- numer observ
-              </label>
-              <input type="number" id="NUMER_{{@index}}" name="OBSRV" min="0" value="{{this.numerObs}}">
-            </div>
-          {{/each}}
         {{else}}
           <div class="form-group">
               <label for="{{../key}}_{{@index}}" class="checkbox-inline">{{displayName}}</label>
               {{#each ../../../OBSERV}}
-              <input type="number" id="{{../key}}_{{@index}}" name="OBSRV" min="0" value="{{this}}">
+              <input type="number" id="{{../key}}_{{@index}}" name="{{../key}}" min="0" value="{{this}}">
             {{/each}}
           </div>
         {{/if}}
@@ -40,6 +25,29 @@
           </div>
         {{/if}}
       {{/ifCond}}
+    {{/each}}
+    <br/>
+    {{#each ratioObservations}}
+        <div class="form-group">
+            <label for="denom_obs_{{this.denom.episodeId}}" class="checkbox-inline">
+                Episode {{sum @index 1}}- denom observ
+            </label>
+            <input type="number"
+                   id="denom_obs_{{this.denom.episodeId}}"
+                   name="denom_obs_{{this.denom.episodeId}}"
+                   min="0" value="{{this.denom.expected}}">
+<!--            <i class="fa fa-info-circle fa-lg default" aria-hidden="true" title="Actual: {{this.denom.actual}}"></i>-->
+        </div>
+        <div class="form-group">
+            <label for="numer_obs_{{this.numer.episodeId}}" class="checkbox-inline">
+                Episode {{sum @index 1}}- numer observ
+            </label>
+            <input type="number"
+                   id="numer_obs_{{this.numer.episodeId}}"
+                   name="numer_obs_{{this.numer.episodeId}}"
+                   min="0" value="{{this.numer.expected}}">
+<!--            <i class="fa fa-info-circle fa-lg default" aria-hidden="true" title="Actual: {{this.numer.actual}}"></i>-->
+        </div>
     {{/each}}
   </fieldset>
 </div>
