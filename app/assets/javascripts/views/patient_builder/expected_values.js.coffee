@@ -95,7 +95,6 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     population = @measure.get('populations').at @model.get('population_index')
     @isNumbers = @measure.get('cqmMeasure').calculation_method == 'EPISODE_OF_CARE'
     @isRatio = @model.get('scoring') == 'RATIO'
-    debugger
     @isMultipleObserv = population.get('observations')?.length > 0
     @isCheckboxes = not @isNumbers and not @isMultipleObserv
     for pc in @measure.populationCriteria() when population.has(pc) or pc == 'OBSERV' and population.has('observations')
