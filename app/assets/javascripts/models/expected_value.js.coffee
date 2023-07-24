@@ -67,13 +67,7 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
         actual = result.get(popCrit)
         key = popCrit
       # Here's the hash we return:
-      results.push
-        name: popCrit
-        key: key
-        expected: expected
-        actual: actual
-        match: @compareObservs(expected, actual)
-        unit: unit
+      results.push @createComparison(popCrit, key, expected, actual)
     if @get('scoring') == 'RATIO'
       comparisons = @getRatioObservationComparisons(result)
       results = results.concat(comparisons)
@@ -110,19 +104,11 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
         calculatedNumerObs.push(undefined) for n in [(calculatedNumerObs.length + 1)..expectedNumerObs.length]
 
       for index, expected of expectedDenomObs
-        denomObsComparisons.push
-          name: "DENOM OBSERV_#{+index + 1}"
-          key: "OBSERV"
-          expected: expected
-          actual: calculatedDenomObs[index]
-          match: @compareObservs(expected, calculatedDenomObs[index])
+        denomObsComparisons.push @createComparison("DENOM OBSERV_#{+index + 1}",
+          'OBSERV', expected,  calculatedDenomObs[index])
       for index, expected of expectedNumerObs
-        numerObsComparisons.push
-          name: "NUMER OBSERV_#{+index + 1}"
-          key: "OBSERV"
-          expected: expected
-          actual: calculatedNumerObs[index]
-          match: @compareObservs(expected, calculatedNumerObs[index])
+        numerObsComparisons.push @createComparison("NUMER OBSERV_#{+index + 1}",
+          'OBSERV', expected, calculatedNumerObs[index])
     else
       actaulObs = [result.get('observation_values')...]
       allObs = ArrayHelpers.chunk(actaulObs, 2)
@@ -133,20 +119,18 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
         if result.get('NUMER') and !result.get('NUMEX') then groupObs[1] else undefined
       expectedDenomObs = [undefined ] if expectedDenomObs.length == 0
       expectedNumerObs = [undefined] if expectedNumerObs.length == 0
-      denomObsComparisons.push
-        name: "DENOM OBSERV"
-        key: "OBSERV"
-        expected: expectedDenomObs[0]
-        actual: calculatedDenomObs
-        match: @compareObservs(expectedDenomObs[0], calculatedDenomObs)
-      numerObsComparisons.push
-        name: "NUMER OBSERV"
-        key: "OBSERV"
-        expected: expectedNumerObs[0]
-        actual: calculatedNumerObs
-        match: @compareObservs(expectedNumerObs[0], calculatedNumerObs)
-
+      denomObsComparisons.push @createComparison('DENOM OBSERV', 'OBSERV',
+        expectedDenomObs[0], calculatedDenomObs)
+      numerObsComparisons.push @createComparison('NUMER OBSERV', 'OBSERV',
+        expectedNumerObs[0], calculatedNumerObs)
     [denomObsComparisons..., numerObsComparisons...]
+
+  createComparison: (name, key, expected, actual) ->
+    name: name
+    key: key
+    expected: expected
+    actual: actual
+    match: @compareObservs(expected, actual)
 
   observIndex: (observKey) ->
     observKey.split('_')[1] - 1
