@@ -87,6 +87,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     for pc in @measure.populationCriteria()
       unless @isNumbers || (@isMultipleObserv && (pc == 'OBSERV'))
         context[pc] = (context[pc] == 1)
+    debugger
     context
 
   initialize: ->

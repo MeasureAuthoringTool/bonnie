@@ -84,8 +84,8 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
     numerObsComparisons = []
     calculatedDenomObs = []
     calculatedNumerObs = []
-    expectedDenomObs = @get('DENOM_OBSERV') || []
-    expectedNumerObs = @get('NUMER_OBSERV') || []
+    expectedDenomObs = if @get('DENOM_OBSERV') then [@get('DENOM_OBSERV')...] else []
+    expectedNumerObs = if @get('NUMER_OBSERV') then [@get('NUMER_OBSERV')...] else []
     if @get('isEpisodeBased')
       episodeResults = result.get('episode_results')
       # ignore observations for exlcluded episode
