@@ -119,10 +119,12 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
         if result.get('NUMER') and !result.get('NUMEX') then groupObs[1] else undefined
       expectedDenomObs = [undefined ] if expectedDenomObs.length == 0
       expectedNumerObs = [undefined] if expectedNumerObs.length == 0
-      denomObsComparisons.push @createComparison('DENOM OBSERV', 'OBSERV',
-        expectedDenomObs[0], calculatedDenomObs)
-      numerObsComparisons.push @createComparison('NUMER OBSERV', 'OBSERV',
-        expectedNumerObs[0], calculatedNumerObs)
+      if (expectedDenomObs[0] >= 0 || calculatedDenomObs)
+        denomObsComparisons.push @createComparison('DENOM OBSERV', 'OBSERV',
+          expectedDenomObs[0], calculatedDenomObs)
+      if (expectedNumerObs[0] >= 0 || calculatedNumerObs)
+        numerObsComparisons.push @createComparison('NUMER OBSERV', 'OBSERV',
+          expectedNumerObs[0], calculatedNumerObs)
     [denomObsComparisons..., numerObsComparisons...]
 
   createComparison: (name, key, expected, actual) ->
