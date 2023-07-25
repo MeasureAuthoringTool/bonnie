@@ -66,7 +66,6 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
         expected = @get(popCrit)
         actual = result.get(popCrit)
         key = popCrit
-      # Here's the hash we return:
       results.push @createComparison(popCrit, key, expected, actual)
     if @get('scoring') == 'RATIO'
       comparisons = @getRatioObservationComparisons(result)
