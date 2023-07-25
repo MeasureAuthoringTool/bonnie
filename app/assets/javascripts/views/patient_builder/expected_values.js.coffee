@@ -106,7 +106,6 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     unless @model.has('OBSERV_UNIT') or not @isMultipleObserv then @model.set 'OBSERV_UNIT', '', {silent:true}
 
   updateObserv: ->
-    console.log('updateObserv')
     if @isMultipleObserv and @model.has('MSRPOPL') and @model.get('MSRPOPL')?
       values = @model.get('MSRPOPL')
       if @model.has('MSRPOPLEX') and @model.get('MSRPOPLEX')?

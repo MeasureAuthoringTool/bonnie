@@ -112,7 +112,7 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
     else
       actaulObs = [result.get('observation_values')...]
       allObs = ArrayHelpers.chunk(actaulObs, 2)
-      groupObs = if allObs.lenght == 0 then [undefined, undefined] else allObs[@get('population_index')]
+      groupObs = if allObs.length == 0 then [undefined, undefined] else allObs[@get('population_index')]
       calculatedDenomObs =
         if result.get('DENOM') and !result.get('DENEX') then groupObs[0] else undefined
       calculatedNumerObs =
