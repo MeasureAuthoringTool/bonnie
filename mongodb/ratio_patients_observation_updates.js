@@ -2,15 +2,15 @@
 print("Observation data removal started...");
 const patientsUpdated = {}
 db.getCollection('cqm_patients').find().forEach((patient) => {
-  print(`Checking if elligible : ${patient._id}` );
+  print(`Patient id : ${patient._id}` );
   const expectedValues = patient.expectedValues;
   if (!expectedValues) {
-    print('Not elligible, no need to update' );
+    print('No expected values present' );
     return;
   }
   expectedValues.forEach((expectedValue) => {
     if (expectedValue.hasOwnProperty('OBSERV') && !expectedValue.hasOwnProperty('MSRPOPL')) {
-      print(`Updating patient : ${patient._id}` );
+      print(`Deleting OBSERV for patient : ${patient._id}` );
       db.getCollection('cqm_patients').updateOne(
         { _id: patient._id},
         {
