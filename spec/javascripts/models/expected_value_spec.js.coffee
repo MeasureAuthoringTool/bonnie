@@ -68,7 +68,6 @@
       bonnie.measures = new Thorax.Collections.Measures()
       @cqmMeasure = loadMeasureWithValueSets 'cqm_measure_data/QPRMOEv0/QPRMOEv0.json', 'cqm_measure_data/QPRMOEv0/value_sets.json'
       @population = @cqmMeasure.get('populations').at(0)
-      debugger
       patient1 = getJSONFixture 'patients/QPRMOEv0/patient_1.json'
       patient2 = getJSONFixture 'patients/QPRMOEv0/patient_2.json'
       @cqmPatients = new Thorax.Collections.Patients [patient1, patient2], parse: true
