@@ -7,10 +7,6 @@
         {{else}}
           <div class="form-group">
             <label for="{{key}}_{{@cid}}" class="checkbox-inline">{{displayName}}</label>
-            <div class="btn-group">
-              {{#button "togglePerc" class="btn btn-xs btn-observ-unit-perc"}} % {{/button}}
-              {{#button "toggleMins" class="btn btn-xs btn-observ-unit-mins"}} mins {{/button}}
-            </div>
             {{#each ../../../OBSERV}}
               <input type="number" id="{{../key}}_{{@index}}" name="{{../key}}" min="0" value="{{this}}">
             {{/each}}
