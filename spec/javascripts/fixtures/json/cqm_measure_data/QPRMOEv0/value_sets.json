@@ -1,0 +1,796 @@
+{
+  "E4DB8F0A-2A71-49C4-A61E-C1D8846051CF": [
+    {
+      "_id": "64ba78cb6068b150eead8c93",
+      "concepts": [
+        {
+          "_id": "64ba78cb6068b150eead8cd1",
+          "code": "1037045",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "dabigatran etexilate 150 MG Oral Capsule",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cd2",
+          "code": "1037179",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "dabigatran etexilate 75 MG Oral Capsule",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cd3",
+          "code": "1114198",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "rivaroxaban 10 MG Oral Tablet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cd4",
+          "code": "1232082",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "rivaroxaban 15 MG Oral Tablet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cd5",
+          "code": "1232086",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "rivaroxaban 20 MG Oral Tablet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cd6",
+          "code": "1361574",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "heparin sodium, porcine 20000 UNT/ML Injectable Solution",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cd7",
+          "code": "1361615",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "heparin sodium, porcine 5000 UNT/ML Injectable Solution",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cd8",
+          "code": "1364435",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "apixaban 2.5 MG Oral Tablet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cd9",
+          "code": "1364445",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "apixaban 5 MG Oral Tablet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cda",
+          "code": "1549682",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "{42 (rivaroxaban 15 MG Oral Tablet) / 9 (rivaroxaban 20 MG Oral Tablet) } Pack",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cdb",
+          "code": "1599543",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "edoxaban 15 MG Oral Tablet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cdc",
+          "code": "1599551",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "edoxaban 30 MG Oral Tablet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cdd",
+          "code": "1599555",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "edoxaban 60 MG Oral Tablet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cde",
+          "code": "1658717",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "250 ML heparin sodium, porcine 100 UNT/ML Injection",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cdf",
+          "code": "1659195",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "500 ML heparin sodium, porcine 50 UNT/ML Injection",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8ce0",
+          "code": "1659197",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "250 ML heparin sodium, porcine 50 UNT/ML Injection",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8ce1",
+          "code": "1723476",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "dabigatran etexilate 110 MG Oral Capsule",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8ce2",
+          "code": "1804735",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "50 ML argatroban 1 MG/ML Injection",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8ce3",
+          "code": "1804737",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "125 ML argatroban 1 MG/ML Injection",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8ce4",
+          "code": "1804738",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "250 ML argatroban 1 MG/ML Injection",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8ce5",
+          "code": "1992427",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "{74 (apixaban 5 MG Oral Tablet) } Pack",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8ce6",
+          "code": "2059015",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "rivaroxaban 2.5 MG Oral Tablet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8ce7",
+          "code": "2588062",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "rivaroxaban 1 MG/ML Oral Suspension",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8ce8",
+          "code": "2590616",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "dabigatran etexilate 110 MG Oral Pellet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8ce9",
+          "code": "2590620",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "dabigatran etexilate 150 MG Oral Pellet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cea",
+          "code": "2590623",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "dabigatran etexilate 20 MG Oral Pellet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8ceb",
+          "code": "2590627",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "dabigatran etexilate 30 MG Oral Pellet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cec",
+          "code": "2590631",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "dabigatran etexilate 40 MG Oral Pellet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8ced",
+          "code": "2590635",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "dabigatran etexilate 50 MG Oral Pellet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cee",
+          "code": "2618839",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "4 ML dalteparin sodium 2500 UNT/ML Injection",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cef",
+          "code": "308351",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "2.5 ML argatroban 100 MG/ML Injection",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cf0",
+          "code": "854238",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "0.6 ML enoxaparin sodium 100 MG/ML Prefilled Syringe",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cf1",
+          "code": "854241",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "0.8 ML enoxaparin sodium 100 MG/ML Prefilled Syringe",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cf2",
+          "code": "854245",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "0.8 ML enoxaparin sodium 150 MG/ML Prefilled Syringe",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cf3",
+          "code": "854248",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "1 ML enoxaparin sodium 100 MG/ML Prefilled Syringe",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cf4",
+          "code": "854252",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "1 ML enoxaparin sodium 150 MG/ML Prefilled Syringe",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cf5",
+          "code": "854255",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "enoxaparin sodium 100 MG/ML Injectable Solution",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cf6",
+          "code": "855288",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "warfarin sodium 1 MG Oral Tablet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cf7",
+          "code": "855296",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "warfarin sodium 10 MG Oral Tablet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cf8",
+          "code": "855302",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "warfarin sodium 2 MG Oral Tablet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cf9",
+          "code": "855312",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "warfarin sodium 2.5 MG Oral Tablet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cfa",
+          "code": "855318",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "warfarin sodium 3 MG Oral Tablet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cfb",
+          "code": "855324",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "warfarin sodium 4 MG Oral Tablet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cfc",
+          "code": "855332",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "warfarin sodium 5 MG Oral Tablet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cfd",
+          "code": "855338",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "warfarin sodium 6 MG Oral Tablet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cfe",
+          "code": "855344",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "warfarin sodium 7.5 MG Oral Tablet",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8cff",
+          "code": "861356",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "0.8 ML fondaparinux sodium 12.5 MG/ML Prefilled Syringe",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d00",
+          "code": "861360",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "0.5 ML fondaparinux sodium 5 MG/ML Prefilled Syringe",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d01",
+          "code": "861363",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "0.4 ML fondaparinux sodium 12.5 MG/ML Prefilled Syringe",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d02",
+          "code": "861365",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "0.6 ML fondaparinux sodium 12.5 MG/ML Prefilled Syringe",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d03",
+          "code": "978725",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "0.2 ML dalteparin sodium 12500 UNT/ML Prefilled Syringe",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d04",
+          "code": "978733",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "0.2 ML dalteparin sodium 25000 UNT/ML Prefilled Syringe",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d05",
+          "code": "978736",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "0.3 ML dalteparin sodium 25000 UNT/ML Prefilled Syringe",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d06",
+          "code": "978740",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "0.5 ML dalteparin sodium 25000 UNT/ML Prefilled Syringe",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d07",
+          "code": "978744",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "0.6 ML dalteparin sodium 25000 UNT/ML Prefilled Syringe",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d08",
+          "code": "978746",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "0.72 ML dalteparin sodium 25000 UNT/ML Prefilled Syringe",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d09",
+          "code": "978755",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "1 ML dalteparin sodium 10000 UNT/ML Prefilled Syringe",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d0a",
+          "code": "978759",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "dalteparin sodium 10000 UNT/ML Injectable Solution",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d0b",
+          "code": "978777",
+          "code_system_name": "RXNORM",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2023-01",
+          "display_name": "dalteparin sodium 25000 UNT/ML Injectable Solution",
+          "hasLongDisplayName": false
+        }
+      ],
+      "display_name": "Anticoagulant Therapy",
+      "group_id": "62154e3cf074ce0e63a20685",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.200",
+      "version": "Draft"
+    },
+    {
+      "_id": "64ba78cb6068b150eead8c94",
+      "concepts": [
+        {
+          "_id": "64ba78cb6068b150eead8d0c",
+          "code": "02560ZZ",
+          "code_system_name": "ICD10PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2023",
+          "display_name": "Destruction of Right Atrium, Open Approach",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d0d",
+          "code": "02563ZZ",
+          "code_system_name": "ICD10PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2023",
+          "display_name": "Destruction of Right Atrium, Percutaneous Approach",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d0e",
+          "code": "02564ZZ",
+          "code_system_name": "ICD10PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2023",
+          "display_name": "Destruction of Right Atrium, Percutaneous Endoscopic Approach",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d0f",
+          "code": "02580ZZ",
+          "code_system_name": "ICD10PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2023",
+          "display_name": "Destruction of Conduction Mechanism, Open Approach",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d10",
+          "code": "02583ZZ",
+          "code_system_name": "ICD10PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2023",
+          "display_name": "Destruction of Conduction Mechanism, Percutaneous Approach",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d11",
+          "code": "02584ZZ",
+          "code_system_name": "ICD10PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2023",
+          "display_name": "Destruction of Conduction Mechanism, Percutaneous Endoscopic Approach",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d12",
+          "code": "175095005",
+          "code_system_name": "SNOMEDCT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2022-09",
+          "display_name": "Open ablation of atrioventricular node (procedure)",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d13",
+          "code": "175125003",
+          "code_system_name": "SNOMEDCT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2022-09",
+          "display_name": "Percutaneous transluminal ablation of atrioventricular node (procedure)",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d14",
+          "code": "233159005",
+          "code_system_name": "SNOMEDCT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2022-09",
+          "display_name": "Ablation operation for arrhythmia (procedure)",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d15",
+          "code": "233160000",
+          "code_system_name": "SNOMEDCT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2022-09",
+          "display_name": "Diathermy ablation operation for arrhythmia (procedure)",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d16",
+          "code": "233161001",
+          "code_system_name": "SNOMEDCT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2022-09",
+          "display_name": "Cryoablation operation for arrhythmia (procedure)",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d17",
+          "code": "233162008",
+          "code_system_name": "SNOMEDCT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2022-09",
+          "display_name": "Laser ablation operation for arrhythmia (procedure)",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d18",
+          "code": "233163003",
+          "code_system_name": "SNOMEDCT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2022-09",
+          "display_name": "Radiofrequency ablation operation for arrhythmia (procedure)",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d19",
+          "code": "428290007",
+          "code_system_name": "SNOMEDCT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2022-09",
+          "display_name": "Percutaneous transluminal ablation of wall of atrium (procedure)",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d1a",
+          "code": "428663009",
+          "code_system_name": "SNOMEDCT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2022-09",
+          "display_name": "Ablation of atrioventricular node (procedure)",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d1b",
+          "code": "429211003",
+          "code_system_name": "SNOMEDCT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2022-09",
+          "display_name": "Maze procedure for atrial fibrillation (procedure)",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d1c",
+          "code": "440619008",
+          "code_system_name": "SNOMEDCT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2022-09",
+          "display_name": "Ablation of ventricular arrhythmogenic focus with cardiopulmonary bypass (procedure)",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d1d",
+          "code": "473229000",
+          "code_system_name": "SNOMEDCT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2022-09",
+          "display_name": "Catheter ablation of arrhythmogenic focus (procedure)",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d1e",
+          "code": "707832008",
+          "code_system_name": "SNOMEDCT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2022-09",
+          "display_name": "Percutaneous transluminal ablation of atrial wall for atrial flutter (procedure)",
+          "hasLongDisplayName": false
+        }
+      ],
+      "display_name": "Atrial Ablation",
+      "group_id": "62154e3cf074ce0e63a20685",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.203",
+      "version": "Draft"
+    },
+    {
+      "_id": "64ba78cb6068b150eead8c95",
+      "concepts": [
+        {
+          "_id": "64ba78cb6068b150eead8d1f",
+          "code": "133918004",
+          "code_system_name": "SNOMEDCT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2022-09",
+          "display_name": "Comfort measures (regime/therapy)",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d20",
+          "code": "182964004",
+          "code_system_name": "SNOMEDCT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2022-09",
+          "display_name": "Terminal care (regime/therapy)",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d21",
+          "code": "385736008",
+          "code_system_name": "SNOMEDCT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2022-09",
+          "display_name": "Dying care (regime/therapy)",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d22",
+          "code": "385763009",
+          "code_system_name": "SNOMEDCT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2022-09",
+          "display_name": "Hospice care (regime/therapy)",
+          "hasLongDisplayName": false
+        }
+      ],
+      "display_name": "Comfort Measures",
+      "group_id": "62154e3cf074ce0e63a20685",
+      "oid": "1.3.6.1.4.1.33895.1.3.0.45",
+      "version": "Draft"
+    },
+    {
+      "_id": "64ba78cb6068b150eead8c96",
+      "concepts": [
+        {
+          "_id": "64ba78cb6068b150eead8d23",
+          "code": "183452005",
+          "code_system_name": "SNOMEDCT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2022-09",
+          "display_name": "Emergency hospital admission (procedure)",
+          "hasLongDisplayName": false
+        },
+        {
+          "_id": "64ba78cb6068b150eead8d24",
+          "code": "32485007",
+          "code_system_name": "SNOMEDCT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2022-09",
+          "display_name": "Hospital admission (procedure)",
+          "hasLongDisplayName": false
+        }
+      ],
+      "display_name": "Nonelective Inpatient Encounter",
+      "group_id": "62154e3cf074ce0e63a20685",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.424",
+      "version": "Draft"
+    }
+  ]
+}
