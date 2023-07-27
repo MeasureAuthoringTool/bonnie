@@ -38,10 +38,7 @@
       measure.get('populations').forEach((measure_population) =>
         populationSetId = measure_population.get('population_set_id')
         populationSetResults = patientResults[populationSetId]
-
-        if populationSetResults.observation_values
-          populationSetResults.observation_values.sort()
-        else
+        if !populationSetResults.observation_values
           populationSetResults.observation_values = []
 
         # if this population is requested update the object
@@ -132,9 +129,7 @@
         populationSetId = population.get('population_set_id')
         populationSetResults = patientResults[populationSetId]
 
-        if populationSetResults.observation_values
-          populationSetResults.observation_values.sort()
-        else
+        if !populationSetResults.observation_values
           populationSetResults.observation_values = []
 
         result.set(populationSetResults)

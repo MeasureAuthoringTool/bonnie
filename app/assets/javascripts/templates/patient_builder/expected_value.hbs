@@ -3,16 +3,15 @@
     <legend>Expected Value</legend>
     {{#each currentCriteria}}
       {{#ifCond key "==" "OBSERV"}}
-        <div class="form-group">
-          <label for="{{key}}_{{@cid}}" class="checkbox-inline">{{displayName}}</label>
-          <div class="btn-group">
-            {{#button "togglePerc" class="btn btn-xs btn-observ-unit-perc"}} % {{/button}}
-            {{#button "toggleMins" class="btn btn-xs btn-observ-unit-mins"}} mins {{/button}}
+        {{#if isRatio}}
+        {{else}}
+          <div class="form-group">
+            <label for="{{key}}_{{@cid}}" class="checkbox-inline">{{displayName}}</label>
+            {{#each ../../../OBSERV}}
+              <input type="number" id="{{../key}}_{{@index}}" name="{{../key}}" min="0" value="{{this}}">
+            {{/each}}
           </div>
-          {{#each ../../OBSERV}}
-            <input type="number" id="{{../key}}_{{@index}}" name="{{../key}}" min="0" value="{{this}}">
-          {{/each}}
-        </div>
+        {{/if}}
       {{else}}
         {{#if isEoC}}
           <div class="form-group">
@@ -27,5 +26,20 @@
         {{/if}}
       {{/ifCond}}
     {{/each}}
+    {{#if isRatio}}
+      <br/>
+      {{#each DENOM_OBSERV}}
+        <div class="form-group">
+          <label for="DENOM_OBSERV_{{@index}}">DENOM OBSERV_{{sum @index 1}}</label>
+          <input type="number" id="DENOM_OBSERV_{{@index}}" name="DENOMOBS" min="0" value="{{this}}">
+        </div>
+      {{/each}}
+      {{#each NUMER_OBSERV}}
+        <div class="form-group">
+          <label for="NUMER_OBSERV_{{@index}}">NUMER OBSERV_{{sum @index 1}}</label>
+          <input type="number" id="NUMER_OBSERV_{{@index}}" name="NUMEROBS" min="0" value="{{this}}">
+        </div>
+      {{/each}}
+    {{/if}}
   </fieldset>
 </div>

@@ -69,6 +69,14 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           else attr[pc] = undefined if pc == 'OBSERV'
         else
           attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box true/false to 0/1
+      if (attr['DENOMOBS'])
+        attr['DENOM_OBSERV'] = [attr['DENOMOBS']...].map((o) -> parseFloat(o))
+      else
+        attr['DENOM_OBSERV'] = []
+      if (attr['NUMEROBS'])
+        attr['NUMER_OBSERV'] = [attr['NUMEROBS']...].map((o) -> parseFloat(o))
+      else
+        attr['NUMER_OBSERV'] = []
     'change input': 'selectPopulations'
     'change input[name="MSRPOPL"]': 'updateObserv'
     'change input[name="MSRPOPLEX"]': 'updateObserv'
@@ -86,6 +94,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     # get population criteria from the measure to include OBSERV
     population = @measure.get('populations').at @model.get('population_index')
     @isNumbers = @measure.get('cqmMeasure').calculation_method == 'EPISODE_OF_CARE'
+    @isRatio = @model.get('scoring') == 'RATIO'
     @isMultipleObserv = population.get('observations')?.length > 0
     @isCheckboxes = not @isNumbers and not @isMultipleObserv
     for pc in @measure.populationCriteria() when population.has(pc) or pc == 'OBSERV' and population.has('observations')
@@ -93,6 +102,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         key: pc
         displayName: pc
         isEoC: @isNumbers
+        isRatio: @isRatio
     unless @model.has('OBSERV_UNIT') or not @isMultipleObserv then @model.set 'OBSERV_UNIT', '', {silent:true}
 
   updateObserv: ->
@@ -109,6 +119,46 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
       else
         @model.set 'OBSERV', (0 for n in [1..values]) if values
       @setObservs()
+
+  updateDenomObservations: ->
+    totalObs = @model.get('DENOM_OBSERV')?.length
+    if @model.has('DENEX') and @model.get('DENEX')?
+      totalObs = @model.get('DENOM') - @model.get('DENEX')
+    else
+      totalObs = @model.get('DENOM')
+    if @model.get('DENOM_OBSERV')
+      current = @model.get('DENOM_OBSERV').length
+      if totalObs < current
+        @model.set 'DENOM_OBSERV', _(@model.get('DENOM_OBSERV')).first(totalObs)
+      else if totalObs > current
+        @model.set 'DENOM_OBSERV', [@model.get('DENOM_OBSERV')...].concat(0 for n in [(current + 1)..totalObs])
+    else
+      @model.set 'DENOM_OBSERV', (0 for n in [1..totalObs]) if totalObs
+    @setRatioObservations()
+
+  updateNumeratorObservations: ->
+    totalObs = @model.get('NUMER_OBSERV')?.length
+    if @model.has('NUMEX') and @model.get('NUMEX')?
+      totalObs = @model.get('NUMER') - @model.get('NUMEX')
+    else
+      totalObs = @model.get('NUMER')
+    if @model.get('NUMER_OBSERV')
+      current = @model.get('NUMER_OBSERV').length
+      if totalObs < current
+        @model.set 'NUMER_OBSERV', _(@model.get('NUMER_OBSERV')).first(totalObs)
+      else if totalObs > current
+        @model.set 'NUMER_OBSERV', [@model.get('NUMER_OBSERV')...].concat(0 for n in [(current + 1)..totalObs])
+    else
+      @model.set 'NUMER_OBSERV', (0 for n in [1..totalObs]) if totalObs
+    @setRatioObservations()
+
+  setRatioObservations: ->
+    if @model.get('DENOM_OBSERV')?.length
+      for val, index in @model.get('DENOM_OBSERV')
+        @$("#DENOM_OBSERV_#{index}").val(val)
+    if @model.get('NUMER_OBSERV')?.length
+      for val, index in @model.get('NUMER_OBSERV')
+        @$("#NUMER_OBSERV_#{index}").val(val)
 
   setObservs: ->
     if @model.get('OBSERV')?.length
@@ -169,9 +219,18 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         when 'DENOM', 'MSRPOPL'
           @setPopulation('IPP', value) unless @isNumbers and @attrs['IPP'] >= value
           @handleSelect('IPP', value, increment)
-        when 'DENEX', 'DENEXCEP', 'NUMER'
+          @updateDenomObservations() if @isRatio
+        when 'DENEX', 'DENEXCEP'
           @setPopulation('DENOM', value) unless @isNumbers and @attrs['DENOM'] >= value
           @handleSelect('DENOM', value, increment)
+        when 'NUMER'
+          if @isRatio
+            @setPopulation('IPP', value) unless @isNumbers and @attrs['IPP'] >= value
+            @handleSelect('IPP', value, increment)
+            @updateNumeratorObservations()
+          else
+            @setPopulation('DENOM', value) unless @isNumbers and @attrs['DENOM'] >= value
+            @handleSelect('DENOM', value, increment)
         when 'NUMEX'
           @setPopulation('NUMER', value) unless @isNumbers and @attrs['NUMER'] >= value
           @handleSelect('NUMER', value, increment)
@@ -188,15 +247,28 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           @setPopulation('DENOM', value) unless @isNumbers and @attrs['DENOM'] < value
           @setPopulation('MSRPOPL', value) unless @isNumbers and @attrs['MSRPOPL'] < value or not @isMultipleObserv
           @handleSelect('DENOM', value, increment)
+          if @isRatio
+            @setPopulation('NUMER', value) unless @isNumbers and @attrs['NUMER'] < value
+            @handleSelect('NUMER', value, increment)
         when 'DENOM', 'MSRPOPL'
           @setPopulation('DENEX', value) unless @isNumbers and @attrs['DENEX'] < value
           @setPopulation('DENEXCEP', value) unless @isNumbers and @attrs['DENEXCEP'] < value
-          @setPopulation('NUMER', value) unless @isNumbers and @attrs['NUMER'] < value
           # Remove expected MSRPOPLEX if MSRPOPL/DENOM less than MSRPOPLEX
           @setPopulation('MSRPOPLEX', value) unless @isNumbers and @attrs['MSRPOPLEX'] < value
-          @handleSelect('NUMER', value, increment)
+          if @isRatio
+            @updateDenomObservations()
+          else
+            @setPopulation('NUMER', value) unless @isNumbers and @attrs['NUMER'] < value
+            @handleSelect('NUMER', value, increment)
         when 'NUMER'
           @setPopulation('NUMEX', value) unless @isNumbers and @attrs['NUMEX'] < value
+          @updateNumeratorObservations() if @isRatio
+        when 'DENEX'
+          @setPopulation('DENEX', value) unless @isNumbers and @attrs['DENEX'] < value
+          @updateDenomObservations() if @isRatio
+        when 'NUMEX'
+          @setPopulation('NUMEX', value) unless @isNumbers and @attrs['NUMEX'] < value
+          @updateNumeratorObservations() if @isRatio
         when 'MSRPOPLEX'
           @setPopulation('MSRPOPLEX', value) unless @isNumbers and @attrs['MSRPOPLEX'] < value
 

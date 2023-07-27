@@ -1,0 +1,61 @@
+{
+  "givenNames": [
+    "Test"
+  ],
+  "expectedValues": [
+    {
+      "population_index": 0,
+      "measure_id": "E4DB8F0A-2A71-49C4-A61E-C1D8846051CF",
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "NUMEX": 0,
+      "OBSERV_UNIT": "",
+      "DENOM_OBSERV": [],
+      "NUMER_OBSERV": []
+    },
+    {
+      "population_index": 1,
+      "measure_id": "E4DB8F0A-2A71-49C4-A61E-C1D8846051CF",
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 1,
+      "NUMEX": 0,
+      "OBSERV_UNIT": "",
+      "DENOM_OBSERV": [
+        2
+      ],
+      "NUMER_OBSERV": [
+        1
+      ]
+    }
+  ],
+  "measure_ids": [
+    "E4DB8F0A-2A71-49C4-A61E-C1D8846051CF"
+  ],
+  "_id": "64c120b61e5a8e00008fcc63",
+  "familyName": "NoOBSERV",
+  "notes": "",
+  "qdmPatient": {
+    "qdmVersion": "5.6",
+    "dataElements": [
+      {
+        "dataElementCodes": [],
+        "_id": "64c120cc1e5a8e00008fcc6d",
+        "qdmTitle": "Patient Characteristic Birthdate",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "birthdate",
+        "qdmVersion": "5.6",
+        "_type": "QDM::PatientCharacteristicBirthdate",
+        "birthDatetime": "2023-07-01T08:00:00.000+00:00",
+        "id": "64c120cc1e5a8e00008fcc6d"
+      }
+    ],
+    "_id": "64c120cc6068b17240b87831",
+    "birthDatetime": "2023-07-01T08:00:00.000+00:00"
+  },
+  "providers": []
+}

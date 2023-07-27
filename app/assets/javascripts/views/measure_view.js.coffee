@@ -158,13 +158,23 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
         result_criteria = {}
         for pop_crit of result.get('population_relevance')
           result_criteria[pop_crit] = result.get(pop_crit)
+        expectedValues = patient.getExpectedValues(@model);
+        camMeasure = this.model.get('cqmMeasure')
+        # update observations for ratio scoring
+        if (camMeasure.measure_scoring == 'RATIO')
+          expectedValues = @correctExpectedRatioObservations(expectedValues.models)
+          if (camMeasure.calculation_method == 'EPISODE_OF_CARE')
+            result_criteria['observation_values'] = @getEpisodeBasedObservations(result)
+          else
+            result_criteria['observation_values'] = @getPatientBsedObservations(result, pop.get('index'))
+
         calc_results[pop.cid][patient.cid] = {statement_results: @removeExtra(result.get("statement_results")), criteria: result_criteria}
         # Populates the patient details
         if (patient_details[patient.cid] == undefined)
           patient_details[patient.cid] = {
             first: patient.getFirstName()
             last: patient.getLastName()
-            expected_values: patient.getExpectedValues(@model)
+            expected_values: expectedValues
             birthdate: patient.getBirthDate()
             expired: patient.get("expired")
             deathdate: patient.getDeathDate()
@@ -194,6 +204,42 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
         file_name: file_name
         measure_hqmf_set_id: @model.get('cqmMeasure').hqmf_set_id
       }
+
+  correctExpectedRatioObservations: (expectedValues) ->
+    return expectedValues.map((expectedValue) =>
+      copy = $.extend({}, expectedValue);
+      denomObs = expectedValue.get('DENOM_OBSERV') || []
+      numerObs = expectedValue.get('NUMER_OBSERV') || []
+      copy.set('OBSERV', [denomObs..., numerObs...])
+      copy
+    )
+
+  getEpisodeBasedObservations: (result) ->
+    if (result)
+      denomObs = []
+      numerObs = []
+      for episodeId of result.get('episode_results')
+        episodeResult = result.get('episode_results')[episodeId]
+        if episodeResult['DENOM'] && !episodeResult['DENEX']
+          denomObs.push(episodeResult.observation_values[0]) # denom obs is at 0 index always
+        if episodeResult['NUMER'] && !episodeResult['NUMEX']
+          numerObs.push(episodeResult.observation_values[1]) # numer obs is at 1 index always
+      return [denomObs..., numerObs...]
+    else
+      return []
+
+  getPatientBsedObservations: (result, groupIndex) ->
+    observations = result.get('observation_values')
+    if observations
+      obsByGroups = ArrayHelpers.chunk([observations...], 2)
+      currentGroupObs = obsByGroups[groupIndex]
+      if currentGroupObs
+        if (!result.get('DENOM') || result.get('DENEX'))
+          currentGroupObs.shift() # remove first element because denom obs is first in the list
+        if !result.get('NUMER') || result.get('NUMEX')
+          currentGroupObs.pop() # remove last element because numer obs is last in the list
+        return currentGroupObs
+    return []
 
   # Iterates through the results to remove extraneous fields.
   removeExtra: (results) ->
