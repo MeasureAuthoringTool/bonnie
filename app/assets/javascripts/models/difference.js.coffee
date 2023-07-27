@@ -8,14 +8,18 @@ class Thorax.Models.Difference extends Thorax.Model
     @update()
   update: ->
     return unless @result.isPopulated()
-    match = @expected.isMatch(@result)
+    # if no expectations are set, use null status instead of failing or passing.
+    if _.every(@expected.attributes, (value, key) -> return !value?) then status = null
+    # add observations(undefined) to expected value model if user has not entered them yet
+    @expected.padObservation(@result) if this.expected.get('scoring') == 'CONTINUOUS_VARIABLE'
+    # comparison array for all populations
+    comparisons = @expected.comparison(@result)
+    match = comparisons.every((c) -> c.match == true)
     status = switch match
                when true then 'pass'
                when false then 'fail'
                else 'pending'
-    # if no expectations are set, use null status instead of failing or passing.
-    if _.every(@expected.attributes, (value, key) -> return !value?) then status = null
-    @set done: match?, match: match, status: status, comparisons: @expected.comparison(@result)
+    @set done: match?, match: match, status: status, comparisons: comparisons
 
   toJSON: ->
     _(super).extend({medicalRecordNumber: @result.patient.get('cqmPatient').qdmPatient.id().toString()} if @result.isPopulated())

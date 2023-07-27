@@ -287,3 +287,25 @@
 
     it 'display SDE section', ->
       expect(@measureView.$('.sde-defines')).toExist()
+
+  describe 'Excel Export: Episode based ratio measure', ->
+    beforeAll ->
+      jasmine.getJSONFixtures().clearCache()
+      bonnie.measures = new Thorax.Collections.Measures()
+      @cqmMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS871v2/CMS871v2.json', 'cqm_measure_data/CMS871v2/value_sets.json'
+      @population = @cqmMeasure.get('populations').at(0)
+      patient = getJSONFixture 'patients/CMS871v2/patient_1.json'
+      @cqmPatients = new Thorax.Collections.Patients [patient], parse: true
+      @cqmMeasure.set('patients', @cqmPatients)
+      @measureView = new Thorax.Views.Measure(model: @cqmMeasure, patients: @cqmPatients, populations: @cqmMeasure.get('populations'), population: @cqmMeasure.get('displayedPopulation'))
+      bonnie.measures.add @cqmMeasure
+      @measureView.appendTo 'body'
+
+    afterAll ->
+      @measureView.remove()
+
+    it 'exports patient in excel', ->
+      spyOn($, 'fileDownload').and.callFake () ->
+        expect(arguments[0]).toEqual('patients/excel_export')
+      @measureView.$("button[data-call-method=exportExcelPatients]").click()
+      expect($.fileDownload).toHaveBeenCalled()

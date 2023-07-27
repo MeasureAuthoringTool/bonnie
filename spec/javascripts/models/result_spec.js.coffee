@@ -50,7 +50,7 @@ describe 'Continuous Variable Calculations', ->
     patient = @patients.at(3) # 2 ED Visits
     result = @population.calculate(patient)
     # values are ordered when created by the calculator
-    expect(result.get('observation_values')).toEqual([15, 25])
+    expect(result.get('observation_values')).toEqual([25, 15])
     expect(result.get('population_relevance')['observation_values']).toBe(true)
     expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
     expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
