@@ -1,0 +1,155 @@
+{
+  "givenNames": [
+    "Pass"
+  ],
+  "expectedValues": [
+    {
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 1,
+      "NUMEX": 0,
+      "OBSERV_UNIT": "",
+      "measure_id": "E4DB8F0A-2A71-49C4-A61E-C1D8846051CF",
+      "DENOM_OBSERV": [
+        1
+      ],
+      "NUMER_OBSERV": [
+        1
+      ],
+      "OBSERV": [
+        1,
+        1
+      ]
+    },
+    {
+      "population_index": 1,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "NUMEX": 0,
+      "measure_id": "E4DB8F0A-2A71-49C4-A61E-C1D8846051CF",
+      "OBSERV_UNIT": "",
+      "DENOM_OBSERV": [],
+      "NUMER_OBSERV": [],
+      "OBSERV": []
+    }
+  ],
+  "measure_ids": [
+    "E4DB8F0A-2A71-49C4-A61E-C1D8846051CF"
+  ],
+  "_id": "64c00f276068b117f3d33c33",
+  "bundleId": null,
+  "familyName": "IPDENEXNUMER",
+  "notes": "",
+  "qdmPatient": {
+    "qdmVersion": "5.6",
+    "dataElements": [
+      {
+        "dataElementCodes": [
+          {
+            "code": "183452005",
+            "system": "2.16.840.1.113883.6.96",
+            "version": null,
+            "display": null
+          }
+        ],
+        "_id": "64bfe93ca732e800007eab78",
+        "participant": [],
+        "relatedTo": [],
+        "qdmTitle": "Encounter, Performed",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+        "qdmCategory": "encounter",
+        "qdmStatus": "performed",
+        "qdmVersion": "5.6",
+        "_type": "QDM::EncounterPerformed",
+        "facilityLocations": [],
+        "admissionSource": null,
+        "authorDatetime": "2012-07-25T08:00:00.000+00:00",
+        "codeListId": "2.16.840.1.113883.3.117.1.7.1.424",
+        "description": "Encounter, Performed: Nonelective Inpatient Encounter",
+        "diagnoses": [],
+        "dischargeDisposition": null,
+        "lengthOfStay": {
+          "value": 2,
+          "unit": "d"
+        },
+        "priority": null,
+        "relevantPeriod": {
+          "low": "2012-07-25T08:00:00.000+00:00",
+          "high": "2012-07-25T08:15:00.000+00:00",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "id": "64bfe93ca732e800007eab78"
+      },
+      {
+        "dataElementCodes": [
+          {
+            "code": "02560ZZ",
+            "system": "2.16.840.1.113883.6.4",
+            "version": null,
+            "display": null
+          }
+        ],
+        "_id": "64c120451e5a8e00008fcc36",
+        "requester": [],
+        "qdmTitle": "Procedure, Order",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.66",
+        "qdmCategory": "procedure",
+        "qdmStatus": "order",
+        "qdmVersion": "5.6",
+        "_type": "QDM::ProcedureOrder",
+        "anatomicalLocationSite": null,
+        "authorDatetime": "2012-07-26T08:00:00.000+00:00",
+        "codeListId": "2.16.840.1.113883.3.117.1.7.1.203",
+        "description": "Procedure, Order: Atrial Ablation",
+        "negationRationale": null,
+        "priority": null,
+        "rank": null,
+        "reason": null,
+        "id": "64c120451e5a8e00008fcc36"
+      },
+      {
+        "dataElementCodes": [
+          {
+            "code": "133918004",
+            "system": "2.16.840.1.113883.6.96",
+            "version": null,
+            "display": null
+          }
+        ],
+        "_id": "64c120721e5a8e00008fcc48",
+        "requester": [],
+        "qdmTitle": "Intervention, Order",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
+        "qdmCategory": "intervention",
+        "qdmStatus": "order",
+        "qdmVersion": "5.6",
+        "_type": "QDM::InterventionOrder",
+        "description": "Intervention, Order: Comfort Measures",
+        "codeListId": "1.3.6.1.4.1.33895.1.3.0.45",
+        "authorDatetime": "2012-07-26T08:00:00.000+00:00",
+        "id": "64c120721e5a8e00008fcc48"
+      },
+      {
+        "dataElementCodes": [],
+        "_id": "64c12449c60c420000e8b9ae",
+        "qdmTitle": "Patient Characteristic Birthdate",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "birthdate",
+        "qdmVersion": "5.6",
+        "_type": "QDM::PatientCharacteristicBirthdate",
+        "birthDatetime": "2023-07-01T08:00:00.000+00:00",
+        "id": "64c12449c60c420000e8b9ae"
+      }
+    ],
+    "_id": "64c124496068b17240b87837",
+    "birthDatetime": "2023-07-01T08:00:00.000+00:00",
+    "extendedData": null
+  },
+  "providers": []
+}
