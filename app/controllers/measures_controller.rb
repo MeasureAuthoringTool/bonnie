@@ -29,7 +29,7 @@ class MeasuresController < ApplicationController
 
     begin
       scan_for_viruses(params[:measure_file])
-      vsac_tgt = obtain_ticket_granting_ticket
+      set_vsac_api_key
     rescue VirusFoundError => e
       logger.error "VIRSCAN: error message: #{e.message}"
       raise MeasurePackageVirusFoundError.new
@@ -41,13 +41,11 @@ class MeasuresController < ApplicationController
       raise convert_vsac_error_into_shared_error(e)
     end
 
-    params[:vsac_tgt] = vsac_tgt[:ticket]
-    params[:vsac_tgt_expires_at] = vsac_tgt[:expires]
     persist_measure(params[:measure_file], params.permit!.to_h, current_user)
     redirect_to "#{root_path}##{params[:redirect_route]}"
   rescue StandardError => e
-    # also clear the ticket granting ticket in the session if it was a VSACTicketExpiredError
-    session[:vsac_tgt] = nil if e.is_a?(VSACTicketExpiredError)
+    # also clear the vsac api key in the session if it was a VSACInvalidCredentialsError
+    session[:vsac_api_key] = nil if e.is_a?(VSACInvalidCredentialsError)
     flash[:error] = turn_exception_into_shared_error_if_needed(e).front_end_version
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
@@ -131,6 +129,15 @@ class MeasuresController < ApplicationController
     }
   end
 
+  def set_vsac_api_key
+    if session[:vsac_api_key].nil?
+      raise Util::VSAC::VSACNoCredentialsError.new if params[:vsac_api_key].nil?
+      session[:vsac_api_key] = params[:vsac_api_key]
+    else
+      params[:vsac_api_key] = session[:vsac_api_key]
+    end
+  end
+
   def shift_years(measure, year_shift)
     return true
     # TODO: not implemented for patients and data elements yet
@@ -171,35 +178,6 @@ class MeasuresController < ApplicationController
       birth_datetime.change(year: year_shift + birth_datetime.year, day: 28)
     else
       birth_datetime.change(year: year_shift + birth_datetime.year)
-    end
-  end
-
-  def obtain_ticket_granting_ticket
-    # Retrieve a (possibly) existing ticket granting ticket
-    ticket_granting_ticket = session[:vsac_tgt]
-
-    # If the ticket granting ticket doesn't exist (or has expired), get a new one
-    if ticket_granting_ticket.nil?
-      # The user could open a second browser window and remove their ticket_granting_ticket in the session after they
-      # prepared a measure upload assuming ticket_granting_ticket in the session in the first tab
-
-      # First make sure we have credentials to attempt getting a ticket with. Throw an error if there are no credentials.
-      if params[:vsac_api_key].nil?
-        raise Util::VSAC::VSACNoCredentialsError.new
-      end
-
-      # Retrieve a new ticket granting ticket by creating the api class.
-      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: params[:vsac_api_key])
-      ticket_granting_ticket = api.ticket_granting_ticket
-
-      # Create a new ticket granting ticket session variable
-      session[:vsac_tgt] = ticket_granting_ticket
-      return ticket_granting_ticket
-
-    # If it does exist, let the api test it
-    else
-      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], ticket_granting_ticket: ticket_granting_ticket)
-      return api.ticket_granting_ticket
     end
   end
 end
