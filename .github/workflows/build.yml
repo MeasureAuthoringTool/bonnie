@@ -30,13 +30,10 @@ jobs:
           ruby-version: 2.7.2
           bundler-cache: true
 
-      - name: Use Node.js 14.x
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v2
         with:
-          node-version: 14.x
-
-      - name: Use latest npm
-        run: npm install -g npm
+          node-version: 16.x
 
       - name: Install bundler & bundle-audit
         run: |
