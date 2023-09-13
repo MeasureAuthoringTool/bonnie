@@ -99,4 +99,69 @@ http_interactions:
         AM"}'
     http_version:
   recorded_at: Tue, 16 Jul 2019 11:59:42 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113762.1.4.1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+        - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+        - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+        - SAMEORIGIN
+      X-Content-Type-Options:
+        - nosniff
+        - nosniff
+      X-Xss-Protection:
+        - 1; mode=block
+      Set-Cookie:
+        - BIGipServervsacweb_p=!SCfgAQec5rtpF53m9OGvBt4MxRMcjpPlF/OuKH6AP/UAcrxZqmT+h1oj21hM/AuyPQVjDWi/tpO9GEM=;
+          expires=Wed, 26-Jun-2019 00:14:54 GMT; path=/; Httponly; Secure
+        - JSESSIONID=0F17A9C8FEA88C36CB0D90F7B68A0BE0; Path=/vsac; HttpOnly;Secure
+      Cache-Control:
+        - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+        - no-cache
+      Expires:
+        - '0'
+      Content-Type:
+        - text/xml;charset=utf-8
+      Content-Length:
+        - '1356'
+      Date:
+        - Tue, 25 Jun 2019 22:14:53 GMT
+      X-Vip-Info:
+        - 130.14.16.40:443
+      X-Pool-Info:
+        - "/Common/vsacweb_p 10.1.5.114 8080"
+      Strict-Transport-Security:
+        - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113762.1.4.1" displayName="ONC Administrative Sex" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="F" codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender" codeSystemVersion="HL7V3.0_2018-08" displayName="Female"/>
+                    <ns0:Concept code="M" codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender" codeSystemVersion="HL7V3.0_2018-08" displayName="Male"/>
+                </ns0:ConceptList>
+                <ns0:Source>Office of the National Coordinator for Health Information Technology</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: Gender identity restricted to only Male and Female used in administrative situations requiring a restriction to these two categories.),(Data Element Scope: Gender),(Inclusion Criteria: Male and Female only.),(Exclusion Criteria: Any gender identity that is not male or female.)</ns0:Purpose>
+                <ns0:Type>Extensional</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2019-06-25</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version:
+  recorded_at: Tue, 25 Jun 2019 22:14:54 GMT
 recorded_with: VCR 4.0.0
