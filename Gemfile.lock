@@ -189,6 +189,7 @@ GEM
       less (~> 2.6.0)
       sprockets (~> 3.0)
     libv8 (3.16.14.19)
+    libv8 (3.16.14.19-x86_64-linux)
     log4r (1.1.10)
     loofah (2.21.3)
       crass (~> 1.0.2)
@@ -238,6 +239,8 @@ GEM
     newrelic_rpm (9.4.2)
     nio4r (2.5.9)
     nokogiri (1.15.4-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
     non-stupid-digest-assets (1.0.9)
       sprockets (>= 2.0)
@@ -409,6 +412,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-20
+  x86_64-linux
 
 DEPENDENCIES
   apipie-rails
