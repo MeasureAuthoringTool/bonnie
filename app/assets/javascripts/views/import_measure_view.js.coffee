@@ -72,11 +72,6 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
           $('#vsac-query-settings').removeClass('hidden')
           $('#vsacCachedMsg').removeClass('hidden')
           $('#loadButton').prop('disabled', false)
-          # If the measure import window is open long enough for the VSAC
-          # credentials to expire, we need to reshow the vsacApiKey dialog.
-          setTimeout ->
-            @clearCachedVSACTicket()
-          , new Date(data.expires) - new Date()
         else
           $('#vsacSignIn').removeClass('hidden')
           $('#vsac-query-settings').removeClass('hidden')
