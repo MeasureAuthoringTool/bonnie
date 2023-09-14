@@ -38,7 +38,7 @@ defaults: &defaults
   # DEV
   # Spreadsheet Example: https://docs.google.com/spreadsheets/d/15Tje3oiUfYgU24RiX-fUs-hH08dFOvW7_ysyAN8vxuc/edit#gid=0
   # Spreadsheet's JSON:  https://spreadsheets.google.com/feeds/list/15Tje3oiUfYgU24RiX-fUs-hH08dFOvW7_ysyAN8vxuc/od6/public/values?alt=json
-  spreadsheet_location: 'https://spreadsheets.google.com/feeds/list/15Tje3oiUfYgU24RiX-fUs-hH08dFOvW7_ysyAN8vxuc/od6/public/values?alt=json'
+  spreadsheet_location: 'http://127.0.0.1:5555/codeset_values.json'
 
 development:
   <<: *defaults
