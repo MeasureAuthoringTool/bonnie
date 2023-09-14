@@ -12,7 +12,7 @@ include Devise::Test::ControllerHelpers
     dump_database
     users_set = File.join('users', 'base_set')
     patients_set = File.join('cqm_patients', 'CMS903v0')
-    strat_measure_patients_set = File.join('cqm_patients', 'CMSv0')
+    strat_measure_patients_set = File.join('cqm_patients',  'CMSv0')
     load_measure_fixtures_from_folder(File.join('measures', 'CMS160v6'), @user)
     collection_fixtures(users_set, patients_set, strat_measure_patients_set)
     @user = User.by_email('bonnie@example.com').first
@@ -234,8 +234,8 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'upload MAT with invalid VSAC creds' do
-    # This cassette represents an exchange with the VSAC authentication server that
-    # results in an unauthorized response. This cassette is used in measures_controller_test.rb
+    # This cassette represents an exchange with VSAC that results in an unauthorized response.
+    # This cassette is used in measures_controller_test.rb
     VCR.use_cassette('invalid_vsac_response', @vcr_options) do
 
       # Ensure measure is not loaded to begin with
@@ -287,7 +287,7 @@ include Devise::Test::ControllerHelpers
     end
   end
 
-  test 'upload MAT with no VSAC creds or ticket_granting_ticket in session' do
+  test 'upload MAT with no VSAC creds in session' do
     # Ensure measure is not loaded to begin with
     measure = CQM::Measure.where({hqmf_set_id: '762B1B52-40BF-4596-B34F-4963188E7FF7'}).first
     assert_nil measure
@@ -574,6 +574,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: update_measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'

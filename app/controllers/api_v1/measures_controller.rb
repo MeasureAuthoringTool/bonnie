@@ -81,8 +81,7 @@ module ApiV1
       param :population_titles, Array, of: String, :required => false, :desc => "The titles of the populations. If this is not included, populations will assume default values. i.e. \"Population 1\", \"Population 2\", etc."
       param :calculate_sdes, %w[true false], :required => false, :desc => "Should Supplemental Data Elements be included in calculations. Defaults to 'false' if not supplied."
 
-      param :vsac_tgt, String, :required => true, :desc => "VSAC ticket granting ticket. See https://www.nlm.nih.gov/vsac/support/"
-      param :vsac_tgt_expires_at, Integer, :required => true, :desc => "VSAC ticket granting ticket expiration time in seconds since epoch."
+      param :vsac_api_key, String, :required => true, :desc => "UMLS Api Key."
       param :vsac_query_type, %w[release profile], :required => false, :desc => "The type of VSAC query, either 'release', or 'profile'. Default to 'profile' if not supplied."
       param :vsac_query_include_draft, %w[true false], :required => false, :desc => "If VSAC should fetch draft value sets. Defaults to 'true' if not supplied."
       param :vsac_query_release, String, :required => false, :desc => "The program release used to retrieve value sets. Defaults to latest release for the eCQM program."
@@ -210,7 +209,7 @@ module ApiV1
     formats ["multipart/form-data"]
     error :code => 400, :desc => "Client sent bad parameters. Response contains explanation."
     error :code => 409, :desc => "Measure with this HQMF Set ID already exists."
-    error :code => 500, :desc => "A server error occured."
+    error :code => 500, :desc => "A server error occurred."
     param_group :measure_upload
     def create
       permitted_params = params.permit!.to_h
