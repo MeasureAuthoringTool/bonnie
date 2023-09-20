@@ -128,20 +128,24 @@ class MeasuresController < ApplicationController
   private
 
   def persist_measure(uploaded_file, permitted_params, user)
-    measures, main_hqmf_set_id =
-      if permitted_params[:hqmf_set_id].present?
-        update_measure(uploaded_file: uploaded_file,
-                      target_id: permitted_params[:hqmf_set_id],
-                      value_set_loader: build_vs_loader(permitted_params, false),
-                      user: user)
-      else
-        create_measure(uploaded_file: uploaded_file,
-                      measure_details: retrieve_measure_details(permitted_params),
-                      value_set_loader: build_vs_loader(permitted_params, false),
-                      user: user)
-      end
-    check_measures_for_unsupported_data_elements(measures)
-    return measures, main_hqmf_set_id
+    logger.tagged(user.harp_id ? user.harp_id : "unknown user") do
+      measures, main_hqmf_set_id =
+        if permitted_params[:hqmf_set_id].present?
+          logger.info("update")
+          update_measure(uploaded_file: uploaded_file,
+                        target_id: permitted_params[:hqmf_set_id],
+                        value_set_loader: build_vs_loader(permitted_params, false),
+                        user: user)
+        else
+          logger.info("create")
+          create_measure(uploaded_file: uploaded_file,
+                        measure_details: retrieve_measure_details(permitted_params),
+                        value_set_loader: build_vs_loader(permitted_params, false),
+                        user: user)
+        end
+      check_measures_for_unsupported_data_elements(measures)
+      return measures, main_hqmf_set_id
+    end
   end
 
   def check_measures_for_unsupported_data_elements(measures)

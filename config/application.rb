@@ -40,11 +40,13 @@ module Bonnie
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
-    Rails.logger = Logger.new(STDOUT)
-    Rails.logger.formatter = proc do |severity, datetime, progname, msg|
+    # Configure log formatter
+    logger = Logger.new(STDOUT)
+    logger.formatter = proc do |severity, datetime, progname, msg|
       date_format = datetime.strftime("%Y-%m-%d %H:%M:%S")
       "#{date_format} [#{severity}] - #{msg}'\n"
     end
+    Rails.logger = ActiveSupport::TaggedLogging.new(logger)
 
     config.log_level = :info
 
@@ -52,6 +54,9 @@ module Bonnie
     config.filter_parameters += [:password]
     config.filter_parameters += [:vsac_api_key]
     config.filter_parameters += [:api_key]
+
+    # Configure log tags that will apply to all log entries
+    config.log_tags = [:request_id]
 
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true
