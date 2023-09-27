@@ -2,9 +2,9 @@ name: Continuous Integration
 
 on:
   push:
-    branches: [master, bonnie-prior]
+    branches: [master, staging]
   pull_request:
-    branches: [master, bonnie-prior]
+    branches: [master, staging]
 
 jobs:
 #----main job for teaspoon tests-------
