@@ -14,7 +14,7 @@ RUN bash -lc "rvm install ruby-${RUBY_VERSION} && rvm --default use ruby-${RUBY_
 RUN rm -f /etc/service/nginx/down \
     && rm -f /etc/nginx/sites-enabled/default \
     && apt update \
-    && curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \
     && npm install -g npm@latest \
     && apt-get install shared-mime-info -y

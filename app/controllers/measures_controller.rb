@@ -31,7 +31,7 @@ class MeasuresController < ApplicationController
 
     begin
       scan_for_viruses(params[:measure_file])
-      vsac_tgt = obtain_ticket_granting_ticket
+      set_vsac_api_key
     rescue VirusFoundError => e
       logger.error "VIRSCAN: error message: #{e.message}"
       raise MeasurePackageVirusFoundError.new
@@ -43,13 +43,11 @@ class MeasuresController < ApplicationController
       raise convert_vsac_error_into_shared_error(e)
     end
 
-    params[:vsac_tgt] = vsac_tgt[:ticket]
-    params[:vsac_tgt_expires_at] = vsac_tgt[:expires]
     measures, main_hqmf_set_id = persist_measure(params[:measure_file], params.permit!.to_h, current_user)
     redirect_to "#{root_path}##{params[:redirect_route]}"
   rescue StandardError => e
-    # also clear the ticket granting ticket in the session if it was a VSACTicketExpiredError
-    session[:vsac_tgt] = nil if e.is_a?(VSACTicketExpiredError)
+    # also clear the vsac api key in the session if it was a VSACInvalidCredentialsError
+    session[:vsac_api_key] = nil if e.is_a?(VSACInvalidCredentialsError)
     flash[:error] = turn_exception_into_shared_error_if_needed(e).front_end_version
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
@@ -130,20 +128,24 @@ class MeasuresController < ApplicationController
   private
 
   def persist_measure(uploaded_file, permitted_params, user)
-    measures, main_hqmf_set_id =
-      if permitted_params[:hqmf_set_id].present?
-        update_measure(uploaded_file: uploaded_file,
-                      target_id: permitted_params[:hqmf_set_id],
-                      value_set_loader: build_vs_loader(permitted_params, false),
-                      user: user)
-      else
-        create_measure(uploaded_file: uploaded_file,
-                      measure_details: retrieve_measure_details(permitted_params),
-                      value_set_loader: build_vs_loader(permitted_params, false),
-                      user: user)
-      end
-    check_measures_for_unsupported_data_elements(measures)
-    return measures, main_hqmf_set_id
+    logger.tagged(user.harp_id ? user.harp_id : "unknown user") do
+      measures, main_hqmf_set_id =
+        if permitted_params[:hqmf_set_id].present?
+          logger.info("update")
+          update_measure(uploaded_file: uploaded_file,
+                        target_id: permitted_params[:hqmf_set_id],
+                        value_set_loader: build_vs_loader(permitted_params, false),
+                        user: user)
+        else
+          logger.info("create")
+          create_measure(uploaded_file: uploaded_file,
+                        measure_details: retrieve_measure_details(permitted_params),
+                        value_set_loader: build_vs_loader(permitted_params, false),
+                        user: user)
+        end
+      check_measures_for_unsupported_data_elements(measures)
+      return measures, main_hqmf_set_id
+    end
   end
 
   def check_measures_for_unsupported_data_elements(measures)
@@ -160,6 +162,15 @@ class MeasuresController < ApplicationController
       'episode_of_care'=>params[:calculation_type] == 'episode',
       'calculate_sdes'=>params[:calc_sde]
     }
+  end
+
+  def set_vsac_api_key
+    if session[:vsac_api_key].nil?
+      raise Util::VSAC::VSACNoCredentialsError.new if params[:vsac_api_key].nil?
+      session[:vsac_api_key] = params[:vsac_api_key]
+    else
+      params[:vsac_api_key] = session[:vsac_api_key]
+    end
   end
 
   def shift_years(measure, year_shift)
@@ -200,35 +211,6 @@ class MeasuresController < ApplicationController
       birth_datetime.change(year: year_shift + birth_datetime.year, day: 28)
     else
       birth_datetime.change(year: year_shift + birth_datetime.year)
-    end
-  end
-
-  def obtain_ticket_granting_ticket
-    # Retreive a (possibly) existing ticket granting ticket
-    ticket_granting_ticket = session[:vsac_tgt]
-
-    # If the ticket granting ticket doesn't exist (or has expired), get a new one
-    if ticket_granting_ticket.nil?
-      # The user could open a second browser window and remove their ticket_granting_ticket in the session after they
-      # prepared a measure upload assuming ticket_granting_ticket in the session in the first tab
-
-      # First make sure we have credentials to attempt getting a ticket with. Throw an error if there are no credentials.
-      if params[:vsac_api_key].nil?
-        raise Util::VSAC::VSACNoCredentialsError.new
-      end
-
-      # Retrieve a new ticket granting ticket by creating the api class.
-      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: params[:vsac_api_key])
-      ticket_granting_ticket = api.ticket_granting_ticket
-
-      # Create a new ticket granting ticket session variable
-      session[:vsac_tgt] = ticket_granting_ticket
-      return ticket_granting_ticket
-
-      # If it does exist, let the api test it
-    else
-      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], ticket_granting_ticket: ticket_granting_ticket)
-      return api.ticket_granting_ticket
     end
   end
 end

@@ -86,7 +86,7 @@ module ApiV1
 
     test 'should return bad_request when measure_file is not a file' do
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
-      post :create, params: {measure_file: 'not-a-file.gif', calculation_type: 'episode', vsac_tgt: 'foo', vsac_tgt_expires_at: @ticket_expires_at, vsac_query_type: 'profile'}
+      post :create, params: {measure_file: 'not-a-file.gif', calculation_type: 'episode', vsac_api_key: 'oof', vsac_query_type: 'profile'}
       assert_response :bad_request
       expected_response = { 'status' => 'error', 'messages' => "Invalid parameter 'measure_file': Must be a valid MAT Export." }
       assert_equal expected_response, JSON.parse(response.body)
@@ -95,7 +95,7 @@ module ApiV1
     test 'should return bad_request when measure_file is not a zip' do
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       not_zip_file = fixture_file_upload(File.join('test','fixtures','measures','CMS160v6','cqm_measures','CMS160v6.json'))
-      post :create, params: {measure_file: not_zip_file, calculation_type: 'episode', vsac_tgt: 'foo', vsac_tgt_expires_at: @ticket_expires_at, vsac_query_type: 'profile'}
+      post :create, params: {measure_file: not_zip_file, calculation_type: 'episode', vsac_api_key: 'oof', vsac_query_type: 'profile'}
       assert_response :bad_request
       expected_response = { 'status' => 'error', 'messages' => "Invalid parameter 'measure_file': Must be a valid MAT Export." }
       assert_equal expected_response, JSON.parse(response.body)
@@ -104,7 +104,7 @@ module ApiV1
     test 'should return bad_request when the measure zip is not a MAT Export' do
       measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','special_measures','not_mat_export.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
-      post :create, params: {measure_file: measure_file, calculation_type: 'episode', vsac_tgt: 'foo', vsac_tgt_expires_at: @ticket_expires_at, vsac_query_type: 'profile'}
+      post :create, params: {measure_file: measure_file, calculation_type: 'episode', vsac_api_key: 'oof', vsac_query_type: 'profile'}
       assert_response :bad_request
       expected_response = { 'status' => 'error', 'messages' => "Invalid parameter 'measure_file': Must be a valid MAT Export." }
       assert_equal expected_response, JSON.parse(response.body)
@@ -113,7 +113,7 @@ module ApiV1
     test 'should return bad_request when calculation_type is invalid' do
       measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','CMS52_v5_4_Artifacts.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
-      post :create, params: {measure_file: measure_file, calculation_type: 'addition', vsac_tgt: 'foo', vsac_tgt_expires_at: @ticket_expires_at, vsac_query_type: 'profile'}
+      post :create, params: {measure_file: measure_file, calculation_type: 'addition', vsac_api_key: 'oof', vsac_query_type: 'profile'}
       assert_response :bad_request
       expected_response = { 'status' => 'error', 'messages' => "Invalid parameter 'calculation_type': Must be one of: <code>episode</code>, <code>patient</code>." }
       assert_equal expected_response, JSON.parse(response.body)
@@ -138,8 +138,7 @@ module ApiV1
       VCR.use_cassette('api_valid_vsac_response', @vcr_options) do
         # get ticket_granting_ticket
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
-        ticket = api.ticket_granting_ticket[:ticket]
-        post :create, params: {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'patient'}
+        post :create, params: {vsac_api_key: 'testApi', vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', measure_file: measure_file, calculation_type: 'patient'}
         assert_response :success
         expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076'}
         assert_equal expected_response, JSON.parse(response.body)
@@ -160,13 +159,12 @@ module ApiV1
       VCR.use_cassette('api_valid_vsac_response_dup_measure', @vcr_options) do
         # get ticket_granting_ticket
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
-        ticket = api.ticket_granting_ticket[:ticket]
-        post :create, params: {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'patient'}
+        post :create, params: {vsac_api_key: ENV['VSAC_API_KEY'], vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', measure_file: measure_file, calculation_type: 'patient'}
         assert_response :success
         expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076'}
         assert_equal expected_response, JSON.parse(response.body)
 
-        post :create, params: {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'patient'}
+        post :create, params: {vsac_api_key: ENV['VSAC_API_KEY'], vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', measure_file: measure_file, calculation_type: 'patient'}
         assert_response :conflict
         expected_response = { 'status' => 'error', 'messages' => 'A measure with this HQMF Set ID already exists.', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076'}
         assert_equal expected_response, JSON.parse(response.body)
@@ -179,8 +177,8 @@ module ApiV1
       VCR.use_cassette('api_valid_vsac_response_def_titles', @vcr_options) do
         # get ticket_granting_ticket
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
-        ticket = api.ticket_granting_ticket[:ticket]
-        post :create, params: {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'patient'}
+        
+        post :create, params: {vsac_api_key: ENV['VSAC_API_KEY'], vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', measure_file: measure_file, calculation_type: 'patient'}
         assert_response :ok
         expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076'}
         assert_equal expected_response, JSON.parse(response.body)
@@ -202,8 +200,8 @@ module ApiV1
       VCR.use_cassette('api_valid_vsac_response_provided_titles', @vcr_options) do
         # get ticket_granting_ticket
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
-        ticket = api.ticket_granting_ticket[:ticket]
-        post :create, params: {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'episode', population_titles: ['First Pop', 'First Strat', 'Second Strat', 'Third Strat']}
+        
+        post :create, params: {vsac_api_key: ENV['VSAC_API_KEY'], vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', measure_file: measure_file, calculation_type: 'episode', population_titles: ['First Pop', 'First Strat', 'Second Strat', 'Third Strat']}
         assert_response :ok
         expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076'}
         assert_equal expected_response, JSON.parse(response.body)
@@ -224,8 +222,7 @@ module ApiV1
       VCR.use_cassette('api_valid_vsac_response_initial', @vcr_options) do
         # get ticket_granting_ticket
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
-        ticket = api.ticket_granting_ticket[:ticket]
-        post :create, params: {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'episode', population_titles: ['First Pop', 'First Strat', 'Second Strat', 'Third Strat']}
+        post :create, params: {vsac_api_key: ENV['VSAC_API_KEY'], vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', measure_file: measure_file, calculation_type: 'episode', population_titles: ['First Pop', 'First Strat', 'Second Strat', 'Third Strat']}
         assert_response :ok
         expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076'}
         assert_equal expected_response, JSON.parse(response.body)
@@ -245,8 +242,8 @@ module ApiV1
       VCR.use_cassette('api_valid_vsac_response_update', @vcr_options) do
         # get ticket_granting_ticket
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
-        ticket = api.ticket_granting_ticket[:ticket]
-        put :update, params: {id: '4DC3E7AA-8777-4749-A1E4-37E942036076', vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file1, calculation_type: 'episode', population_titles: %w[Foo bar baz bam]}
+        
+        put :update, params: {id: '4DC3E7AA-8777-4749-A1E4-37E942036076', vsac_api_key: ENV['VSAC_API_KEY'], vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', measure_file: measure_file1, calculation_type: 'episode', population_titles: %w[Foo bar baz bam]}
         assert_response :ok
         expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076' }
         assert_equal expected_response, JSON.parse(response.body)
@@ -265,8 +262,8 @@ module ApiV1
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_invalid_release_vsac_response', @vcr_options) do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
-        ticket = api.ticket_granting_ticket[:ticket]
-        post :create, params: {vsac_query_type: 'release', vsac_query_release: 'Fake 1234', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'episode'}
+        
+        post :create, params: {vsac_api_key: ENV['VSAC_API_KEY'], vsac_query_type: 'release', vsac_query_release: 'Fake 1234', vsac_query_measure_defined: 'true', measure_file: measure_file, calculation_type: 'episode'}
         assert_response :bad_request
         expected_response = {'status'=>'error', 'messages'=>'VSAC value set (2.16.840.1.113883.3.117.1.7.1.87) not found or is empty. Please verify that you are using the correct profile or release and have VSAC authoring permissions if you are requesting draft value sets.'}
         assert_equal expected_response, JSON.parse(response.body)
@@ -277,10 +274,9 @@ module ApiV1
       measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS903v0.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_invalid_ticket_vsac_response', @vcr_options) do
-        ticket = 'foo'
-        post :create, params: {vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'episode'}
+        post :create, params: {vsac_api_key: 'oof',  measure_file: measure_file, calculation_type: 'episode'}
         assert_response :bad_request
-        expected_response = {'status'=>'error', 'messages'=>'VSAC session expired. Please try again.'}
+        expected_response = {'status'=>'error', 'messages'=>'VSAC credentials were invalid.'}
         assert_equal expected_response, JSON.parse(response.body)
       end
     end
@@ -290,8 +286,8 @@ module ApiV1
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_missing_vs_vsac_response', @vcr_options) do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
-        ticket = api.ticket_granting_ticket[:ticket]
-        post :create, params: {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'episode'}
+        
+        post :create, params: {vsac_api_key: ENV['VSAC_API_KEY'], vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', measure_file: measure_file, calculation_type: 'episode'}
         assert_response :bad_request
         expected_response = {'status'=>'error', 'messages'=>'Measure loading process encountered error: The HQMF file references the following valuesets not present in the CQL: ["2.16.840.1.113883.3.464.1003.106.12.1005"]'}
         assert_equal expected_response, JSON.parse(response.body)
@@ -303,8 +299,7 @@ module ApiV1
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_valid_vsac_response_non_exist_measure', @vcr_options) do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
-        ticket = api.ticket_granting_ticket[:ticket]
-        put :update, params: {id: '762B1B52-40BF-4596-B34F-4963188E7FF7', vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_update_file, calculation_type: 'episode'}
+        put :update, params: {id: '762B1B52-40BF-4596-B34F-4963188E7FF7', vsac_api_key: ENV['VSAC_API_KEY'], vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', measure_file: measure_update_file, calculation_type: 'episode'}
         assert_response :not_found
         expected_response = { 'status' => 'error', 'messages' => 'No measure found for this HQMF Set ID.'}
         assert_equal expected_response, JSON.parse(response.body)
@@ -318,9 +313,8 @@ module ApiV1
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_incorrect_hqmf_id_vsac_response', @vcr_options) do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
-        ticket = api.ticket_granting_ticket[:ticket]
 
-        post :create, params: {measure_file: measure_file, calculation_type: 'episode', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at}
+        post :create, params: {vsac_api_key: ENV['VSAC_API_KEY'], measure_file: measure_file, calculation_type: 'episode'}
         assert_response :success
         expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076'}
         assert_equal expected_response, JSON.parse(response.body)
@@ -338,8 +332,7 @@ module ApiV1
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_incorrect_hqmf_vsac_response', @vcr_options) do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
-        ticket = api.ticket_granting_ticket[:ticket]
-        post :create, params: {measure_file: measure_file, calculation_type: 'episode', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at}
+        post :create, params: {measure_file: measure_file, calculation_type: 'episode', vsac_api_key: ENV['VSAC_API_KEY'], }
         assert_response :internal_server_error
         expected_response = {'status'=>'error', 'messages'=>'The measure could not be loaded, Bonnie has encountered an error while trying to load the measure.'}
         assert_equal expected_response, JSON.parse(response.body)
@@ -351,8 +344,7 @@ module ApiV1
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_ccdelookback_vsac_response', @vcr_options) do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
-        ticket = api.ticket_granting_ticket[:ticket]
-        post :create, params: {vsac_query_measure_defined: 'false', vsac_query_include_draft: 'false', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'episode', calculate_sdes: 'true'}
+        post :create, params: {vsac_api_key: ENV['VSAC_API_KEY'], vsac_query_measure_defined: 'false', vsac_query_include_draft: 'false', measure_file: measure_file, calculation_type: 'episode', calculate_sdes: 'true'}
         assert_response :success
         measure = CQM::Measure.where({hqmf_set_id: 'FA75DE85-A934-45D7-A2F7-C700A756078B'}).first
         assert_equal true, measure.calculate_sdes
@@ -364,8 +356,7 @@ module ApiV1
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_release_ccdelookback_vsac_response', @vcr_options) do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
-        ticket = api.ticket_granting_ticket[:ticket]
-        post :create, params: {vsac_query_type: 'release', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'episode', calculate_sdes: 'false'}
+        post :create, params: {vsac_api_key: ENV['VSAC_API_KEY'], vsac_query_type: 'release', vsac_query_measure_defined: 'true', measure_file: measure_file, calculation_type: 'episode', calculate_sdes: 'false'}
         assert_response :success
         measure = CQM::Measure.where({hqmf_set_id: 'FA75DE85-A934-45D7-A2F7-C700A756078B'}).first
         assert_equal false, measure.calculate_sdes
@@ -389,8 +380,8 @@ module ApiV1
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('valid_vsac_response_composite_api_initial', @vcr_options) do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
-        ticket = api.ticket_granting_ticket[:ticket]
         post :create, params: {
+          vsac_api_key: ENV['VSAC_API_KEY'],
           vsac_query_type: 'profile',
           vsac_query_profile: 'eCQM Update 2020-05-07',
           vsac_query_include_draft: 'false',
@@ -413,8 +404,8 @@ module ApiV1
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('valid_vsac_response_composite_api_again', @vcr_options) do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
-        ticket = api.ticket_granting_ticket[:ticket]
         post :update, params: {
+          vsac_api_key: ENV['VSAC_API_KEY'],
           vsac_query_type: 'profile',
           id: '244B4F52-C9CA-45AA-8BDB-2F005DA05BFC',
           vsac_query_profile: 'Latest eCQM',
@@ -444,16 +435,14 @@ module ApiV1
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('valid_vsac_response_bad_composite_api', @vcr_options) do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
-        ticket = api.ticket_granting_ticket[:ticket]
         post :create, params: {
+          vsac_api_key: ENV['VSAC_API_KEY'],
           vsac_query_type: 'profile',
           vsac_query_profile: 'Latest eCQM',
           vsac_query_include_draft: 'false',
           vsac_query_measure_defined: 'true',
           measure_file: measure_file,
-          calculation_type: 'patient',
-          vsac_tgt: ticket,
-          vsac_tgt_expires_at: @ticket_expires_at
+          calculation_type: 'patient'
         }
       end
 
@@ -470,16 +459,14 @@ module ApiV1
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('valid_vsac_response_bad_composite_api', @vcr_options) do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
-        ticket = api.ticket_granting_ticket[:ticket]
         post :create, params: {
+          vsac_api_key: ENV['VSAC_API_KEY'],
           vsac_query_type: 'profile',
           vsac_query_profile: 'Latest eCQM',
           vsac_query_include_draft: 'false',
           vsac_query_measure_defined: 'true',
           measure_file: measure_file,
-          calculation_type: 'patient',
-          vsac_tgt: ticket,
-          vsac_tgt_expires_at: @ticket_expires_at
+          calculation_type: 'patient'
         }
       end
       assert_response :bad_request

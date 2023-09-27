@@ -256,11 +256,9 @@ module MeasureHelper
   end
 
   def build_vs_loader(params, get_defaults_from_vsac)
-    vsac_tgt_object = {ticket: params[:vsac_tgt], expires: Time.at(params[:vsac_tgt_expires_at].to_i)} if params[:vsac_tgt].present? && params[:vsac_tgt_expires_at].present?
-
-    return Measures::VSACValueSetLoader.new(
+    Measures::VSACValueSetLoader.new(
       options: retrieve_vasc_options(params, get_defaults_from_vsac),
-      ticket_granting_ticket: vsac_tgt_object
+      vsac_api_key: params[:vsac_api_key]
     )
   end
 
