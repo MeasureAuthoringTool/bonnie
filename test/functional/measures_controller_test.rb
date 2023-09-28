@@ -457,7 +457,7 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'measure destroy' do
-    VCR.use_cassette('measure_destroy', @vcr_options) do
+    VCR.use_cassette('measure_destroy', {match_requests_on: [:method, :uri_no_st], :allow_playback_repeats => true}) do
       measure_file1 = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS903v0.zip'), 'application/zip')
       measure_file2 = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS134v8.zip'), 'application/zip')
 
@@ -501,7 +501,7 @@ include Devise::Test::ControllerHelpers
       attr_reader :tempfile
     end
     # give it a fake VSAC ticket to get through the check for one
-    session[:vsac_tgt] = { ticket: 'fake ticket', expires: DateTime.now + 60.minutes }
+    session[:vsac_api_key] = "somethingNeat"
     post :create, params: {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_equal 'Error Uploading Measure', flash[:error][:title]
     assert_equal 'The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.', flash[:error][:summary]
@@ -515,7 +515,7 @@ include Devise::Test::ControllerHelpers
       attr_reader :tempfile
     end
     # give it a fake VSAC ticket to get through the check for one
-    session[:vsac_tgt] = { ticket: 'fake ticket', expires: DateTime.now + 60.minutes }
+    session[:vsac_api_key] = "somethingNeat"
     post :create, params: {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', vsac_api_key: ENV['VSAC_API_KEY']}
     assert_equal 'Error Uploading Measure', flash[:error][:title]
     assert_equal 'The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.', flash[:error][:summary]
@@ -529,8 +529,8 @@ include Devise::Test::ControllerHelpers
     class << measure_file
       attr_reader :tempfile
     end
-    # give it a fake VSAC ticket to get through the check for one
-    session[:vsac_tgt] = { ticket: 'fake ticket', expires: DateTime.now + 60.minutes }
+    # give it a fake VSAC key to get through the check for one
+    session[:vsac_api_key] = "somethingNeat"
     post :create, params: {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :redirect
 
@@ -555,7 +555,7 @@ include Devise::Test::ControllerHelpers
   test 'upload measure already loaded' do
     measure = nil
     # Use the valid vsac response recording each time attempting to upload measure
-    VCR.use_cassette('valid_vsac_response_reload_measure', @vcr_options) do
+    VCR.use_cassette('valid_vsac_response_reload_measure', {match_requests_on: [:method, :uri_no_st], :allow_playback_repeats => true}) do
       sign_in @user
       measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS158v6_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/zip')
       class << measure_file
@@ -635,7 +635,7 @@ include Devise::Test::ControllerHelpers
 
   test 'update with hqmf set id mismatch' do
     # Upload the initial file
-    VCR.use_cassette('valid_vsac_response_hqmf_set_id_mismatch', @vcr_options) do
+    VCR.use_cassette('valid_vsac_response_hqmf_set_id_mismatch', {match_requests_on: [:method, :uri_no_st], :allow_playback_repeats => true}) do
       measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS903v0.zip'), 'application/zip')
       class << measure_file
         attr_reader :tempfile
@@ -825,7 +825,7 @@ include Devise::Test::ControllerHelpers
 
     assert_equal false, measure.calculation_method == 'EPISODE_OF_CARE'
 
-    VCR.use_cassette('valid_vsac_response', @vcr_options) do
+    VCR.use_cassette('valid_vsac_response', {match_requests_on: [:method, :uri_no_st], :allow_playback_repeats => true}) do
       post :create, params: {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
