@@ -51,26 +51,20 @@ class VsacUtilController < ApplicationController
   ##
   # GET /vsac_util/auth_valid
   #
-  # Gets the status of the ticket_granting_ticket in the session. Returns JSON:
-  # { valid: boolean, expires: DateTime }
+  # Gets the status of the API KEY in the session. Returns JSON:
+  # { valid: boolean }
   def auth_valid
-    # If VSAC TGT is still valid, return its expiration date/time
-    ticket_granting_ticket = session[:vsac_tgt]
+    vsac_api_key = session[:vsac_api_key]
 
-    # If there is no VSAC ticket granting ticket then return false.
-    if ticket_granting_ticket.nil? || ticket_granting_ticket.empty?
-      session[:vsac_tgt] = nil
-      render :json => {valid: false}
-
-    # If it exists then check it using the API
+    if vsac_api_key.nil? || vsac_api_key.empty?
+      session[:vsac_api_key] = nil
+      render :json => {valid:false}
     else
       begin
-        Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], ticket_granting_ticket: ticket_granting_ticket)
-        render :json => {valid: true, expires: ticket_granting_ticket[:expires]}
-
-      # API will throw an error if it has expired
-      rescue Util::VSAC::VSACTicketExpiredError
-        session[:vsac_tgt] = nil
+        Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: vsac_api_key)
+        render :json => {valid: true}
+      rescue Util::VSAC::VSACInvalidCredentialsError
+        session[:vsac_api_key] = nil
         render :json => {valid: false}
       end
     end
@@ -79,10 +73,10 @@ class VsacUtilController < ApplicationController
   ##
   # POST /vsac_util/auth_expire
   #
-  # Dumps the ticket_granting_ticket in the user session if there is one. Always returns JSON {}.
+  # Sets the vsac_api_key in the user session to nil. Always returns JSON {}.
   def auth_expire
     # Force expire the VSAC session
-    session[:vsac_tgt] = nil
+    session[:vsac_api_key] = nil
     render :json => {}
   end
 end
