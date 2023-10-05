@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.2.8.1'
+gem 'rails', '7.1.0'
 
 gem 'sprockets'
 
 # Need to require sprockets-rails expicitly to get asset pipeline, at least untill we move to SASS
 # Pinning sprockets-rails to 2.3.3 so that everything doesn't blow up. It might be time to start thinking about webpack.
-gem 'sprockets-rails', '2.3.3'
+gem 'sprockets-rails', '3.0.0'
 # We need less-rails outside of the assets group so that assets will build in production
 gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
@@ -24,7 +24,7 @@ gem 'zip-zip'
 
 gem 'axlsx', git: 'https://github.com/randym/axlsx', branch: 'master'
 gem 'mongoid', '~> 7.1'
-gem 'devise'
+gem 'devise', '>= 4.8.1'
 gem 'systemu'
 gem 'multi_json'
 gem 'rest-client'
@@ -33,18 +33,18 @@ gem 'roo', '~> 2.7'
 
 
 gem 'oj' # Faster JSON
-gem 'apipie-rails'
+gem 'apipie-rails', '>= 0.6.0'
 gem 'maruku' # enable Markup for API documentation
-gem 'doorkeeper', '~> 4.4.0'
-gem "doorkeeper-mongodb", '~> 4.2.0'
+gem 'doorkeeper', '~> 5.0.0'
+gem "doorkeeper-mongodb", "~> 5.0.0"
 
 group :test, :development, :ci do
   gem 'pry'
   # Pinning teaspoon to 1.1.5 because of sprockets-rails 2.3.3
-  gem 'teaspoon', '1.1.5'
+  gem 'teaspoon', '1.2.0'
   gem "overcommit"
   gem 'rubocop'
-  gem 'teaspoon-jasmine'
+  gem 'teaspoon-jasmine', '>= 2.4.1'
   gem 'simplecov', :require => false
   gem 'minitest'
   gem 'rails_best_practices'
@@ -86,12 +86,12 @@ end
 gem 'foreman'
 
 gem 'handlebars_assets', '0.16'
-gem 'jquery-rails'
+gem 'jquery-rails', '>= 4.5.0'
 
 # Browser Detection
 gem 'browser'
 
 gem "reverse_markdown", "~> 2.0"
-gem "tinymce-rails"
+gem "tinymce-rails", ">= 5.8.2"
 
-gem "devise_saml_authenticatable"
+gem "devise_saml_authenticatable", ">= 1.7.0"
