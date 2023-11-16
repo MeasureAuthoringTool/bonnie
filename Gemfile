@@ -10,7 +10,7 @@ gem 'sprockets-rails', '2.3.3'
 # We need less-rails outside of the assets group so that assets will build in production
 gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
-gem "non-stupid-digest-assets"
+gem "non-stupid-digest-assets", ">= 1.0.10"
 
 # gem 'cqm-parsers', :path => '../cqm-parsers'
 # gem 'fhir-mongoid-models', :path => '../fhir-mongoid-models'
