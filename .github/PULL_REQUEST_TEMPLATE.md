@@ -9,7 +9,6 @@ Pull requests into Bonnie require the following. Submitter and reviewer should :
 - [ ] If UI changes have been made, google WAVE plug-in has been executed to ensure no 508 issues were introduced.
 - [ ] Tests are included and test edge cases
 - [ ] Tests have been run locally and pass (remember to update Gemfile when applicable)
-- [ ] Test fixtures updated and documented as necessary ( see [internal wiki](https://gitlab.mitre.org/bonnie/internal-documentation/wikis/testing#test-fixtures) )
 - [ ] Code coverage has not gone down and all code touched or added is covered. 
      * In rare situations, this may not be possible or applicable to a PR. In those situations:
          1. Note why this could not be done or is not applicable here: 
