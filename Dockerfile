@@ -1,4 +1,4 @@
-FROM phusion/passenger-full
+FROM phusion/passenger-full:2.5.1
 
 ARG PASSENGER_APP_ENV=production
 
