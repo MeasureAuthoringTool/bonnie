@@ -6,17 +6,20 @@ require_relative '../util/cql_to_elm_helper'
 
 namespace :bonnie do
   namespace :patients do
+    # This Rake task requires the standalone cqm-execution (docker) service maintained here: https://github.com/projecttacoma/cqm-execution-service
     desc %(Download excel exports for all measures specified in ACCOUNTS
     $ rake bonnie:patients:super_user_excel)
     task :super_user_excel => :environment do
-      # To run, put a space dilimeted list of emails from which you would like to download the excel exports from
+      # To run, put a space delimited list of harp IDs from which you would like to download the excel exports from
+      # It will use the Group the user last interacted with
       ACCOUNTS = %w().freeze
       ACCOUNTS.each do |account|
-        user_measures = CQM::Measure.by_user(User.find_by(email: account))
+        user = User.find_by(harp_id: account)
+        user_measures = CQM::Measure.by_user(user)
         user_measures.each do |measure|
           begin
-            user = User.find(measure.user_id)
-            hqmf_set_id = measure.hqmf_set_id
+            # If needed, forcibly limit output to specific measures
+            # next if measure.cms_id != "CMS#v0"
             @api_v1_patients = CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
             @calculator_options = { doPretty: true }
 
