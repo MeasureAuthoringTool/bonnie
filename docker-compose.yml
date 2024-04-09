@@ -1,0 +1,29 @@
+version: "3"
+services:
+  bonnie:
+    image: bonnie-qdm
+#   build:
+#     context: .
+    ports:
+      - "3000:80"
+    depends_on:
+      - "bonnie-mongo"
+    environment:
+      - SAML_IDP_METADATA=${SAML_IDP_METADATA}
+      - SAML_SP_ENTITY_ID=${SAML_SP_ENTITY_ID}
+      - SAML_ASSERTION_CONSUMER_SERVICE_URL=${SAML_ASSERTION_CONSUMER_SERVICE_URL}
+      - SAML_SP_CERT=${SAML_SP_CERT}
+      - SAML_SP_KEY=${SAML_SP_KEY}
+      - BONNIE_PATIENT_CONV_URL=${BONNIE_PATIENT_CONV_URL}
+      - MONGODB_URI=${MONGODB_URI}
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+      - PASSENGER_APP_ENV=${PASSENGER_APP_ENV}
+
+  bonnie-mongo:
+    image: mongodb/mongodb-community-server:4.4.25-ubuntu2004
+    restart: always
+    container_name: 'bonnie-mongo'
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./bonnie-data/data:/data/db
