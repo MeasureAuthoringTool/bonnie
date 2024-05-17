@@ -42,13 +42,13 @@ group :test, :development, :ci do
   gem 'pry'
   # Pinning teaspoon to 1.1.5 because of sprockets-rails 2.3.3
   gem 'teaspoon', '1.1.5'
-  gem "overcommit"
-  gem 'rubocop'
+  gem "overcommit", ">= 0.59.0"
+  gem 'rubocop', '>= 1.18.0'
   gem 'teaspoon-jasmine'
   gem 'simplecov', :require => false
   gem 'minitest'
   gem 'rails_best_practices'
-  gem 'webmock', '~> 3.11.3'
+  gem 'webmock', '~> 3.12.0'
   gem 'vcr'
   gem 'bundler-audit'
   gem 'colorize'
@@ -94,4 +94,4 @@ gem 'browser'
 gem "reverse_markdown", "~> 2.0"
 gem "tinymce-rails"
 
-gem "devise_saml_authenticatable"
+gem "devise_saml_authenticatable", ">= 1.7.0"
