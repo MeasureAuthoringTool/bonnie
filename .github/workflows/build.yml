@@ -66,6 +66,7 @@ jobs:
         with:
           file: coverage-frontend/default/lcov.info
           fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   audit:
     name: Build-and-Audit
@@ -138,6 +139,7 @@ jobs:
         with:
           file: coverage/.resultset.json
           fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Setup Istanbul
         run: sudo npm install -g istanbul
